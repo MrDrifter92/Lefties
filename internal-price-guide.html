@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lefties | Internal Price Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0071B6;
+            --light-blue-glow: rgba(0, 140, 255, 0.6);
+            --dark-bg: #0D1117;
+            --mid-dark-bg: #161B22;
+            --light-text: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        .deep-glass {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            box-shadow: 
+                0 0 25px rgba(0, 140, 255, 0.1),
+                inset 0 2px 2px rgba(255, 255, 255, 0.07),
+                inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+        
+        .bubble-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(0, 140, 255, 0.2));
+            border-radius: 50%;
+            box-shadow: inset 0 3px 5px rgba(255,255,255,0.05), 0 0 20px rgba(0, 140, 255, 0.2);
+            animation: float 20s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(10vh) scale(0.8); opacity: 0; }
+            25% { opacity: 0.7; }
+            50% { transform: translateY(-15vh) scale(1.1); }
+            75% { opacity: 0.7; }
+            100% { transform: translateY(-30vh) scale(0.9); opacity: 0; }
+        }
+        .table-header {
+            background-color: rgba(0, 113, 182, 0.2);
+        }
+        .calculator-input {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="relative z-10 py-12 md:py-20">
+        <div class="bubble-container">
+            <div class="bubble" style="width: 250px; height: 250px; top: 10%; left: -100px; animation-duration: 45s;"></div>
+            <div class="bubble" style="width: 150px; height: 150px; bottom: 10%; right: -80px; animation-duration: 35s; animation-delay: 5s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-20 w-auto mx-auto mb-4">
+                <h1 class="text-4xl md:text-5xl font-black text-white">Internal Price Guide & Quote Calculator</h1>
+                <p class="mt-2 text-lg text-gray-400 max-w-2xl mx-auto">For internal use only. All prices include GST.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Pricing Tables -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- General Cleaning -->
+                    <div class="deep-glass p-6">
+                        <h2 class="text-2xl font-bold text-blue-400 mb-4">General Cleaning</h2>
+                        <table class="w-full text-left">
+                            <thead class="table-header">
+                                <tr><th class="p-3">Service</th><th class="p-3">Price</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800"><td class="p-3">Callout (includes 2 rooms)</td><td class="p-3">$165</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">Extra standard room</td><td class="p-3">$50 each</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">Hallways / Stairs</td><td class="p-3">from $25</td></tr>
+                                <tr><td class="p-3">Rugs & Mats</td><td class="p-3">from $45</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Upholstery -->
+                    <div class="deep-glass p-6">
+                         <h2 class="text-2xl font-bold text-blue-400 mb-4">Upholstery</h2>
+                         <table class="w-full text-left">
+                            <thead class="table-header"><tr><th class="p-3">Item</th><th class="p-3">Price</th></tr></thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800"><td class="p-3">Armchair</td><td class="p-3">$55</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">2-Seater</td><td class="p-3">$110</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">3-Seater</td><td class="p-3">$145</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">4-Seater</td><td class="p-3">$165</td></tr>
+                                <tr><td class="p-3">Modulars / L-Shapes</td><td class="p-3">Quoted onsite</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Mattresses -->
+                    <div class="deep-glass p-6">
+                         <h2 class="text-2xl font-bold text-blue-400 mb-4">Mattresses</h2>
+                         <table class="w-full text-left">
+                            <thead class="table-header"><tr><th class="p-3">Size</th><th class="p-3">Price</th></tr></thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800"><td class="p-3">Single</td><td class="p-3">$60</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">Double</td><td class="p-3">$70</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">Queen</td><td class="p-3">$85</td></tr>
+                                <tr><td class="p-3">King</td><td class="p-3">$95</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <!-- Add-ons -->
+                    <div class="deep-glass p-6">
+                         <h2 class="text-2xl font-bold text-blue-400 mb-4">Add-Ons & Special Treatments</h2>
+                         <table class="w-full text-left">
+                            <thead class="table-header"><tr><th class="p-3">Add-On</th><th class="p-3">Price (from)</th></tr></thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800"><td class="p-3">Heavy Soil / Pet Treatment</td><td class="p-3">$25</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">Urine / Biohazard</td><td class="p-3">$45</td></tr>
+                                <tr><td class="p-3">Advanced Stain Removal</td><td class="p-3">Quoted onsite</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quote Calculator -->
+                <div class="lg:col-span-1">
+                    <div id="calculator" class="deep-glass p-6 sticky top-8">
+                        <h2 class="text-3xl font-bold text-center text-blue-400 mb-6">Quote Estimator</h2>
+                        
+                        <div class="space-y-4">
+                            <!-- General -->
+                            <div>
+                                <label class="font-bold">Extra Rooms (beyond 2)</label>
+                                <input type="number" id="extra_rooms" min="0" value="0" class="w-full p-2 mt-1 calculator-input">
+                            </div>
+                             <div>
+                                <label class="font-bold">Hallways / Stairs</label>
+                                <input type="number" id="hallways" min="0" value="0" class="w-full p-2 mt-1 calculator-input">
+                            </div>
+                             <div>
+                                <label class="font-bold">Rugs / Mats</label>
+                                <input type="number" id="rugs" min="0" value="0" class="w-full p-2 mt-1 calculator-input">
+                            </div>
+                            
+                            <!-- Upholstery -->
+                            <hr class="border-gray-700">
+                            <h3 class="font-bold text-lg text-blue-400">Upholstery</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div><label>Armchair</label><input type="number" id="armchair" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>2-Seater</label><input type="number" id="seater2" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>3-Seater</label><input type="number" id="seater3" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>4-Seater</label><input type="number" id="seater4" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                            </div>
+
+                            <!-- Mattresses -->
+                             <hr class="border-gray-700">
+                            <h3 class="font-bold text-lg text-blue-400">Mattresses</h3>
+                             <div class="grid grid-cols-2 gap-4">
+                                <div><label>Single</label><input type="number" id="matt_single" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>Double</label><input type="number" id="matt_double" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>Queen</label><input type="number" id="matt_queen" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>King</label><input type="number" id="matt_king" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                            </div>
+                            
+                             <!-- Add-ons -->
+                            <hr class="border-gray-700">
+                            <h3 class="font-bold text-lg text-blue-400">Add-Ons (from)</h3>
+                             <div class="grid grid-cols-2 gap-4">
+                                <div><label>Heavy Soil</label><input type="number" id="heavy_soil" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                                <div><label>Urine/Bio</label><input type="number" id="urine_bio" min="0" value="0" class="w-full p-2 mt-1 calculator-input"></div>
+                            </div>
+                        </div>
+
+                        <hr class="my-6 border-gray-700">
+
+                        <div class="text-center">
+                            <p class="text-gray-400 text-lg">Estimated Total:</p>
+                            <p id="total_price" class="text-5xl font-black text-white mt-2">$165</p>
+                            <button id="reset_btn" class="mt-4 text-blue-400 hover:text-white text-sm">Reset Calculator</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Notes -->
+                    <div class="deep-glass p-6 mt-8">
+                        <h3 class="text-xl font-bold text-blue-400 mb-3">❗ Quoting Notes</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300">
+                            <li>We’ll quote honestly — not every stain can be revived.</li>
+                            <li>If there’s pre-existing damage, point it out first.</li>
+                            <li>We don’t punish dirty carpets — just book enough time.</li>
+                            <li>Large open-plan areas may count as two rooms.</li>
+                            <li>Final price depends on layout, condition, and time.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('#calculator input');
+            const totalDisplay = document.getElementById('total_price');
+            const resetButton = document.getElementById('reset_btn');
+
+            const prices = {
+                callout: 165,
+                extra_rooms: 50,
+                hallways: 25,
+                rugs: 45,
+                armchair: 55,
+                seater2: 110,
+                seater3: 145,
+                seater4: 165,
+                matt_single: 60,
+                matt_double: 70,
+                matt_queen: 85,
+                matt_king: 95,
+                heavy_soil: 25,
+                urine_bio: 45
+            };
+
+            function calculateTotal() {
+                let total = prices.callout;
+                
+                inputs.forEach(input => {
+                    const id = input.id;
+                    const quantity = parseInt(input.value) || 0;
+                    if (prices[id]) {
+                        total += quantity * prices[id];
+                    }
+                });
+
+                totalDisplay.textContent = `$${total}`;
+            }
+
+            function resetCalculator() {
+                inputs.forEach(input => input.value = 0);
+                calculateTotal();
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener('input', calculateTotal);
+            });
+            
+            resetButton.addEventListener('click', resetCalculator);
+
+            // Initial calculation
+            calculateTotal();
+        });
+    </script>
+
+</body>
+</html>
