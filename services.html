@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Lefties Carpet Cleaning | Hervey Bay</title>
+    <meta name="description" content="A detailed look at our professional carpet revival, upholstery cleaning, and expert stain treatment services in Hervey Bay.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Define brand colors and core styles for the enhanced light theme */
+        :root {
+            --primary-blue: #0071B6; 
+            --glow-blue: rgba(0, 113, 182, 0.5);
+            --text-main: #3d444c; /* Darker gray for stronger contrast */
+            --background-grey: #f9fafb; /* Subtle brand grey for the background */
+            --bright-white: #FFFFFF;
+        }
+
+        /* Apply a subtle grey background and set the font */
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--background-grey);
+            color: var(--text-main);
+        }
+        
+        /* Enhanced Glass Panel Style */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75); /* White glass for contrast against grey bg */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem; /* 24px - softer corners */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+        }
+
+        /* Interactive Glow Effect on Hover */
+        .interactive-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 25px var(--glow-blue);
+        }
+
+        /* Heading text shadow for a subtle "lifted" effect */
+        .text-lift {
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Keyframe animation for the dynamic bubbles */
+        @keyframes drift {
+            from {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-110vh) translateX(var(--drift-x));
+                opacity: 0;
+            }
+        }
+
+        /* Keyframe animation for the quote button pulse */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 var(--glow-blue);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 113, 182, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 113, 182, 0);
+            }
+        }
+
+        /* Styling for the individual bubbles */
+        .bubble {
+            position: absolute;
+            background: rgba(0, 113, 182, 0.07);
+            border-radius: 50%;
+            animation: drift 25s infinite linear;
+            bottom: -150px;
+            will-change: transform, opacity;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="background-bubbles" class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden"></div>
+
+    <header class="sticky top-4 z-50 mx-auto max-w-7xl px-4">
+        <nav class="glass-panel flex justify-between items-center p-4">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="core-logo-blue-transparent.png" alt="Lefties Carpet Cleaning Logo" class="h-12" onerror="this.onerror=null;this.src='https://placehold.co/100x50/ffffff/0071B6?text=Lefties';">
+            </a>
+            
+            <div class="hidden md:flex space-x-8 font-bold text-main">
+                <a href="services.html" class="text-primary-blue">Our Services</a>
+                <a href="index.html#why-us" class="hover:text-primary-blue transition-colors">Why Lefties?</a>
+                <a href="index.html#gallery" class="hover:text-primary-blue transition-colors">Gallery</a>
+            </div>
+            <div class="hidden md:block">
+                <a href="index.html#quote" class="bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5" style="animation: pulse 2.5s infinite;">
+                    Get a Quote
+                </a>
+            </div>
+
+            <button id="menu-btn" class="block md:hidden focus:outline-none">
+                <svg class="w-8 h-8 text-primary-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-panel mt-2">
+             <div class="px-6 pt-2 pb-4 space-y-3 text-main">
+                <a href="services.html" class="block font-bold text-primary-blue">Our Services</a>
+                <a href="index.html#why-us" class="block font-bold hover:text-primary-blue transition-colors">Why Lefties?</a>
+                <a href="index.html#gallery" class="block font-bold hover:text-primary-blue transition-colors">Gallery</a>
+                <a href="index.html#quote" class="block mt-4 text-center bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg">Get a Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 space-y-12">
+        
+        <section class="glass-panel p-8 md:p-12 text-center">
+            <h1 class="text-5xl md:text-6xl font-black text-gray-800 text-lift">Our Revival Services</h1>
+            <p class="mt-4 text-lg md:text-xl text-main max-w-3xl mx-auto">
+                A proper job requires the right process. Here’s a detailed look at what we do and how we get outstanding results for your home.
+            </p>
+        </section>
+
+        <section id="services-detailed" class="p-8 md:p-12 space-y-16">
+            <div class="glass-panel interactive-glow grid md:grid-cols-2 gap-12 items-center p-8">
+                <img src="Carpet-services-1.png" alt="Technician deep cleaning a carpet with a wand" class="rounded-2xl shadow-lg w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
+                <div>
+                    <h2 class="text-3xl font-bold text-primary-blue text-lift">Carpet Revival</h2>
+                    <p class="mt-4 text-lg text-main">This isn't a quick surface clean. Our Carpet Revival service is a top-to-bottom restoration using professional-grade hot water extraction. We flush out the deep-down dirt, dust mites, and grime that vacuuming leaves behind.</p>
+                    <ul class="mt-6 space-y-2 list-disc list-inside text-main">
+                        <li><strong>Commercial Pre-Vacuum:</strong> Removes surface-level dry soil.</li>
+                        <li><strong>Targeted Pre-Spray:</strong> Breaks down oils and soil.</li>
+                        <li><strong>Hot Water Extraction:</strong> Rinses and extracts everything.</li>
+                        <li><strong>Carpet Grooming:</strong> Resets the pile for a uniform look.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-panel interactive-glow grid md:grid-cols-2 gap-12 items-center p-8">
+                <div class="md:order-last">
+                    <img src="Upholstery-001.png" alt="A clean and fresh fabric lounge suite" class="rounded-2xl shadow-lg w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
+                </div>
+                <div class="md:order-first">
+                    <h2 class="text-3xl font-bold text-primary-blue text-lift">Upholstery & Lounge Cleaning</h2>
+                    <p class="mt-4 text-lg text-main">Your lounge is the heart of your living room. We safely clean fabric and leather, removing built-up body oils, food spills, and pet dander to bring back the comfort and cleanliness to your favourite seat.</p>
+                    <ul class="mt-6 space-y-2 list-disc list-inside text-main">
+                        <li><strong>Fabric Assessment:</strong> To ensure the safest cleaning method.</li>
+                        <li><strong>Gentle Pre-Treatment:</strong> Breaks down spots and soiling.</li>
+                        <li><strong>Controlled Rinse & Extraction:</strong> Leaves it damp, not soaked.</li>
+                        <li><strong>Prolongs Furniture Life:</strong> Prevents permanent fibre damage.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-panel interactive-glow grid md:grid-cols-2 gap-12 items-center p-8">
+                <img src="Spot-stain.png" alt="Close-up of a coffee stain being treated on a carpet" class="rounded-2xl shadow-lg w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
+                <div>
+                    <h2 class="text-3xl font-bold text-primary-blue text-lift">Woopsie Daisy Stains</h2>
+                    <p class="mt-2 text-lg text-main italic">...for those little uh-ohs in the lounge room.</p>
+                    <p class="mt-4 text-lg text-main">If a stain *can* be removed, we have the professional tools and knowledge to do it. We give you an honest assessment and the absolute best chance of removal.</p>
+                    <ul class="mt-6 space-y-2 list-disc list-inside text-main">
+                        <li><strong>Stain Identification:</strong> Knowing what we're up against.</li>
+                        <li><strong>Specialist Solutions:</strong> Treatments for different stain types.</li>
+                        <li><strong>Honest Assessment:</strong> No false promises.</li>
+                        <li><strong>Integrated Service:</strong> Best with a full carpet or upholstery clean.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-panel interactive-glow grid md:grid-cols-2 gap-12 items-center p-8">
+                <div class="md:order-last">
+                    <img src="Rugs-01.png" alt="A collection of clean, vibrant area rugs" class="rounded-2xl shadow-lg w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/FFFFFF?text=Image+Not+Found';">
+                </div>
+                <div class="md:order-first">
+                    <h2 class="text-3xl font-bold text-primary-blue text-lift">Rug & Mattress Revival</h2>
+                    <p class="mt-4 text-lg text-main">From treasured floor rugs to the mattress you sleep on, we provide a deep, hygienic clean that removes odours and allergens, giving you peace of mind and a healthier home environment.</p>
+                    <ul class="mt-6 space-y-2 list-disc list-inside text-main">
+                        <li><strong>Specialised Rug Treatments:</strong> Safe for a wide variety of materials.</li>
+                        <li><strong>Hygienic Mattress Sanitation:</strong> Deep cleaning to remove dust mites and sweat.</li>
+                        <li><strong>Allergen & Dust Mite Removal:</strong> Breathe easier with a truly clean bed.</li>
+                        <li><strong>Safe For All The Family:</strong> Non-toxic products for your peace of mind.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="glass-panel p-8 md:p-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-gray-800 text-lift">A Few of Our Favourite Revivals</h2>
+                <p class="mt-2 text-lg text-main">Real results from local Hervey Bay homes.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center">
+                <img src="Gallery-01.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-02.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-03.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-04.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-05.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-06.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-07.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-08.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-09.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+                <img src="Gallery-10.png" class="rounded-lg shadow-lg interactive-glow" onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/FFFFFF?text=Image';">
+            </div>
+        </section>
+
+        <section id="faq" class="glass-panel interactive-glow p-8 md:p-12">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-gray-800 text-lift">Frequently Asked Questions</h2>
+                <p class="mt-2 text-lg text-main">The stuff you're probably wondering about.</p>
+            </div>
+            <div class="space-y-6 text-main max-w-4xl mx-auto">
+                <div>
+                    <h3 class="font-bold text-xl text-primary-blue">How long will my carpets take to dry?</h3>
+                    <p class="mt-1">Typically 4-6 hours. It depends on airflow, humidity, and carpet thickness. Using fans or air conditioning helps speed it up.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl text-primary-blue">Do I need to move all my furniture?</h3>
+                    <p class="mt-1">We ask that you move small items, breakables, and electronics. We can usually clean around large items like beds and entertainment units.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl text-primary-blue">Are your cleaning products safe for my kids and pets?</h3>
+                    <p class="mt-1">Absolutely. We use high-quality, professional-grade products that are safe and non-toxic once dry. Your family's health is our top priority.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl text-primary-blue">Can you guarantee you'll get every stain out?</h3>
+                    <p class="mt-1">No cleaner can honestly promise that. Some substances can permanently dye carpet fibres. We do guarantee we have the best training and products to give it the best possible shot.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-gray-600">
+        <div class="container mx-auto px-6">
+             <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" aria-label="Facebook"><img src="http://googleusercontent.com/file_content/4" alt="Facebook Icon" class="h-8 w-8 opacity-60 hover:opacity-100 transition-opacity" onerror="this.onerror=null;this.style.display='none';"></a>
+                <a href="#" aria-label="Instagram"><img src="http.googleusercontent.com/file_content/3" alt="Instagram Icon" class="h-8 w-8 opacity-60 hover:opacity-100 transition-opacity" onerror="this.onerror=null;this.style.display='none';"></a>
+             </div>
+            <p>&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+            <p class="text-sm text-gray-500 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bubbleContainer = document.getElementById('background-bubbles');
+            if (bubbleContainer) {
+                const bubblesToCreate = 20;
+                for (let i = 0; i < bubblesToCreate; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    const size = Math.random() * 80 + 20;
+                    const duration = Math.random() * 20 + 15;
+                    const delay = Math.random() * 15;
+                    const horizontalDrift = (Math.random() - 0.5) * 200;
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.left = `${Math.random() * 100}%`;
+                    bubble.style.animationDuration = `${duration}s`;
+                    bubble.style.animationDelay = `${delay}s`;
+                    bubble.style.setProperty('--drift-x', `${horizontalDrift}px`);
+                    bubbleContainer.appendChild(bubble);
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>
