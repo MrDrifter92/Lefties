@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0071B6;
+            --light-blue-glow: rgba(0, 140, 255, 0.6);
+            --dark-bg: #0D1117;
+            --mid-dark-bg: #161B22;
+            --light-text: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden; /* Prevent horizontal scrolling from the menu */
+        }
+        
+        /* New CSS for the full-screen mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 90; /* High z-index */
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .mobile-menu-overlay[data-state="open"] {
+            transform: translateX(0);
+        }
+
+        /* ENHANCED Deep Liquid Glass Effect */
+        .deep-glass {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            box-shadow: 
+                0 0 25px rgba(0, 140, 255, 0.1),
+                inset 0 2px 2px rgba(255, 255, 255, 0.07),
+                inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: all 0.3s ease;
+        }
+        /* NEW Shine/Sheen Animation */
+        .deep-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 6s infinite linear;
+            animation-delay: var(--shine-delay, 0s);
+        }
+        @keyframes shine {
+            100% { left: 150%; }
+        }
+        
+        /* Button Style */
+        .glass-button {
+            background: linear-gradient(145deg, rgba(0, 113, 182, 0.6), rgba(0, 80, 130, 0.8));
+            border: 1px solid rgba(0, 140, 255, 0.3);
+            border-radius: 9999px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            box-shadow: 
+                0 0 15px rgba(0, 140, 255, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 0 30px 5px var(--light-blue-glow),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(145deg, rgba(0, 123, 192, 0.7), rgba(0, 90, 140, 0.9));
+        }
+
+        /* Video Background Styling */
+        .video-background-container { position: relative; overflow: hidden; }
+        .video-background {
+            position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover;
+            transform: translate(-50%, -50%); z-index: 1;
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, var(--dark-bg), transparent, var(--dark-bg));
+            opacity: 0.8; z-index: 2;
+        }
+        .video-content { position: relative; z-index: 3; }
+        
+        /* NEW 3D Floating Bubbles */
+        .bubble-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(0, 140, 255, 0.2));
+            border-radius: 50%;
+            box-shadow: inset 0 3px 5px rgba(255,255,255,0.05), 0 0 20px rgba(0, 140, 255, 0.2);
+            animation: float 20s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(10vh) scale(0.8); opacity: 0; }
+            25% { opacity: 0.7; }
+            50% { transform: translateY(-15vh) scale(1.1); }
+            75% { opacity: 0.7; }
+            100% { transform: translateY(-30vh) scale(0.9); opacity: 0; }
+        }
+
+        /* Custom animation for the hamburger icon to become a close icon */
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 2rem;
+            height: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: #fff;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-icon.open span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-icon.open span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- HEADER: Position Fixed and high z-index -->
+    <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
+            <a href="#home">
+                <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
+            </a>
+
+            <!-- Mobile Hamburger Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+                <div class="hamburger-icon" id="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex flex-row space-x-8 font-bold">
+                <a href="services.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="#commercial" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Commercial</a>
+                <a href="#gallery" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Our Work</a>
+                <a href="#tips" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Tips & Tricks</a>
+            </div>
+
+            <!-- Desktop Get a Quote button -->
+            <a href="#quote" class="glass-button px-6 py-3 text-sm hidden md:block">
+                Get a Quote
+            </a>
+        </nav>
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div class="p-8 text-center mt-24">
+            <div class="space-y-8 font-bold text-3xl">
+                <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Services</a>
+                <a href="#commercial" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
+                <a href="#gallery" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Work</a>
+                <a href="#tips" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Tips & Tricks</a>
+            </div>
+            <div class="mt-12">
+                <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">
+                    Get a Quote
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO SECTION CONTENT IS HERE, OUTSIDE OF THE HEADER -->
+        <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+            <div class="bubble-container">
+                <div class="bubble" style="width: 50px; height: 50px; bottom: 10%; left: 15%; animation-duration: 25s;"></div>
+                <div class="bubble" style="width: 100px; height: 100px; bottom: 20%; right: 10%; animation-duration: 18s; animation-delay: 3s;"></div>
+                <div class="bubble" style="width: 30px; height: 30px; bottom: 5%; left: 40%; animation-duration: 30s; animation-delay: 1s;"></div>
+                <div class="bubble" style="width: 80px; height: 80px; bottom: 30%; left: 5%; animation-duration: 22s; animation-delay: 5s;"></div>
+            </div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-96 md:w-[32rem] h-auto mx-auto mb-8">
+                
+                <h1 class="text-5xl md:text-7xl font-black text-white leading-tight">
+                    Not just clean. <span class="text-blue-400">Revived.</span>
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+                    We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
+                </p>
+                <div class="mt-8">
+                    <a href="#quote" class="glass-button px-8 py-4 text-lg inline-block">
+                        Get Your Revival Started
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="trust" class="py-16 bg-mid-dark-bg relative overflow-hidden">
+             <div class="bubble-container">
+                <div class="bubble" style="width: 120px; height: 120px; top: 10%; right: -5%; animation-duration: 28s;"></div>
+                <div class="bubble" style="width: 60px; height: 60px; bottom: 15%; left: -2%; animation-duration: 20s; animation-delay: 4s;"></div>
+            </div>
+            <div class="container mx-auto px-6 relative">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="deep-glass p-8">
+                        <h3 class="text-2xl font-bold text-blue-400">Honest Quotes</h3>
+                        <p class="mt-2 text-gray-300">The price we say is the price you pay. If we find something unexpected, we talk to you first.</p>
+                    </div>
+                    <div class="deep-glass p-8" style="--shine-delay: 1s;">
+                        <h3 class="text-2xl font-bold text-blue-400">The Job Done Right</h3>
+                        <p class="mt-2 text-gray-300">We don't cut corners. We use the right gear and the right methods to get a proper, deep clean.</p>
+                    </div>
+                    <div class="deep-glass p-8" style="--shine-delay: 2s;">
+                        <h3 class="text-2xl font-bold text-blue-400">Local. Zero Bullshit.</h3>
+                        <p class="mt-2 text-gray-300">We're your local Hervey Bay crew. We show up on time, respect your space, and give you honest advice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us" class="py-20 video-background-container">
+            <video autoplay loop muted playsinline class="video-background">
+                <source src="Dog-video.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+            <div class="container mx-auto px-6 text-center video-content">
+                 <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 md:h-auto mx-auto mb-12">
+                <h2 class="text-4xl font-black text-white">We're the guys you call when you want it done properly.</h2>
+                <div class="max-w-3xl mx-auto text-lg text-gray-300 space-y-4 mt-6">
+                    <p>Lefties isn't a big, faceless franchise. We're a local Hervey Bay business, and we genuinely care about the results we deliver.</p>
+                    <p class="font-bold text-blue-400">We show up when we say we will, we treat your home with respect, and we stand behind the quality of our clean. It's that simple.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="py-20 bg-mid-dark-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-black text-white">The Proof is in the Details</h2>
+                    <p class="mt-2 text-lg text-gray-400">A few recent wins.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="rounded-2xl shadow-2xl overflow-hidden border border-gray-800"><img src="before-after.png" alt="Before and after of upholstery cleaning" class="w-full h-auto"></div>
+                    <div class="rounded-2xl shadow-2xl overflow-hidden border border-gray-800"><img src="Before-after-2.png" alt="Before and after of carpet cleaning" class="w-full h-auto"></div>
+                    <div class="rounded-2xl shadow-2xl overflow-hidden border border-gray-800"><img src="Before-after-3.png" alt="Before and after of rug cleaning" class="w-full h-auto"></div>
+                    <div class="rounded-2xl shadow-2xl overflow-hidden border border-gray-800"><img src="Before-after-4.png" alt="Before and after of stain removal" class="w-full h-auto"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="promise" class="py-20 bg-dark-bg">
+            <div class="container mx-auto px-6 flex justify-center">
+                <img src="flyer.png" alt="Our Promise Flyer" class="max-w-sm md:max-w-md rounded-2xl shadow-2xl">
+            </div>
+        </section>
+
+        <section id="commercial" class="py-20 bg-mid-dark-bg border-y border-gray-800 relative overflow-hidden">
+            <div class="bubble-container">
+                <div class="bubble" style="width: 200px; height: 200px; top: 50%; left: -100px; animation-duration: 35s;"></div>
+                <div class="bubble" style="width: 150px; height: 150px; top: 10%; right: -80px; animation-duration: 25s; animation-delay: 2s;"></div>
+            </div>
+            <div class="container mx-auto px-6 text-center relative">
+                <h2 class="text-4xl font-black text-white">Commercial & Real Estate</h2>
+                <p class="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+                    Are you a real estate agent or a residential aged care facility? We are fully licensed and insured to sort out your ongoing programmed maintenance schedule.
+                </p>
+                <div class="mt-8">
+                    <a href="#quote" class="glass-button px-8 py-4 text-lg inline-block">
+                        Discuss Your Needs
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tips" class="py-20 bg-dark-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-black text-white">Tips & Tricks of the Trade</h2>
+                    <p class="mt-2 text-lg text-gray-400 max-w-2xl mx-auto">A bit of free advice from your local expert.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-left">
+                    <div class="deep-glass p-8">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #1: Scrubbing Stains</h3>
+                        <p class="text-gray-300">Scrubbing a fresh spill is the worst thing you can do. It pushes the stain deeper into the carpet fibres and can damage them permanently. Always blot gently with a clean, white cloth, working from the outside in.</p>
+                    </div>
+                    <div class="deep-glass p-8" style="--shine-delay: 1.5s;">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #2: Supermarket Sprays</h3>
+                        <p class="text-gray-300">Those "miracle" sprays often contain bleaching agents that can discolour your carpet or harsh detergents that leave a sticky residue, attracting even more dirt over time. Most of the time, they just make our job harder.</p>
+                    </div>
+                    <div class="deep-glass p-8" style="--shine-delay: 2.5s;">
+                        <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #3: Waiting Too Long</h3>
+                        <p class="text-gray-300">The longer a stain sits, the harder it is to remove. Acidic stains from coffee or pet urine can permanently dye carpet fibres. For the best chance of a complete removal, give us a call sooner rather than later.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="quote" class="py-20 bg-mid-dark-bg border-t border-gray-800 relative overflow-hidden">
+             <div class="bubble-container">
+                <div class="bubble" style="width: 250px; height: 250px; bottom: -100px; left: -100px; animation-duration: 40s;"></div>
+                <div class="bubble" style="width: 180px; height: 180px; top: -50px; right: -80px; animation-duration: 30s; animation-delay: 5s;"></div>
+            </div>
+             <div class="container mx-auto px-6 text-center relative z-10">
+                <h2 class="text-4xl md:text-5xl font-black text-white">Ready to Book Your Clean?</h2>
+                <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-blue-200">
+                    Let's get it sorted. Message us with a photo of the job for a quick, honest quote, or just give us a call to chat about it.
+                </p>
+                <div class="mt-8 deep-glass p-8 max-w-lg mx-auto">
+                    <p class="text-2xl font-bold text-white">Call or Text:</p>
+                    <a href="tel:0417220012" class="text-4xl font-black text-blue-400 my-2 block hover:text-blue-300 transition-colors">0417 220 012</a>
+                    <a href="mailto:Hello@leftiesclean.com.au" class="font-bold text-blue-400 my-2 block hover:text-blue-300 transition-colors">Hello@leftiesclean.com.au</a>
+                    <p class="text-lg text-blue-400 mt-2 font-semibold">Servicing Hervey Bay & Surrounds</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6 text-center">
+             <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
+            <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+            <p class="text-xs text-gray-600 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+
+            // Function to open the menu
+            function openMenu() {
+                menuOverlay.setAttribute('data-state', 'open');
+                hamburgerIcon.classList.add('open');
+                // You could also add 'overflow: hidden' to the body here to prevent scrolling
+                // document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close the menu
+            function closeMenu() {
+                menuOverlay.setAttribute('data-state', 'closed');
+                hamburgerIcon.classList.remove('open');
+                // And remove the overflow style
+                // document.body.style.overflow = '';
+            }
+
+            // Add event listener to the button
+            menuButton.addEventListener('click', () => {
+                const isOpen = menuOverlay.getAttribute('data-state') === 'open';
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            // Make the closeMenu function available to the onclick attributes in the HTML
+            window.closeMenu = closeMenu;
+        });
+    </script>
+</body>
+</html>
