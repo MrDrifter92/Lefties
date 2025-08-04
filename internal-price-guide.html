@@ -60,9 +60,87 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 0.5rem;
         }
+        
+        /* --- Hamburger Menu Styling (NEW) --- */
+        .hamburger-menu-container {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+        }
+
+        .hamburger-icon {
+            cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s ease-in-out;
+        }
+        .hamburger-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hamburger-icon span {
+            display: block;
+            height: 3px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            min-width: 12rem;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(17, 24, 39, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 0.5rem;
+        }
+
+        .dropdown-menu a {
+            color: var(--light-text);
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            display: block;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            font-weight: 700;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Show the menu when the active class is present */
+        .hamburger-menu-container.active .dropdown-menu {
+            display: block;
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Hamburger Menu (NEW) -->
+    <div class="hamburger-menu-container">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="dropdown-menu">
+            <a href="dashboard.os.html">Dashboard</a>
+        </div>
+    </div>
 
     <main class="relative z-10 py-12 md:py-20">
         <div class="bubble-container">
@@ -261,6 +339,24 @@
 
             // Initial calculation
             calculateTotal();
+            
+            /* --- Hamburger Menu Functions (NEW) --- */
+            function toggleMenu() {
+                const menu = document.querySelector('.hamburger-menu-container');
+                menu.classList.toggle('active');
+            }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.closest('.hamburger-menu-container')) {
+                    const menu = document.querySelector('.hamburger-menu-container');
+                    if (menu.classList.contains('active')) {
+                        menu.classList.remove('active');
+                    }
+                }
+            }
+            // Expose toggleMenu to the global scope so it can be called from onclick
+            window.toggleMenu = toggleMenu;
         });
     </script>
 
