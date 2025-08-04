@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lefties OS - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        .text-brand-blue { color: #0071B6; }
+        .bg-brand-blue { background-color: #0071B6; }
+        .bubble-gloss {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <h1 class="text-2xl font-bold text-brand-blue">Lefties OS</h1>
+                        <span class="ml-4 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">v1.0 Final</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300" id="current-time"></p>
+                        <p class="text-xs text-gray-400">Hervey Bay, QLD</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+                <!-- Link to Internal Price Guide -->
+                <a href="internal-price-guide.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                    <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2m0 0c-1.11 0-2.08-.402-2.599-1M12 16a7 7 0 100-14 7 7 0 000 14z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Internal Price Guide</h3>
+                </a>
+                
+                <!-- Link to Pre-Service Checklist -->
+                <a href="client-pre-service-checklist.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                     <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Pre-Service Checklist</h3>
+                </a>
+
+                <!-- Link to Field OS -->
+                <a href="field.os.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                    <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Field OS</h3>
+                </a>
+                
+                <!-- Link to Main Website -->
+                <a href="index.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                    <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Main Website</h3>
+                </a>
+
+                <!-- NEW: Service Agreements -->
+                <a href="service-agreements.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                    <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Service Agreements</h3>
+                </a>
+
+                <!-- NEW: Client Aftercare Guide -->
+                <a href="client-aftercare-guide.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
+                    <div class="mb-2">
+                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-md">Client Aftercare Guide</h3>
+                </a>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Australia/Brisbane'
+            };
+            timeElement.textContent = new Intl.DateTimeFormat('en-AU', options).format(now);
+        }
+        updateTime();
+        setInterval(updateTime, 60000); // Update every minute
+    </script>
+
+</body>
+</html>
