@@ -21,6 +21,25 @@
             font-family: 'Nunito', sans-serif;
             background-color: var(--dark-bg);
             color: var(--light-text);
+            overflow-x: hidden; /* Prevent horizontal scrolling from the menu */
+        }
+        
+        /* New CSS for the full-screen mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 90; /* High z-index */
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        .mobile-menu-overlay[data-state="open"] {
+            transform: translateX(0);
         }
 
         /* ENHANCED Deep Liquid Glass Effect */
@@ -106,46 +125,51 @@
             100% { transform: translateY(-30vh) scale(0.9); opacity: 0; }
         }
 
-        /* CUSTOM MOBILE MENU STYLES */
-        #mobile-menu {
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out, border-radius 0.3s ease-out;
-            max-height: 0;
-            overflow: hidden;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+        /* Custom animation for the hamburger icon to become a close icon */
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 2rem;
+            height: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
         }
-
-        #mobile-menu[data-state="open"] {
-            max-height: 500px; /* A value large enough to fit all content */
-            padding-bottom: 1rem;
-            border-bottom-left-radius: 1.5rem;
-            border-bottom-right-radius: 1.5rem;
+        .hamburger-icon span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: #fff;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
         }
-
-        #hamburger-icon {
-            transition: opacity 0.3s ease-out;
+        .hamburger-icon.open span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
         }
-
-        #close-icon {
-            transition: opacity 0.3s ease-out;
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-icon.open span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- HEADER: This section is for the sticky navigation only, no hero content -->
-    <header class="deep-glass sticky top-0 z-50 m-2 md:m-4">
-        <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative z-50">
+    <!-- HEADER: Position Fixed and high z-index -->
+    <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
             <a href="#home">
                 <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
             </a>
 
             <!-- Mobile Hamburger Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[100]" aria-expanded="false">
-                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    <path id="close-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class="hidden"></path>
-                </svg>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+                <div class="hamburger-icon" id="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </button>
             
             <!-- Desktop Links -->
@@ -161,26 +185,28 @@
                 Get a Quote
             </a>
         </nav>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" data-state="closed" class="absolute top-full left-0 w-full p-4 deep-glass md:hidden z-[99]">
-            <div class="space-y-4 font-bold">
-                <a href="services.html" class="block text-gray-300 hover:text-white transition-colors">Services</a>
-                <a href="#commercial" class="block text-gray-300 hover:text-white transition-colors">Commercial</a>
-                <a href="#gallery" class="block text-gray-300 hover:text-white transition-colors">Our Work</a>
-                <a href="#tips" class="block text-gray-300 hover:text-white transition-colors">Tips & Tricks</a>
-                
-                <!-- The "Get a Quote" button for mobile -->
-                <a href="#quote" class="glass-button px-6 py-3 text-sm block text-center">
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div class="p-8 text-center mt-24">
+            <div class="space-y-8 font-bold text-3xl">
+                <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Services</a>
+                <a href="#commercial" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
+                <a href="#gallery" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Work</a>
+                <a href="#tips" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Tips & Tricks</a>
+            </div>
+            <div class="mt-12">
+                <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">
                     Get a Quote
                 </a>
             </div>
         </div>
-    </header>
+    </div>
 
     <main>
         <!-- HERO SECTION CONTENT IS HERE, OUTSIDE OF THE HEADER -->
-        <section id="home" class="relative py-20 md:py-32 overflow-hidden">
+        <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
             <div class="bubble-container">
                 <div class="bubble" style="width: 50px; height: 50px; bottom: 10%; left: 15%; animation-duration: 25s;"></div>
                 <div class="bubble" style="width: 100px; height: 100px; bottom: 20%; right: 10%; animation-duration: 18s; animation-delay: 3s;"></div>
@@ -334,25 +360,38 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const button = document.getElementById('mobile-menu-button');
-            const menu = document.getElementById('mobile-menu');
+            const menuButton = document.getElementById('mobile-menu-button');
             const hamburgerIcon = document.getElementById('hamburger-icon');
-            const closeIcon = document.getElementById('close-icon');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
 
-            button.addEventListener('click', () => {
-                const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                button.setAttribute('aria-expanded', !isExpanded);
-                
-                if (isExpanded) {
-                    menu.setAttribute('data-state', 'closed');
-                    hamburgerIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
+            // Function to open the menu
+            function openMenu() {
+                menuOverlay.setAttribute('data-state', 'open');
+                hamburgerIcon.classList.add('open');
+                // You could also add 'overflow: hidden' to the body here to prevent scrolling
+                // document.body.style.overflow = 'hidden';
+            }
+
+            // Function to close the menu
+            function closeMenu() {
+                menuOverlay.setAttribute('data-state', 'closed');
+                hamburgerIcon.classList.remove('open');
+                // And remove the overflow style
+                // document.body.style.overflow = '';
+            }
+
+            // Add event listener to the button
+            menuButton.addEventListener('click', () => {
+                const isOpen = menuOverlay.getAttribute('data-state') === 'open';
+                if (isOpen) {
+                    closeMenu();
                 } else {
-                    menu.setAttribute('data-state', 'open');
-                    hamburgerIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
+                    openMenu();
                 }
             });
+
+            // Make the closeMenu function available to the onclick attributes in the HTML
+            window.closeMenu = closeMenu;
         });
     </script>
 </body>
