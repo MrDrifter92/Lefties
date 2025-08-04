@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lefties Carpet Cleaning | Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0071B6;
+            --light-blue-glow: rgba(0, 140, 255, 0.6);
+            --dark-bg: #0D1117;
+            --mid-dark-bg: #161B22;
+            --light-text: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Reusing the Deep Liquid Glass effect for consistency */
+        .deep-glass {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            box-shadow: 
+                0 0 25px rgba(0, 140, 255, 0.1),
+                inset 0 2px 2px rgba(255, 255, 255, 0.07),
+                inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: all 0.3s ease;
+        }
+        .deep-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 6s infinite linear;
+            animation-delay: var(--shine-delay, 0s);
+        }
+        @keyframes shine {
+            100% { left: 150%; }
+        }
+
+        /* Bubble effect for background */
+        .bubble-container { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            overflow: hidden; 
+            z-index: 0; 
+        }
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(0, 140, 255, 0.2));
+            border-radius: 50%;
+            box-shadow: inset 0 3px 5px rgba(255,255,255,0.05), 0 0 20px rgba(0, 140, 255, 0.2);
+            animation: float 20s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(10vh) scale(0.8); opacity: 0; }
+            25% { opacity: 0.7; }
+            50% { transform: translateY(-15vh) scale(1.1); }
+            75% { opacity: 0.7; }
+            100% { transform: translateY(-30vh) scale(0.9); opacity: 0; }
+        }
+
+        /* Button-style link for the new Facebook page */
+        .facebook-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #3b5998, #5a7ecb);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 15px rgba(59, 89, 152, 0.4);
+            transition: all 0.2s ease;
+        }
+        .facebook-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(59, 89, 152, 0.6);
+        }
+        .old-page-link {
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+            color: #9ca3af;
+        }
+        .old-page-link:hover {
+            color: #d1d5db;
+        }
+        .old-page-warning {
+            color: #d1d5db;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="bubble-container">
+        <div class="bubble" style="width: 100px; height: 100px; bottom: 20%; right: 10%; animation-duration: 18s; animation-delay: 3s;"></div>
+        <div class="bubble" style="width: 80px; height: 80px; bottom: 30%; left: 5%; animation-duration: 22s; animation-delay: 5s;"></div>
+        <div class="bubble" style="width: 150px; height: 150px; top: 10%; right: -80px; animation-duration: 25s; animation-delay: 2s;"></div>
+    </div>
+    
+    <div class="relative z-10 p-8 max-w-2xl mx-auto text-center">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-72 md:w-96 mx-auto mb-8">
+        
+        <h1 class="text-6xl md:text-8xl font-black text-white mb-4">
+            Coming Soon
+        </h1>
+        <h2 class="text-xl md:text-3xl text-blue-400 font-bold mb-8">
+            Lefties Carpet Cleaning, Hervey Bay
+        </h2>
+        
+        <!-- Image from the old page added here -->
+        <img src="https://raw.githubusercontent.com/MrDrifter92/Lefties/0635309d337f3c555aa8ad862744f4e0257889f8/oldpage.png" 
+             alt="A preview of the old Lefties Carpet Cleaning website" 
+             class="w-full h-auto mx-auto my-8 rounded-2xl shadow-xl max-w-xl">
+        
+        <div class="deep-glass p-8 md:p-12 mb-8" style="--shine-delay: 1.5s;">
+            <p class="text-xl md:text-2xl font-bold text-white mb-4">A Spotless Revival is on its way!</p>
+            <p class="text-lg text-gray-300">
+                We're getting our gear ready to bring a new level of clean to Hervey Bay. Get ready for expert-level:
+            </p>
+            <ul class="list-disc list-inside text-left text-lg text-gray-300 mt-4 space-y-1 max-w-sm mx-auto">
+                <li>Deep Carpet Cleaning</li>
+                <li>Upholstery & Rug Cleaning</li>
+                <li>Advanced Stain Removal</li>
+                <li>Commercial Services</li>
+            </ul>
+        </div>
+
+        <div class="deep-glass p-6 max-w-lg mx-auto">
+            <p class="text-xl font-bold text-white">Contact us or find us on social media:</p>
+            <a href="tel:0417220012" class="text-2xl font-black text-blue-400 my-2 block hover:text-blue-300 transition-colors">0417 220 012</a>
+            <a href="mailto:Hello@leftiesclean.com.au" class="font-bold text-blue-400 my-2 block hover:text-blue-300 transition-colors">Hello@leftiesclean.com.au</a>
+
+            <!-- New Facebook Links Section -->
+            <div class="mt-6 border-t border-gray-700 pt-6">
+                <a href="https://www.facebook.com/YourNewFacebookPage" target="_blank" class="facebook-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="mr-2">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.6c-.656 0-1.4.524-1.4 1.4v1.6h3l-.337 3h-2.663v7h-3v-7h-2v-3h2v-2.3c0-2.353 1.13-4.148 3.528-4.148h2.472v3z"/>
+                    </svg>
+                    Follow Our NEW Facebook Page
+                </a>
+                
+                <p class="mt-4 text-gray-400 text-sm">
+                    ⚠️ Please note: Our old page is no longer active.
+                </p>
+                <a href="https://www.facebook.com/YourOldFacebookPage" target="_blank" class="old-page-link mt-2 block mx-auto w-max">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="mr-2">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.6c-.656 0-1.4.524-1.4 1.4v1.6h3l-.337 3h-2.663v7h-3v-7h-2v-3h2v-2.3c0-2.353 1.13-4.148 3.528-4.148h2.472v3z"/>
+                    </svg>
+                    Old Facebook Page
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
