@@ -1,134 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Services | Lefties Carpet Cleaning | Hervey Bay</title>
-  <meta name="description" content="A detailed look at our professional carpet revival, upholstery cleaning, and expert stain treatment services in Hervey Bay.">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Revival Services | Lefties Carpet Cleaning</title>
+  <link rel="stylesheet" href="https://cdn.tailwindcss.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-blue: #0071B6;
-      --glow-blue: rgba(0, 113, 182, 0.5);
-      --text-main: #3d444c;
-      --background-grey: #f9fafb;
-    }
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: var(--background-grey);
-      color: var(--text-main);
+      background-color: #f9fafb;
+      color: #3d444c;
     }
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    .section {
+      background-color: #ffffffcc;
       border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      margin-bottom: 2rem;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
     }
-    .interactive-glow:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 25px var(--glow-blue);
+    h2 {
+      color: #0071B6;
     }
-    .text-lift {
-      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    @keyframes drift {
-      from { transform: translateY(0) translateX(0); opacity: 1; }
-      to { transform: translateY(-110vh) translateX(var(--drift-x)); opacity: 0; }
-    }
-    .bubble {
-      position: absolute;
-      background: rgba(0, 113, 182, 0.07);
-      border-radius: 50%;
-      animation: drift 25s infinite linear;
-      bottom: -150px;
+    .service-steps li {
+      list-style: disc;
+      margin-left: 1.25rem;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
 <body class="antialiased">
-  <div id="background-bubbles" class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden"></div>
-
-  <header class="sticky top-4 z-50 mx-auto max-w-7xl px-4">
-    <nav class="glass-panel flex justify-between items-center p-4">
-      <a href="index.html" class="flex items-center space-x-3">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Carpet Cleaning Logo" class="h-12">
+  <header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-10" />
       </a>
-      <div class="hidden md:flex space-x-8 font-bold text-main">
+      <div class="hidden md:flex space-x-6 font-bold">
         <a href="services.html" class="text-primary-blue">Our Services</a>
-        <a href="index.html#about" class="hover:text-primary-blue transition-colors">About Us</a>
+        <a href="index.html#about" class="hover:text-primary-blue">About Us</a>
+        <a href="index.html#quote" class="bg-primary-blue text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Book Now</a>
       </div>
-      <div class="hidden md:block">
-        <a href="index.html#quote" class="bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-          Book Now
-        </a>
-      </div>
-      <button id="menu-btn" class="block md:hidden focus:outline-none">
-        <svg class="w-8 h-8 text-primary-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button id="menu-btn" class="block md:hidden">
+        <svg class="w-8 h-8 text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
       </button>
-    </nav>
-    <div id="mobile-menu" class="hidden md:hidden glass-panel mt-2">
-      <div class="px-6 pt-2 pb-4 space-y-3 text-main">
-        <a href="services.html" class="block font-bold text-primary-blue">Our Services</a>
-        <a href="index.html#about" class="block font-bold hover:text-primary-blue transition-colors">About Us</a>
-        <a href="index.html#quote" class="block mt-4 text-center bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg">Book Now</a>
-      </div>
     </div>
   </header>
 
-  <main class="container mx-auto px-4 py-12 space-y-12">
-    <!-- CONTENT WILL GO HERE -->
-    <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl md:text-6xl font-black text-gray-800 text-lift">Our Revival Services</h1>
-      <p class="mt-4 text-lg md:text-xl text-main max-w-3xl mx-auto">
-        A proper job requires the right process. Here’s a detailed look at what we do and how we get outstanding results for your home.
-      </p>
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <section class="text-center mb-12">
+      <h1 class="text-5xl font-black">Our Revival Services</h1>
+      <p class="mt-4 text-lg">What we do, and how we do it right.</p>
     </section>
 
-    <!-- SERVICES CONTENT BLOCKS RESTORED HERE NEXT -->
+    <!-- Service Block: Carpet Cleaning -->
+    <section class="section">
+      <h2 class="text-3xl font-bold mb-4">Carpet Revival</h2>
+      <p class="mb-4">Daily life is tough on carpets. Dirt, dust, allergens, and mystery spots get ground in deep. Our Carpet Revival isn't a quick once-over. We use professional hot water extraction to flush out years of built-up grime from the base of the fibres.</p>
+      <ul class="service-steps">
+        <li>Pre-inspection & commercial vacuum</li>
+        <li>Targeted pre-spray for oils and soil</li>
+        <li>Hot water extraction or low-moisture clean</li>
+        <li>Hand-applied spot treatment if needed</li>
+        <li>Carpet grooming and drying setup (fans if required)</li>
+        <li>Dry and ready by evening</li>
+      </ul>
+    </section>
 
+    <!-- Service Block: Upholstery -->
+    <section class="section">
+      <h2 class="text-3xl font-bold mb-4">Upholstery & Lounge Cleaning</h2>
+      <p class="mb-4">Your couch is the centre of your home—and it cops a lot. We safely clean fabric and leather upholstery, identifying the material first to use the right method. We lift out body oils, food stains, and odours.</p>
+      <ul class="service-steps">
+        <li>Pre-inspection of fabric or leather</li>
+        <li>Gentle pre-treatment and conditioning</li>
+        <li>Controlled hot rinse & vacuum extraction</li>
+        <li>Optional deodoriser or protectant</li>
+        <li>Dry within 4–6 hours</li>
+      </ul>
+    </section>
+
+    <!-- Stain + Pet Odour Block -->
+    <section class="section">
+      <h2 class="text-3xl font-bold mb-4">Stain & Odour Treatment</h2>
+      <p class="mb-4">Red wine, coffee, pet urine — we've seen it all. Some stains are permanent, but if it can be moved, we’ve got the skills to do it.</p>
+      <ul class="service-steps">
+        <li>Stain ID and assessment</li>
+        <li>Specialist chemical application</li>
+        <li>Enzyme cleaners for pet urine breakdown</li>
+        <li>Final rinse and inspection</li>
+        <li>Honest feedback on what's realistic</li>
+      </ul>
+    </section>
+
+    <!-- Rug + Mattress -->
+    <section class="section">
+      <h2 class="text-3xl font-bold mb-4">Rug & Mattress Revival</h2>
+      <p class="mb-4">Delicate rugs and the mattress you sleep on deserve a deep hygienic clean. We remove allergens and odours, using safe, professional-grade tools.</p>
+      <ul class="service-steps">
+        <li>Material-safe rug assessment</li>
+        <li>Hot rinse or dry clean method depending on rug type</li>
+        <li>Mattress extraction with allergen treatment</li>
+        <li>Safe for kids, pets, and sensitive skin</li>
+      </ul>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="section text-center">
+      <h2 class="text-3xl font-bold mb-2">Why Lefties?</h2>
+      <p class="mb-2">We’re not salespeople. We’re technicians. We don’t upsell, overbook, or dodge honest answers. We do the job properly, or not at all.</p>
+      <p class="mb-2">Full insurance, Police Check, Blue Card certified, and locally owned.</p>
+      <p>We refer jobs we can't do properly. Because the job done right is more important than getting the job.</p>
+    </section>
   </main>
 
-  <footer class="text-center py-8 text-gray-600">
-    <div class="container mx-auto px-6">
-      <div class="flex justify-center space-x-6 mb-4">
-        <!-- Social Icons -->
-      </div>
-      <p>&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-      <p class="text-sm text-gray-500 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
-    </div>
+  <footer class="text-center py-6 text-sm text-gray-600">
+    <p>&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+    <p>ABN: [Your ABN Here] | Hervey Bay, QLD</p>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const bubbleContainer = document.getElementById('background-bubbles');
-      if (bubbleContainer) {
-        for (let i = 0; i < 20; i++) {
-          const bubble = document.createElement('div');
-          bubble.classList.add('bubble');
-          const size = Math.random() * 80 + 20;
-          const duration = Math.random() * 20 + 15;
-          const delay = Math.random() * 15;
-          const horizontalDrift = (Math.random() - 0.5) * 200;
-          bubble.style.width = `${size}px`;
-          bubble.style.height = `${size}px`;
-          bubble.style.left = `${Math.random() * 100}%`;
-          bubble.style.animationDuration = `${duration}s`;
-          bubble.style.animationDelay = `${delay}s`;
-          bubble.style.setProperty('--drift-x', `${horizontalDrift}px`);
-          bubbleContainer.appendChild(bubble);
-        }
-      }
-      const menuBtn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      menuBtn.addEventListener('click', function () {
-        mobileMenu.classList.toggle('hidden');
-      });
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      const menu = document.querySelector('.md\:flex');
+      if (menu) menu.classList.toggle('hidden');
     });
   </script>
 </body>
