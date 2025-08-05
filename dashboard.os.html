@@ -9,111 +9,525 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #111827; /* bg-gray-900 */
+            background-color: #111827;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         .text-brand-blue { color: #0071B6; }
         .bg-brand-blue { background-color: #0071B6; }
-        .bubble-gloss {
-            background: rgba(255, 255, 255, 0.1);
+        
+        /* Glassmorphism Effect */
+        .frosted-glass {
+            background: rgba(31, 41, 55, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(10px); /* WebKit prefix for Safari */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Apply glass effect to cards and main content container */
+        .card, #view-container {
+            @apply frosted-glass;
+        }
+
+        .card:hover {
+            background: rgba(31, 41, 55, 0.5);
+        }
+
+        /* Nav links */
+        .nav-item.active {
+            color: #0071B6;
+        }
+
+        /* Sitemap specific styles */
+        .status-button-complete { color: #34d399; }
+        .status-button-inprogress { color: #facc15; }
+        .status-button-tobuild { color: #ef4444; }
+        .sitemap-card-expanded .card-details {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        }
+        .rotated { transform: rotate(180deg); }
+
+        /* Horizontal scrolling container */
+        .horizontal-scroll-container {
+            -webkit-overflow-scrolling: touch;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Enforce icon color to be visible */
+        .card svg, .nav-item svg {
+            color: #0071B6; /* Brand blue for visibility */
+        }
+        .nav-item.active svg {
+            color: #fff; /* White for active nav items */
         }
     </style>
 </head>
-<body class="text-white">
+<body class="text-white flex flex-col min-h-screen">
 
-    <div class="min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="bg-gray-800 shadow-lg">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex items-center">
-                        <h1 class="text-2xl font-bold text-brand-blue">Lefties OS</h1>
-                        <span class="ml-4 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">v1.0 Final</span>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm text-gray-300" id="current-time"></p>
-                        <p class="text-xs text-gray-400">Hervey Bay, QLD</p>
-                    </div>
-                </div>
+    <header class="bg-gray-800 shadow-lg p-4 flex items-center justify-between z-10">
+        <h1 class="text-2xl font-bold text-brand-blue">Lefties OS</h1>
+        <div class="text-right hidden sm:block">
+            <p class="text-sm text-gray-300" id="current-time"></p>
+            <p class="text-xs text-gray-400">Hervey Bay, QLD</p>
+        </div>
+    </header>
+
+    <main id="content" class="flex-1 p-4 pb-20 sm:p-8">
+        <div id="view-container" class="w-full max-w-4xl mx-auto rounded-2xl p-6 md:p-8">
             </div>
-        </header>
+    </main>
 
-        <!-- Main Content -->
-        <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
-                <!-- Link to Internal Price Guide -->
-                <a href="internal-price-guide.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2m0 0c-1.11 0-2.08-.402-2.599-1M12 16a7 7 0 100-14 7 7 0 000 14z"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Internal Price Guide</h3>
-                </a>
-                
-                <!-- Link to Pre-Service Checklist -->
-                <a href="client-pre-service-checklist.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                     <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Pre-Service Checklist</h3>
-                </a>
-
-                <!-- Link to Field OS -->
-                <a href="field.os.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Field OS</h3>
-                </a>
-                
-                <!-- Link to Main Website -->
-                <a href="index.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Main Website</h3>
-                </a>
-
-                <!-- NEW: Service Agreements -->
-                <a href="service-agreements.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Service Agreements</h3>
-                </a>
-
-                <!-- NEW: Client Aftercare Guide -->
-                <a href="client-aftercare-guide.html" class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-700 transition-colors duration-200 flex flex-col items-center justify-center text-center">
-                    <div class="mb-2">
-                        <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    <h3 class="font-bold text-md">Client Aftercare Guide</h3>
-                </a>
-
-            </div>
-        </main>
-    </div>
+    <nav class="fixed inset-x-0 bottom-0 bg-gray-800 shadow-lg border-t border-gray-700 z-20">
+        <div class="container mx-auto flex justify-around items-center h-16">
+            <a href="#" data-view="dashboard" class="nav-item flex flex-col items-center justify-center p-2 text-gray-400 hover:text-white active">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span class="text-xs mt-1 font-semibold">Home</span>
+            </a>
+            <a href="#" data-view="sitemap" class="nav-item flex flex-col items-center justify-center p-2 text-gray-400 hover:text-white">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span class="text-xs mt-1 font-semibold">Sitemap</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center justify-center p-2 text-gray-400 hover:text-white">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                <span class="text-xs mt-1 font-semibold">Chat</span>
+            </a>
+            <a href="#" class="nav-item flex flex-col items-center justify-center p-2 text-gray-400 hover:text-white">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-xs mt-1 font-semibold">Settings</span>
+            </a>
+        </div>
+    </nav>
 
     <script>
-        function updateTime() {
-            const timeElement = document.getElementById('current-time');
-            const now = new Date();
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true,
-                timeZone: 'Australia/Brisbane'
-            };
-            timeElement.textContent = new Intl.DateTimeFormat('en-AU', options).format(now);
-        }
-        updateTime();
-        setInterval(updateTime, 60000); // Update every minute
-    </script>
+        // --- DATA AND UTILITY FUNCTIONS ---
+        const LOCAL_STORAGE_KEY = 'lefties-sitemap-data';
+        const initialSitemapData = [
+            { id: 1, title: 'Homepage', fileName: 'index.html', type: 'Public Page', access: 'Public', linkedFrom: 'None', menuStyle: 'Hamburger (right)', priority: 'High', status: 'In Progress', notes: 'Main site landing page' },
+            { id: 2, title: 'Services Overview', fileName: 'services.html', type: 'Public Page', access: 'Public', linkedFrom: 'index.html', menuStyle: 'Hamburger (right)', priority: 'High', status: 'In Progress', notes: 'Links to all service pages' },
+            { id: 3, title: 'Carpet Revival', fileName: 'carpet-services.html', type: 'Public Page', access: 'Public', linkedFrom: 'services.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'To Build', notes: 'Detailed service page' },
+            { id: 4, title: 'Upholstery Cleaning', fileName: 'upholstery-services.html', type: 'Public Page', access: 'Public', linkedFrom: 'services.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'In Progress', notes: 'Detailed service page' },
+            { id: 5, title: 'Stain Treatment', fileName: 'stain-treatment.html', type: 'Public Page', access: 'Public', linkedFrom: 'services.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'To Build', notes: 'Detailed service page' },
+            { id: 6, title: 'Pet Odour Treatment', fileName: 'pet-odour-treatment.html', type: 'Public Page', access: 'Public', linkedFrom: 'services.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'To Build', notes: 'Detailed service page' },
+            { id: 7, title: 'Rug Rescue', fileName: 'rug-rescue.html', type: 'Public Page', access: 'Public', linkedFrom: 'services.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'To Build', notes: 'Detailed service page' },
+            { id: 8, title: 'Why Lefties', fileName: 'why-lefties.html', type: 'Public Page', access: 'Public', linkedFrom: 'index.html', menuStyle: 'Hamburger (right)', priority: 'High', status: 'In Progress', notes: 'Trust and tone-setting' },
+            { id: 9, title: 'Gallery', fileName: 'gallery.html', type: 'Public Page', access: 'Public', linkedFrom: 'index.html', menuStyle: 'Hamburger (right)', priority: 'Medium', status: 'To Build', notes: 'Before & after showcase' },
+            { id: 10, title: 'Terms of Service', fileName: 'terms-of-service.html', type: 'Public Page', access: 'Public', linkedFrom: 'index.html', menuStyle: 'Hamburger (right)', priority: 'Low', status: 'Complete', notes: 'Client expectations & policies' },
+            { id: 11, title: 'Dashboard', fileName: 'dashboard.html', type: 'Internal Page', access: 'Private', linkedFrom: 'None', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'Internal control panel for staff only' },
+            { id: 12, title: 'Internal Price Guide', fileName: 'internal-price-guide.html', type: 'Internal Page', access: 'Private', linkedFrom: 'dashboard.html', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'In-house quoting tool' },
+            { id: 13, title: 'Field OS', fileName: 'field-os.html', type: 'Internal Page', access: 'Private', linkedFrom: 'dashboard.html', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'Job site resource system' },
+            { id: 14, title: 'Service Agreements', fileName: 'service-agreements.html', type: 'Internal Page', access: 'Private', linkedFrom: 'dashboard.html', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'Full agreement for internal reference' },
+            { id: 15, title: 'Client Aftercare Guide', fileName: 'client-aftercare-guide.html', type: 'Internal Page', access: 'Private', linkedFrom: 'dashboard.html', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'Handover instructions' },
+            { id: 16, title: 'Pre-Service Checklist', fileName: 'client-pre-service-checklist.html', type: 'Internal Page', access: 'Private', linkedFrom: 'dashboard.html', menuStyle: 'Dashboard Nav', priority: 'High', status: 'Complete', notes: 'Technician job prep form' },
+            { id: 17, title: 'Public Aftercare Guide', fileName: 'client-aftercare-guide-PUBLIC.html', type: 'Client Page', access: 'Public', linkedFrom: 'None', menuStyle: 'None', priority: 'Low', status: 'To Build', notes: 'Stripped version with no nav' },
+            { id: 18, title: 'Public Checklist', fileName: 'client-pre-service-checklist-PUBLIC.html', type: 'Client Page', access: 'Public', linkedFrom: 'None', menuStyle: 'None', priority: 'Low', status: 'To Build', notes: 'Stripped version with no nav' },
+            { id: 19, title: 'Public Service Agreements', fileName: 'service-agreements-PUBLIC.html', type: 'Client Page', access: 'Public', linkedFrom: 'None', menuStyle: 'None', priority: 'Low', status: 'To Build', notes: 'Stripped version with no nav' },
+            { id: 20, title: 'Shared Assets', fileName: '/images/', type: 'Design Assets', access: 'Shared', linkedFrom: 'All Pages', menuStyle: 'N/A', priority: 'High', status: 'Ongoing', notes: 'Logos, overlays, brand visuals' },
+        ];
+        
+        let sitemapData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || initialSitemapData;
 
+        const saveData = () => {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sitemapData));
+        };
+
+        const getStatusClasses = (status) => {
+            switch (status) {
+                case 'Complete': return 'bg-green-600 text-white border-green-700';
+                case 'In Progress': return 'bg-yellow-500 text-white border-yellow-600';
+                case 'To Build': return 'bg-red-600 text-white border-red-700';
+                case 'Ongoing': return 'bg-blue-600 text-white border-blue-700';
+                default: return 'bg-gray-500 text-white border-gray-600';
+            }
+        };
+
+        // --- DASHBOARD AND SITEMAP RENDERING ---
+        const viewContainer = document.getElementById('view-container');
+        const renderDashboard = () => {
+            const completedCount = sitemapData.filter(item => item.status === 'Complete').length;
+            const totalCount = sitemapData.length;
+            const latestPage = sitemapData[sitemapData.length - 1];
+
+            viewContainer.innerHTML = `
+                <div class="card p-6 rounded-xl mb-6 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-gray-400 mb-2">Latest Page</p>
+                        <h2 class="text-2xl font-extrabold text-white">${latestPage.title}</h2>
+                        <p class="text-sm text-gray-300 mt-1">${latestPage.fileName}</p>
+                    </div>
+                    <div class="mt-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-medium border ${getStatusClasses(latestPage.status)}">${latestPage.status}</span>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-bold text-gray-300 mb-4">Quick Access</h3>
+                <div class="flex space-x-4 overflow-x-auto horizontal-scroll-container mb-8">
+                    <a href="#" data-view="sitemap" class="card shrink-0 w-44 p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Sitemap Tracker</h3>
+                    </a>
+
+                    <a href="#" data-view="sitemap" class="card shrink-0 w-44 p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2 text-3xl font-extrabold text-brand-blue">
+                            ${sitemapData.filter(item => item.status === 'In Progress').length}
+                        </div>
+                        <h3 class="font-bold text-md">In Progress</h3>
+                    </a>
+
+                    <a href="index.html" class="card shrink-0 w-44 p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Main Website</h3>
+                    </a>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-300 mb-4">Internal Tools</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <a href="internal-price-guide.html" class="card p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 10v-1m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2m0 0c-1.11 0-2.08-.402-2.599-1M12 16a7 7 0 100-14 7 7 0 000 14z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Internal Price Guide</h3>
+                    </a>
+                    <a href="client-pre-service-checklist.html" class="card p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                         <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Pre-Service Checklist</h3>
+                    </a>
+                    <a href="field.os.html" class="card p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Field OS</h3>
+                    </a>
+                    <a href="service-agreements.html" class="card p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Service Agreements</h3>
+                    </a>
+                    <a href="client-aftercare-guide.html" class="card p-6 rounded-lg flex flex-col items-center justify-center text-center">
+                        <div class="mb-2">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-md">Client Aftercare Guide</h3>
+                    </a>
+                </div>
+            `;
+        };
+
+        const renderSitemap = (data, activeFilter = 'All') => {
+            viewContainer.innerHTML = `
+                <div class="frosted-glass p-6 rounded-xl border border-gray-700">
+                    <div class="text-center mb-6 sm:mb-8">
+                        <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-blue">Sitemap Tracker</h1>
+                        <p class="text-gray-400 mt-2">Manage and track the progress of your website pages.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
+                        <div id="filter-buttons" class="flex flex-wrap gap-2 justify-center sm:justify-start"></div>
+                        <input type="text" id="search-input" placeholder="Search pages..." class="w-full sm:w-64 p-3 rounded-xl border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-brand-blue transition-shadow frosted-glass">
+                    </div>
+                    <div class="flex justify-end mb-6">
+                        <button id="add-page-toggle" class="flex items-center px-4 py-2 bg-brand-blue text-white rounded-full font-medium shadow-md hover:bg-blue-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add New Page
+                        </button>
+                    </div>
+                    <div id="add-page-form" class="frosted-glass p-6 rounded-2xl mb-6 shadow-inner hidden">
+                        <h3 class="text-xl font-semibold mb-4 text-white">Add a New Page</h3>
+                        <form id="new-page-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="new-title" placeholder="Title" required class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass" />
+                            <input type="text" id="new-fileName" placeholder="File Name" required class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass" />
+                            <select id="new-type" class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass">
+                                <option>Public Page</option><option>Internal Page</option><option>Client Page</option><option>Design Assets</option>
+                            </select>
+                            <input type="text" id="new-linkedFrom" placeholder="Linked From" class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass" />
+                            <input type="text" id="new-menuStyle" placeholder="Menu Style" class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass" />
+                            <select id="new-priority" class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white frosted-glass">
+                                <option>High</option><option>Medium</option><option>Low</option>
+                            </select>
+                            <textarea id="new-notes" placeholder="Notes" class="p-3 rounded-lg border border-gray-600 bg-gray-800 text-white md:col-span-2 frosted-glass" rows="2"></textarea>
+                            <button type="submit" class="mt-4 w-full p-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                                Save Page
+                            </button>
+                        </form>
+                    </div>
+                    <div id="sitemap-container" class="grid gap-4"></div>
+                </div>
+            `;
+            bindSitemapListeners();
+            renderFilterButtons(activeFilter);
+            filterData(activeFilter, '');
+        };
+
+        const renderFilterButtons = (activeFilter) => {
+            const statusOptions = ['All', 'Complete', 'In Progress', 'To Build', 'Ongoing'];
+            const filterButtonsContainer = document.getElementById('filter-buttons');
+            if (filterButtonsContainer) {
+                filterButtonsContainer.innerHTML = statusOptions.map(option => `
+                    <button
+                        data-filter="${option}"
+                        class="px-4 py-2 rounded-full font-medium transition-colors ${
+                            activeFilter === option ? 'bg-brand-blue text-white shadow-md' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                        }"
+                    >
+                        ${option}
+                    </button>
+                `).join('');
+            }
+        };
+
+        const renderPageList = (data, activeFilter = 'All') => {
+            const sitemapListContainer = document.getElementById('sitemap-container');
+            if (!sitemapListContainer) return;
+            sitemapListContainer.innerHTML = '';
+            if (data.length === 0) {
+                sitemapListContainer.innerHTML = `<div class="text-center text-gray-500 p-8 frosted-glass rounded-xl">No pages match your filter or search criteria.</div>`;
+            }
+
+            data.forEach(item => {
+                const statusClasses = getStatusClasses(item.status);
+                const card = document.createElement('div');
+                card.className = `card border border-gray-600 rounded-xl p-4 cursor-pointer hover:bg-gray-600 transition-colors`;
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div class="flex-1">
+                            <h2 class="text-xl font-semibold text-white">${item.title}</h2>
+                            <p class="text-sm text-gray-400 truncate">${item.fileName}</p>
+                        </div>
+                        <div class="flex items-center space-x-2 ml-4">
+                            <button class="p-2 toggle-status-btn" data-id="${item.id}" title="Toggle Status">
+                                ${item.status === 'Complete' ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 status-button-complete"><polyline points="20 6 9 17 4 12"></polyline></svg>` :
+                                  item.status === 'In Progress' ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 status-button-inprogress"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>` :
+                                  item.status === 'To Build' ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 status-button-tobuild"><circle cx="12" cy="12" r="10"></circle></svg>` :
+                                  `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-gray-400"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`}
+                            </button>
+                            <span class="px-3 py-1 rounded-full text-xs font-medium border ${statusClasses}">${item.status}</span>
+                            <svg class="h-5 w-5 text-gray-400 transform transition-transform expand-toggle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-details mt-4">
+                        <hr class="border-gray-600 mb-4">
+                        <div class="space-y-2 text-sm text-gray-300">
+                            <p><span class="font-medium text-white">Type:</span> ${item.type}</p>
+                            <p><span class="font-medium text-white">Access:</span> ${item.access}</p>
+                            <p><span class="font-medium text-white">Linked From:</span> ${item.linkedFrom}</p>
+                            <p><span class="font-medium text-white">Menu Style:</span> ${item.menuStyle}</p>
+                            <p><span class="font-medium text-white">Priority:</span> ${item.priority}</p>
+                            <p><span class="font-medium text-white">Notes:</span> ${item.notes}</p>
+                        </div>
+                    </div>
+                `;
+                card.querySelector('.expand-toggle').addEventListener('click', (e) => {
+                    const details = e.target.closest('.card');
+                    if (details) {
+                        details.querySelector('.card-details').classList.toggle('active');
+                        e.target.classList.toggle('rotated');
+                    }
+                });
+                sitemapListContainer.appendChild(card);
+            });
+        };
+
+        const filterData = (filter, searchTerm) => {
+            const filteredData = sitemapData.filter(item => {
+                const statusMatch = filter === 'All' || item.status === filter;
+                const searchMatch = searchTerm.toLowerCase() === '' ||
+                                    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    item.fileName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    item.notes.toLowerCase().includes(searchTerm.toLowerCase());
+                return statusMatch && searchMatch;
+            });
+            renderPageList(filteredData, filter);
+        };
+
+        const handleStatusToggle = (id) => {
+            const pageIndex = sitemapData.findIndex(p => p.id == id);
+            if (pageIndex > -1) {
+                let newStatus;
+                if (sitemapData[pageIndex].status === 'To Build') {
+                    newStatus = 'In Progress';
+                } else if (sitemapData[pageIndex].status === 'In Progress') {
+                    newStatus = 'Complete';
+                } else if (sitemapData[pageIndex].status === 'Complete') {
+                    newStatus = 'Ongoing';
+                } else {
+                    newStatus = 'To Build';
+                }
+                sitemapData[pageIndex].status = newStatus;
+                saveData();
+                const activeFilterBtn = document.querySelector('#filter-buttons button.bg-brand-blue');
+                const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'All';
+                const searchTerm = document.getElementById('search-input').value;
+                filterData(activeFilter, searchTerm);
+            }
+        };
+
+        const handleAddPage = (e) => {
+            e.preventDefault();
+            const newPageForm = document.getElementById('new-page-form');
+            const newPage = {
+                id: Date.now(),
+                title: newPageForm.querySelector('#new-title').value,
+                fileName: newPageForm.querySelector('#new-fileName').value,
+                type: newPageForm.querySelector('#new-type').value,
+                access: 'Public',
+                linkedFrom: newPageForm.querySelector('#new-linkedFrom').value,
+                menuStyle: newPageForm.querySelector('#new-menuStyle').value,
+                priority: newPageForm.querySelector('#new-priority').value,
+                status: 'To Build',
+                notes: newPageForm.querySelector('#new-notes').value,
+            };
+            sitemapData.push(newPage);
+            saveData();
+            
+            filterData('All', '');
+            newPageForm.reset();
+            const addPageForm = document.getElementById('add-page-form');
+            addPageForm.classList.add('hidden');
+            const addPageToggle = document.getElementById('add-page-toggle');
+            addPageToggle.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add New Page
+            `;
+        };
+
+        // --- EVENT LISTENERS AND MAIN LOGIC ---
+        const bindSitemapListeners = () => {
+            const sitemapContainer = document.getElementById('sitemap-container');
+            const searchInput = document.getElementById('search-input');
+            const newPageForm = document.getElementById('new-page-form');
+            const addPageForm = document.getElementById('add-page-form');
+            const addPageToggle = document.getElementById('add-page-toggle');
+
+            document.querySelectorAll('#filter-buttons button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const newFilter = e.target.dataset.filter;
+                    filterData(newFilter, searchInput.value);
+                    renderFilterButtons(newFilter);
+                });
+            });
+
+            if (addPageToggle) {
+                addPageToggle.addEventListener('click', () => {
+                    const isVisible = addPageForm.classList.toggle('hidden');
+                    addPageToggle.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 mr-2">
+                            ${!isVisible ? '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>' : '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>'}
+                        </svg>
+                        ${!isVisible ? 'Cancel' : 'Add New Page'}
+                    `;
+                });
+            }
+
+            if (newPageForm) {
+                newPageForm.addEventListener('submit', handleAddPage);
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const activeFilterBtn = document.querySelector('#filter-buttons button.bg-brand-blue');
+                    const currentFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'All';
+                    filterData(currentFilter, e.target.value);
+                });
+            }
+            
+            if (sitemapContainer) {
+                sitemapContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.toggle-status-btn');
+                    if (btn) {
+                        handleStatusToggle(btn.dataset.id);
+                    }
+                });
+            }
+        };
+
+        const updateTime = () => {
+            const timeElement = document.getElementById('current-time');
+            if (timeElement) {
+                const now = new Date();
+                const options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: 'Australia/Brisbane'
+                };
+                timeElement.textContent = new Intl.DateTimeFormat('en-AU', options).format(now);
+            }
+        }
+
+        const navLinks = document.querySelectorAll('.nav-item');
+        let currentView = 'dashboard';
+
+        const switchView = (view) => {
+            currentView = view;
+            if (view === 'dashboard') {
+                renderDashboard();
+            } else if (view === 'sitemap') {
+                renderSitemap(sitemapData);
+            }
+            
+            // Update active class on nav links
+            navLinks.forEach(link => {
+                if (link.dataset.view === view) {
+                    link.classList.add('active', 'text-white');
+                    link.classList.remove('text-gray-400');
+                } else {
+                    link.classList.remove('active', 'text-white');
+                    link.classList.add('text-gray-400');
+                }
+            });
+
+            bindViewLinks();
+        };
+
+        const bindViewLinks = () => {
+            document.querySelectorAll('[data-view]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const view = e.currentTarget.dataset.view;
+                    if (view) {
+                        switchView(view);
+                    }
+                });
+            });
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView(e.currentTarget.dataset.view);
+            });
+        });
+
+        // Initial render on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTime();
+            setInterval(updateTime, 60000); // Update every minute
+            switchView('dashboard');
+        });
+    </script>
 </body>
 </html>
