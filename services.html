@@ -1,78 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services | Lefties Carpet Cleaning | Hervey Bay</title>
-    <meta name="description" content="A detailed look at our professional carpet revival, upholstery cleaning, and expert stain treatment services in Hervey Bay.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0071B6;
-            --glow-blue: rgba(0, 113, 182, 0.5);
-            --text-main: #3d444c;
-            --background-grey: #f9fafb;
-        }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--background-grey);
-            color: var(--text-main);
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
-        }
-
-        .text-lift {
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .text-primary-blue {
-            color: var(--primary-blue);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services | Lefties Carpet Cleaning | Hervey Bay</title>
+  <meta name="description" content="A detailed look at our professional carpet revival, upholstery cleaning, and expert stain treatment services in Hervey Bay.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0071B6;
+      --glow-blue: rgba(0, 113, 182, 0.5);
+      --text-main: #3d444c;
+      --background-grey: #f9fafb;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--background-grey);
+      color: var(--text-main);
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    }
+    .interactive-glow:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 0 25px var(--glow-blue);
+    }
+    .text-lift {
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    @keyframes drift {
+      from { transform: translateY(0) translateX(0); opacity: 1; }
+      to { transform: translateY(-110vh) translateX(var(--drift-x)); opacity: 0; }
+    }
+    .bubble {
+      position: absolute;
+      background: rgba(0, 113, 182, 0.07);
+      border-radius: 50%;
+      animation: drift 25s infinite linear;
+      bottom: -150px;
+    }
+  </style>
 </head>
 <body class="antialiased">
+  <div id="background-bubbles" class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden"></div>
 
-<main class="container mx-auto px-4 py-12 space-y-12">
+  <header class="sticky top-4 z-50 mx-auto max-w-7xl px-4">
+    <nav class="glass-panel flex justify-between items-center p-4">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Carpet Cleaning Logo" class="h-12">
+      </a>
+      <div class="hidden md:flex space-x-8 font-bold text-main">
+        <a href="services.html" class="text-primary-blue">Our Services</a>
+        <a href="index.html#about" class="hover:text-primary-blue transition-colors">About Us</a>
+      </div>
+      <div class="hidden md:block">
+        <a href="index.html#quote" class="bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+          Book Now
+        </a>
+      </div>
+      <button id="menu-btn" class="block md:hidden focus:outline-none">
+        <svg class="w-8 h-8 text-primary-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden glass-panel mt-2">
+      <div class="px-6 pt-2 pb-4 space-y-3 text-main">
+        <a href="services.html" class="block font-bold text-primary-blue">Our Services</a>
+        <a href="index.html#about" class="block font-bold hover:text-primary-blue transition-colors">About Us</a>
+        <a href="index.html#quote" class="block mt-4 text-center bg-primary-blue text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition-all shadow-lg">Book Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12 space-y-12">
+    <!-- CONTENT WILL GO HERE -->
     <section class="glass-panel p-8 md:p-12 text-center">
-        <h1 class="text-5xl md:text-6xl font-black text-gray-800 text-lift">Our Revival Services</h1>
-        <p class="mt-4 text-lg md:text-xl text-main max-w-3xl mx-auto">What we do, and how we do it right.</p>
+      <h1 class="text-5xl md:text-6xl font-black text-gray-800 text-lift">Our Revival Services</h1>
+      <p class="mt-4 text-lg md:text-xl text-main max-w-3xl mx-auto">
+        A proper job requires the right process. Here’s a detailed look at what we do and how we get outstanding results for your home.
+      </p>
     </section>
 
-    <section class="glass-panel p-8 space-y-8">
-        <div>
-            <h2 class="text-3xl font-bold text-primary-blue">Carpet Revival</h2>
-            <p class="mt-2">Daily life is tough on carpets. Dirt, dust, allergens, and mystery spots get ground in deep. Our Carpet Revival isn't a quick once-over. We use professional hot water extraction to flush out years of built-up grime from the base of the fibres, restoring the pile and leaving your floors genuinely clean and healthy.</p>
-        </div>
+    <!-- SERVICES CONTENT BLOCKS RESTORED HERE NEXT -->
 
-        <div>
-            <h2 class="text-3xl font-bold text-primary-blue">Upholstery & Lounge Cleaning</h2>
-            <p class="mt-2">Your couch is the centre of your home, and it cops a lot. Spills, pets, kids, movie nights—it all adds up. We safely clean fabric and leather upholstery, identifying the material first to use the right method. We lift out body oils, food stains, and odours, reviving the look and feel of your furniture.</p>
-        </div>
+  </main>
 
-        <div>
-            <h2 class="text-3xl font-bold text-primary-blue">Stain & Spot Treatment</h2>
-            <p class="mt-2">That red wine spill? The coffee mishap? The kids' art project? We're the guys to call. We use a range of professional treatments to target specific types of stains. We'll be straight with you—some stains are permanent. But if it can be budged, we have the best chance of getting it done without damaging your carpet.</p>
-        </div>
+  <footer class="text-center py-8 text-gray-600">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-center space-x-6 mb-4">
+        <!-- Social Icons -->
+      </div>
+      <p>&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+      <p class="text-sm text-gray-500 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+    </div>
+  </footer>
 
-        <div>
-            <h2 class="text-3xl font-bold text-primary-blue">Pet Odour Treatment</h2>
-            <p class="mt-2">We love them, but pets leave their mark. A standard clean won't shift urine odour because the source is deep in the underlay. Our treatment targets the problem at its core. We use specialized enzyme cleaners to break down and neutralize the uric salts that cause the lingering smell. It's a science, and we take it seriously.</p>
-        </div>
-
-        <div>
-            <h2 class="text-3xl font-bold text-primary-blue">Rug Rescue</h2>
-            <p class="mt-2">Don't let a dirty rug bring down the look of a room. We treat area rugs with the specific care they need, whether they're tough synthetics or delicate wool. We'll get the ground-in dirt out and bring their colours back to life, right there in your home.</p>
-        </div>
-    </section>
-</main>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const bubbleContainer = document.getElementById('background-bubbles');
+      if (bubbleContainer) {
+        for (let i = 0; i < 20; i++) {
+          const bubble = document.createElement('div');
+          bubble.classList.add('bubble');
+          const size = Math.random() * 80 + 20;
+          const duration = Math.random() * 20 + 15;
+          const delay = Math.random() * 15;
+          const horizontalDrift = (Math.random() - 0.5) * 200;
+          bubble.style.width = `${size}px`;
+          bubble.style.height = `${size}px`;
+          bubble.style.left = `${Math.random() * 100}%`;
+          bubble.style.animationDuration = `${duration}s`;
+          bubble.style.animationDelay = `${delay}s`;
+          bubble.style.setProperty('--drift-x', `${horizontalDrift}px`);
+          bubbleContainer.appendChild(bubble);
+        }
+      }
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', function () {
+        mobileMenu.classList.toggle('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
