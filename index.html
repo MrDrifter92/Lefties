@@ -22,6 +22,8 @@
             background-color: var(--dark-bg);
             color: var(--light-text);
             overflow-x: hidden; /* Prevent horizontal scrolling from the menu */
+            -webkit-font-smoothing: antialiased; /* Ensure antialiased from blueprint */
+            -moz-osx-font-smoothing: grayscale; /* Ensure antialiased from blueprint */
         }
         
         /* New CSS for the full-screen mobile menu overlay */
@@ -175,9 +177,9 @@
             <!-- Desktop Links -->
             <div class="hidden md:flex flex-row space-x-8 font-bold">
                 <a href="services.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Services</a>
-                <a href="#commercial" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Commercial</a>
-                <a href="#gallery" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Our Work</a>
-                <a href="#tips" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Tips & Tricks</a>
+                <a href="commercial.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Commercial</a>
+                <a href="about-us.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">About Us</a>
+                <a href="contact-us.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Contact Us</a>
             </div>
 
             <!-- Desktop Get a Quote button -->
@@ -191,10 +193,14 @@
     <div id="mobile-menu-overlay" class="mobile-menu-overlay">
         <div class="p-8 text-center mt-24">
             <div class="space-y-8 font-bold text-3xl">
-                <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Services</a>
-                <a href="#commercial" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
-                <a href="#gallery" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Work</a>
-                <a href="#tips" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Tips & Tricks</a>
+                <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">All Services</a>
+                <a href="carpet-service.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Carpet Cleaning</a>
+                <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
+                <a href="stain-treatment.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Stain Treatment</a>
+                <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Rug & Mattress Cleaning</a>
+                <a href="commercial.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
+                <a href="about-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">About Us</a>
+                <a href="contact-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Contact Us</a>
             </div>
             <div class="mt-12">
                 <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">
@@ -259,7 +265,7 @@
             </video>
             <div class="video-overlay"></div>
             <div class="container mx-auto px-6 text-center video-content">
-                 <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 md:h-auto mx-auto mb-12">
+                   <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 md:h-auto mx-auto mb-12">
                 <h2 class="text-4xl font-black text-white">We're the guys you call when you want it done properly.</h2>
                 <div class="max-w-3xl mx-auto text-lg text-gray-300 space-y-4 mt-6">
                     <p>Lefties isn't a big, faceless franchise. We're a local Hervey Bay business, and we genuinely care about the results we deliver.</p>
@@ -290,7 +296,7 @@
         </section>
 
         <section id="commercial" class="py-20 bg-mid-dark-bg border-y border-gray-800 relative overflow-hidden">
-            <div class="bubble-container">
+             <div class="bubble-container">
                 <div class="bubble" style="width: 200px; height: 200px; top: 50%; left: -100px; animation-duration: 35s;"></div>
                 <div class="bubble" style="width: 150px; height: 150px; top: 10%; right: -80px; animation-duration: 25s; animation-delay: 2s;"></div>
             </div>
@@ -300,7 +306,7 @@
                     Are you a real estate agent or a residential aged care facility? We are fully licensed and insured to sort out your ongoing programmed maintenance schedule.
                 </p>
                 <div class="mt-8">
-                    <a href="#quote" class="glass-button px-8 py-4 text-lg inline-block">
+                    <a href="commercial.html" class="glass-button px-8 py-4 text-lg inline-block">
                         Discuss Your Needs
                     </a>
                 </div>
@@ -391,6 +397,7 @@
             });
 
             // Make the closeMenu function available to the onclick attributes in the HTML
+            // This is for the links inside the mobile menu to close it after clicking
             window.closeMenu = closeMenu;
         });
     </script>
