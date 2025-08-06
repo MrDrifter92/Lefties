@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,104 +7,302 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
+    /* CSS Variables from the Design Blueprint */
+    :root {
+      --primary-blue: #0071B6;
+      --light-blue-glow: rgba(0, 140, 255, 0.6); /* Used for deep-glass glow */
+      --dark-bg: #0D1117; /* Primary background color */
+      --mid-dark-bg: #161B22; /* Alternating section background */
+      --light-text: #e5e7eb; /* Default text color */
+    }
+
     body {
       font-family: 'Nunito', sans-serif;
+      background-color: var(--dark-bg); /* Apply dark background from blueprint */
+      color: var(--light-text); /* Apply light text color from blueprint */
+      /* Ensure antialiased is applied to body */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
     }
+
+    /* Text glow effect as per blueprint */
     .text-lift {
-      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
     }
+
+    /* Service image styling */
     .service-img {
       @apply rounded-2xl shadow-lg w-full h-auto object-cover;
     }
+
+    /* Deep Glassmorphism styling from blueprint */
+    .deep-glass {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 25px var(--light-blue-glow), inset 0 2px 2px rgba(255, 255, 255, 0.07), inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Shine animation for deep-glass elements */
+    .deep-glass::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-20deg);
+        animation: shine 6s infinite linear;
+        animation-delay: var(--shine-delay, 0s);
+    }
+    @keyframes shine {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: -100%; }
+    }
+
+    /* Glass button styling from blueprint */
+    .glass-button {
+        background: linear-gradient(145deg, rgba(0, 113, 182, 0.6), rgba(0, 80, 130, 0.8));
+        border: 1px solid rgba(0, 140, 255, 0.3);
+        border-radius: 9999px;
+        color: white;
+        font-weight: 700;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        box-shadow: 0 0 15px rgba(0, 140, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+        padding: 0.75rem 2rem;
+        display: inline-block;
+    }
+    
+    .glass-button:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 0 30px 5px var(--light-blue-glow);
+        background: linear-gradient(145deg, rgba(0, 140, 255, 0.7), rgba(0, 95, 155, 0.9));
+    }
+
+    /* Mobile menu hamburger icon styles from blueprint */
+    .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2rem;
+        height: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+    }
+
+    .hamburger-icon span {
+        height: 2px;
+        width: 100%;
+        background: #fff;
+        border-radius: 9999px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-icon.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-icon.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-icon.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile menu overlay styles from blueprint */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(13, 17, 23, 0.95); /* Using dark-bg with opacity */
+        backdrop-filter: blur(10px);
+        z-index: 90;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .mobile-menu-overlay[data-state="open"] {
+        transform: translateX(0);
+    }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <!-- HEADER BAR -->
-  <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
-      <a href="index.html">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-12">
+<body class="antialiased">
+  <!-- HEADER BAR (Blueprint Compliant) -->
+  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
+    <nav class="deep-glass flex justify-between items-center p-4 relative" style="min-height: 100px;">
+      <!-- Desktop Navigation (Left) -->
+      <div class="hidden md:flex space-x-6 font-bold flex-1">
+        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
+      </div>
+
+      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
       </a>
-      <nav class="hidden md:flex space-x-6 font-bold">
-        <a href="services.html" class="text-blue-600">Our Services</a>
-        <a href="about-lefties.html" class="hover:text-blue-600">About Us</a>
-      </nav>
-      <a href="index.html#quote" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition-all">
-        Book Now
-      </a>
-    </div>
+
+      <!-- Mobile Menu Button (Right) -->
+      <div class="flex-1 flex justify-end">
+        <button id="menu-btn" class="block md:hidden focus:outline-none">
+          <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </nav>
   </header>
 
-  <main class="px-4 py-12 max-w-7xl mx-auto space-y-20">
-    <section class="text-center">
-      <h1 class="text-5xl font-black text-lift">Our Services</h1>
-      <p class="mt-4 text-lg max-w-xl mx-auto">Here’s what we do, and how we do it.</p>
+  <!-- Mobile Menu Overlay (Blueprint Compliant) -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="flex justify-between items-center px-4 pt-4">
+      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
+      <button id="close-menu">
+        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-10 space-y-6 text-center text-xl font-bold">
+      <a href="services.html" class="block">All Services</a>
+      <a href="upholstery-cleaning.html" class="block">Upholstery & Lounge Cleaning</a>
+      <a href="carpet-cleaning.html" class="block">Carpet Cleaning</a>
+      <a href="stain-treatment.html" class="block">Woopsie Daisy Stains</a>
+      <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
+      <a href="#" class="block">Commercial</a>
+      <a href="#" class="block">Our Work</a>
+      <a href="#" class="block">Tips & Tricks</a>
+      <a href="index.html#quote" class="inline-block mt-6 glass-button">Get a Quote</a>
+    </div>
+  </div>
+
+  <main class="container mx-auto px-6 py-12 space-y-20">
+    <section class="text-center py-8">
+      <h1 class="font-black text-lift text-7xl"> <!-- Increased size to text-7xl -->
+        <span class="text-[var(--light-text)]">Our</span> <!-- White text -->
+        <span class="text-[var(--primary-blue)]">Services</span> <!-- Blue text -->
+      </h1>
+      <p class="mt-4 text-lg max-w-xl mx-auto text-[var(--light-text)]">Here’s what we do, and how we do it.</p>
     </section>
 
     <!-- CARPET CLEANING -->
-    <section class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow">
-      <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold text-blue-600 text-lift">Carpet Cleaning</h2>
-        <ul class="mt-4 list-disc list-inside space-y-2">
-          <li>Pre-inspection and commercial vacuum</li>
-          <li>Targeted pre-treatment for stains</li>
-          <li>Hot water extraction or low-moisture clean</li>
-          <li>Hand-spot treatment as needed</li>
-          <li>Carpet grooming for a uniform finish</li>
-          <li>Fast drying (same-day in most cases)</li>
-        </ul>
-      </div>
+    <section class="bg-dark-bg py-20 border-y border-gray-800">
+        <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Pre-inspection and commercial vacuum</li>
+                        <li>Targeted pre-treatment for stains</li>
+                        <li>Hot water extraction or low-moisture clean</li>
+                        <li>Hand-spot treatment as needed</li>
+                        <li>Carpet grooming for a uniform finish</li>
+                        <li>Fast drying (same-day in most cases)</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
     </section>
 
     <!-- UPHOLSTERY CLEANING -->
-    <section class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow">
-      <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold text-blue-600 text-lift">Upholstery & Lounge Cleaning</h2>
-        <ul class="mt-4 list-disc list-inside space-y-2">
-          <li>Pre-assessment of fabric type</li>
-          <li>Gentle pre-treatment to lift grime</li>
-          <li>Controlled rinse & extraction</li>
-          <li>Low moisture = fast drying (4–6 hrs)</li>
-          <li>Safe for family and pets</li>
-        </ul>
-      </div>
+    <section class="bg-mid-dark-bg py-20 border-y border-gray-800">
+        <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Pre-assessment of fabric type</li>
+                        <li>Gentle pre-treatment to lift grime</li>
+                        <li>Controlled rinse & extraction</li>
+                        <li>Low moisture = fast drying (4–6 hrs)</li>
+                        <li>Safe for family and pets</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
     </section>
 
     <!-- STAIN TREATMENT -->
-    <section class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow">
-      <img src="Spot-stain.png" alt="Stain removal" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold text-blue-600 text-lift">Woopsie Daisy Stains</h2>
-        <p class="italic mt-2">For those little uh-ohs in the lounge room.</p>
-        <ul class="mt-4 list-disc list-inside space-y-2">
-          <li>Stain ID and classification</li>
-          <li>Spot-specific solutions</li>
-          <li>Honest advice (no magic promises)</li>
-          <li>Best paired with a full clean</li>
-        </ul>
-      </div>
+    <section class="bg-dark-bg py-20 border-y border-gray-800">
+        <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Spot-stain.png" alt="Stain removal" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
+                    <p class="italic mt-2 text-[var(--light-text)]">For those little uh-ohs in the lounge room.</p>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Stain ID and classification</li>
+                        <li>Spot-specific solutions</li>
+                        <li>Honest advice (no magic promises)</li>
+                        <li>Best paired with a full clean</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
     </section>
 
     <!-- RUGS & MATTRESSES -->
-    <section class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow">
-      <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold text-blue-600 text-lift">Rug & Mattress Cleaning</h2>
-        <ul class="mt-4 list-disc list-inside space-y-2">
-          <li>Specialty rug care for all materials</li>
-          <li>Hygienic mattress sanitation</li>
-          <li>Dust mite & allergen removal</li>
-          <li>Safe, non-toxic cleaning products</li>
-        </ul>
-      </div>
+    <section class="bg-mid-dark-bg py-20 border-y border-gray-800">
+        <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Specialty rug care for all materials</li>
+                        <li>Hygienic mattress sanitation</li>
+                        <li>Dust mite & allergen removal</li>
+                        <li>Safe, non-toxic cleaning products</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
     </section>
   </main>
 
-  <footer class="text-center py-8 text-gray-600">
-    <p>&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-    <p class="text-sm text-gray-500 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+  <!-- FOOTER (Blueprint Compliant) -->
+  <footer class="bg-black py-8">
+    <div class="container mx-auto px-6 text-center">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-16 w-auto mx-auto opacity-50 mb-4">
+        <p class="text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
+        <p class="text-gray-600 mt-2">Privacy Policy | Terms of Service</p>
+    </div>
   </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const hamburgerIcon = menuBtn.querySelector('.hamburger-icon'); // Get the hamburger icon element
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenuOverlay.setAttribute('data-state', 'open');
+      hamburgerIcon.classList.add('open'); // Add 'open' class to animate hamburger
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenuOverlay.setAttribute('data-state', 'closed');
+      hamburgerIcon.classList.remove('open'); // Remove 'open' class to reset hamburger
+    });
+  </script>
 </body>
 </html>
