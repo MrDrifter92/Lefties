@@ -1,126 +1,127 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plica Project – Not Just Knee Pain</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <title>Heal My Knee - Functional Plan for Medial Plica</title>
   <style>
     body {
       font-family: 'Nunito', sans-serif;
-      background: linear-gradient(to bottom right, #0f172a, #1e293b);
-      color: #fff;
+      margin: 0;
+      padding: 0;
+      background: #f5f8fa;
+      color: #111;
     }
-    .glass {
-      backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1rem;
+    header {
+      background-color: #0e8abf;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
     }
-    .hero-text-shadow {
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    nav {
+      background: #0071b6;
+      color: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section {
+      padding: 2rem;
+    }
+    .section h2 {
+      color: #0071b6;
+      margin-top: 0;
+    }
+    .interactive {
+      background: #e7f5ff;
+      padding: 1rem;
+      border-left: 5px solid #0071b6;
+      margin: 1.5rem 0;
+    }
+    textarea, select, input[type=range] {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .tracker-form label {
+      display: block;
+      margin: 1rem 0 0.25rem;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1> Mels Medial Plica Recovery Tracker</h1>
+    <p>Interactive Plan Based on Functional Medicine</p>
+  </header>
+  <nav>
+    <a href="#diet">Diet</a>
+    <a href="#movement">Movement</a>
+    <a href="#stress">Sleep & Stress</a>
+    <a href="#track">Daily Tracker</a>
+  </nav>
 
-  <!-- HERO -->
-  <section class="relative h-screen flex items-center justify-center text-center px-6">
-    <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('YOUR-MRI-IMAGE.jpg');"></div>
-    <div class="z-10 glass p-8 max-w-2xl">
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 hero-text-shadow">It Wasn’t in Your Head.</h1>
-      <p class="text-xl md:text-2xl mb-6 hero-text-shadow">That black line on the scan? It’s called a plica. And it changes everything.</p>
-      <a href="#plan" class="inline-block bg-[#0071b6] hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-200">Scroll to Plan</a>
-    </div>
-  </section>
+  <div class="section" id="diet">
+    <h2>Anti-Inflammatory Diet Tips</h2>
+    <ul>
+      <li>Eat leafy greens, berries, fatty fish, and fermented foods.</li>
+      <li>Avoid processed sugar, seed oils, alcohol, and refined carbs.</li>
+      <li>Experiment with gluten or dairy elimination if suspected triggers.</li>
+    </ul>
+  </div>
 
-  <!-- THE PLAN -->
-  <section id="plan" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center">Your Functional Recovery Plan</h2>
+  <div class="section" id="movement">
+    <h2>Joint-Friendly Movement</h2>
+    <ul>
+      <li>Do quad strengthening and hamstring stretches daily.</li>
+      <li>Use supportive shoes or orthotics for daily walking.</li>
+      <li>Rest and ice after activity. Avoid deep kneeling or squats early on.</li>
+    </ul>
+  </div>
 
-      <!-- SECTION 1 -->
-      <div id="diet" class="glass p-8 mb-10">
-        <h3 class="text-2xl font-bold mb-4">🍽️ Diet & Inflammation</h3>
-        <p class="text-gray-300">What you eat drives inflammation up or down. Load up on greens, omega-3s, and gut-friendly whole foods. Cut the crap — sugar, deep fried stuff, and foods that bloat or spike you. Trial gluten/dairy/nightshade elimination if needed. Hydrate like it’s a job.</p>
-      </div>
+  <div class="section" id="stress">
+    <h2>Sleep & Stress Tools</h2>
+    <ul>
+      <li>Try 10 min of 4-7-8 breathing before bed.</li>
+      <li>Take magnesium glycinate or chamomile tea after dinner.</li>
+      <li>Use red light, meditation, or cold splash to activate vagus nerve.</li>
+    </ul>
+  </div>
 
-      <!-- SECTION 2 -->
-      <div id="movement" class="glass p-8 mb-10">
-        <h3 class="text-2xl font-bold mb-4">🦵 Movement & Rehab</h3>
-        <p class="text-gray-300">Move — but smart. Rehab is about loading without flaring. Avoid deep squats and long sitting. Strengthen quads, stretch hammies and IT band. Walk. Swim. Cycle gently. Don't push through sharp pain. Listen to the knee.</p>
-      </div>
+  <div class="section" id="track">
+    <h2>Interactive Recovery Tracker</h2>
+    <form class="tracker-form">
+      <label for="pain">Pain Level (0–10):</label>
+      <input type="range" id="pain" name="pain" min="0" max="10" />
 
-      <!-- SECTION 3 -->
-      <div id="stress" class="glass p-8 mb-10">
-        <h3 class="text-2xl font-bold mb-4">🧘 Sleep & Stress</h3>
-        <p class="text-gray-300">Inflammation isn’t just food — it’s your nervous system too. Prioritise sleep, cut back overstimulation, and use breathwork or cold exposure to calm the vagus nerve. Track your mood. Keep your body out of fight-or-flight where healing can happen.</p>
-      </div>
+      <label for="sleep">Sleep Hours:</label>
+      <input type="range" id="sleep" name="sleep" min="0" max="12" />
 
-      <!-- SECTION 4 -->
-      <div id="tools" class="glass p-8 mb-10">
-        <h3 class="text-2xl font-bold mb-4">🧊 Recovery Toolkit</h3>
-        <p class="text-gray-300">Your extras: magnesium, turmeric, collagen, epsom baths, red light therapy, massage, CBD cream. Trial one at a time. Use cold after movement, heat before. Find your rhythm — don’t throw everything at it at once. Track what helps.</p>
-      </div>
-    </div>
-  </section>
+      <label for="activity">Mobility/Exercise Done Today:</label>
+      <textarea id="activity" name="activity" rows="3" placeholder="e.g. Quad sets, 15-min walk, foam rolling"></textarea>
 
-  <!-- TRACKER -->
-  <section id="tracker" class="py-20 px-6 bg-[#0f172a]">
-    <div class="max-w-4xl mx-auto glass p-8">
-      <h2 class="text-3xl font-bold mb-6 text-center">🗓️ Daily Progress Tracker</h2>
-      <form class="grid gap-6 text-black">
+      <label for="diet">Noteworthy Foods:</label>
+      <textarea id="diet" name="diet" rows="2" placeholder="e.g. bone broth, turmeric tea, avoided dairy"></textarea>
 
-        <div>
-          <label class="block text-white mb-1">Pain Level (0–10):</label>
-          <input type="number" min="0" max="10" class="w-full p-3 rounded" />
-        </div>
+      <label for="stress">Mood / Stress Today:</label>
+      <select id="stress" name="stress">
+        <option value="calm">Calm</option>
+        <option value="ok">Okay</option>
+        <option value="anxious">Anxious</option>
+        <option value="frustrated">Frustrated</option>
+        <option value="hopeful">Hopeful</option>
+      </select>
 
-        <div>
-          <label class="block text-white mb-1">Sleep Quality:</label>
-          <select class="w-full p-3 rounded">
-            <option>Good</option>
-            <option>Okay</option>
-            <option>Poor</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-white mb-1">Movement Done:</label>
-          <input type="text" placeholder="e.g. Quad sets, walked 10 min" class="w-full p-3 rounded" />
-        </div>
-
-        <div>
-          <label class="block text-white mb-1">Supplements or Recovery Tools Used:</label>
-          <input type="text" class="w-full p-3 rounded" />
-        </div>
-
-        <div>
-          <label class="block text-white mb-1">Mood / Stress Level:</label>
-          <input type="text" placeholder="e.g. Calm, wired, tired" class="w-full p-3 rounded" />
-        </div>
-
-        <button type="submit" class="mt-4 bg-[#0071b6] text-white font-bold py-3 px-6 rounded hover:bg-blue-600 transition-all duration-200">Save Entry</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="py-20 px-6">
-    <div class="max-w-4xl mx-auto glass p-8">
-      <h2 class="text-3xl font-bold mb-6 text-center">📍 What Is a Plica?</h2>
-      <p class="text-gray-300 mb-6">A medial plica is a leftover fold in the inner knee. Most people never notice it. But when it thickens or gets irritated, it causes friction, catching, and pain — usually misdiagnosed as “patellofemoral pain” or “overuse.”</p>
-
-      <h3 class="text-2xl font-bold mb-2">Your MRI</h3>
-      <p class="text-gray-300">That black line on the scan? That’s the plica — and it shouldn’t be there. After 7.5 years, this is the first time someone spotted it. This changes the whole treatment approach.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="mt-auto text-center py-10 text-gray-400 text-sm">
-    <p>&copy; 2025 Plica Project. Not just in your head.</p>
-  </footer>
-
+      <label for="notes">Extra Notes or Triggers:</label>
+      <textarea id="notes" name="notes" rows="3"></textarea>
+    </form>
+  </div>
 </body>
 </html>
