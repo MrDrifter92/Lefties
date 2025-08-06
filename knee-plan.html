@@ -1,0 +1,828 @@
+import React, { useState, useEffect } from 'react';
+import { Home, BookOpen, Activity, Moon, FlaskConical, CalendarDays, CheckSquare, ChevronDown, ChevronUp, XCircle } from 'lucide-react';
+
+// Tailwind CSS is assumed to be available
+
+// Custom Tailwind-like colors for earthy tones
+const colors = {
+  'cream-light': '#FDFBF6',
+  'cream-medium': '#F5F0E1',
+  'wheat-light': '#EFEAD8',
+  'brown-dark': '#4A3728',
+  'brown-medium': '#6B5B4C',
+  'brown-light': '#A09287',
+  'accent-green': '#8B9A7B', // A subtle green for accent
+  'accent-gold': '#D4AF37', // A subtle gold for accent
+};
+
+// --- Structured Data for Interactive Sections ---
+
+const sectionsContent = {
+  home: `
+  # Functional Medicine Management Plan for Medial Plica Syndrome
+
+  Medial Plica Syndrome involves inflammation of a fold in the knee’s synovial lining, causing pain and irritation. A functional medicine approach addresses the whole person – reducing inflammation, supporting tissue healing, and preventing recurrence through diet, lifestyle, and mind-body strategies. Below is a comprehensive plan with clear recommendations in each area.
+
+  ---
+  `,
+  dietary: `
+  ## Dietary Recommendations (Anti-Inflammatory & Gut-Friendly)
+
+  Short-term and long-term dietary changes can calm inflammation in the knee and promote healing. Emphasize a nutrient-dense, anti-inflammatory diet while avoiding foods that trigger synovial irritation. Tailor the plan to individual needs (gluten-free, paleo, vegan) as needed.
+
+  ### Emphasize Anti-Inflammatory Whole Foods:
+  Center your meals on **vegetables, fruits, healthy fats, and lean proteins**. A Mediterranean-style diet (rich in omega-3 fatty acids, antioxidants, and fiber) can help curb inflammation and improve joint health. For example, eat plenty of leafy greens, berries, turmeric/ginger, nuts/seeds, and fatty fish like salmon or sardines. **Omega-3s** from fish oil or plant sources help lower inflammatory cytokines (like CRP and IL-6) and may protect joints. High-fiber plant foods (vegetables, fruits, whole grains) support a healthy weight and gut microbiome, both of which influence inflammation. Adequate protein (from pastured poultry, fish, legumes, or tofu) provides amino acids for tissue repair.
+
+  ### Include Joint-Supportive Nutrients:
+  Certain nutrients support collagen synthesis and cartilage repair in the knee. Ensure sufficient **vitamin C** (citrus, berries, bell peppers) for collagen formation and as an antioxidant. **Vitamin D and K** (e.g. from egg yolks, leafy greens, or supplements) support bone and joint health. **Collagen supplementation** is popular in functional medicine – hydrolyzed collagen peptides or gelatin (or bone broth) provide building blocks for cartilage. If you prefer not to use animal-derived collagen (e.g. if vegan), focus on plant proteins plus nutrients like silica, proline, and glycine (found in legumes, soy, cabbage, etc.) along with vitamin C to boost your body’s own collagen production. Omega-3 fatty acids (from fish, flaxseed, chia, walnuts) help resolve inflammation in joints and may ease knee discomfort over time.
+
+  ### Identify and Limit Pro-Inflammatory Foods:
+  Reduce or eliminate foods known to exacerbate inflammation in susceptible individuals. Key items to avoid or minimize include:
+  * **Refined sugars and high-glycemic carbs** – Excess sugar can trigger inflammatory pathways and contribute to weight gain, which strains the knee. Sweetened drinks, candies, pastries, and white bread can spike inflammation.
+  * **Processed and fried foods** – Trans fats and excess saturated fats in processed snacks, fast foods, and baked goods can promote inflammation.
+  * **Certain vegetable oils high in omega-6** (like corn, soybean, sunflower oil) – An excess (especially when not balanced with omega-3s) may produce pro-inflammatory chemicals.
+  * **Excessive salt** – Too much salt can worsen swelling by causing water retention.
+  * **Alcohol & smoking** – Alcohol in excess promotes inflammation and interferes with healing. Smoking delays tissue healing and increases inflammation.
+  * **Food sensitivities or allergens** – Consider an elimination diet if you suspect certain foods aggravate your symptoms. Common triggers can include gluten, dairy, or nightshade vegetables (tomatoes, potatoes, peppers) in some individuals.
+
+  ### Support Gut Health:
+  A healthy gut lining and microbiome can lower systemic inflammation. Incorporate **probiotic-rich foods** (yogurt, kefir, sauerkraut, kimchi, kombucha) or a high-quality probiotic supplement. Include plenty of **prebiotic fiber** (vegetables, garlic, onions, asparagus, oats, flaxseed) to “feed” beneficial gut bacteria. If you have any signs of leaky gut or food intolerances, a gut-healing protocol could be useful.
+
+  ### Maintain a Healthy Weight:
+  If you are above your ideal weight, gentle weight loss can significantly reduce pressure on the knees and lower inflammation. Even a 10% weight loss has been shown to improve knee pain and function in arthritis patients.
+
+  ### Hydration and Nutrient Timing:
+  Drink plenty of water throughout the day to support joint lubrication and metabolic waste removal. Herbal teas (ginger, turmeric, green tea) can provide additional anti-inflammatory benefits. Consider timing meals to allow good digestion – for example, a 12-hour overnight fast.
+
+  ### Dietary Customization:
+  The above principles can be adapted to virtually any dietary preference or requirement:
+  * **Gluten-Free:** Replace wheat products with gluten-free whole grains like quinoa, brown rice, buckwheat, or millet, or starchy veggies.
+  * **Paleo:** Focus on high-quality proteins (grass-fed meats, wild-caught fish) and plenty of vegetables and fruits.
+  * **Vegan/Plant-Based:** Emphasize legumes, tofu, tempeh, and quinoa for protein. Include ground flaxseed, chia seeds, and walnuts daily for omega-3 ALA fatty acids, and consider an algae-based DHA/EPA supplement.
+
+  ---
+  `,
+  lifestyle: `
+  ## Lifestyle & Movement Protocols (Safe Movement & Joint Protection)
+
+  Thoughtful lifestyle modifications can greatly reduce knee stress and prevent plica irritation. The keys are to keep the knee mobile but not overly strained, strengthen supporting muscles, and avoid positions or activities that inflame the plica.
+
+  ### Rest Acutely, Then Move Gently:
+  In the initial phase of a plica flare-up, short-term rest (avoiding painful activities) is important. After a couple of days, begin gentle, pain-free movements to maintain circulation. Avoid keeping the knee bent (flexed) for long periods – extended sitting or kneeling can irritate the plica.
+
+  ### Targeted Rehabilitation Exercises:
+  A physical therapist-guided exercise program is extremely beneficial. Focus on strengthening the **quadriceps** (especially the medial quads) and improving flexibility in surrounding muscles. Incorporate **hamstring stretches** and **iliotibial (IT) band stretches** daily. Glute and hip strengthening (bridges, clamshells, hip abductions) are also advised.
+
+  ### Low-Impact Aerobic Activity:
+  Stay active with joint-friendly cardio. Excellent options include **swimming or water aerobics**, cycling on a stationary bike (low resistance, high seat), or using an elliptical machine. Walking on flat, even surfaces is good if it doesn’t provoke pain.
+
+  ### Gradual Load Management:
+  Increase your activity volume and intensity slowly over weeks. Listen to your knee’s signals: mild soreness after a new activity is okay, but sharp pain or swelling means you did too much.
+
+  ### Footwear and Orthotics:
+  Choose **supportive footwear** with good arch support and cushioning. Consider using **orthotic insoles** to correct any abnormal foot mechanics. Some individuals benefit from a knee brace or sleeve during activity.
+
+  ### Optimize Sitting and Kneeling Posture:
+  Avoid prolonged kneeling or deep knee bends. When sitting, try not to keep your knees bent more than ~90° for long stretches. Periodically extend your leg straight or do gentle heel slides.
+
+  ### Avoid High-Risk Movements (Temporarily):
+  Identify any motions that reliably trigger your knee pain and modify or avoid them. Common triggers include deep squats, lunges, climbing many stairs, running downhill, or twisting/pivoting on the knee.
+
+  ---
+  `,
+  sleepStress: `
+  ## Sleep and Stress Management (Systemic Inflammation Reduction)
+
+  Quality sleep and stress regulation are often overlooked factors in musculoskeletal healing. Poor sleep and chronic stress can increase systemic inflammation levels and slow tissue repair.
+
+  ### Prioritize Consistent, Restorative Sleep:
+  Aim for **7–9 hours of sleep per night**. Establish a regular sleep schedule. Create a calming pre-bed routine – dim lights, limit blue-light screens, gentle stretching. Ensure your sleep environment is cool, dark, and quiet.
+
+  ### Evening Supplements or Teas for Sleep:
+  Consider **magnesium** in the evening (magnesium glycinate or citrate, 200-400mg). A warm Epsom salt bath before bed delivers magnesium through the skin. Herbal teas like chamomile, valerian, or passionflower can promote relaxation.
+
+  ### Stress Reduction & Vagus Nerve Activation:
+  Practice daily stress-management techniques that engage the parasympathetic nervous system.
+  * **Deep Diaphragmatic Breathing:** Spend at least 5–10 minutes a day doing slow, deep breathing exercises.
+  * **Meditation and Mindfulness:** Engage in mindfulness meditation, even 10 minutes daily.
+  * **Yoga, Tai Chi, or Qi Gong:** These mind-body exercises combine gentle movement with breath control.
+  * **Vagal Nerve “Hacks”:** Humming or singing, gargling with water, or a brief cold splash on the face.
+  * **HRV Biofeedback:** Use a heart rate variability monitor to gauge stress and guide breathing practice.
+
+  ### Emotional Well-Being and Pain Perception:
+  Address the mental/emotional side of chronic pain. Engage in activities that boost your mood and relaxation response. Seek social support or consider working with a therapist if stress or mood struggles are significant.
+
+  ---
+  `,
+  recoveryToolkit: `
+  ## Recovery Toolkit (Adjunct Therapies & Supplements)
+
+  Beyond diet, exercise, and stress control, an array of supportive therapies and natural supplements can further reduce inflammation, relieve pain, and promote tissue repair.
+
+  ### Cold Therapy (Cryotherapy):
+  Apply an **ice pack** to the inner knee area for 15 mins, 2-3x/day during acute flare-ups or after activity. Reduces swelling and numbs pain.
+
+  ### Heat Therapy (Thermotherapy):
+  Once initial inflammation is down, a warm compress or heating pad on the knee for 15-20 minutes can increase blood flow and reduce stiffness.
+
+  ### Topical Therapies (Arnica, Menthol, Capsaicin, CBD):
+  Apply creams or gels for local relief. Arnica for swelling, menthol/camphor for cooling/warming, capsaicin for pain signals, CBD for pain/inflammation.
+
+  ### Magnesium & Essential Nutrients:
+  Ensure adequate **magnesium** intake (diet or supplements, ~300-400 mg glycinate). Also ensure sufficient potassium, calcium, vitamin C, and zinc for muscle function, nerve health, and tissue repair.
+
+  ### Collagen & Gelatin:
+  Take **hydrolyzed collagen peptides** (5-10g/day) or consume bone broth. Provides amino acids for cartilage and synovial lining repair. Take with Vitamin C.
+
+  ### Turmeric (Curcumin) & Herbal Anti-inflammatories:
+  **Curcumin extract** (active ingredient in turmeric) is a powerful anti-inflammatory. Look for formulations with black pepper extract (piperine) for enhanced bioavailability. Other herbs: Boswellia serrata, Ginger, and Ashwagandha.
+
+  ### Red Light Therapy (Photobiomodulation):
+  Low-level laser or LED light therapy (red ~660nm, infrared ~830nm). Increases cellular energy, activates anti-inflammatory and tissue-repair processes. Use daily for 5-20 mins.
+
+  ### Acupuncture:
+  Integrative therapy for knee pain. Releases endorphins, improves blood flow, reduces pain and inflammation.
+
+  ### Acupressure/Massage:
+  Gentle massage around the knee and thigh to improve lymphatic drainage and relax muscle tension. Foam rolling quads/hips can also help.
+
+  ### TENS Unit:
+  Transcutaneous Electrical Nerve Stimulation sends mild electrical pulses to scramble pain signals. Use for 20 mins when pain is bad.
+
+  ### Guided Imagery/Hypnotherapy:
+  Mental techniques to visualize healing or pain melting away, redirecting neural pathways to reduce pain perception.
+
+  ---
+  `,
+};
+
+const dietaryData = {
+  emphasizeFoods: [
+    { name: 'Leafy Greens', benefits: 'Rich in antioxidants, vitamins C, E, K, and folate; supports detoxification and reduces inflammation.' },
+    { name: 'Berries', benefits: 'High in antioxidants (anthocyanins) that combat oxidative stress and inflammation.' },
+    { name: 'Turmeric & Ginger', benefits: 'Potent anti-inflammatory spices; curcumin (in turmeric) and gingerols (in ginger) block inflammatory pathways.' },
+    { name: 'Nuts & Seeds', benefits: 'Good source of healthy fats (omega-3s in flax/chia), fiber, and magnesium; supports cardiovascular and joint health.' },
+    { name: 'Fatty Fish (Salmon, Sardines)', benefits: 'Excellent source of EPA and DHA omega-3 fatty acids, crucial for resolving inflammation.' },
+    { name: 'Healthy Fats (Olive, Avocado Oil)', benefits: 'Monounsaturated fats reduce inflammation and support nutrient absorption.' },
+    { name: 'Whole Grains (Quinoa, Brown Rice)', benefits: 'High in fiber, supporting gut health and stable blood sugar, which indirectly reduces inflammation.' },
+    { name: 'Pastured Poultry, Fish, Legumes, Tofu', benefits: 'Provides essential amino acids for tissue repair and collagen synthesis.' },
+    { name: 'Citrus Fruits, Bell Peppers', benefits: 'Rich in Vitamin C, vital for collagen formation and as a powerful antioxidant.' },
+    { name: 'Egg Yolks', benefits: 'Source of Vitamin D and K, important for bone and joint health.' },
+    { name: 'Bone Broth/Hydrolyzed Collagen', benefits: 'Provides building blocks (amino acids) for cartilage and synovial lining repair.' },
+    { name: 'Probiotic-rich Foods (Kefir, Sauerkraut)', benefits: 'Supports a healthy gut microbiome, which produces anti-inflammatory compounds.' },
+    { name: 'Prebiotic Fiber (Garlic, Onions, Asparagus)', benefits: 'Feeds beneficial gut bacteria, promoting a balanced microbiome and reduced systemic inflammation.' },
+  ],
+  avoidFoods: [
+    { name: 'Refined Sugars & High-Glycemic Carbs', reason: 'Trigger inflammatory pathways, contribute to weight gain, and can spike blood sugar, exacerbating inflammation.' },
+    { name: 'Processed & Fried Foods', reason: 'Often contain trans fats and excess saturated fats, promoting systemic inflammation and oxidative stress.' },
+    { name: 'Excess Omega-6 Vegetable Oils (Corn, Soybean)', reason: 'An imbalance with omega-3s can lead to the production of pro-inflammatory chemicals.' },
+    { name: 'Excessive Salt', reason: 'Can worsen swelling by causing water retention and contribute to systemic inflammation.' },
+    { name: 'Excess Alcohol & Smoking', reason: 'Alcohol in excess promotes inflammation and interferes with healing. Smoking severely delays tissue repair and increases inflammation.' },
+    { name: 'Common Food Sensitivities (Gluten, Dairy, Nightshades)', reason: 'May aggravate symptoms in susceptible individuals by triggering immune responses and inflammation. Consider an elimination diet to identify personal triggers.' },
+  ],
+};
+
+const lifestyleData = {
+  rehabExercises: [
+    { name: 'Straight-Leg Raises', instructions: 'Lie on your back, keep one leg straight and lift it slowly a few inches off the ground, hold, then lower. Focus on engaging the quad.' },
+    { name: 'Mini-Squats (if tolerated)', instructions: 'Stand with feet shoulder-width apart, slowly bend knees slightly (no deeper than 30 degrees) as if sitting in a chair, then return. Keep knees aligned over ankles.' },
+    { name: 'Resistance Band Leg Extensions', instructions: 'Sit on a chair, loop a resistance band around your ankle and the chair leg, slowly extend your knee against resistance. Focus on the medial quad.' },
+    { name: 'Hamstring Stretches (Foam Roller)', instructions: 'Sit on the floor with a foam roller under your thigh. Slowly straighten your knee over the roller and hold a gentle stretch for 1-2 minutes.' },
+    { name: 'IT Band Stretches', instructions: 'Cross one leg behind the other, lean away from the front leg, feeling a stretch along the outside of the thigh. Hold for 30 seconds per side.' },
+    { name: 'Glute Bridges', instructions: 'Lie on your back with knees bent, feet flat. Lift your hips off the floor until your body forms a straight line from shoulders to knees. Squeeze glutes at the top.' },
+    { name: 'Clamshells', instructions: 'Lie on your side, knees bent, feet together. Keeping feet together, lift your top knee towards the ceiling like a clamshell opening. Focus on hip abduction.' },
+  ],
+  lowImpactActivities: [
+    { name: 'Swimming/Water Aerobics', benefits: 'Allows full range of motion with minimal weight-bearing, reducing stress on the knee.' },
+    { name: 'Stationary Cycling', benefits: 'Low resistance, ensures seat is high enough to avoid deep knee flexion, good for circulation.' },
+    { name: 'Elliptical Machine', benefits: 'Provides a cardio workout with less impact than running, smooth motion.' },
+    { name: 'Walking on Flat, Even Surfaces', benefits: 'Gentle cardio, start with short durations and gradually increase. Avoid hills initially.' },
+  ],
+  highRiskMovementsToAvoid: [
+    { name: 'Deep Squats & Lunges', reason: 'Can put excessive pressure on the plica and kneecap. Modify to partial squats within pain-free range.' },
+    { name: 'Climbing Many Stairs (especially steep ones)', reason: 'Increases load on the knee. Use elevators or ramps when knee is flared.' },
+    { name: 'Running Downhill', reason: 'High impact and eccentric loading can aggravate the plica. Avoid until fully recovered.' },
+    { name: 'Twisting/Pivoting on the Knee', reason: 'Sudden directional changes in sports can irritate the plica. Practice controlled movements with proper form.' },
+    { name: 'Prolonged Kneeling or Deep Knee Bends', reason: 'Sustained flexion can irritate the plica. Use kneeling pads or stools for chores.' },
+    { name: 'Sustained Flexed Sitting Postures', reason: 'Avoid keeping knees bent more than ~90° for long periods. Periodically extend legs.' },
+  ],
+};
+
+const recoveryToolkitData = {
+  therapies: [
+    { name: 'Cold Therapy (Cryotherapy)', description: 'Apply ice pack to inner knee for 15 mins, 2-3x/day during acute flare-ups or after activity. Reduces swelling and numbs pain.' },
+    { name: 'Heat Therapy (Thermotherapy)', description: 'Apply warm compress/heating pad for 15-20 mins once initial inflammation is down. Increases blood flow, soothes stiffness, good pre-exercise.' },
+    { name: 'Topical Therapies (Arnica, Menthol, Capsaicin, CBD)', description: 'Apply creams or gels for local relief. Arnica for swelling, menthol/camphor for cooling/warming, capsaicin for pain signals, CBD for pain/inflammation.' },
+    { name: 'Magnesium & Essential Nutrients', description: 'Ensure adequate magnesium (300-400mg glycinate), potassium, calcium, vitamin C, and zinc for muscle function, nerve health, and tissue repair.' },
+    { name: 'Collagen & Gelatin', description: 'Take hydrolyzed collagen peptides (5-10g/day) or consume bone broth. Provides amino acids for cartilage and synovial lining repair. Take with Vitamin C.' },
+    { name: 'Turmeric (Curcumin) & Herbal Anti-inflammatories', description: 'Curcumin extract (500mg 2x/day with piperine for absorption) is a potent anti-inflammatory. Other herbs: Boswellia serrata, Ginger, Ashwagandha.' },
+    { name: 'Red Light Therapy (Photobiomodulation)', description: 'Low-level laser or LED light therapy (red ~660nm, infrared ~830nm). Increases cellular energy, activates anti-inflammatory and tissue-repair processes. Use daily for 5-20 mins.' },
+    { name: 'Acupuncture', description: 'Integrative therapy for knee pain. Releases endorphins, improves blood flow, reduces pain and inflammation.' },
+    { name: 'Acupressure/Massage', description: 'Gentle massage around the knee and thigh to improve lymphatic drainage and relax muscle tension. Foam rolling quads/hips can also help.' },
+    { name: 'TENS Unit', description: 'Transcutaneous Electrical Nerve Stimulation sends mild electrical pulses to scramble pain signals. Use for 20 mins when pain is bad.' },
+    { name: 'Guided Imagery/Hypnotherapy', description: 'Mental techniques to visualize healing or pain melting away, redirecting neural pathways to reduce pain perception.' },
+  ],
+};
+
+const clinicalChecklistItems = [
+  { id: 'pt_referral', text: 'Consult with a Physical Therapist for a personalized exercise program.' },
+  { id: 'nutritionist_consult', text: 'Consider consulting a Functional Medicine Nutritionist for dietary customization.' },
+  { id: 'orthopedic_review', text: 'Follow up with an Orthopedic Specialist if symptoms persist or worsen.' },
+  { id: 'imaging_review', text: 'Review any necessary imaging (MRI, X-ray) with your doctor.' },
+  { id: 'medication_review', text: 'Discuss current medications and potential interactions with supplements with your doctor.' },
+  { id: 'sleep_study', text: 'If severe sleep issues, consider a sleep study.' },
+  { id: 'stress_therapy', text: 'If chronic stress/anxiety is significant, explore therapy (e.g., CBT).' },
+  { id: 'blood_tests', text: 'Consider blood tests for inflammatory markers (CRP, ESR), Vitamin D, B12, Magnesium levels.' },
+  { id: 'gut_health_testing', text: 'If digestive issues, explore gut health testing (e.g., stool analysis).' },
+  { id: 'brace_fitting', text: 'If recommended, get fitted for a supportive knee brace or orthotics.' },
+];
+
+// --- Components ---
+
+const Section = ({ title, content }) => {
+  return (
+    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+      <h2 className="text-3xl font-bold text-brown-dark mb-4">{title}</h2>
+      <div
+        className="prose prose-lg max-w-none text-brown-medium leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: content }}
+      ></div>
+    </div>
+  );
+};
+
+const CollapsibleListItem = ({ item, type }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-brown-light/30 pb-2 mb-2 last:border-b-0 last:pb-0 last:mb-0">
+      <button
+        className="flex justify-between items-center w-full text-left py-2 text-brown-dark font-semibold text-lg hover:text-brown-medium transition-colors duration-200"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{item.name}</span>
+        {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+      </button>
+      {isOpen && (
+        <p className="text-brown-medium text-sm mt-1 pb-2">
+          {type === 'emphasize' ? item.benefits : item.reason || item.description || item.instructions}
+        </p>
+      )}
+    </div>
+  );
+};
+
+const InteractiveList = ({ title, items, type }) => {
+  return (
+    <div className="mb-8 p-6 bg-cream-light rounded-lg shadow-inner border border-brown-light/30">
+      <h3 className="text-2xl font-semibold text-brown-dark mb-4">{title}</h3>
+      <div className="space-y-2">
+        {items.map((item, index) => (
+          <CollapsibleListItem key={index} item={item} type={type} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ClinicalChecklist = () => {
+  const [checkedItems, setCheckedItems] = useState(() => {
+    const storedChecked = localStorage.getItem('clinicalChecklist');
+    return storedChecked ? JSON.parse(storedChecked) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('clinicalChecklist', JSON.stringify(checkedItems));
+  }, [checkedItems]);
+
+  const handleCheck = (id) => {
+    setCheckedItems(prev => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  return (
+    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+      <h2 className="text-3xl font-bold text-brown-dark mb-4">Clinical Checklist</h2>
+      <p className="text-brown-medium mb-6">
+        Track important clinical actions and consultations related to your management plan.
+      </p>
+      <div className="space-y-4">
+        {clinicalChecklistItems.map((item) => (
+          <label key={item.id} className="flex items-start cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={!!checkedItems[item.id]}
+              onChange={() => handleCheck(item.id)}
+              className="form-checkbox h-6 w-6 text-accent-green rounded-md border-brown-light focus:ring-accent-green transition-colors duration-200 mr-3 mt-0.5"
+            />
+            <span className={`text-lg text-brown-medium group-hover:text-brown-dark transition-colors duration-200 ${checkedItems[item.id] ? 'line-through text-brown-light' : ''}`}>
+              {item.text}
+            </span>
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+const ProgressTracker = () => {
+  const [dailyEntries, setDailyEntries] = useState([]);
+  const [currentEntry, setCurrentEntry] = useState({
+    date: new Date().toISOString().split('T')[0],
+    painLevel: 5,
+    symptoms: '',
+    activity: '',
+    diet: '',
+    sleepHours: 7,
+    sleepQuality: 'good',
+    stressLevel: 3,
+    mood: 'neutral',
+    flareTriggers: '',
+  });
+
+  useEffect(() => {
+    // Load entries from localStorage on component mount
+    const storedEntries = localStorage.getItem('plicaTrackerEntries');
+    if (storedEntries) {
+      setDailyEntries(JSON.parse(storedEntries));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save entries to localStorage whenever they change
+    localStorage.setItem('plicaTrackerEntries', JSON.stringify(dailyEntries));
+  }, [dailyEntries]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentEntry({ ...currentEntry, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setDailyEntries([...dailyEntries, { ...currentEntry, id: Date.now() }]);
+    setCurrentEntry({
+      date: new Date().toISOString().split('T')[0],
+      painLevel: 5,
+      symptoms: '',
+      activity: '',
+      diet: '',
+      sleepHours: 7,
+      sleepQuality: 'good',
+      stressLevel: 3,
+      mood: 'neutral',
+      flareTriggers: '',
+    });
+  };
+
+  const handleDelete = (id) => {
+    setDailyEntries(dailyEntries.filter(entry => entry.id !== id));
+  };
+
+  // Sort entries by date, newest first
+  const sortedEntries = [...dailyEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  return (
+    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+      <h2 className="text-3xl font-bold text-brown-dark mb-4">Progress Tracker</h2>
+      <p className="text-brown-medium mb-6">
+        Keep a daily log to identify patterns, understand triggers, and celebrate your progress.
+      </p>
+
+      {/* Daily Log Form */}
+      <div className="mb-8 p-6 bg-cream-light rounded-lg shadow-inner border border-brown-light/30">
+        <h3 className="text-2xl font-semibold text-brown-dark mb-4">Daily Log</h3>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="date" className="block text-brown-medium text-sm font-bold mb-1">Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={currentEntry.date}
+              onChange={handleChange}
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="painLevel" className="block text-brown-medium text-sm font-bold mb-1">Pain Level (0-10)</label>
+            <input
+              type="range"
+              id="painLevel"
+              name="painLevel"
+              min="0"
+              max="10"
+              value={currentEntry.painLevel}
+              onChange={handleChange}
+              className="w-full h-2 bg-wheat-light rounded-lg appearance-none cursor-pointer accent-brown-medium"
+            />
+            <span className="text-brown-medium text-sm">{currentEntry.painLevel} / 10</span>
+          </div>
+          <div className="md:col-span-2">
+            <label htmlFor="symptoms" className="block text-brown-medium text-sm font-bold mb-1">Symptoms/Signs (e.g., swelling, stiffness, clicking)</label>
+            <textarea
+              id="symptoms"
+              name="symptoms"
+              value={currentEntry.symptoms}
+              onChange={handleChange}
+              rows="3"
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            ></textarea>
+          </div>
+          <div className="md:col-span-2">
+            <label htmlFor="activity" className="block text-brown-medium text-sm font-bold mb-1">Physical Activity & Mobility Work (e.g., walked 20 min, did quad sets)</label>
+            <textarea
+              id="activity"
+              name="activity"
+              value={currentEntry.activity}
+              onChange={handleChange}
+              rows="3"
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            ></textarea>
+          </div>
+          <div className="md:col-span-2">
+            <label htmlFor="diet" className="block text-brown-medium text-sm font-bold mb-1">Diet and Hydration (e.g., anti-inflammatory meal, ate out, 8 glasses water)</label>
+            <textarea
+              id="diet"
+              name="diet"
+              value={currentEntry.diet}
+              onChange={handleChange}
+              rows="3"
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="sleepHours" className="block text-brown-medium text-sm font-bold mb-1">Sleep Hours</label>
+            <input
+              type="number"
+              id="sleepHours"
+              name="sleepHours"
+              value={currentEntry.sleepHours}
+              onChange={handleChange}
+              min="0"
+              max="12"
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label htmlFor="sleepQuality" className="block text-brown-medium text-sm font-bold mb-1">Sleep Quality</label>
+            <select
+              id="sleepQuality"
+              name="sleepQuality"
+              value={currentEntry.sleepQuality}
+              onChange={handleChange}
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            >
+              <option value="poor">Poor</option>
+              <option value="fair">Fair</option>
+              <option value="good">Good</option>
+              <option value="excellent">Excellent</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="stressLevel" className="block text-brown-medium text-sm font-bold mb-1">Stress Level (1-5)</label>
+            <input
+              type="range"
+              id="stressLevel"
+              name="stressLevel"
+              min="1"
+              max="5"
+              value={currentEntry.stressLevel}
+              onChange={handleChange}
+              className="w-full h-2 bg-wheat-light rounded-lg appearance-none cursor-pointer accent-brown-medium"
+            />
+            <span className="text-brown-medium text-sm">{currentEntry.stressLevel} / 5</span>
+          </div>
+          <div>
+            <label htmlFor="mood" className="block text-brown-medium text-sm font-bold mb-1">Mood</label>
+            <input
+              type="text"
+              id="mood"
+              name="mood"
+              value={currentEntry.mood}
+              onChange={handleChange}
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            />
+          </div>
+          <div className="md:col-span-2">
+            <label htmlFor="flareTriggers" className="block text-brown-medium text-sm font-bold mb-1">Any Flare Triggers or Notable Events</label>
+            <textarea
+              id="flareTriggers"
+              name="flareTriggers"
+              value={currentEntry.flareTriggers}
+              onChange={handleChange}
+              rows="3"
+              className="w-full p-2 border border-brown-light rounded-md bg-white text-brown-dark focus:ring-2 focus:ring-wheat-light focus:border-transparent"
+            ></textarea>
+          </div>
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full bg-brown-medium text-white py-3 px-6 rounded-lg font-semibold hover:bg-brown-dark transition-colors duration-300 shadow-md"
+            >
+              Log Daily Entry
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* Past Entries Display */}
+      <h3 className="text-2xl font-semibold text-brown-dark mb-4">Past Entries</h3>
+      {sortedEntries.length === 0 ? (
+        <p className="text-brown-medium italic">No entries logged yet. Start tracking your progress!</p>
+      ) : (
+        <div className="space-y-4">
+          {sortedEntries.map((entry) => (
+            <div key={entry.id} className="p-4 bg-cream-light rounded-lg shadow-sm border border-brown-light/20 relative">
+              <button
+                onClick={() => handleDelete(entry.id)}
+                className="absolute top-2 right-2 text-brown-light hover:text-red-600 transition-colors"
+                title="Delete entry"
+              >
+                <XCircle size={20} />
+              </button>
+              <p className="text-brown-dark font-bold text-lg mb-2">Date: {entry.date}</p>
+              <p className="text-brown-medium"><strong>Pain Level:</strong> {entry.painLevel}/10</p>
+              {entry.symptoms && <p className="text-brown-medium"><strong>Symptoms:</strong> {entry.symptoms}</p>}
+              {entry.activity && <p className="text-brown-medium"><strong>Activity:</strong> {entry.activity}</p>}
+              {entry.diet && <p className="text-brown-medium"><strong>Diet:</strong> {entry.diet}</p>}
+              <p className="text-brown-medium"><strong>Sleep:</strong> {entry.sleepHours} hours ({entry.sleepQuality})</p>
+              <p className="text-brown-medium"><strong>Stress:</strong> {entry.stressLevel}/5</p>
+              {entry.mood && <p className="text-brown-medium"><strong>Mood:</strong> {entry.mood}</p>}
+              {entry.flareTriggers && <p className="text-brown-medium"><strong>Triggers/Events:</strong> {entry.flareTriggers}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Weekly Review placeholder */}
+      <div className="mt-8 p-6 bg-cream-light rounded-lg shadow-inner border border-brown-light/30">
+        <h3 className="text-2xl font-semibold text-brown-dark mb-4">Weekly Review (Manual)</h3>
+        <p className="text-brown-medium">
+          At the end of each week, review your daily logs above to identify trends, triggers, and what's working.
+          Consider these questions:
+        </p>
+        <ul className="list-disc list-inside text-brown-medium space-y-2 mt-2">
+          <li>What was your average pain level this week compared to last?</li>
+          <li>Did you identify any possible triggers for pain flares or improvements?</li>
+          <li>What interventions seemed to work best or not work?</li>
+          <li>What adjustments will you make and what are your goals for next week?</li>
+          <li>How do you feel emotionally about your progress?</li>
+        </ul>
+        <p className="text-brown-medium mt-4">
+          This section is for your personal reflection based on the data you've logged daily.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+function App() {
+  const [activeSection, setActiveSection] = useState('home');
+
+  const navigateTo = (section) => {
+    setActiveSection(section);
+  };
+
+  const renderSectionContent = () => {
+    switch (activeSection) {
+      case 'home':
+        return <Section title="Functional Medicine Management Plan" content={sectionsContent.home} />;
+      case 'dietary':
+        return (
+          <div className="flex flex-col gap-6">
+            <InteractiveList title="Foods to Emphasize (Anti-Inflammatory)" items={dietaryData.emphasizeFoods} type="emphasize" />
+            <InteractiveList title="Foods to Limit or Avoid (Pro-Inflammatory)" items={dietaryData.avoidFoods} type="avoid" />
+            {/* The original content for dietary was split, render the rest here */}
+            <Section title="Dietary Recommendations (Continued)" content={sectionsContent.dietary.split('---')[1] || ''} />
+          </div>
+        );
+      case 'lifestyle':
+        return (
+          <div className="flex flex-col gap-6">
+            <InteractiveList title="Targeted Rehabilitation Exercises" items={lifestyleData.rehabExercises} type="exercise" />
+            <InteractiveList title="Low-Impact Aerobic Activities" items={lifestyleData.lowImpactActivities} type="activity" />
+            <InteractiveList title="High-Risk Movements to Avoid (Temporarily)" items={lifestyleData.highRiskMovementsToAvoid} type="avoid" />
+            {/* The original content for lifestyle was split, render the rest here */}
+            <Section title="Lifestyle & Movement Protocols (Continued)" content={sectionsContent.lifestyle.split('---')[1] || ''} />
+          </div>
+        );
+      case 'sleepStress':
+        return <Section title="Sleep and Stress Management" content={sectionsContent.sleepStress} />;
+      case 'recoveryToolkit':
+        return (
+          <div className="flex flex-col gap-6">
+            <InteractiveList title="Recovery Toolkit (Adjunct Therapies & Supplements)" items={recoveryToolkitData.therapies} type="therapy" />
+            {/* The original content for recoveryToolkit was split, render the rest here */}
+            <Section title="Recovery Toolkit (Continued)" content={sectionsContent.recoveryToolkit.split('---')[1] || ''} />
+          </div>
+        );
+      case 'progressTracker':
+        return <ProgressTracker />;
+      case 'clinicalChecklist':
+        return <ClinicalChecklist />;
+      default:
+        return <Section title="Functional Medicine Management Plan" content={sectionsContent.home} />;
+    }
+  };
+
+  // User-provided video URL
+  const backgroundVideoUrl = "https://github.com/MrDrifter92/Lefties/blob/621d10230786cac5e380475c35eb65e1be8ce346/20250806_2005_Serene%20Garden%20Harvest_storyboard_01k1zdg01zekmtepcx4gxg1gnz.mp4?raw=true";
+
+  return (
+    <div className="min-h-screen font-inter relative overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={backgroundVideoUrl} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Video Overlay for Shading */}
+      <div className="absolute inset-0 w-full h-full bg-brown-dark opacity-70 z-10"></div>
+
+      {/* Global Styles */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+        .prose h1 {
+          font-size: 2.5rem;
+          color: ${colors['brown-dark']};
+          margin-bottom: 1rem;
+        }
+        .prose h2 {
+          font-size: 2rem;
+          color: ${colors['brown-dark']};
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+        }
+        .prose h3 {
+          font-size: 1.5rem;
+          color: ${colors['brown-dark']};
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
+        }
+        .prose p {
+          margin-bottom: 1rem;
+          color: ${colors['brown-medium']};
+        }
+        .prose ul {
+          list-style-type: disc;
+          margin-left: 1.5rem;
+          margin-bottom: 1rem;
+          color: ${colors['brown-medium']};
+        }
+        .prose ol {
+          list-style-type: decimal;
+          margin-left: 1.5rem;
+          margin-bottom: 1rem;
+          color: ${colors['brown-medium']};
+        }
+        .prose strong {
+          color: ${colors['brown-dark']};
+        }
+        .prose hr {
+            border-top: 1px solid ${colors['brown-light']};
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        /* Custom range slider thumb style */
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: ${colors['brown-medium']};
+          cursor: pointer;
+          border: 2px solid ${colors['wheat-light']};
+          box-shadow: 0 0 0 2px ${colors['brown-medium']};
+        }
+        input[type="range"]::-moz-range-thumb {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: ${colors['brown-medium']};
+          cursor: pointer;
+          border: 2px solid ${colors['wheat-light']};
+          box-shadow: 0 0 0 2px ${colors['brown-medium']};
+        }
+      `}</style>
+
+      {/* Main Container */}
+      <div className="relative z-20 flex flex-col items-center p-4 md:p-8">
+        <div className="w-full max-w-screen-xl flex flex-col lg:flex-row gap-6">
+          {/* Sidebar Navigation */}
+          <nav className="lg:w-1/4 p-4 md:p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 lg:h-fit lg:sticky lg:top-8">
+            <h1 className="text-2xl font-bold text-brown-dark mb-6 text-center lg:text-left">Plica Plan</h1>
+            <ul className="space-y-3">
+              <li>
+                <button
+                  onClick={() => navigateTo('home')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'home'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <Home size={20} className="mr-3" /> Home
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('dietary')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'dietary'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <BookOpen size={20} className="mr-3" /> Dietary
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('lifestyle')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'lifestyle'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <Activity size={20} className="mr-3" /> Lifestyle
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('sleepStress')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'sleepStress'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <Moon size={20} className="mr-3" /> Sleep & Stress
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('recoveryToolkit')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'recoveryToolkit'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <FlaskConical size={20} className="mr-3" /> Recovery Toolkit
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('progressTracker')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'progressTracker'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <CalendarDays size={20} className="mr-3" /> Progress Tracker
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => navigateTo('clinicalChecklist')}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                    activeSection === 'clinicalChecklist'
+                      ? 'bg-wheat-light text-brown-dark shadow-md'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                  }`}
+                >
+                  <CheckSquare size={20} className="mr-3" /> Clinical Checklist
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Content Area */}
+          <main className="lg:w-3/4 flex flex-col">
+            {renderSectionContent()}
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
