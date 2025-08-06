@@ -1,9 +1,412 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-    <title>ADHD Information</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ADHD Assessment Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Re-use the CSS variables for colors to ensure easy global changes. */
+        :root {
+            --primary-pink: #FF69B4; /* Hot Pink */
+            --light-pink-glow: rgba(255, 105, 180, 0.6); /* Hot Pink with opacity for glow */
+            --dark-bg: #0D1117;
+            --mid-dark-bg: #161B22;
+            --light-text: #e5e7eb;
+        }
+
+        body {
+            /* Always use Nunito from Google Fonts and apply it to the body. */
+            font-family: 'Nunito', sans-serif;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            /* Ensure no unwanted horizontal scrolling. */
+            overflow-x: hidden;
+            position: relative; /* Needed for video background positioning */
+            min-height: 100vh; /* Ensure body takes full height for video */
+        }
+
+        /* Video Background Styles */
+        .video-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Place behind other content */
+        }
+
+        .video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the entire container */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the video */
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Adjusted background to be more opaque and blend better */
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.9) 0%, rgba(13, 17, 23, 0.5) 50%, rgba(13, 17, 23, 0.9) 100%);
+            backdrop-filter: blur(8px); /* Added a blur to the overlay itself for a glassier feel */
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 0; /* Above video, below content */
+        }
+
+        /* Core deep-glass styling */
+        .deep-glass {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            box-shadow: 0 0 25px var(--light-pink-glow), inset 0 2px 2px rgba(255, 255, 255, 0.07), inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Shine animation for deep-glass elements */
+        .deep-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: shine 6s infinite linear;
+            animation-delay: var(--shine-delay, 0s);
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+
+        /* Glass button styling */
+        .glass-button {
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.6), rgba(200, 80, 140, 0.8)); /* Pink gradient */
+            border: 1px solid rgba(255, 105, 180, 0.3); /* Pink border */
+            border-radius: 9999px;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15); /* Pink glow */
+            transition: all 0.3s ease;
+            padding: 0.75rem 2rem;
+            display: inline-block;
+        }
+        
+        .glass-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 30px 5px var(--light-pink-glow); /* Stronger pink glow */
+            background: linear-gradient(145deg, rgba(255, 120, 200, 0.7), rgba(220, 95, 160, 0.9)); /* Brighter pink gradient on hover */
+        }
+
+        /* Mobile menu hamburger icon styles */
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 2rem;
+            height: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .hamburger-icon span {
+            height: 2px;
+            width: 100%;
+            background: #fff;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger-icon.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-icon.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu overlay styles */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 90;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .mobile-menu-overlay[data-state="open"] {
+            transform: translateX(0);
+        }
+        
+        /* Interactive Glossary/Tooltip Styles */
+        .glossary-term {
+            cursor: help;
+            border-bottom: 1px dotted var(--primary-pink); /* Pink dotted border */
+            color: var(--primary-pink); /* Pink text color */
+            font-weight: 700;
+            position: relative;
+            display: inline;
+        }
+
+        .glossary-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 50;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            padding: 1rem;
+            white-space: normal;
+            width: 250px;
+            transition: visibility 0s, opacity 0.3s ease, transform 0.3s ease;
+        }
+        .glossary-term:hover .glossary-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
 </head>
-<body>
-    <h1>ADHD</h1>
-    <p>Takes Biktarvy daily for HIV (undiagnosed until 2016)</p>
+<body class="antialiased">
+
+    <!-- Video Background Container -->
+    <div class="video-background-container">
+        <video autoplay loop muted playsinline class="video-background">
+            <source src="https://github.com/MrDrifter92/Lefties/blob/93f889caec28d5f61026552604f1e996e1c591f7/20250726_0101_Cozy%20Concert%20Vibes_storyboard_01k111n4njekv85xhesx7efrjf.mp4?raw=true" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header (Copied from index.html blueprint) -->
+    <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4 p-4 flex justify-between items-center">
+        <a href="/" class="flex-shrink-0">
+            <img src="lefties-adhd.png" alt="Lefties ADHD Logo" class="h-16 w-auto">
+        </a>
+        <nav class="hidden md:flex flex-row space-x-8 font-bold">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Services</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+        </nav>
+        <a href="#" class="glass-button hidden md:inline-block">Get Started</a>
+
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110]">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+    </header>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <nav class="flex flex-col items-center space-y-8 font-bold text-3xl">
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Services</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+            <a href="#" class="glass-button px-8 py-4 text-xl inline-block">Get Started</a>
+        </nav>
+    </div>
+
+    <main class="pt-32 relative z-10">
+        <section class="bg-dark-bg py-20 bg-opacity-70">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl font-black text-pink-400 mb-8"> ADHD Assessment Tracking situation station</h1>
+                <p class="text-lg text-gray-300">This page contains a summary of Adam Kim Farrelly's initial ADHD assessment session. DONATE NOW by transferring him money, its that simple - dont be so selfish ya slut.</p>
+            </div>
+        </section>
+
+        <section class="bg-mid-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-pink-200 mb-6">🧠 Initial ADHD Assessment – Session Summary</h2>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0s;">
+                    <ul class="space-y-4 text-gray-400">
+                        <li><strong>Client Name:</strong> Adam Kim Farrelly</li>
+                        <li><strong>Date of Session:</strong> 6 August 2025</li>
+                        <li><strong>Clinician:</strong> [Psychologist’s name – if known]</li>
+                        <li><strong>Session Type:</strong> Initial ADHD assessment interview</li>
+                        <li><strong>Duration:</strong> 90 minutes (approx.)</li>
+                        <li><strong>Location:</strong> Telehealth (inferred)</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-3xl font-bold mb-4">⚡️ Presenting Issue</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.2s;">
+                    <p class="text-gray-400 mb-4">Adam presented seeking assessment for Attention Deficit Hyperactivity Disorder (ADHD), following long-term life patterns characterised by high energy, impulsivity, inconsistent <span class="glossary-term">executive functioning<span class="glossary-tooltip deep-glass">The set of mental skills that include working memory, flexible thinking, and self-control. They are crucial for managing daily life and tasks.</span></span>, emotional intensity, and difficulty maintaining stability in work, relationships, and routine. He expressed ambivalence about seeking a label in a culture where ADHD feels “everywhere,” but also reported a strong internal sense that ADHD may be the core issue he’s struggled with across his life.</p>
+                    <p class="text-gray-400 mb-2">Adam reported:</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-400">
+                        <li>Difficulty sustaining success over time despite bursts of high performance.</li>
+                        <li>Cyclical experiences of <span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> followed by burnout, drop-off, and self-sabotage.</li>
+                        <li>Ongoing issues with memory, <span class="glossary-term">time blindness<span class="glossary-tooltip deep-glass">An inability to accurately perceive or estimate the passage of time, making it difficult to plan or be on time.</span></span>, impulsivity, <span class="glossary-term">rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span>, and emotional regulation.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-3xl font-bold mb-4">📖 Background & Psychosocial History</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.4s;">
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Family</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
+                        <li>Grew up in a highly functional, stable family unit in South Australia (Clare Valley), later relocating to Queensland.</li>
+                        <li>Described a secure attachment with both parents, though noted his mother’s career drive created a feeling of emotional distance at times.</li>
+                        <li>His father was described as loving but highly structured and potentially neurodivergent himself (suspected traits of ADHD or OCD).</li>
+                        <li>Strong, longstanding friendships with a small number of people; highly connected but reports feeling isolated often.</li>
+                    </ul>
+                    
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Education</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
+                        <li>Changed schools multiple times throughout primary and high school due to behavioural issues, social difficulties, and emotional overwhelm.</li>
+                        <li>Recalled frequent suspensions, difficulty focusing, high verbal and creative skills but poor academic performance in math and written tasks.</li>
+                        <li>Noted early interventions including a teacher aide who remained in his life across schooling.</li>
+                        <li>Left school mid-Year 10 with significant school refusal behaviours (e.g. pretending to go to school, hiding at home).</li>
+                        <li>No official learning disability diagnosis on record, but ADHD suspected by several prior clinicians.</li>
+                    </ul>
+
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Work History</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li>Extensive background in operations and leadership roles in aged care. Excelled when in control of systems and allowed autonomy.</li>
+                        <li>Repeatedly lost jobs or voluntarily exited due to inconsistency, burnout, emotional crash, or interpersonal challenges.</li>
+                        <li>Noted a pattern of excelling in project-based work and then struggling with ongoing maintenance, follow-through, or expectations of consistency.</li>
+                        <li>Recently started relaunching his own business (Lefties Carpet Cleaning) with strong drive and <span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> but reports burnout quickly follows.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold mb-4">🧠 Mental Health History</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.6s;">
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Diagnoses (suspected or confirmed)</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
+                        <li><strong><span class="glossary-term">BPD<span class="glossary-tooltip deep-glass">Borderline Personality Disorder is a mental health condition characterized by unstable moods, behavior, and relationships.</span></span> (Borderline Personality Disorder):</strong> Previously suggested by a psychiatrist during an acute period but rejected by Adam as a primary diagnosis. Notes that while he presents with some BPD-style traits (emotional intensity, rejection sensitivity), these have lessened with self-awareness and growth.</li>
+                        <li><strong>Depression:</strong> Recurrent depressive episodes throughout life, especially tied to failure or perceived loss of autonomy. Denies baseline depression.</li>
+                        <li><strong>ADHD (suspected):</strong> Symptoms throughout life, now being formally explored.</li>
+                        <li><strong>Trauma history:</strong> Significant trauma acknowledged, including a sexual assault in 2016 (confirmed by written confession from perpetrator in 2021), which triggered an intense period of depression, <span class="glossary-term">suicidal ideation<span class="glossary-tooltip deep-glass">Thinking about, considering, or planning suicide. It is a serious mental health symptom.</span></span>, and substance abuse.</li>
+                    </ul>
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Treatment</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
+                        <li>Two rounds of residential rehab in 2023 (therapeutic community model, CBT-focused).</li>
+                        <li>Various psychologists (EAP and private), though struggled to find someone he “clicked” with.</li>
+                        <li>Engaged in extensive self-work, <span class="glossary-term">schema therapy<span class="glossary-tooltip deep-glass">A therapeutic approach that helps individuals understand and change long-standing negative patterns of thinking, feeling, and behaving.</span></span> tools, spirituality, and EMDR.</li>
+                        <li>Strong personal insight and internal strategies developed over the years.</li>
+                    </ul>
+                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Medications</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li>History of unsuccessful trials on SSRIs (Lovan, Zoloft, others).</li>
+                        <li>Brief trial of lithium in 2021; poorly tolerated, no improvement.</li>
+                        <li>Currently not taking psychiatric medications.</li>
+                        <li>Takes <span class="glossary-term">Biktarvy<span class="glossary-tooltip deep-glass">A prescription medicine used to treat HIV-1 in adults and pediatric patients weighing at least 25 kg.</span></span> daily for HIV (undiagnosed until 2021), with excellent treatment adherence and undetectable viral load.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-mid-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold mb-4">💊 Substance Use History</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.8s;">
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li>Daily alcohol use since adolescence (3–6 beers most nights; reduced from younger years).</li>
+                        <li>Past history of heavy stimulant use (ice, cocaine, MDMA); primarily binge-driven and linked to periods of trauma and instability.</li>
+                        <li>No ongoing use of recreational drugs; rare social marijuana use.</li>
+                        <li>Describes stimulants as giving him the “shut-off” he lacked naturally, especially during ADHD-related overwhelm.</li>
+                        <li>Describes some psychosis during drug use but no history of organic psychotic disorders.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-3xl font-bold mb-4">🧩 Functioning Overview</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 1s;">
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li><strong>Sleep:</strong> No current major concerns; tends to crash well when he does sleep, though lack of routine is common.</li>
+                        <li><strong>Diet/nutrition:</strong> Not detailed in session, but has high caffeine intake (4–5 shots in a coffee daily).</li>
+                        <li><strong>Work:</strong> High-functioning during creative/<span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> periods; collapses under repetitive or executive load.</li>
+                        <li><strong>Social:</strong> Strong connections with chosen family and friends; avoids small talk, finds one-on-one interactions with family awkward and emotionally overwhelming.</li>
+                        <li><strong>Romantic:</strong> Never had a committed romantic relationship; describes deep emotional attachments to unattainable individuals and intense <span class="glossary-term">rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span>.</li>
+                        <li><strong>Self-care/awareness:</strong> Exceptionally high insight into behaviour, triggers, and patterns. Uses <span class="glossary-term">schema therapy<span class="glossary-tooltip deep-glass">A therapeutic approach that helps individuals understand and change long-standing negative patterns of thinking, feeling, and behaving.</span></span> tools regularly. Has reframed trauma into a personal transformation narrative. Deeply spiritual and reflective.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-3xl font-bold mb-4">💡 Key Themes / Psychological Patterns</h3>
+                <div class="deep-glass p-8 mb-8" style="--shine-delay: 1.2s;">
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li><span class="glossary-term">Rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span> & masking: Present throughout life, especially around family and authority figures.</li>
+                        <li>Self-sabotage cycles: Noted pattern of success > crash > self-punishment > retreat.</li>
+                        <li>High verbal intellect, low academic follow-through: Classic ADHD pattern in gifted but unsupported kids.</li>
+                        <li>Emotion regulation: Strong emotional memory, intensity, and occasional <span class="glossary-term">suicidal ideation<span class="glossary-tooltip deep-glass">Thinking about, considering, or planning suicide. It is a serious mental health symptom.</span></span> under pressure. Never followed through on ideation; sees it as a signpost of distress, not a desire to die.</li>
+                        <li>Burnout and performance inconsistency: Particularly in structured jobs with <span class="glossary-term">executive demands<span class="glossary-tooltip deep-glass">The mental processes required to manage complex tasks, including planning, organization, and self-control.</span></span>.</li>
+                        <li>Unfinished projects, perfectionism, and grandiosity: Recognises a tendency toward big ideas, followed by boredom or abandonment once the creative phase ends.</li>
+                    </ul>
+                </div>
+                
+                <h3 class="text-3xl font-bold mb-4">🧭 Next Steps (as discussed)</h3>
+                <div class="deep-glass p-8" style="--shine-delay: 1.4s;">
+                    <ul class="list-disc list-inside space-y-2 text-gray-400">
+                        <li>Completion of additional ADHD screening questionnaires</li>
+                        <li>Informant reports from mother and sister</li>
+                        <li>Schedule follow-up appointment for 27 August at 1:00pm</li>
+                        <li>Consider psychiatrist referral through clinician for medication management if ADHD diagnosis is confirmed</li>
+                        <li>Continue ongoing self-monitoring, emotional regulation tools, and keep tracking mood/activity where possible</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black py-8">
+        <div class="container mx-auto px-6 text-center">
+            <img src="lefties-adhd.png" alt="Lefties ADHD Logo" class="h-16 w-auto mx-auto opacity-50 mb-4">
+            <p class="text-gray-400">&copy; 2025 Lefties. All rights reserved.</p>
+            <p class="text-gray-600 mt-2">Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const hamburgerIcon = mobileMenuButton.querySelector('.hamburger-icon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = mobileMenuOverlay.getAttribute('data-state') === 'open';
+            if (isOpen) {
+                mobileMenuOverlay.setAttribute('data-state', 'closed');
+                hamburgerIcon.classList.remove('open');
+            } else {
+                mobileMenuOverlay.setAttribute('data-state', 'open');
+                hamburgerIcon.classList.add('open');
+            }
+        });
+    </script>
 </body>
 </html>
