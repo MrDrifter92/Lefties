@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stain Treatment | Lefties Carpet Cleaning</title>
+  <meta name="description" content="Expert stain removal services in Hervey Bay. We tackle tough spots on carpets and upholstery with professional, safe solutions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Variables from the Design Blueprint */
+    :root {
+      --primary-blue: #0071B6;
+      --light-blue-glow: rgba(0, 140, 255, 0.6); /* Used for deep-glass glow */
+      --dark-bg: #0D1117; /* Primary background color */
+      --mid-dark-bg: #161B22; /* Alternating section background */
+      --light-text: #e5e7eb; /* Default text color */
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+    .text-lift {
+        text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
+    }
+    /* Ensure images within sections are responsive */
+    .service-img {
+        width: 100%;
+        height: auto;
+        border-radius: 0.75rem; /* rounded-xl */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    }
+    /* Mobile menu hamburger icon styles (copied for consistency) */
+    .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2rem;
+        height: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+    }
+
+    .hamburger-icon span {
+        height: 2px;
+        width: 100%;
+        background: #fff;
+        border-radius: 9999px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-icon.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-icon.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-icon.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile menu overlay styles (copied for consistency) */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.95); /* Using bg-dark with opacity */
+        backdrop-filter: blur(10px);
+        z-index: 90;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .mobile-menu-overlay[data-state="open"] {
+        transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
+    <nav class="glass-panel flex justify-between items-center p-4 relative" style="min-height: 100px;">
+      <!-- Desktop Navigation (Left) -->
+      <div class="hidden md:flex space-x-6 font-bold flex-1">
+        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
+      </div>
+
+      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
+      </a>
+
+      <!-- Mobile Menu Button (Right) -->
+      <div class="flex-1 flex justify-end">
+        <button id="menu-btn" class="block md:hidden focus:outline-none">
+          <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="flex justify-between items-center px-4 pt-4">
+      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
+      <button id="close-menu">
+        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-10 space-y-6 text-center text-xl font-bold">
+      <a href="services.html" class="block">All Services</a>
+      <a href="upholstery-cleaning.html" class="block">Upholstery & Lounge Cleaning</a>
+      <a href="carpet-service.html" class="block">Carpet Cleaning</a>
+      <a href="stain-treatment.html" class="block">Woopsie Daisy Stains</a>
+      <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
+      <a href="#" class="block">Commercial</a>
+      <a href="#" class="block">Our Work</a>
+      <a href="#" class="block">Tips & Tricks</a>
+      <a href="index.html#quote" class="inline-block mt-6 bg-[var(--primary-blue)] text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">Get a Quote</a>
+    </div>
+  </div>
+
+  <main class="container mx-auto px-4 py-12 space-y-12">
+    <section class="glass-panel p-8 md:p-12 text-center">
+      <h1 class="text-5xl font-black text-white mb-4 text-lift">Woopsie Daisy Stains</h1>
+      <p class="text-lg md:text-xl max-w-3xl mx-auto">Life happens, and so do spills! At Lefties Carpet Cleaning, we understand that accidents are inevitable. Our specialized stain treatment services are designed to tackle those "uh-ohs" on your carpets and upholstery, from everyday spills to more challenging marks. We use professional-grade solutions and techniques to identify, classify, and treat a wide variety of stains, aiming to restore your surfaces to their best possible condition.</p>
+    </section>
+
+    <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
+      <img src="Spot-stain.png" alt="Lefties stain removal" class="service-img">
+      <div>
+        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
+        <ul class="list-disc list-inside space-y-2 text-lg">
+          <li><strong>Stain ID and classification:</strong> The first crucial step is to accurately identify the type of stain and the fabric it's on. Different stains (e.g., protein-based, oil-based, dye-based) require specific treatments. Our experts classify the stain to ensure the most effective and safe removal method is chosen.</li>
+          <li><strong>Spot-specific solutions:</strong> Once identified, we apply professional-grade, spot-specific solutions directly to the affected area. These solutions are formulated to break down the stain at a molecular level without damaging the underlying fibers or colors of your carpet or upholstery.</li>
+          <li><strong>Gentle agitation and dwell time:</strong> The solution is gently agitated into the stain to help it penetrate and work effectively. We allow an appropriate dwell time for the solution to react with the stain, maximizing its lifting power before extraction.</li>
+          <li><strong>Controlled extraction and rinsing:</strong> After the solution has worked its magic, we carefully extract the stain and the cleaning solution using specialized equipment. This ensures that no residue is left behind, which could otherwise attract dirt or cause re-soiling. The area is then rinsed to neutralize any remaining product.</li>
+          <li><strong>Post-treatment and protection (optional):</strong> For certain types of stains or fabrics, we may apply post-treatment solutions to further enhance removal or prevent future re-appearance. We also offer optional protective coatings to create a barrier against future spills, making them easier to clean up.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="glass-panel p-6 md:p-12">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
+      <ul class="space-y-3 text-lg">
+        <li><strong>Local, not a franchise:</strong> We are a locally owned and operated business, not a large franchise. This means we dedicate more time and personalized attention to each job, focusing on delivering superior results rather than rushing through appointments. Our commitment is to quality, not quantity.</li>
+        <li><strong>Ethical operators:</strong> Transparency and honesty are at the core of our service. If we assess a job and determine that we cannot achieve the desired results or if it falls outside our expertise, we will ethically refer you to a trusted professional who can better meet your needs. We believe in no-nonsense, straightforward advice.</li>
+        <li><strong>Child and pet-safe:</strong> Your family's well-being is our priority. All the products we use are professional-grade, non-toxic and completely residue-free once dry. This ensures a safe environment for your children and pets immediately after the cleaning process.</li>
+        <li><strong>Best paired with a full clean:</strong> While we offer standalone spot treatment, for optimal results and overall freshness, we often recommend pairing stain treatment with a full carpet or upholstery clean. This ensures a uniform appearance and addresses any underlying dirt or odors.</li>
+      </ul>
+    </section>
+
+    <section class="glass-panel p-6 md:p-12">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
+      <p class="text-lg">For individual spot treatments, the drying time is typically very fast, often within **1 to 2 hours**, depending on the size of the treated area and the fabric type. If the stain treatment is part of a larger carpet or upholstery cleaning service, the overall drying time will align with that service, usually **4 to 6 hours**. We always ensure proper ventilation to accelerate the drying process.</p>
+    </section>
+
+    <section class="glass-panel p-6 md:p-12">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Need to know</h2>
+      <ul class="space-y-3 text-lg">
+        <li><strong>We’re fully insured,</strong> police-checked and Blue Card accredited: For your complete peace of mind, Lefties Carpet Cleaning is fully insured, ensuring protection against unforeseen circumstances. All our team members are thoroughly police-checked and hold valid Blue Cards, demonstrating our commitment to safety and trustworthiness, especially when working in homes with children.</li>
+        <li><strong>WoolSafe compatible products</strong> used on delicate fabrics: We understand the importance of caring for delicate materials. That's why we exclusively use WoolSafe compatible products when cleaning sensitive fabrics like wool, ensuring they are treated gently and effectively without damage.</li>
+        <li><strong>No promises on impossible stains,</strong> but we’ll tell you upfront what can and can’t be done: While we strive for the best possible results, some stains may be permanent depending on their age, type, and the fabric. We maintain full transparency; we will always assess the stain upfront and provide an honest appraisal of what can and cannot be achieved, managing your expectations clearly.</li>
+      </ul>
+    </section>
+
+    <!-- Stain Treatment Gallery Section -->
+    <section class="glass-panel p-6 md:p-12">
+        <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Stain Treatment Gallery</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Photo Placeholders (10 of them) -->
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery01.png" alt="Stain Treatment Gallery Image 1" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery02.png" alt="Stain Treatment Gallery Image 2" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery03.png" alt="Stain Treatment Gallery Image 3" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery04.png" alt="Stain Treatment Gallery Image 4" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery05.png" alt="Stain Treatment Gallery Image 5" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery06.png" alt="Stain Treatment Gallery Image 6" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery07.png" alt="Stain Treatment Gallery Image 7" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery08.png" alt="Stain Treatment Gallery Image 8" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery09.png" alt="Stain Treatment Gallery Image 9" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="s-gallery10.png" alt="Stain Treatment Gallery Image 10" class="rounded-lg w-full h-auto object-cover">
+            </div>
+        </div>
+    </section>
+    <!-- End Stain Treatment Gallery Section -->
+
+    <section class="text-center">
+      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
+        Book Now
+      </a>
+    </section>
+  </main>
+
+  <footer class="text-center py-8 text-gray-400">
+    <p>&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
+    <p class="text-sm mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('menu-btn');
+    const close = document.getElementById('close-menu');
+    const menu = document.getElementById('mobile-menu-overlay');
+
+    btn.addEventListener('click', () => {
+      menu.setAttribute('data-state', 'open');
+      btn.querySelector('.hamburger-icon').classList.add('open');
+    });
+
+    close.addEventListener('click', () => {
+      menu.setAttribute('data-state', 'closed');
+      btn.querySelector('.hamburger-icon').classList.remove('open');
+    });
+  </script>
+</body>
+</html>
