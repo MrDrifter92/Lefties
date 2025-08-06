@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plica Project – Not Just Knee Pain</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      color: #fff;
+    }
+    .glass {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+    }
+    .hero-text-shadow {
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="relative h-screen flex items-center justify-center text-center px-6">
+    <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('YOUR-MRI-IMAGE.jpg');"></div>
+    <div class="z-10 glass p-8 max-w-2xl">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 hero-text-shadow">It Wasn’t in Your Head.</h1>
+      <p class="text-xl md:text-2xl mb-6 hero-text-shadow">That black line on the scan? It’s called a plica. And it changes everything.</p>
+      <a href="#plan" class="inline-block bg-[#0071b6] hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-200">Scroll to Plan</a>
+    </div>
+  </section>
+
+  <!-- THE PLAN -->
+  <section id="plan" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center">Your Functional Recovery Plan</h2>
+
+      <!-- SECTION 1 -->
+      <div id="diet" class="glass p-8 mb-10">
+        <h3 class="text-2xl font-bold mb-4">🍽️ Diet & Inflammation</h3>
+        <p class="text-gray-300">What you eat drives inflammation up or down. Load up on greens, omega-3s, and gut-friendly whole foods. Cut the crap — sugar, deep fried stuff, and foods that bloat or spike you. Trial gluten/dairy/nightshade elimination if needed. Hydrate like it’s a job.</p>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div id="movement" class="glass p-8 mb-10">
+        <h3 class="text-2xl font-bold mb-4">🦵 Movement & Rehab</h3>
+        <p class="text-gray-300">Move — but smart. Rehab is about loading without flaring. Avoid deep squats and long sitting. Strengthen quads, stretch hammies and IT band. Walk. Swim. Cycle gently. Don't push through sharp pain. Listen to the knee.</p>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div id="stress" class="glass p-8 mb-10">
+        <h3 class="text-2xl font-bold mb-4">🧘 Sleep & Stress</h3>
+        <p class="text-gray-300">Inflammation isn’t just food — it’s your nervous system too. Prioritise sleep, cut back overstimulation, and use breathwork or cold exposure to calm the vagus nerve. Track your mood. Keep your body out of fight-or-flight where healing can happen.</p>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div id="tools" class="glass p-8 mb-10">
+        <h3 class="text-2xl font-bold mb-4">🧊 Recovery Toolkit</h3>
+        <p class="text-gray-300">Your extras: magnesium, turmeric, collagen, epsom baths, red light therapy, massage, CBD cream. Trial one at a time. Use cold after movement, heat before. Find your rhythm — don’t throw everything at it at once. Track what helps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="tracker" class="py-20 px-6 bg-[#0f172a]">
+    <div class="max-w-4xl mx-auto glass p-8">
+      <h2 class="text-3xl font-bold mb-6 text-center">🗓️ Daily Progress Tracker</h2>
+      <form class="grid gap-6 text-black">
+
+        <div>
+          <label class="block text-white mb-1">Pain Level (0–10):</label>
+          <input type="number" min="0" max="10" class="w-full p-3 rounded" />
+        </div>
+
+        <div>
+          <label class="block text-white mb-1">Sleep Quality:</label>
+          <select class="w-full p-3 rounded">
+            <option>Good</option>
+            <option>Okay</option>
+            <option>Poor</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-white mb-1">Movement Done:</label>
+          <input type="text" placeholder="e.g. Quad sets, walked 10 min" class="w-full p-3 rounded" />
+        </div>
+
+        <div>
+          <label class="block text-white mb-1">Supplements or Recovery Tools Used:</label>
+          <input type="text" class="w-full p-3 rounded" />
+        </div>
+
+        <div>
+          <label class="block text-white mb-1">Mood / Stress Level:</label>
+          <input type="text" placeholder="e.g. Calm, wired, tired" class="w-full p-3 rounded" />
+        </div>
+
+        <button type="submit" class="mt-4 bg-[#0071b6] text-white font-bold py-3 px-6 rounded hover:bg-blue-600 transition-all duration-200">Save Entry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-4xl mx-auto glass p-8">
+      <h2 class="text-3xl font-bold mb-6 text-center">📍 What Is a Plica?</h2>
+      <p class="text-gray-300 mb-6">A medial plica is a leftover fold in the inner knee. Most people never notice it. But when it thickens or gets irritated, it causes friction, catching, and pain — usually misdiagnosed as “patellofemoral pain” or “overuse.”</p>
+
+      <h3 class="text-2xl font-bold mb-2">Your MRI</h3>
+      <p class="text-gray-300">That black line on the scan? That’s the plica — and it shouldn’t be there. After 7.5 years, this is the first time someone spotted it. This changes the whole treatment approach.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto text-center py-10 text-gray-400 text-sm">
+    <p>&copy; 2025 Plica Project. Not just in your head.</p>
+  </footer>
+
+</body>
+</html>
