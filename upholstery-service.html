@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
+    /* CSS Variables from the provided services page snippet */
     :root {
       --primary-blue: #0071B6;
       --glass-glow: rgba(0, 113, 182, 0.3);
@@ -29,26 +30,40 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
     }
-    .overlay {
-      transition: transform 0.3s ease;
+    .text-lift {
+        text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
+    }
+    /* Ensure images within sections are responsive */
+    .service-img {
+        width: 100%;
+        height: auto;
+        border-radius: 0.75rem; /* rounded-xl */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
     }
   </style>
 </head>
 <body>
   <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
-    <nav class="glass-panel flex justify-between items-center p-4">
-      <a href="index.html" class="flex items-center space-x-3">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-12">
-      </a>
-      <div class="hidden md:flex space-x-6 font-bold">
+    <nav class="glass-panel flex justify-between items-center p-4 relative" style="min-height: 100px;">
+      <!-- Desktop Navigation (Left) -->
+      <div class="hidden md:flex space-x-6 font-bold flex-1">
         <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
         <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
       </div>
-      <button id="menu-btn" class="block md:hidden focus:outline-none">
-        <svg class="w-8 h-8 text-[var(--primary-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-      </button>
+
+      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
+      </a>
+
+      <!-- Mobile Menu Button (Right) -->
+      <div class="flex-1 flex justify-end">
+        <button id="menu-btn" class="block md:hidden focus:outline-none">
+          <svg class="w-8 h-8 text-[var(--primary-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -72,47 +87,86 @@
 
   <main class="container mx-auto px-4 py-12 space-y-12">
     <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl font-black text-white mb-4">Upholstery & Lounges</h1>
-      <p class="text-lg md:text-xl max-w-3xl mx-auto">We bring lounges back to life. Whether it’s fabric or leather, grubby arms or food-stained cushions — we deep clean, rinse properly, and leave it fresh.</p>
+      <h1 class="text-5xl font-black text-white mb-4 text-lift">Upholstery & Lounges</h1>
+      <p class="text-lg md:text-xl max-w-3xl mx-auto">We specialize in revitalizing your upholstery and lounges, bringing them back to their pristine condition. Whether your furniture is made of delicate fabric or durable leather, and regardless of whether it has grubby arms or food-stained cushions, we provide a deep clean. Our process ensures proper rinsing, leaving your upholstery fresh, hygienic, and looking its best.</p>
     </section>
 
     <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-      <img src="Upholstery-001.png" alt="Lefties lounge cleaning" class="rounded-xl shadow-md">
+      <img src="Upholstery-001.png" alt="Lefties lounge cleaning" class="service-img">
       <div>
-        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)]">What’s in the process?</h2>
+        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
         <ul class="list-disc list-inside space-y-2 text-lg">
-          <li>Pre-check of fabric type (we clean natural & synthetic safely)</li>
-          <li>Vacuum and prep to remove hair, grit, and surface grime</li>
-          <li>Low-moisture pre-spray to soften oils, sweat, and stains</li>
-          <li>Rinsed via hot water extraction or safe low-moisture method</li>
-          <li>Drying pass to reduce moisture — ready within hours</li>
+          <li><strong>Pre-check of fabric type (we clean natural & synthetic safely):</strong> Before we begin, our experts meticulously identify your upholstery's fabric type. This crucial step allows us to select the safest and most effective cleaning methods, ensuring that both natural and synthetic materials are treated with the utmost care and precision.</li>
+          <li><strong>Vacuum and prep to remove hair, grit, and surface grime:</strong> We start with a thorough high-powered vacuuming to remove loose dirt, pet hair, dust, and other surface debris. This prepares the fabric for a deeper clean and prevents abrasive particles from being worked into the fibers during the cleaning process.</li>
+          <li><strong>Low-moisture pre-spray to soften oils, sweat, and stains:</strong> A specialized low-moisture pre-treatment solution is gently applied to the fabric. This solution is designed to break down and emulsify tough oils, sweat, and stubborn stains, making them easier to extract without oversaturating your upholstery.</li>
+          <li><strong>Rinsed via hot water extraction or safe low-moisture method:</strong> Depending on your fabric's specific needs, we employ either advanced hot water extraction for a deep rinse or a safe, low-moisture cleaning method. Both techniques are highly effective at flushing out dirt and cleaning solutions, leaving no sticky residue behind.</li>
+          <li><strong>Drying pass to reduce moisture; ready within hours:</strong> After cleaning, we perform a dedicated drying pass to significantly reduce moisture in the fabric. This accelerates the drying time, ensuring your upholstery is ready for use within just a few hours, minimizing inconvenience.</li>
         </ul>
       </div>
     </section>
 
     <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-4">What makes us different?</h2>
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
       <ul class="space-y-3 text-lg">
-        <li><strong>Local, not a franchise:</strong> We take the time to get it right — fewer jobs, better results.</li>
-        <li><strong>Ethical operators:</strong> If a job’s not right for us, we refer it on. No BS.</li>
-        <li><strong>Child and pet-safe:</strong> All products are professional-grade, non-toxic and residue-free once dry.</li>
-        <li><strong>Optional Add-ons:</strong> Odour removal, sanitiser, or protection coating available on request.</li>
+        <li><strong>Local, not a franchise:</strong> We are a locally owned and operated business, not a large franchise. This means we dedicate more time and personalized attention to each job, focusing on delivering superior results rather than rushing through appointments. Our commitment is to quality, not quantity.</li>
+        <li><strong>Ethical operators:</strong> Transparency and honesty are at the core of our service. If we assess a job and determine that we cannot achieve the desired results or if it falls outside our expertise, we will ethically refer you to a trusted professional who can better meet your needs. We believe in no-nonsense, straightforward advice.</li>
+        <li><strong>Child and pet-safe:</strong> Your family's well-being is our priority. All the products we use are professional-grade, non-toxic and completely residue-free once dry. This ensures a safe environment for your children and pets immediately after the cleaning process.</li>
+        <li><strong>Optional Add-ons:</strong> Enhance your cleaning experience with our optional add-ons. We offer effective odour removal treatments to neutralize lingering smells, sanitizers for an extra layer of hygiene, and protective coatings to guard against future spills and stains. These are available upon request to customize your service.</li>
       </ul>
     </section>
 
     <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-4">How long does it take to dry?</h2>
-      <p class="text-lg">Most upholstery is dry within <strong>4–6 hours</strong>. Leather and synthetic blends dry quicker. We’ll leave the windows open or pop the fan on to help.</p>
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
+      <p class="text-lg">Most upholstery is typically dry within <strong>4 to 6 hours</strong> after our cleaning process. Factors like fabric type can influence this; for instance, leather and synthetic blends often dry even quicker. To assist with rapid drying, we will ensure windows are open for ventilation or strategically place a fan to promote air circulation.</p>
     </section>
 
     <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-4">Need to know</h2>
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Need to know</h2>
       <ul class="space-y-3 text-lg">
-        <li><strong>We’re fully insured,</strong> police-checked and Blue Card accredited.</li>
-        <li><strong>WoolSafe compatible products</strong> used on delicate fabrics.</li>
-        <li><strong>No promises on impossible stains,</strong> but we’ll tell you upfront what can and can’t be done.</li>
+        <li><strong>We’re fully insured,</strong> police-checked and Blue Card accredited: For your complete peace of mind, Lefties Carpet Cleaning is fully insured, ensuring protection against unforeseen circumstances. All our team members are thoroughly police-checked and hold valid Blue Cards, demonstrating our commitment to safety and trustworthiness, especially when working in homes with children.</li>
+        <li><strong>WoolSafe compatible products</strong> used on delicate fabrics: We understand the importance of caring for delicate materials. That's why we exclusively use WoolSafe compatible products when cleaning sensitive fabrics like wool, ensuring they are treated gently and effectively without damage.</li>
+        <li><strong>No promises on impossible stains,</strong> but we’ll tell you upfront what can and can’t be done: While we strive for the best possible results, some stains may be permanent depending on their age, type, and the fabric. We maintain full transparency; we will always assess the stain upfront and provide an honest appraisal of what can and cannot be achieved, managing your expectations clearly.</li>
       </ul>
     </section>
+
+    <!-- New Gallery Section -->
+    <section class="glass-panel p-6 md:p-12">
+        <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Upholstery Cleaning Gallery</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Photo Placeholders (10 of them) -->
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery01.png" alt="Upholstery Cleaning Gallery Image 1" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery02.png" alt="Upholstery Cleaning Gallery Image 2" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery03.png" alt="Upholstery Cleaning Gallery Image 3" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery04.png" alt="Upholstery Cleaning Gallery Image 4" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery05.png" alt="Upholstery Cleaning Gallery Image 5" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery06.png" alt="Upholstery Cleaning Gallery Image 6" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery07.png" alt="Upholstery Cleaning Gallery Image 7" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery08.png" alt="Upholstery Cleaning Gallery Image 8" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery09.png" alt="Upholstery Cleaning Gallery Image 9" class="rounded-lg w-full h-auto object-cover">
+            </div>
+            <div class="glass-panel p-4 flex justify-center items-center">
+                <img src="u-gallery10.png" alt="Upholstery Cleaning Gallery Image 10" class="rounded-lg w-full h-auto object-cover">
+            </div>
+        </div>
+    </section>
+    <!-- End New Gallery Section -->
 
     <section class="text-center">
       <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
