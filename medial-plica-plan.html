@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medial Plica Syndrome Plan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-[#F5F0E1] flex flex-col items-center p-4">
+  <header class="w-full max-w-4xl p-4 bg-[#EFEAD8] rounded-lg shadow-md mb-6">
+    <h1 class="text-3xl font-bold text-[#4A3728]">Medial Plica Syndrome Plan</h1>
+    <p class="text-[#6B5B4C]">A comprehensive functional medicine approach for recovery and prevention.</p>
+  </header>
+
+  <nav class="flex flex-wrap justify-center mb-6 gap-4">
+    <button
+      class="section-btn px-4 py-2 rounded-md font-bold bg-[#A09287] text-[#4A3728] hover:bg-[#D4AF37]"
+      data-section="home">
+      Home
+    </button>
+    <button
+      class="section-btn px-4 py-2 rounded-md font-bold bg-[#A09287] text-[#4A3728] hover:bg-[#D4AF37]"
+      data-section="dietary">
+      Dietary
+    </button>
+    <button
+      class="section-btn px-4 py-2 rounded-md font-bold bg-[#A09287] text-[#4A3728] hover:bg-[#D4AF37]"
+      data-section="lifestyle">
+      Lifestyle
+    </button>
+    <button
+      class="section-btn px-4 py-2 rounded-md font-bold bg-[#A09287] text-[#4A3728] hover:bg-[#D4AF37]"
+      data-section="sleepStress">
+      Sleep & Stress
+    </button>
+    <button
+      class="section-btn px-4 py-2 rounded-md font-bold bg-[#A09287] text-[#4A3728] hover:bg-[#D4AF37]"
+      data-section="recoveryToolkit">
+      Recovery Toolkit
+    </button>
+  </nav>
+
+  <main id="content" class="w-full max-w-4xl prose bg-[#FDFBF6] text-[#4A3728] p-6 rounded-lg shadow-md">
+    <h1>Functional Medicine Management Plan for Medial Plica Syndrome</h1>
+    <p>Medial Plica Syndrome involves inflammation of a fold in the knee’s synovial lining, causing pain and irritation. A functional medicine approach addresses the whole person – reducing inflammation, supporting tissue healing, and preventing recurrence through diet, lifestyle, and mind-body strategies. Below is a comprehensive plan with clear recommendations in each area.</p>
+    <hr />
+  </main>
+
+  <script>
+    const sectionsContent = {
+      home: `
+      <h1>Functional Medicine Management Plan for Medial Plica Syndrome</h1>
+      <p>Medial Plica Syndrome involves inflammation of a fold in the knee’s synovial lining, causing pain and irritation. A functional medicine approach addresses the whole person – reducing inflammation, supporting tissue healing, and preventing recurrence through diet, lifestyle, and mind-body strategies. Below is a comprehensive plan with clear recommendations in each area.</p>
+      <hr />
+      `,
+      dietary: `
+      <h2>Dietary Recommendations (Anti-Inflammatory & Gut-Friendly)</h2>
+      <p>Short-term and long-term dietary changes can calm inflammation in the knee and promote healing. Emphasize a nutrient-dense, anti-inflammatory diet while avoiding foods that trigger synovial irritation. Tailor the plan to individual needs (gluten-free, paleo, vegan) as needed.</p>
+      <h3>Emphasize Anti-Inflammatory Whole Foods:</h3>
+      <p>Center your meals on <strong>vegetables, fruits, healthy fats, and lean proteins</strong>. A Mediterranean-style diet (rich in omega-3 fatty acids, antioxidants, and fiber) can help curb inflammation and improve joint health...</p>
+      <hr />
+      `,
+      lifestyle: `
+      <h2>Lifestyle & Movement Protocols (Safe Movement & Joint Protection)</h2>
+      <p>Thoughtful lifestyle modifications can greatly reduce knee stress and prevent plica irritation. The keys are to keep the knee mobile but not overly strained, strengthen supporting muscles, and avoid positions or activities that inflame the plica...</p>
+      <hr />
+      `,
+      sleepStress: `
+      <h2>Sleep and Stress Management (Systemic Inflammation Reduction)</h2>
+      <p>Quality sleep and stress regulation are often overlooked factors in musculoskeletal healing. Poor sleep and chronic stress can increase systemic inflammation levels and slow tissue repair...</p>
+      <hr />
+      `,
+      recoveryToolkit: `
+      <h2>Recovery Toolkit (Adjunct Therapies & Supplements)</h2>
+      <p>Beyond diet, exercise, and stress control, an array of supportive therapies and natural supplements can further reduce inflammation, relieve pain, and promote tissue repair...</p>
+      <hr />
+      `,
+    };
+
+    const buttons = document.querySelectorAll('.section-btn');
+    const content = document.getElementById('content');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const section = button.getAttribute('data-section');
+        content.innerHTML = sectionsContent[section];
+
+        buttons.forEach((btn) => btn.classList.remove('bg-[#8B9A7B]', 'text-[#FDFBF6]'));
+        button.classList.add('bg-[#8B9A7B]', 'text-[#FDFBF6]');
+      });
+    });
+  </script>
+</body>
+
+</html>
