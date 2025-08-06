@@ -13,6 +13,19 @@ const colors = {
   'brown-light': '#A09287',
   'accent-green': '#8B9A7B', // A subtle green for accent
   'accent-gold': '#D4AF37', // A subtle gold for accent
+  'overlay-dark': 'rgba(25, 20, 15, 0.8)', // Darker, more opaque overlay for video - ADJUSTED
+  'glass-bg-dark-start': 'rgba(74, 55, 40, 0.2)', // Dark brown for glass gradient start
+  'glass-bg-dark-end': 'rgba(25, 20, 15, 0.4)', // Very dark brown for glass gradient end
+  'glass-border-light': 'rgba(255, 255, 255, 0.15)', // Light border for glass elements
+  'glass-shadow-light': 'rgba(255, 255, 255, 0.07)', // Inner highlight for glass
+  'glass-shadow-dark': 'rgba(0, 0, 0, 0.2)', // Inner shadow for glass
+  'button-gradient-start': 'rgba(107, 91, 76, 0.8)', // Brown for button gradient start
+  'button-gradient-end': 'rgba(74, 55, 40, 0.9)', // Darker brown for button gradient end
+  'button-border': 'rgba(160, 146, 135, 0.3)', // Light brown border for button
+  'button-glow': 'rgba(160, 146, 135, 0.4)', // Brown glow for button
+  'text-shadow-dark': 'rgba(0,0,0,0.4)', // Text shadow for buttons
+  'title-glow-color': 'rgba(255, 255, 255, 0.7)', // White glow for contrast - NEW
+  'title-glow-color-subtle': 'rgba(255, 255, 255, 0.4)', // Subtler white glow - NEW
 };
 
 // --- Structured Data for Interactive Sections ---
@@ -40,9 +53,9 @@ const sectionsContent = {
   Reduce or eliminate foods known to exacerbate inflammation in susceptible individuals. Key items to avoid or minimize include:
   * **Refined sugars and high-glycemic carbs** – Excess sugar can trigger inflammatory pathways and contribute to weight gain, which strains the knee. Sweetened drinks, candies, pastries, and white bread can spike inflammation.
   * **Processed and fried foods** – Trans fats and excess saturated fats in processed snacks, fast foods, and baked goods can promote inflammation.
-  * **Certain vegetable oils high in omega-6** (like corn, soybean, sunflower oil) – An excess (especially when not balanced with omega-3s) may produce pro-inflammatory chemicals.
+  * **Certain vegetable oils high in omega-6** (like corn, soybean, sunflower oil) – An imbalance with omega-3s can lead to the production of pro-inflammatory chemicals.
   * **Excessive salt** – Too much salt can worsen swelling by causing water retention.
-  * **Alcohol & smoking** – Alcohol in excess promotes inflammation and interferes with healing. Smoking delays tissue healing and increases inflammation.
+  * **Alcohol & smoking** – Alcohol in excess promotes inflammation and interferes with healing. Smoking severely delays tissue repair and increases inflammation.
   * **Food sensitivities or allergens** – Consider an elimination diet if you suspect certain foods aggravate your symptoms. Common triggers can include gluten, dairy, or nightshade vegetables (tomatoes, potatoes, peppers) in some individuals.
 
   ### Support Gut Health:
@@ -129,13 +142,13 @@ const sectionsContent = {
   Apply creams or gels for local relief. Arnica for swelling, menthol/camphor for cooling/warming, capsaicin for pain signals, CBD for pain/inflammation.
 
   ### Magnesium & Essential Nutrients:
-  Ensure adequate **magnesium** intake (diet or supplements, ~300-400 mg glycinate). Also ensure sufficient potassium, calcium, vitamin C, and zinc for muscle function, nerve health, and tissue repair.
+  Ensure adequate **magnesium** intake (diet or supplements, ~300-400 mg glycinate), potassium, calcium, vitamin C, and zinc for muscle function, nerve health, and tissue repair.
 
   ### Collagen & Gelatin:
   Take **hydrolyzed collagen peptides** (5-10g/day) or consume bone broth. Provides amino acids for cartilage and synovial lining repair. Take with Vitamin C.
 
   ### Turmeric (Curcumin) & Herbal Anti-inflammatories:
-  **Curcumin extract** (active ingredient in turmeric) is a powerful anti-inflammatory. Look for formulations with black pepper extract (piperine) for enhanced bioavailability. Other herbs: Boswellia serrata, Ginger, and Ashwagandha.
+  **Curcumin extract** (500mg 2x/day with piperine for absorption) is a potent anti-inflammatory. Look for formulations with black pepper extract (piperine) for enhanced bioavailability. Other herbs: Boswellia serrata, Ginger, and Ashwagandha.
 
   ### Red Light Therapy (Photobiomodulation):
   Low-level laser or LED light therapy (red ~660nm, infrared ~830nm). Increases cellular energy, activates anti-inflammatory and tissue-repair processes. Use daily for 5-20 mins.
@@ -215,7 +228,7 @@ const recoveryToolkitData = {
     { name: 'Topical Therapies (Arnica, Menthol, Capsaicin, CBD)', description: 'Apply creams or gels for local relief. Arnica for swelling, menthol/camphor for cooling/warming, capsaicin for pain signals, CBD for pain/inflammation.' },
     { name: 'Magnesium & Essential Nutrients', description: 'Ensure adequate magnesium (300-400mg glycinate), potassium, calcium, vitamin C, and zinc for muscle function, nerve health, and tissue repair.' },
     { name: 'Collagen & Gelatin', description: 'Take hydrolyzed collagen peptides (5-10g/day) or consume bone broth. Provides amino acids for cartilage and synovial lining repair. Take with Vitamin C.' },
-    { name: 'Turmeric (Curcumin) & Herbal Anti-inflammatories', description: 'Curcumin extract (500mg 2x/day with piperine for absorption) is a potent anti-inflammatory. Other herbs: Boswellia serrata, Ginger, Ashwagandha.' },
+    { name: 'Turmeric (Curcumin) & Herbal Anti-inflammatories', description: 'Curcumin extract (500mg 2x/day with piperine for absorption) is a potent anti-inflammatory. Other herbs: Boswellia serrata, Ginger, and Ashwagandha.' },
     { name: 'Red Light Therapy (Photobiomodulation)', description: 'Low-level laser or LED light therapy (red ~660nm, infrared ~830nm). Increases cellular energy, activates anti-inflammatory and tissue-repair processes. Use daily for 5-20 mins.' },
     { name: 'Acupuncture', description: 'Integrative therapy for knee pain. Releases endorphins, improves blood flow, reduces pain and inflammation.' },
     { name: 'Acupressure/Massage', description: 'Gentle massage around the knee and thigh to improve lymphatic drainage and relax muscle tension. Foam rolling quads/hips can also help.' },
@@ -241,7 +254,7 @@ const clinicalChecklistItems = [
 
 const Section = ({ title, content }) => {
   return (
-    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+    <div className="p-6 md:p-8 glass-card flex-grow">
       <h2 className="text-3xl font-bold text-brown-dark mb-4">{title}</h2>
       <div
         className="prose prose-lg max-w-none text-brown-medium leading-relaxed"
@@ -303,7 +316,7 @@ const ClinicalChecklist = () => {
   };
 
   return (
-    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+    <div className="p-6 md:p-8 glass-card flex-grow">
       <h2 className="text-3xl font-bold text-brown-dark mb-4">Clinical Checklist</h2>
       <p className="text-brown-medium mb-6">
         Track important clinical actions and consultations related to your management plan.
@@ -386,7 +399,7 @@ const ProgressTracker = () => {
   const sortedEntries = [...dailyEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div className="p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 flex-grow">
+    <div className="p-6 md:p-8 glass-card flex-grow">
       <h2 className="text-3xl font-bold text-brown-dark mb-4">Progress Tracker</h2>
       <p className="text-brown-medium mb-6">
         Keep a daily log to identify patterns, understand triggers, and celebrate your progress.
@@ -631,8 +644,11 @@ function App() {
     }
   };
 
-  // User-provided video URL
-  const backgroundVideoUrl = "https://github.com/MrDrifter92/Lefties/blob/621d10230786cac5e380475c35eb65e1be8ce346/20250806_2005_Serene%20Garden%20Harvest_storyboard_01k1zdg01zekmtepcx4gxg1gnz.mp4?raw=true";
+  // User-provided video URL (updated to raw URL)
+  const backgroundVideoUrl = "https://github.com/MrDrifter92/Lefties/raw/621d10230786cac5e380475c35eb65e1be8ce346/20250806_2005_Serene%20Garden%20Harvest_storyboard_01k1zdg01zekmtepcx4gxg1gnz.mp4";
+  // Placeholder logo URL (using a raw GitHub link for consistency)
+  const logoUrl = "https://github.com/MrDrifter92/Lefties/raw/f6632c8a0683f9e74256039c7d2e8b7db986d19f/IMG_4424.png";
+
 
   return (
     <div className="min-h-screen font-inter relative overflow-hidden">
@@ -649,7 +665,7 @@ function App() {
       </video>
 
       {/* Video Overlay for Shading */}
-      <div className="absolute inset-0 w-full h-full bg-brown-dark opacity-70 z-10"></div>
+      <div className="absolute inset-0 w-full h-full" style={{ backgroundColor: colors['overlay-dark'] }}></div>
 
       {/* Global Styles */}
       <style>{`
@@ -719,22 +735,95 @@ function App() {
           border: 2px solid ${colors['wheat-light']};
           box-shadow: 0 0 0 2px ${colors['brown-medium']};
         }
+
+        /* Deep Glassmorphism for Main Container and Sidebar */
+        .deep-glass-container {
+          background: linear-gradient(145deg, ${colors['glass-bg-dark-start']}, ${colors['glass-bg-dark-end']});
+          border: 1px solid ${colors['glass-border-light']};
+          border-radius: 1.5rem; /* rounded-3xl equivalent */
+          box-shadow:
+            0 0 25px ${colors['button-glow']}, /* Outer glow */
+            inset 0 2px 2px ${colors['glass-shadow-light']}, /* Inner highlight from top */
+            inset 0 -2px 2px ${colors['glass-shadow-dark']}; /* Inner shadow from bottom */
+          -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+          transition: all 0.3s ease;
+        }
+
+        /* Glass Card for content sections */
+        .glass-card {
+          background: rgba(255, 255, 255, 0.85); /* More opaque white */
+          backdrop-filter: blur(12px); /* Slightly less blur than main container for contrast */
+          border-radius: 0.75rem; /* rounded-xl */
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Standard shadow */
+          border: 1px solid ${colors['brown-light']}/20;
+        }
+
+        /* Glass Buttons */
+        .glass-button {
+          background: linear-gradient(145deg, ${colors['button-gradient-start']}, ${colors['button-gradient-end']});
+          border: 1px solid ${colors['button-border']};
+          border-radius: 9999px; /* rounded-full */
+          color: white;
+          font-weight: 700; /* font-bold */
+          text-shadow: 0 1px 2px ${colors['text-shadow-dark']};
+          box-shadow:
+            0 0 15px ${colors['button-glow']}, /* Outer glow */
+            inset 0 1px 1px ${colors['glass-shadow-light']}; /* Inner highlight */
+          transition: all 0.3s ease;
+          padding: 0.75rem 1.5rem; /* py-3 px-6 */
+          display: inline-block;
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .glass-button:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow:
+            0 0 30px 5px ${colors['button-glow']}, /* Stronger glow */
+            inset 0 1px 1px ${colors['glass-shadow-light']};
+          background: linear-gradient(145deg, ${colors['button-gradient-start'].replace('0.8', '0.9')}, ${colors['button-gradient-end'].replace('0.9', '1')}); /* Slightly brighter */
+        }
+
+        /* Glowing Title for "Take the Wheel Knee Plan" */
+        .glowing-title {
+          text-shadow:
+            0 0 8px ${colors['title-glow-color-subtle']},
+            0 0 15px ${colors['title-glow-color-subtle']},
+            0 0 25px ${colors['title-glow-color']};
+          color: ${colors['cream-light']}; /* Make the text itself lighter for the glow to show */
+          font-weight: 700; /* Ensure bold */
+          letter-spacing: 0.05em; /* Add a little spacing */
+          transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .glowing-title:hover {
+          text-shadow:
+            0 0 10px ${colors['title-glow-color']},
+            0 0 20px ${colors['title-glow-color']},
+            0 0 35px ${colors['title-glow-color']};
+        }
       `}</style>
 
-      {/* Main Container */}
+      {/* Main Container - Now a central, blurred container */}
       <div className="relative z-20 flex flex-col items-center p-4 md:p-8">
-        <div className="w-full max-w-screen-xl flex flex-col lg:flex-row gap-6">
+        <div className="w-full max-w-screen-xl flex flex-col lg:flex-row gap-6 deep-glass-container p-4 lg:p-8">
           {/* Sidebar Navigation */}
-          <nav className="lg:w-1/4 p-4 md:p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-brown-light/20 lg:h-fit lg:sticky lg:top-8">
-            <h1 className="text-2xl font-bold text-brown-dark mb-6 text-center lg:text-left">Plica Plan</h1>
+          <nav className="lg:w-1/4 p-4 md:p-6 deep-glass-container lg:h-fit lg:sticky lg:top-8">
+            {/* Logo Integration */}
+            <img
+              src={logoUrl}
+              alt="Knee Plica Syndrome Logo"
+              className="w-32 h-auto mx-auto lg:mx-0 mb-6 rounded-lg shadow-md border border-brown-light/30"
+            />
+            <h1 className="text-2xl font-bold mb-6 text-center lg:text-left glowing-title">Take the Wheel Knee Plan</h1>
             <ul className="space-y-3">
               <li>
                 <button
                   onClick={() => navigateTo('home')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'home'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <Home size={20} className="mr-3" /> Home
@@ -743,10 +832,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('dietary')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'dietary'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <BookOpen size={20} className="mr-3" /> Dietary
@@ -755,10 +844,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('lifestyle')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'lifestyle'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <Activity size={20} className="mr-3" /> Lifestyle
@@ -767,10 +856,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('sleepStress')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'sleepStress'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <Moon size={20} className="mr-3" /> Sleep & Stress
@@ -779,10 +868,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('recoveryToolkit')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'recoveryToolkit'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <FlaskConical size={20} className="mr-3" /> Recovery Toolkit
@@ -791,10 +880,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('progressTracker')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'progressTracker'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <CalendarDays size={20} className="mr-3" /> Progress Tracker
@@ -803,10 +892,10 @@ function App() {
               <li>
                 <button
                   onClick={() => navigateTo('clinicalChecklist')}
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 ${
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 transform ${
                     activeSection === 'clinicalChecklist'
-                      ? 'bg-wheat-light text-brown-dark shadow-md'
-                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark'
+                      ? 'bg-wheat-light text-brown-dark shadow-md scale-[1.01]'
+                      : 'text-brown-medium hover:bg-cream-medium hover:text-brown-dark hover:scale-[1.02]'
                   }`}
                 >
                   <CheckSquare size={20} className="mr-3" /> Clinical Checklist
