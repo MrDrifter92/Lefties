@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Database - Lefties OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        .text-brand-blue { color: #0071B6; }
+        .bg-brand-blue { background-color: #0071B6; }
+        .border-brand-blue { border-color: #0071B6; }
+        .table-fixed-layout { table-layout: fixed; }
+    </style>
+</head>
+<body class="text-white">
+
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <h1 class="text-2xl font-bold text-brand-blue">Client Database</h1>
+                    <a href="dashboard.os.html" class="text-sm text-gray-300 hover:text-white transition-colors">&larr; Back to Dashboard</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
+            <!-- Search and Filter Section -->
+            <div class="mb-6">
+                <input type="text" id="searchInput" placeholder="Search by name, email, phone, address, or tag..." class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue">
+            </div>
+
+            <!-- Client Table Section -->
+            <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 border-b border-gray-700">
+                    <h2 class="text-lg font-bold">Client List</h2>
+                    <p id="resultsCount" class="text-sm text-gray-400"></p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-300 table-fixed-layout">
+                        <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 w-1/5">Customer</th>
+                                <th scope="col" class="px-6 py-3 w-1/5">Mobile</th>
+                                <th scope="col" class="px-6 py-3 w-1/5">Email</th>
+                                <th scope="col" class="px-6 py-3 w-2/5">Address</th>
+                                <th scope="col" class="px-6 py-3 w-1/5">Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTableBody">
+                            <!-- Rows will be inserted by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Customer data consolidated from the provided CSV files.
+        // In a real application, this would be fetched from a server/API.
+        const allClients = [
+            {"Customer":"LTD A","Mobile":"0400000001","Email":"ltd.a@example.com","Street":"123 Fake St","Suburb":"KAWUNGAN","State":"QLD","Postcode":"4655","Tags":"Commercial, Regular"},
+            {"Customer":"LTD B","Mobile":"0400000002","Email":"ltd.b@example.com","Street":"456 Fictional Ave","Suburb":"PIALBA","State":"QLD","Postcode":"4655","Tags":"Commercial, Bond Clean"},
+            {"Customer":"LTD C","Mobile":"0400000003","Email":"ltd.c@example.com","Street":"789 Mythical Blvd","Suburb":"URANGAN","State":"QLD","Postcode":"4655","Tags":"Real Estate, High Priority"},
+            {"Customer":"John Smith","Mobile":"0411111111","Email":"john.s@example.com","Street":"10 Apple St","Suburb":"SCARNESS","State":"QLD","Postcode":"4655","Tags":"Residential, Repeat"},
+            {"Customer":"Jane Doe","Mobile":"0422222222","Email":"jane.d@example.com","Street":"20 Banana Rd","Suburb":"TORQUAY","State":"QLD","Postcode":"4655","Tags":"Residential, New"},
+            {"Customer":"Peter Jones","Mobile":"0433333333","Email":"peter.j@example.com","Street":"30 Cherry Ln","Suburb":"POINT VERNON","State":"QLD","Postcode":"4655","Tags":"Residential, Upholstery"},
+            {"Customer":"Mary Williams","Mobile":"0444444444","Email":"mary.w@example.com","Street":"40 Date Ct","Suburb":"ELI WATERS","State":"QLD","Postcode":"4655","Tags":"Residential, Pet Treatment"},
+            {"Customer":"David Brown","Mobile":"0455555555","Email":"david.b@example.com","Street":"50 Elderberry Dr","Suburb":"DUNDOWRAN BEACH","State":"QLD","Postcode":"4655","Tags":"Residential"},
+            {"Customer":"Sarah Wilson","Mobile":"0466666666","Email":"sarah.w@example.com","Street":"60 Fig Tree Pl","Suburb":"KAWUNGAN","State":"QLD","Postcode":"4655","Tags":"Residential, Bond Clean"},
+            {"Customer":"Michael Taylor","Mobile":"0477777777","Email":"michael.t@example.com","Street":"70 Grapevine Rd","Suburb":"WONDUNNA","State":"QLD","Postcode":"4655","Tags":"Residential, Regular"},
+            {"Customer":"Emily Anderson","Mobile":"0488888888","Email":"emily.a@example.com","Street":"80 Honeydew Mwy","Suburb":"NIKENBAH","State":"QLD","Postcode":"4655","Tags":"Residential"},
+            {"Customer":"James Martin","Mobile":"0499999999","Email":"james.m@example.com","Street":"90 Iguana Ct","Suburb":"URRAWEEN","State":"QLD","Postcode":"4655","Tags":"Residential, Stain Removal"}
+        ];
+
+        const tableBody = document.getElementById('clientTableBody');
+        const searchInput = document.getElementById('searchInput');
+        const resultsCount = document.getElementById('resultsCount');
+
+        function renderTable(clients) {
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            if (clients.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" class="text-center px-6 py-4">No clients found.</td></tr>';
+            } else {
+                clients.forEach(client => {
+                    const fullAddress = `${client.Street}, ${client.Suburb} ${client.State} ${client.Postcode}`;
+                    const row = `
+                        <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-600">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">${client.Customer}</td>
+                            <td class="px-6 py-4">${client.Mobile || 'N/A'}</td>
+                            <td class="px-6 py-4 truncate">${client.Email || 'N/A'}</td>
+                            <td class="px-6 py-4 truncate">${fullAddress}</td>
+                            <td class="px-6 py-4">${client.Tags || 'N/A'}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            }
+            resultsCount.textContent = `Showing ${clients.length} of ${allClients.length} clients.`;
+        }
+
+        function filterClients() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredClients = allClients.filter(client => {
+                const fullAddress = `${client.Street}, ${client.Suburb} ${client.State} ${client.Postcode}`;
+                return (
+                    client.Customer.toLowerCase().includes(searchTerm) ||
+                    (client.Mobile && client.Mobile.toLowerCase().includes(searchTerm)) ||
+                    (client.Email && client.Email.toLowerCase().includes(searchTerm)) ||
+                    fullAddress.toLowerCase().includes(searchTerm) ||
+                    (client.Tags && client.Tags.toLowerCase().includes(searchTerm))
+                );
+            });
+            renderTable(filteredClients);
+        }
+
+        // Initial render
+        renderTable(allClients);
+
+        // Event listener for the search input
+        searchInput.addEventListener('keyup', filterClients);
+
+    </script>
+</body>
+</html>
