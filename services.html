@@ -1,187 +1,409 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Choose a service: Carpet Revival, Upholstery Cleaning, Rugs & Mattresses." />
-
-  <!-- Fonts + Tailwind -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Optional tiny base styles (safe to remove if you don’t want them) -->
-  <link rel="stylesheet" href="assets/css/base.css" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --primary-blue:#0071B6;
-      --dark-bg:#0D1117;
-      --mid-dark-bg:#161B22;
-      --light-text:#e5e7eb;
+    /* CSS Variables from the Design Blueprint */
+    :root {
+      --primary-blue: #0071B6;
+      --light-blue-glow: rgba(0, 140, 255, 0.6); /* Used for deep-glass glow */
+      --dark-bg: #0D1117; /* Primary background color */
+      --mid-dark-bg: #161B22; /* Alternating section background */
+      --light-text: #e5e7eb; /* Default text color */
     }
-    body{font-family:'Nunito',sans-serif;background:var(--dark-bg);color:var(--light-text);}
-    .service-card{
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.10);
-      border-radius:14px;
-      transition:transform .12s ease, border-color .12s ease, background .12s ease;
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--dark-bg); /* Apply dark background from blueprint */
+      color: var(--light-text); /* Apply light text color from blueprint */
+      /* Ensure antialiased is applied to body */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
     }
-    .service-card:hover{
-      transform:translateY(-2px);
-      border-color:rgba(255,255,255,0.18);
-      background:rgba(255,255,255,0.06);
+
+    /* Text glow effect as per blueprint */
+    .text-lift {
+      text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
+    }
+
+    /* Service image styling */
+    .service-img {
+      @apply rounded-2xl shadow-lg w-full h-auto object-cover;
+    }
+
+    /* Deep Glassmorphism styling from blueprint */
+    .deep-glass {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 1.5rem;
+        box-shadow: 0 0 25px var(--light-blue-glow), inset 0 2px 2px rgba(255, 255, 255, 0.07), inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Shine animation for deep-glass elements */
+    .deep-glass::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-20deg);
+        animation: shine 6s infinite linear;
+        animation-delay: var(--shine-delay, 0s);
+    }
+    @keyframes shine {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: -100%; }
+    }
+
+    /* Glass button styling from blueprint */
+    .glass-button {
+        background: linear-gradient(145deg, rgba(0, 113, 182, 0.6), rgba(0, 80, 130, 0.8));
+        border: 1px solid rgba(0, 140, 255, 0.3);
+        border-radius: 9999px;
+        color: white;
+        font-weight: 700;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        box-shadow: 0 0 15px rgba(0, 140, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+        padding: 0.75rem 2rem;
+        display: inline-block;
+    }
+    
+    .glass-button:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 0 30px 5px var(--light-blue-glow);
+        background: linear-gradient(145deg, rgba(0, 140, 255, 0.7), rgba(0, 95, 155, 0.9));
+    }
+
+    /* Mobile menu hamburger icon styles from blueprint */
+    .hamburger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 2rem;
+        height: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+    }
+
+    .hamburger-icon span {
+        height: 2px;
+        width: 100%;
+        background: #fff;
+        border-radius: 9999px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-icon.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-icon.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-icon.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile menu overlay styles from blueprint */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(13, 17, 23, 0.95); /* Using dark-bg with opacity */
+        backdrop-filter: blur(10px);
+        z-index: 90;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .mobile-menu-overlay[data-state="open"] {
+        transform: translateX(0);
+    }
+
+    /* Custom modal styles (for messages) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 200; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(17, 24, 39, 0.5));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        margin: 15% auto; /* 15% from the top and centered */
+        width: 80%; /* Could be more responsive */
+        max-width: 500px;
+        box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+        position: relative;
+        color: var(--light-text);
+    }
+
+    .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* AI Chat Specific Styles (No longer used but kept for reference if needed later) */
+    .chat-container {
+        max-height: 400px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .chat-message {
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        max-width: 85%;
+        position: relative;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .chat-message.user {
+        background-color: rgba(0, 113, 182, 0.2);
+        align-self: flex-end;
+        margin-left: auto;
+        border: 1px solid rgba(0, 113, 182, 0.3);
+        color: var(--light-text);
+    }
+
+    .chat-message.ai {
+        background-color: rgba(30, 41, 59, 0.3);
+        align-self: flex-start;
+        margin-right: auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--light-text);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quick-question-button {
+        @apply glass-button px-4 py-2 text-sm;
+        white-space: nowrap;
     }
   </style>
 </head>
-<body>
+<body class="antialiased">
+  <!-- HEADER BAR (Blueprint Compliant) -->
+  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
+    <nav class="deep-glass flex justify-between items-center p-4 relative" style="min-height: 100px;">
+      <!-- Desktop Navigation (Left) -->
+      <div class="hidden md:flex space-x-6 font-bold flex-1">
+        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
+      </div>
 
-  <!-- HEADER — pill bar -->
-  <header class="fixed top-0 left-0 right-0 z-50">
-    <div class="mx-auto max-w-6xl px-4 pt-3">
-      <div class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
-        <a href="index.html" class="flex items-center gap-3 no-underline">
-          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
-          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-white/90">
-          <a href="index.html" class="hover:text-white">Home</a>
-          <a href="services.html" class="hover:text-white">Services</a>
-          <a href="about-lefties.html" class="hover:text-white">About</a>
-          <a href="gallery.html" class="hover:text-white">Gallery</a>
-          <a href="faqs.html" class="hover:text-white">FAQs</a>
-          <a href="contact.html" class="px-3 py-1 rounded bg-white/10 hover:bg-white/20">Get a quote</a>
-        </nav>
-        <button id="hamburger" aria-label="Open menu" class="md:hidden text-white focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
+      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
+      </a>
+
+      <!-- Mobile Menu Button (Right) -->
+      <div class="flex-1 flex justify-end">
+        <button id="menu-btn" class="block md:hidden focus:outline-none">
+          <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </div>
-    </div>
-  </header>
-  <div class="h-28"></div>
-
-  <!-- FULLSCREEN OVERLAY MENU (matches index) -->
-  <div id="overlayMenu" class="fixed inset-0 z-[60] hidden">
-    <div id="overlayBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-200"></div>
-    <div class="relative mx-auto max-w-6xl px-4 pt-3">
-      <div class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
-        <a href="index.html" class="flex items-center gap-3 no-underline">
-          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
-          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
-        </a>
-        <button id="closeOverlay" aria-label="Close menu" class="text-white/90 hover:text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <nav class="absolute inset-0 flex items-center justify-center">
-      <ul class="w-full max-w-md mx-auto px-6 text-center space-y-6">
-        <li><a href="services.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">All Services</a></li>
-        <li><a href="carpet-cleaning.html" class="block text-2xl md:text-3xl text-white">Carpet Cleaning</a></li>
-        <li><a href="upholstery-cleaning.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Upholstery & Lounge Cleaning</a></li>
-        <li><a href="rugs-mattresses.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Rug & Mattress Cleaning</a></li>
-        <li><a href="about-lefties.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">About Us</a></li>
-        <li><a href="faqs.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">FAQs</a></li>
-        <li><a href="contact.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Contact Us</a></li>
-        <li><a href="contact.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Get a quote</a></li>
-      </ul>
     </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay (Blueprint Compliant) -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="flex justify-between items-center px-4 pt-4">
+      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
+      <button id="close-menu">
+        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-10 space-y-6 text-center text-xl font-bold">
+      <a href="services.html" class="block">All Services</a>
+      <a href="upholstery-cleaning.html" class="block">Upholstery & Lounge Cleaning</a>
+      <a href="carpet-cleaning.html" class="block">Carpet Cleaning</a>
+      <a href="stain-treatment.html" class="block">Woopsie Daisy Stains</a>
+      <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
+      <a href="#" class="block">Commercial</a>
+      <a href="#" class="block">Our Work</a>
+      <a href="#" class="block">Tips & Tricks</a>
+      <a href="index.html#quote" class="inline-block mt-6 glass-button">Get a Quote</a>
+    </div>
   </div>
 
-  <!-- MAIN -->
-  <main class="mx-auto max-w-6xl px-4 py-10">
-    <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Services</h1>
+  <main class="container mx-auto px-6 py-12 space-y-20">
+    <section class="text-center py-8">
+      <h1 class="font-black text-lift text-7xl">
+        <span class="text-[var(--light-text)]">Our</span>
+        <span class="text-[var(--primary-blue)]">Services</span>
+      </h1>
+      <p class="mt-4 text-lg max-w-xl mx-auto text-[var(--light-text)]">Here’s what we do, and how we do it.</p>
+    </section>
 
-    <div class="grid gap-6 md:grid-cols-3">
-      <a href="carpet-cleaning.html" class="service-card p-6 block">
-        <h2 class="text-2xl font-bold mb-2">Carpet Revival</h2>
-        <p class="text-white/80 text-sm">Deep clean, stain attempts included, fresh finish.</p>
-      </a>
-      <a href="upholstery-cleaning.html" class="service-card p-6 block">
-        <h2 class="text-2xl font-bold mb-2">Upholstery Cleaning</h2>
-        <p class="text-white/80 text-sm">Lounges, chairs, fabric care and drying guidance.</p>
-      </a>
-      <a href="rugs-mattresses.html" class="service-card p-6 block">
-        <h2 class="text-2xl font-bold mb-2">Rugs &amp; Mattresses</h2>
-        <p class="text-white/80 text-sm">Delicate fibres handled with the right method.</p>
-      </a>
-    </div>
+    <!-- CARPET CLEANING -->
+    <section class="bg-dark-bg py-20 border-y border-gray-800">
+        <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Pre-inspection and commercial vacuum</li>
+                        <li>Targeted pre-treatment for stains</li>
+                        <li>Hot water extraction or low-moisture clean</li>
+                        <li>Hand-spot treatment as needed</li>
+                        <li>Carpet grooming for a uniform finish</li>
+                        <li>Fast drying (same-day in most cases)</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- UPHOLSTERY CLEANING -->
+    <section class="bg-mid-dark-bg py-20 border-y border-gray-800">
+        <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Pre-assessment of fabric type</li>
+                        <li>Gentle pre-treatment to lift grime</li>
+                        <li>Controlled rinse & extraction</li>
+                        <li>Low moisture = fast drying (4–6 hrs)</li>
+                        <li>Safe for family and pets</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- STAIN TREATMENT -->
+    <section class="bg-dark-bg py-20 border-y border-gray-800">
+        <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Spot-stain.png" alt="Stain removal" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
+                    <p class="italic mt-2 text-[var(--light-text)]">For those little uh-ohs in the lounge room.</p>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Stain ID and classification</li>
+                        <li>Spot-specific solutions</li>
+                        <li>Honest advice (no magic promises)</li>
+                        <li>Best paired with a full clean</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </section>
+
+    <!-- RUGS & MATTRESSES -->
+    <section class="bg-mid-dark-bg py-20 border-y border-gray-800">
+        <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
+                <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
+                <div>
+                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                        <li>Specialty rug care for all materials</li>
+                        <li>Hygienic mattress sanitation</li>
+                        <li>Dust mite & allergen removal</li>
+                        <li>Safe, non-toxic cleaning products</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="mt-24 border-t border-white/10 bg-black/40 backdrop-blur-md">
-    <div class="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-4 text-white/80">
-      <div>
-        <div class="flex items-center gap-3 mb-3">
-          <img src="core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain" />
-          <span class="text-white font-extrabold">Lefties</span>
-        </div>
-        <p class="text-sm">Not just clean. Revived.</p>
-      </div>
-      <div>
-        <h3 class="text-white font-bold mb-2">Services</h3>
-        <ul class="space-y-2">
-          <li><a href="carpet-cleaning.html" class="hover:text-white">Carpet Revival</a></li>
-          <li><a href="upholstery-cleaning.html" class="hover:text-white">Upholstery Cleaning</a></li>
-          <li><a href="rugs-mattresses.html" class="hover:text-white">Rugs &amp; Mattresses</a></li>
-          <li><a href="service-agreements.html" class="hover:text-white">Service Agreements</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-white font-bold mb-2">Company</h3>
-        <ul class="space-y-2">
-          <li><a href="about-lefties.html" class="hover:text-white">About</a></li>
-          <li><a href="faqs.html" class="hover:text-white">FAQs</a></li>
-          <li><a href="terms-of-service.html" class="hover:text-white">Terms of Service</a></li>
-          <li><a href="privacy.html" class="hover:text-white">Privacy</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-white font-bold mb-2">Contact</h3>
-        <p class="text-sm">Hervey Bay, QLD</p>
-        <p class="text-sm">Phone: <a href="tel:0400000000" class="hover:text-white">0400 000 000</a></p>
-        <p class="text-sm">Email: <a href="mailto:hello@leftiesservices.com.au" class="hover:text-white">hello@leftiesservices.com.au</a></p>
-        <p class="text-xs mt-3 text-white/60">ABN: 00 000 000 000</p>
-      </div>
-    </div>
-    <div class="text-center text-white/60 text-xs py-4 border-t border-white/10">
-      © <span id="year"></span> Lefties. All rights reserved.
+  <!-- FOOTER (Blueprint Compliant) -->
+  <footer class="bg-black py-8">
+    <div class="container mx-auto px-6 text-center">
+        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-16 w-auto mx-auto opacity-50 mb-4">
+        <p class="text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
+        <p class="text-gray-600 mt-2">Privacy Policy | Terms of Service</p>
     </div>
   </footer>
 
-  <!-- JS -->
+  <!-- Custom Modal for Messages -->
+  <div id="custom-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-button" id="close-modal">&times;</span>
+          <p id="modal-message" class="text-lg"></p>
+      </div>
+  </div>
+
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const hamburgerIcon = menuBtn.querySelector('.hamburger-icon');
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const burger = document.getElementById('hamburger');
-      const overlay = document.getElementById('overlayMenu');
-      const backdrop = document.getElementById('overlayBackdrop');
-      const closeBtn = document.getElementById('closeOverlay');
-
-      const open = () => {
-        overlay.classList.remove('hidden');
-        requestAnimationFrame(() => backdrop.classList.add('opacity-100'));
-        document.documentElement.classList.add('overflow-hidden');
-        document.body.classList.add('overflow-hidden');
-      };
-
-      const close = () => {
-        backdrop.classList.remove('opacity-100');
-        setTimeout(() => overlay.classList.add('hidden'), 200);
-        document.documentElement.classList.remove('overflow-hidden');
-        document.body.classList.remove('overflow-hidden');
-      };
-
-      if (burger) burger.addEventListener('click', open);
-      if (closeBtn) closeBtn.addEventListener('click', close);
-      if (backdrop) backdrop.addEventListener('click', close);
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    menuBtn.addEventListener('click', () => {
+      mobileMenuOverlay.setAttribute('data-state', 'open');
+      hamburgerIcon.classList.add('open');
     });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenuOverlay.setAttribute('data-state', 'closed');
+      hamburgerIcon.classList.remove('open');
+    });
+
+    // --- AI Chat Assistant Logic (REMOVED) ---
+    // All AI-related JavaScript logic has been removed.
+    // The functions and event listeners for the AI assistant are no longer present.
+
   </script>
 </body>
 </html>
