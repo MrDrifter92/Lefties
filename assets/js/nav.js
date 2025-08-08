@@ -3,18 +3,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const burger = document.getElementById('hamburger');
   const drawer = document.getElementById('drawer');
   const closeBtn = document.getElementById('closeDrawer');
+  const backdrop = document.getElementById('drawerBackdrop');
 
-  const open = () => drawer.classList.remove('translate-x-full');
-  const close = () => drawer.classList.add('translate-x-full');
+  if (!burger || !drawer || !closeBtn || !backdrop) return;
 
-  if (burger) burger.addEventListener('click', open);
-  if (closeBtn) closeBtn.addEventListener('click', close);
+  const open = () => {
+    drawer.classList.remove('translate-x-full');
+    backdrop.classList.remove('pointer-events-none');
+    backdrop.classList.add('opacity-100');
+    document.documentElement.classList.add('overflow-hidden');
+    document.body.classList.add('overflow-hidden');
+  };
 
-  // Close with ESC
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  const close = () => {
+    drawer.classList.add('translate-x-full');
+    backdrop.classList.add('pointer-events-none');
+    backdrop.classList.remove('opacity-100');
+    document.documentElement.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
+  };
 
-  // Optional: close if user taps outside the drawer
-  drawer.addEventListener('click', (e) => {
-    if (e.target === drawer) close();
+  burger.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
   });
 });
