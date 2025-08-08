@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Choose a service: Carpet Revival, Upholstery Cleaning, Rugs & Mattresses.">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Choose a service: Carpet Revival, Upholstery Cleaning, Rugs & Mattresses." />
+
+  <!-- Fonts + Tailwind -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="assets/css/base.css">
+
+  <!-- Optional tiny base styles (safe to remove if you don’t want them) -->
+  <link rel="stylesheet" href="assets/css/base.css" />
+
   <style>
     :root{
       --primary-blue:#0071B6;
@@ -31,12 +36,12 @@
 </head>
 <body>
 
-  <!-- HEADER — pill bar to match index -->
+  <!-- HEADER — pill bar (matches INDEX vibe) -->
   <header class="fixed top-0 left-0 right-0 z-50">
     <div class="mx-auto max-w-6xl px-4 pt-3">
       <div class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
         <a href="index.html" class="flex items-center gap-3 no-underline">
-          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
           <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
         </a>
         <nav class="hidden md:flex items-center gap-6 text-white/90">
@@ -54,30 +59,43 @@
         </button>
       </div>
     </div>
+  </header>
+  <div class="h-28"></div>
 
-    <!-- backdrop + drawer -->
-    <div id="drawerBackdrop" class="fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+  <!-- FULLSCREEN OVERLAY MENU (transparent/glassy like INDEX) -->
+  <div id="overlayMenu" class="fixed inset-0 z-[60] hidden">
+    <!-- backdrop -->
+    <div id="overlayBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-200"></div>
 
-    <div id="drawer" class="fixed inset-y-0 right-0 w-72 bg-zinc-950 border-l border-white/10 translate-x-full transition-transform duration-300 ease-out z-50">
-      <div class="p-4 flex items-center justify-between border-b border-white/10">
-        <span class="text-white font-bold">Menu</span>
-        <button id="closeDrawer" aria-label="Close menu" class="text-white/90 hover:text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <!-- header pill duplicated so it looks like your INDEX overlay header -->
+    <div class="relative mx-auto max-w-6xl px-4 pt-3">
+      <div class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+        <a href="index.html" class="flex items-center gap-3 no-underline">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
+          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
+        </a>
+        <button id="closeOverlay" aria-label="Close menu" class="text-white/90 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
-      <nav class="flex flex-col p-4 text-white/90">
-        <a href="index.html" class="py-3 border-b border-white/10 hover:text-white">Home</a>
-        <a href="services.html" class="py-3 border-b border-white/10 hover:text-white">Services</a>
-        <a href="about-lefties.html" class="py-3 border-b border-white/10 hover:text-white">About</a>
-        <a href="gallery.html" class="py-3 border-b border-white/10 hover:text-white">Gallery</a>
-        <a href="faqs.html" class="py-3 border-b border-white/10 hover:text-white">FAQs</a>
-        <a href="contact.html" class="py-3 hover:text-white">Get a quote</a>
-      </nav>
     </div>
-  </header>
-  <div class="h-28"></div>
+
+    <!-- centred big menu items -->
+    <nav class="absolute inset-0 flex items-center justify-center">
+      <ul class="w-full max-w-md mx-auto px-6 text-center space-y-6">
+        <li><a href="services.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">All Services</a></li>
+        <li><a href="carpet-cleaning.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Carpet Cleaning</a></li>
+        <li><a href="upholstery-cleaning.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Upholstery & Lounge Cleaning</a></li>
+        <li><a href="rugs-mattresses.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Rug & Mattress Cleaning</a></li>
+        <li><a href="about-lefties.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">About Us</a></li>
+        <li><a href="faqs.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">FAQs</a></li>
+        <li><a href="contact.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Contact Us</a></li>
+        <li><a href="contact.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Get a quote</a></li>
+      </ul>
+    </nav>
+  </div>
 
   <!-- MAIN -->
   <main class="mx-auto max-w-6xl px-4 py-10">
@@ -104,7 +122,7 @@
     <div class="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-4 text-white/80">
       <div>
         <div class="flex items-center gap-3 mb-3">
-          <img src="core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain" />
           <span class="text-white font-extrabold">Lefties</span>
         </div>
         <p class="text-sm">Not just clean. Revived.</p>
@@ -140,9 +158,37 @@
     </div>
   </footer>
 
+  <!-- JS -->
   <script>
+    // year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Full-screen overlay hamburger (to match INDEX style)
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.getElementById('hamburger');
+      const overlay = document.getElementById('overlayMenu');
+      const backdrop = document.getElementById('overlayBackdrop');
+      const closeBtn = document.getElementById('closeOverlay');
+
+      const open = () => {
+        overlay.classList.remove('hidden');
+        requestAnimationFrame(() => backdrop.classList.add('opacity-100'));
+        document.documentElement.classList.add('overflow-hidden');
+        document.body.classList.add('overflow-hidden');
+      };
+
+      const close = () => {
+        backdrop.classList.remove('opacity-100');
+        setTimeout(() => overlay.classList.add('hidden'), 200);
+        document.documentElement.classList.remove('overflow-hidden');
+        document.body.classList.remove('overflow-hidden');
+      };
+
+      if (burger) burger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (backdrop) backdrop.addEventListener('click', close);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    });
   </script>
-  <script src="assets/js/nav.js"></script>
 </body>
 </html>
