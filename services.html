@@ -4,30 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Choose a service: Carpet Revival, Upholstery Cleaning, Rugs and Mattresses.">
+  <meta name="description" content="Choose a service: Carpet Revival, Upholstery Cleaning, Rugs & Mattresses.">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/base.css">
-
   <style>
-    :root {
+    :root{
       --primary-blue:#0071B6;
       --dark-bg:#0D1117;
       --mid-dark-bg:#161B22;
       --light-text:#e5e7eb;
     }
-    body {
-      font-family:'Nunito',sans-serif;
-      background:var(--dark-bg);
-      color:var(--light-text);
-    }
-    .service-card {
+    body{font-family:'Nunito',sans-serif;background:var(--dark-bg);color:var(--light-text);}
+    .service-card{
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.10);
       border-radius:14px;
       transition:transform .12s ease, border-color .12s ease, background .12s ease;
     }
-    .service-card:hover {
+    .service-card:hover{
       transform:translateY(-2px);
       border-color:rgba(255,255,255,0.18);
       background:rgba(255,255,255,0.06);
@@ -36,29 +31,33 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-40 bg-black/40 backdrop-blur-md border-b border-white/10">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3 no-underline">
-        <img src="core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain">
-        <span class="text-white font-extrabold text-xl tracking-wide">Lefties Carpet Cleaning</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-white/90">
-        <a href="index.html" class="hover:text-white">Home</a>
-        <a href="services.html" class="hover:text-white">Services</a>
-        <a href="about-lefties.html" class="hover:text-white">About</a>
-        <a href="gallery.html" class="hover:text-white">Gallery</a>
-        <a href="faqs.html" class="hover:text-white">FAQs</a>
-        <a href="contact.html" class="px-3 py-1 rounded bg-white/10 hover:bg-white/20">Get a quote</a>
-      </nav>
-      <button id="hamburger" aria-label="Open menu" class="md:hidden text-white focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+  <!-- HEADER — pill bar to match index -->
+  <header class="fixed top-0 left-0 right-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 pt-3">
+      <div class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+        <a href="index.html" class="flex items-center gap-3 no-underline">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain">
+          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-white/90">
+          <a href="index.html" class="hover:text-white">Home</a>
+          <a href="services.html" class="hover:text-white">Services</a>
+          <a href="about-lefties.html" class="hover:text-white">About</a>
+          <a href="gallery.html" class="hover:text-white">Gallery</a>
+          <a href="faqs.html" class="hover:text-white">FAQs</a>
+          <a href="contact.html" class="px-3 py-1 rounded bg-white/10 hover:bg-white/20">Get a quote</a>
+        </nav>
+        <button id="hamburger" aria-label="Open menu" class="md:hidden text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
-    <!-- Slide-in drawer -->
+    <!-- backdrop + drawer -->
+    <div id="drawerBackdrop" class="fixed inset-0 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+
     <div id="drawer" class="fixed inset-y-0 right-0 w-72 bg-zinc-950 border-l border-white/10 translate-x-full transition-transform duration-300 ease-out z-50">
       <div class="p-4 flex items-center justify-between border-b border-white/10">
         <span class="text-white font-bold">Menu</span>
@@ -78,7 +77,7 @@
       </nav>
     </div>
   </header>
-  <div class="h-20"></div>
+  <div class="h-28"></div>
 
   <!-- MAIN -->
   <main class="mx-auto max-w-6xl px-4 py-10">
@@ -94,7 +93,7 @@
         <p class="text-white/80 text-sm">Lounges, chairs, fabric care and drying guidance.</p>
       </a>
       <a href="rugs-mattresses.html" class="service-card p-6 block">
-        <h2 class="text-2xl font-bold mb-2">Rugs & Mattresses</h2>
+        <h2 class="text-2xl font-bold mb-2">Rugs &amp; Mattresses</h2>
         <p class="text-white/80 text-sm">Delicate fibres handled with the right method.</p>
       </a>
     </div>
@@ -115,7 +114,7 @@
         <ul class="space-y-2">
           <li><a href="carpet-cleaning.html" class="hover:text-white">Carpet Revival</a></li>
           <li><a href="upholstery-cleaning.html" class="hover:text-white">Upholstery Cleaning</a></li>
-          <li><a href="rugs-mattresses.html" class="hover:text-white">Rugs & Mattresses</a></li>
+          <li><a href="rugs-mattresses.html" class="hover:text-white">Rugs &amp; Mattresses</a></li>
           <li><a href="service-agreements.html" class="hover:text-white">Service Agreements</a></li>
         </ul>
       </div>
