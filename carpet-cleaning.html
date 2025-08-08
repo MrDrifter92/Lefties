@@ -1,260 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carpet Cleaning | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Hervey Bay’s premier carpet cleaning service. Deep cleaning, fast drying, and safe for your family and pets.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carpet Revival | Lefties Carpet Cleaning</title>
+  <meta name="description" content="Deep carpet clean with traffic-lane treatment, deodorise, and honest stain attempts." />
+
+  <!-- Fonts + Tailwind -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Optional tiny base styles -->
+  <link rel="stylesheet" href="assets/css/base.css" />
+
   <style>
-    /* CSS Variables from the provided services page blueprint */
-    :root {
-      --primary-blue: #0071B6;
-      --glass-glow: rgba(0, 113, 182, 0.3);
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
-    }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-    }
-    .text-lift {
-        text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
-    }
-    /* Ensure images within sections are responsive */
-    .service-img {
-        width: 100%;
-        height: auto;
-        border-radius: 0.75rem; /* rounded-xl */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
-    }
-    /* Mobile menu hamburger icon styles (copied for consistency) */
-    .hamburger-icon {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 2rem;
-        height: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        position: relative;
-    }
-
-    .hamburger-icon span {
-        height: 2px;
-        width: 100%;
-        background: #fff;
-        border-radius: 9999px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .hamburger-icon.open span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger-icon.open span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger-icon.open span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* Mobile menu overlay styles (copied for consistency) */
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(15, 23, 42, 0.95); /* Using bg-dark with opacity */
-        backdrop-filter: blur(10px);
-        z-index: 90;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: translateX(100%);
-        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-    }
-
-    .mobile-menu-overlay[data-state="open"] {
-        transform: translateX(0);
-    }
+    :root{ --primary-blue:#0071B6; --dark-bg:#0D1117; --mid-dark-bg:#161B22; --light-text:#e5e7eb; }
+    body{ font-family:'Nunito',sans-serif; background:var(--dark-bg); color:var(--light-text); }
+    .card{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:14px; }
+    .pill{ border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.4); }
   </style>
 </head>
 <body>
-  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
-    <nav class="glass-panel flex justify-between items-center p-4 relative" style="min-height: 100px;">
-      <!-- Desktop Navigation (Left) -->
-      <div class="hidden md:flex space-x-6 font-bold flex-1">
-        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
-      </div>
 
-      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
-      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
-      </a>
-
-      <!-- Mobile Menu Button (Right) -->
-      <div class="flex-1 flex justify-end">
-        <button id="menu-btn" class="block md:hidden focus:outline-none">
-          <div class="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+  <!-- HEADER — pill bar (matches INDEX) -->
+  <header class="fixed top-0 left-0 right-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 pt-3">
+      <div class="rounded-3xl pill backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+        <a href="index.html" class="flex items-center gap-3 no-underline">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
+          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-white/90">
+          <a href="index.html" class="hover:text-white">Home</a>
+          <a href="services.html" class="hover:text-white">Services</a>
+          <a href="about-lefties.html" class="hover:text-white">About</a>
+          <a href="gallery.html" class="hover:text-white">Gallery</a>
+          <a href="faqs.html" class="hover:text-white">FAQs</a>
+          <a href="contact.html" class="px-3 py-1 rounded bg-white/10 hover:bg-white/20">Get a quote</a>
+        </nav>
+        <button id="hamburger" aria-label="Open menu" class="md:hidden text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
         </button>
       </div>
-    </nav>
+    </div>
   </header>
+  <div class="h-28"></div>
 
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
-    <div class="flex justify-between items-center px-4 pt-4">
-      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
-      <button id="close-menu">
-        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+  <!-- FULLSCREEN OVERLAY MENU (glassy like INDEX) -->
+  <div id="overlayMenu" class="fixed inset-0 z-[60] hidden">
+    <div id="overlayBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-200"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 pt-3">
+      <div class="rounded-3xl pill backdrop-blur-md px-4 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+        <a href="index.html" class="flex items-center gap-3 no-underline">
+          <img src="core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain" />
+          <span class="text-white font-extrabold text-lg tracking-wide">Lefties Carpet Cleaning</span>
+        </a>
+        <button id="closeOverlay" aria-label="Close menu" class="text-white/90 hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="mt-10 space-y-6 text-center text-xl font-bold">
-      <a href="services.html" class="block">All Services</a>
-      <a href="upholstery-cleaning.html" class="block">Upholstery & Lounge Cleaning</a>
-      <a href="carpet-service.html" class="block">Carpet Cleaning</a>
-      <a href="stain-treatment.html" class="block">Woopsie Daisy Stains</a>
-      <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
-      <a href="#" class="block">Commercial</a>
-      <a href="#" class="block">Our Work</a>
-      <a href="#" class="block">Tips & Tricks</a>
-      <a href="index.html#quote" class="inline-block mt-6 bg-[var(--primary-blue)] text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">Get a Quote</a>
-    </div>
+
+    <nav class="absolute inset-0 flex items-center justify-center">
+      <ul class="w-full max-w-md mx-auto px-6 text-center space-y-6">
+        <li><a href="services.html" class="block text-2xl md:text-3xl text-white">All Services</a></li>
+        <li><a href="carpet-cleaning.html" class="block text-2xl md:text-3xl text-white">Carpet Cleaning</a></li>
+        <li><a href="upholstery-cleaning.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Upholstery & Lounge Cleaning</a></li>
+        <li><a href="rugs-mattresses.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Rug & Mattress Cleaning</a></li>
+        <li><a href="about-lefties.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">About Us</a></li>
+        <li><a href="faqs.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">FAQs</a></li>
+        <li><a href="contact.html" class="block text-2xl md:text-3xl text-white/95 hover:text-white">Contact Us</a></li>
+      </ul>
+    </nav>
   </div>
 
-  <main class="container mx-auto px-4 py-12 space-y-12">
-    <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl font-black text-white mb-4 text-lift">Carpet Cleaning</h1>
-      <p class="text-lg md:text-xl max-w-3xl mx-auto">At Lefties Carpet Cleaning, we specialize in bringing your carpets back to life, restoring their original beauty and freshness. Our comprehensive cleaning process ensures a deep clean that removes dirt, allergens, and stains, leaving your home healthier and more inviting. Whether it's a high-traffic area or a delicate rug, we have the expertise and equipment to deliver outstanding results.</p>
-    </section>
+  <!-- MAIN -->
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-4">Carpet Revival</h1>
+    <p class="text-white/80 mb-8">Deep extraction clean for rentals, families, and “what happened here?” moments across Hervey Bay.</p>
 
-    <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-      <img src="Carpet-services-1.png" alt="Lefties carpet cleaning" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
-        <ul class="list-disc list-inside space-y-2 text-lg">
-          <li><strong>Pre-inspection and commercial vacuum:</strong> Every cleaning begins with a thorough pre-inspection to identify carpet type, heavily soiled areas, and potential stains. We then use a powerful commercial-grade vacuum to remove dry soil, dust, and loose debris, preparing the carpet for deep cleaning.</li>
-          <li><strong>Targeted pre-treatment for stains:</strong> Stubborn spots and high-traffic areas receive special attention with targeted pre-treatment solutions. These professional-grade formulas are designed to break down tough stains and embedded dirt, ensuring maximum removal during the main cleaning phase.</li>
-          <li><strong>Hot water extraction or low-moisture clean:</strong> Depending on your carpet's material and condition, we utilize either advanced hot water extraction (steam cleaning) for a deep, penetrating clean that flushes out contaminants, or a safe, low-moisture method for delicate carpets or faster drying times.</li>
-          <li><strong>Hand-spot treatment as needed:</strong> After the primary cleaning, our technicians meticulously inspect for any remaining spots. We apply specialized hand-spotting techniques and solutions to address individual stubborn stains, ensuring the best possible outcome.</li>
-          <li><strong>Carpet grooming for a uniform finish:</strong> To restore the carpet's pile and ensure a uniform appearance, we gently groom the carpet after cleaning. This helps to lift the fibers, promoting faster drying and leaving your carpet looking freshly revitalized.</li>
-          <li><strong>Fast drying (same-day in most cases):</strong> Our efficient cleaning methods and powerful extraction equipment are designed to minimize drying times. In most cases, your carpets will be dry and ready for use within the same day, reducing inconvenience and allowing you to enjoy your clean home sooner.</li>
+    <div class="grid md:grid-cols-2 gap-6">
+      <section class="card p-6 space-y-3">
+        <h2 class="text-2xl font-bold">What’s included</h2>
+        <ul class="list-disc pl-5 space-y-2 text-white/90">
+          <li>Inspection & fibre check</li>
+          <li>Pre-spray + agitation on traffic lanes</li>
+          <li>Hot water extraction / steam clean</li>
+          <li>Stain <strong>attempts</strong> included (no miracle claims)</li>
+          <li>Deodorise & neutralise</li>
         </ul>
-      </div>
+      </section>
+
+      <section class="card p-6 space-y-3">
+        <h2 class="text-2xl font-bold">Good to know</h2>
+        <ul class="list-disc pl-5 space-y-2 text-white/90">
+          <li>Drying: 4–8 hours (windows/fans help)</li>
+          <li>Furniture: light items moved; no pianos/fish tanks</li>
+          <li>Pet odours: may need enzyme treatment (extra)</li>
+          <li>Wool vs nylon: method adjusted to suit fibre</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="card p-6 mt-6">
+      <h2 class="text-2xl font-bold mb-2">Aftercare</h2>
+      <p class="text-white/80">Keep foot traffic light until dry. Place towels under metal/wooden legs for 24hrs. Ventilate rooms.</p>
     </section>
 
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
-      <ul class="space-y-3 text-lg">
-        <li><strong>Local, not a franchise:</strong> We are a locally owned and operated business, not a large franchise. This means we dedicate more time and personalized attention to each job, focusing on delivering superior results rather than rushing through appointments. Our commitment is to quality, not quantity.</li>
-        <li><strong>Ethical operators:</strong> Transparency and honesty are at the core of our service. If we assess a job and determine that we cannot achieve the desired results or if it falls outside our expertise, we will ethically refer you to a trusted professional who can better meet your needs. We believe in no-nonsense, straightforward advice.</li>
-        <li><strong>Child and pet-safe:</strong> Your family's well-being is our priority. All the products we use are professional-grade, non-toxic and completely residue-free once dry. This ensures a safe environment for your children and pets immediately after the cleaning process.</li>
-        <li><strong>Optional Add-ons:</strong> Enhance your cleaning experience with our optional add-ons. We offer effective odour removal treatments to neutralize lingering smells, sanitizers for an extra layer of hygiene, and protective coatings to guard against future spills and stains. These are available upon request to customize your service.</li>
-      </ul>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
-      <p class="text-lg">Our carpet cleaning process is designed for efficiency, ensuring your carpets are dry as quickly as possible. In most cases, carpets are dry and ready for normal use within the same day, typically within 4 to 6 hours. Factors such as carpet type, humidity levels, and air circulation can influence drying times. We will always advise on the best ventilation practices to help speed up the process.</p>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Need to know</h2>
-      <ul class="space-y-3 text-lg">
-        <li><strong>We’re fully insured,</strong> police-checked and Blue Card accredited: For your complete peace of mind, Lefties Carpet Cleaning is fully insured, ensuring protection against unforeseen circumstances. All our team members are thoroughly police-checked and hold valid Blue Cards, demonstrating our commitment to safety and trustworthiness, especially when working in homes with children.</li>
-        <li><strong>WoolSafe compatible products</strong> used on delicate fabrics: We understand the importance of caring for delicate materials. That's why we exclusively use WoolSafe compatible products when cleaning sensitive fabrics like wool, ensuring they are treated gently and effectively without damage.</li>
-        <li><strong>No promises on impossible stains,</strong> but we’ll tell you upfront what can and can’t be done: While we strive for the best possible results, some stains may be permanent depending on their age, type, and the fabric. We maintain full transparency; we will always assess the stain upfront and provide an honest appraisal of what can and cannot be achieved, managing your expectations clearly.</li>
-      </ul>
-    </section>
-
-    <!-- Carpet Cleaning Gallery Section -->
-    <section class="glass-panel p-6 md:p-12">
-        <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Carpet Cleaning Gallery</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Photo Placeholders (10 of them) -->
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery01.png" alt="Carpet Cleaning Gallery Image 1" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery02.png" alt="Carpet Cleaning Gallery Image 2" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery03.png" alt="Carpet Cleaning Gallery Image 3" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery04.png" alt="Carpet Cleaning Gallery Image 4" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery05.png" alt="Carpet Cleaning Gallery Image 5" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery06.png" alt="Carpet Cleaning Gallery Image 6" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery07.png" alt="Carpet Cleaning Gallery Image 7" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery08.png" alt="Carpet Cleaning Gallery Image 8" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery09.png" alt="Carpet Cleaning Gallery Image 9" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="c-gallery10.png" alt="Carpet Cleaning Gallery Image 10" class="rounded-lg w-full h-auto object-cover">
-            </div>
-        </div>
-    </section>
-    <!-- End Carpet Cleaning Gallery Section -->
-
-    <section class="text-center">
-      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
-        Book Now
-      </a>
-    </section>
+    <div class="mt-8">
+      <a href="contact.html" class="inline-block px-4 py-2 rounded bg-white/10 hover:bg-white/20">Get a quote</a>
+    </div>
   </main>
 
-  <footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
-    <p class="text-sm mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+  <!-- FOOTER -->
+  <footer class="mt-24 border-t border-white/10 bg-black/40 backdrop-blur-md">
+    <div class="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-4 text-white/80">
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <img src="core-logo-transparent.png" alt="" class="h-10 w-10" />
+          <span class="text-white font-extrabold">Lefties</span>
+        </div>
+        <p class="text-sm">Not just clean. Revived.</p>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-2">Services</h3>
+        <ul class="space-y-2">
+          <li><a href="carpet-cleaning.html" class="hover:text-white">Carpet Revival</a></li>
+          <li><a href="upholstery-cleaning.html" class="hover:text-white">Upholstery Cleaning</a></li>
+          <li><a href="rugs-mattresses.html" class="hover:text-white">Rugs &amp; Mattresses</a></li>
+          <li><a href="service-agreements.html" class="hover:text-white">Service Agreements</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-2">Company</h3>
+        <ul class="space-y-2">
+          <li><a href="about-lefties.html" class="hover:text-white">About</a></li>
+          <li><a href="faqs.html" class="hover:text-white">FAQs</a></li>
+          <li><a href="terms-of-service.html" class="hover:text-white">Terms of Service</a></li>
+          <li><a href="privacy.html" class="hover:text-white">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-2">Contact</h3>
+        <p class="text-sm">Hervey Bay, QLD</p>
+        <p class="text-sm">Phone: <a href="tel:0400000000" class="hover:text-white">0400 000 000</a></p>
+        <p class="text-sm">Email: <a href="mailto:hello@leftiesservices.com.au" class="hover:text-white">hello@leftiesservices.com.au</a></p>
+        <p class="text-xs mt-3 text-white/60">ABN: 00 000 000 000</p>
+      </div>
+    </div>
+    <div class="text-center text-white/60 text-xs py-4 border-t border-white/10">
+      © <span id="year"></span> Lefties. All rights reserved.
+    </div>
   </footer>
 
+  <!-- JS -->
   <script>
-    const btn = document.getElementById('menu-btn');
-    const close = document.getElementById('close-menu');
-    const menu = document.getElementById('mobile-menu-overlay'); // Changed to mobile-menu-overlay
+    // year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    btn.addEventListener('click', () => {
-      menu.setAttribute('data-state', 'open');
-      btn.querySelector('.hamburger-icon').classList.add('open');
-    });
+    // Full-screen overlay hamburger (match INDEX)
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.getElementById('hamburger');
+      const overlay = document.getElementById('overlayMenu');
+      const backdrop = document.getElementById('overlayBackdrop');
+      const closeBtn = document.getElementById('closeOverlay');
 
-    close.addEventListener('click', () => {
-      menu.setAttribute('data-state', 'closed');
-      btn.querySelector('.hamburger-icon').classList.remove('open');
+      const open = () => {
+        overlay.classList.remove('hidden');
+        requestAnimationFrame(() => backdrop.classList.add('opacity-100'));
+        document.documentElement.classList.add('overflow-hidden');
+        document.body.classList.add('overflow-hidden');
+      };
+
+      const close = () => {
+        backdrop.classList.remove('opacity-100');
+        setTimeout(() => overlay.classList.add('hidden'), 200);
+        document.documentElement.classList.remove('overflow-hidden');
+        document.body.classList.remove('overflow-hidden');
+      };
+
+      if (burger) burger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (backdrop) backdrop.addEventListener('click', close);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
     });
   </script>
 </body>
