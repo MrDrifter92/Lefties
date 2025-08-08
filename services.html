@@ -7,23 +7,33 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    /* CSS Variables from the Design Blueprint - LIGHTER VERSION */
+    /* CSS Variables from the provided new theme blueprint */
     :root {
       --primary-blue: #0071B6;
-      --light-blue-glow: rgba(0, 140, 255, 0.8); /* Increased glow intensity */
-      --dark-bg: #1A202C; /* Slightly lighter primary background color */
-      --mid-dark-bg: #2D3748; /* Slightly lighter alternating section background */
-      --light-text: #E2E8F0; /* Slightly lighter default text color for contrast */
+      --glass-glow: rgba(0, 113, 182, 0.3);
+      --text-main: #e0e0e0;
+      --bg-dark: #0f172a; /* Primary background from the new theme */
     }
 
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: var(--dark-bg); /* Apply dark background from blueprint */
-      color: var(--light-text); /* Apply light text color from blueprint */
-      /* Ensure antialiased is applied to body */
+      background-color: var(--bg-dark); /* Apply dark background from new theme */
+      color: var(--text-main); /* Apply main text color from new theme */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    /* Glass Panel styling from the new theme */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+      position: relative; /* Essential for absolute positioning of video */
+      overflow: hidden; /* Ensures video stays within bounds */
     }
 
     /* Text glow effect as per blueprint */
@@ -33,48 +43,14 @@
 
     /* Service image styling */
     .service-img {
-      @apply rounded-2xl shadow-lg w-full h-auto object-cover;
+      width: 100%;
+      height: auto;
+      border-radius: 0.75rem; /* rounded-xl */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+      object-fit: cover;
     }
 
-    /* Deep Glassmorphism styling from blueprint - Adjusted for lighter background and more shine */
-    .deep-glass {
-        background: linear-gradient(145deg, rgba(45, 55, 72, 0.4), rgba(26, 32, 44, 0.6)); /* Slightly more opaque gradient for deeper look */
-        border: 1px solid rgba(255, 255, 255, 0.2); /* Slightly more prominent border */
-        border-radius: 1.5rem;
-        box-shadow: 
-            0 0 40px var(--light-blue-glow), /* Increased glow spread and intensity */
-            inset 0 3px 5px rgba(255, 255, 255, 0.1), /* Enhanced inner light */
-            inset 0 -3px 5px rgba(0, 0, 0, 0.3); /* Enhanced inner shadow */
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Removed Shine animation for deep-glass elements, keeping the glow. */
-
-    /* Glass button styling from blueprint */
-    .glass-button {
-        background: linear-gradient(145deg, rgba(0, 113, 182, 0.7), rgba(0, 80, 130, 0.9)); /* Slightly more opaque for prominence */
-        border: 1px solid rgba(0, 140, 255, 0.3);
-        border-radius: 9999px;
-        color: white;
-        font-weight: 700;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-        box-shadow: 0 0 15px rgba(0, 140, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-        transition: all 0.3s ease;
-        padding: 0.75rem 2rem;
-        display: inline-block;
-    }
-    
-    .glass-button:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 0 30px 5px var(--light-blue-glow);
-        background: linear-gradient(145deg, rgba(0, 140, 255, 0.8), rgba(0, 95, 155, 1)); /* Slightly more opaque on hover */
-    }
-
-    /* Mobile menu hamburger icon styles from blueprint */
+    /* Mobile menu hamburger icon styles */
     .hamburger-icon {
         display: flex;
         flex-direction: column;
@@ -106,14 +82,14 @@
         transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Mobile menu overlay styles from blueprint */
+    /* Mobile menu overlay styles */
     .mobile-menu-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(26, 32, 44, 0.95); /* Using new dark-bg with opacity */
+        background: rgba(15, 23, 42, 0.95); /* Using bg-dark with opacity from new theme */
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         z-index: 90;
@@ -129,7 +105,7 @@
         transform: translateX(0);
     }
 
-    /* Custom modal styles (for messages) */
+    /* Custom modal styles (for messages) - Kept from previous for consistency */
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
@@ -156,7 +132,7 @@
         max-width: 500px;
         box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
         position: relative;
-        color: var(--light-text);
+        color: var(--text-main);
     }
 
     .close-button {
@@ -172,21 +148,41 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    /* Video background styling for the "Our Services" section */
+    .video-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 1; /* Below content */
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        opacity: 0.25; /* 25% opacity as requested */
+    }
+    /* Content over video */
+    .video-content-overlay {
+        position: relative;
+        z-index: 2; /* Above video */
+    }
   </style>
 </head>
 <body class="antialiased">
-  <!-- HEADER BAR (Blueprint Compliant) -->
-  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
-    <nav class="deep-glass flex justify-between items-center p-4 relative" style="min-height: 100px;">
+  <!-- HEADER BAR (Aligned with Index page structure) -->
+  <header class="glass-panel fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+    <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
       <!-- Desktop Navigation (Left) -->
       <div class="hidden md:flex space-x-6 font-bold flex-1">
         <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="services.html" class="text-[var(--primary-blue)]"> Services</a>
+        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
       </div>
 
       <!-- Centered Logo (Absolute Positioned and Overlaying) -->
       <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-16 w-auto"> 
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> 
       </a>
 
       <!-- Mobile Menu Button (Right) -->
@@ -205,7 +201,7 @@
   <!-- Mobile Menu Overlay (Blueprint Compliant) -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay">
     <div class="flex justify-between items-center px-4 pt-4 w-full absolute top-0 left-0">
-      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
+      <img src="core-logo-transparent.png" class="h-12" alt="Lefties Logo">
       <button id="close-menu">
         <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -219,29 +215,35 @@
       <a href="stain-treatment.html" class="block"> Oh, Ohh Stains</a>
       <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
       <a href="index.html#commercial" class="block">Commercial</a>
-      <a href="index.html#quote" class="inline-block mt-6 glass-button">Get a Quote</a>
+      <a href="index.html#quote" class="inline-block mt-6 bg-[var(--primary-blue)] text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">Get a Quote</a>
     </div>
   </div>
 
-  <main class="container mx-auto px-6 py-12 space-y-20">
-    <!-- "Our Services" Section - PRETTIFIED -->
-    <section class="text-center py-20 max-w-4xl mx-auto">
-      <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
-        <span class="text-[var(--light-text)]">Our</span>
-        <span class="text-[var(--primary-blue)]">Services</span>
-      </h1>
-      
-      <p class="mt-4 text-lg md:text-xl max-w-xl mx-auto text-[var(--light-text)]">Here’s what we do, and how we do it.</p>
+  <main class="container mx-auto px-4 py-12 space-y-12 pt-32 md:pt-48"> <!-- Added padding top for fixed header -->
+    <!-- "Our Services" Section - Now a glass-panel with background video -->
+    <section class="glass-panel p-8 md:p-12 text-center">
+        <video autoplay loop muted playsinline class="video-background">
+            <source src="services.video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-content-overlay">
+            <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
+                <span class="text-[var(--text-main)]">Our</span>
+                <span class="text-[var(--primary-blue)]">Services</span>
+            </h1>
+            
+            <p class="mt-4 text-lg md:text-xl max-w-xl mx-auto text-[var(--text-main)]">Here’s what we do, and how we do it.</p>
+        </div>
     </section>
 
     <!-- CARPET CLEANING -->
-    <section class="py-20">
-        <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
-                <img src="https://placehold.co/600x400/1A202C/E2E8F0?text=Carpet+Cleaning" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1A202C/E2E8F0?text=Image+Not+Found';" alt="Carpet cleaning" class="service-img">
+    <section class="glass-panel p-6 md:p-12">
+        <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
                 <div>
                     <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
                         <li>Pre-inspection and commercial vacuum</li>
                         <li>Targeted pre-treatment for stains</li>
                         <li>Hot water extraction or low-moisture clean</li>
@@ -255,13 +257,13 @@
     </section>
 
     <!-- UPHOLSTERY CLEANING -->
-    <section class="py-20 bg-[var(--mid-dark-bg)]">
-        <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
-                <img src="https://placehold.co/600x400/2D3748/E2E8F0?text=Upholstery+Cleaning" onerror="this.onerror=null;this.src='https://placehold.co/600x400/2D3748/E2E8F0?text=Image+Not+Found';" alt="Upholstery cleaning" class="service-img">
+    <section class="glass-panel p-6 md:p-12">
+        <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
                 <div>
                     <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
                         <li>Pre-assessment of fabric type</li>
                         <li>Gentle pre-treatment to lift grime</li>
                         <li>Controlled rinse & extraction</li>
@@ -274,14 +276,14 @@
     </section>
 
     <!-- STAIN TREATMENT -->
-    <section class="py-20">
-        <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
-                <img src="https://placehold.co/600x400/1A202C/E2E8F0?text=Stain+Removal" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1A202C/E2E8F0?text=Image+Not+Found';" alt="Stain removal" class="service-img">
+    <section class="glass-panel p-6 md:p-12">
+        <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <img src="Spot-stain.png" alt="Stain removal" class="service-img">
                 <div>
                     <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
-                    <p class="italic mt-2 text-[var(--light-text)]">For those little uh-ohs in the lounge room.</p>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                    <p class="italic mt-2 text-[var(--text-main)]">For those little uh-ohs in the lounge room.</p>
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
                         <li>Stain ID and classification</li>
                         <li>Spot-specific solutions</li>
                         <li>Honest advice (no magic promises)</li>
@@ -293,13 +295,13 @@
     </section>
 
     <!-- RUGS & MATTRESSES -->
-    <section class="py-20 bg-[var(--mid-dark-bg)]">
-        <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center deep-glass p-8">
-                <img src="https://placehold.co/600x400/2D3748/E2E8F0?text=Rugs+and+Mattresses" onerror="this.onerror=null;this.src='https://placehold.co/600x400/2D3748/E2E8F0?text=Image+Not+Found';" alt="Rug and mattress cleaning" class="service-img">
+    <section class="glass-panel p-6 md:p-12">
+        <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
                 <div>
                     <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--light-text)]">
+                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
                         <li>Specialty rug care for all materials</li>
                         <li>Hygienic mattress sanitation</li>
                         <li>Dust mite & allergen removal</li>
@@ -311,12 +313,12 @@
     </section>
   </main>
 
-  <!-- FOOTER (Blueprint Compliant) -->
-  <footer class="bg-black py-8">
-    <div class="container mx-auto px-6 text-center">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-16 w-auto mx-auto opacity-50 mb-4">
-        <p class="text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
-        <p class="text-gray-600 mt-2">Privacy Policy | Terms of Service</p>
+  <!-- FOOTER (Aligned with Index page structure) -->
+  <footer class="text-center py-8 text-gray-400 bg-black">
+    <div class="container mx-auto px-6">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
+        <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+        <p class="text-xs text-gray-600 mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
     </div>
   </footer>
 
@@ -334,22 +336,33 @@
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const hamburgerIcon = menuBtn.querySelector('.hamburger-icon');
 
+    // Function to open the menu
+    function openMenu() {
+        mobileMenuOverlay.setAttribute('data-state', 'open');
+        hamburgerIcon.classList.add('open');
+    }
+
+    // Function to close the menu
+    function closeMenu() {
+        mobileMenuOverlay.setAttribute('data-state', 'closed');
+        hamburgerIcon.classList.remove('open');
+    }
+
     menuBtn.addEventListener('click', () => {
-      mobileMenuOverlay.setAttribute('data-state', 'open');
-      hamburgerIcon.classList.add('open');
+      const isOpen = mobileMenuOverlay.getAttribute('data-state') === 'open';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     closeMenuBtn.addEventListener('click', () => {
-      mobileMenuOverlay.setAttribute('data-state', 'closed');
-      hamburgerIcon.classList.remove('open');
+      closeMenu();
     });
 
-    // Placeholder image onerror handler
-    document.querySelectorAll('img').forEach(img => {
-      img.onerror = function() {
-        this.src = 'https://placehold.co/600x400/CCCCCC/000000?text=Image+Missing';
-      };
-    });
+    // Make the closeMenu function available to the onclick attributes in the HTML
+    window.closeMenu = closeMenu;
 
   </script>
 </body>
