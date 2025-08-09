@@ -22,26 +22,23 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden; /* Prevent horizontal scrolling */
-      position: relative; /* For video background positioning */
-      z-index: 0; /* Ensures body is behind video overlay */
+      position: relative; /* For z-index stacking context if needed */
     }
 
-    /* Full background video for the body */
+    /* Full background video for the entire page */
     .body-video-background {
         position: fixed; /* Fixed so it covers the whole viewport */
         top: 0;
         left: 0;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -1; /* Send to back */
-        transform: translateZ(0); /* For better performance */
-        object-fit: cover;
+        width: 100vw;   /* Explicitly viewport width */
+        height: 100vh;  /* Explicitly viewport height */
+        z-index: -2; /* Absolutely the very back layer */
+        transform: translateZ(0); /* For better performance on some browsers */
+        object-fit: cover; /* Ensures video covers the entire area */
         opacity: 0.25; /* 25% opacity as requested */
     }
 
-    /* Glass Panel styling from the new theme */
+    /* Glass Panel styling for content sections */
     .glass-panel {
       background: rgba(30, 41, 59, 0.65);
       backdrop-filter: blur(14px);
@@ -49,12 +46,12 @@
       border-radius: 1.5rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-      position: relative;
+      position: relative; /* Important for local z-index stacking */
       overflow: hidden;
-      z-index: 1; /* Ensure panels are above the body video */
+      z-index: 1; /* Ensure these panels are above the body background video */
     }
 
-    /* Text glow effect as per blueprint */
+    /* Text glow effect */
     .text-lift {
       text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
     }
@@ -68,7 +65,7 @@
       object-fit: cover;
     }
 
-    /* Mobile menu hamburger icon styles */
+    /* Hamburger icon styles */
     .hamburger-icon {
         display: flex;
         flex-direction: column;
@@ -78,6 +75,7 @@
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         position: relative;
+        z-index: 20; /* Ensure it's above the logo z-index in nav */
     }
 
     .hamburger-icon span {
@@ -110,9 +108,9 @@
         background: rgba(15, 23, 42, 0.95); /* Using bg-dark with opacity from new theme */
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        z-index: 90;
+        z-index: 90; /* High z-index for overlay */
         display: flex;
-        flex-direction: column; /* Changed to column for better content flow */
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         transform: translateX(100%);
@@ -123,7 +121,7 @@
         transform: translateX(0);
     }
 
-    /* Custom modal styles (for messages) - Kept from previous for consistency */
+    /* Custom modal styles (for messages) */
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
@@ -141,12 +139,12 @@
     }
 
     .modal-content {
-        background: linear-gradient(145deg, rgba(45, 55, 72, 0.4), rgba(26, 32, 44, 0.6)); /* Adjusted for new background */
+        background: linear-gradient(145deg, rgba(45, 55, 72, 0.4), rgba(26, 32, 44, 0.6));
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 1.5rem;
         padding: 2rem;
-        margin: 15% auto; /* 15% from the top and centered */
-        width: 80%; /* Could be more responsive */
+        margin: 15% auto;
+        width: 80%;
         max-width: 500px;
         box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
         position: relative;
@@ -167,29 +165,67 @@
         cursor: pointer;
     }
 
-    /* Header adjustments to match carpet-cleaning.html */
-    header.glass-panel {
-        margin: 0; /* Remove fixed margins */
-        border-radius: 0; /* Remove border-radius */
-        box-shadow: none; /* Remove box-shadow */
-        border: none; /* Remove border */
-        background: rgba(30, 41, 59, 0.85); /* Slightly darker background for header */
+    /* HEADER STYLING TO EXACTLY MATCH INDEX.HTML */
+    header {
+        position: fixed; /* Always fixed at the top */
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100; /* High z-index to be on top of everything */
+        padding: 0.5rem; /* py-2 from index.html header */
+    }
+
+    header nav {
+        /* Apply glass-panel properties here directly for the floating effect */
+        background: rgba(30, 41, 59, 0.65);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
+        border-radius: 1.5rem; /* Matches index.html's deep-glass */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+        
+        /* Container properties */
+        max-width: 80rem; /* max-w-7xl from index.html */
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem; /* px-6 for nav content */
+        padding-right: 1.5rem;
+        padding-top: 0.5rem; /* py-2 for nav content */
+        padding-bottom: 0.5rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative; /* For logo and hamburger positioning */
+        min-height: 100px; /* Adjusted to fit logo comfortable - should be enough for h-36 */
     }
-    header.glass-panel nav {
-        min-height: auto; /* Reset min-height */
-        padding-top: 0.5rem; /* py-2 */
-        padding-bottom: 0.5rem; /* py-2 */
+    
+    /* Centered Logo within the header */
+    header nav .logo-container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10; /* Lower than hamburger, higher than links */
     }
-    header.glass-panel .h-36 {
-        height: 4rem; /* h-16 equivalent from carpet-cleaning.html header logo */
+
+    header nav .logo-container img {
+        height: 9rem; /* h-36 from index.html */
+        width: auto;
     }
-    @media (min-width: 768px) { /* md breakpoint */
-        header.glass-panel .h-36 {
-            height: 6rem; /* Adjust for larger screens if needed, based on index page h-16 */
-        }
+
+    /* Mobile hamburger icon specific z-index */
+    header nav .flex-1.flex.justify-end {
+        z-index: 20; /* Ensure button is on top */
     }
+
+    /* Adjust main content padding for the fixed header */
+    main {
+        padding-top: 150px; /* Adjusted based on the header's height and padding */
+        position: relative; /* Ensure main content respects z-index */
+        z-index: 1; /* Ensure main content is above video */
+    }
+    
   </style>
 </head>
 <body class="antialiased">
@@ -199,19 +235,21 @@
       Your browser does not support the video tag.
   </video>
 
-  <!-- HEADER BAR (Aligned with Index page structure and new theme header) -->
-  <header class="glass-panel fixed top-0 left-0 w-full z-[100]">
-    <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
+  <!-- HEADER BAR (Aligned with Index page structure) -->
+  <header>
+    <nav>
       <!-- Desktop Navigation (Left) -->
-      <div class="hidden md:flex space-x-6 font-bold flex-1">
-        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
+      <div class="hidden md:flex space-x-8 font-bold"> <!-- Adjusted space-x and removed flex-1 -->
+        <a href="index.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Home</a>
+        <a href="services.html" class="block md:inline-block text-[var(--primary-blue)] hover:text-white transition-colors">All Services</a>
       </div>
 
       <!-- Centered Logo (Absolute Positioned and Overlaying) -->
-      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto"> 
-      </a>
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="core-logo-transparent.png" alt="Lefties Logo"> 
+        </a>
+      </div>
 
       <!-- Mobile Menu Button (Right) -->
       <div class="flex-1 flex justify-end">
@@ -247,7 +285,7 @@
     </div>
   </div>
 
-  <main class="container mx-auto px-4 py-12 space-y-12 pt-32 md:pt-48 relative z-10"> <!-- Added relative z-index for main content -->
+  <main class="container mx-auto px-4 py-12 space-y-12"> <!-- Main content over video -->
     <!-- "Our Services" Section - Now a standard section, not a glass-panel, for text overlay on video -->
     <section class="text-center py-20 max-w-4xl mx-auto">
         <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
