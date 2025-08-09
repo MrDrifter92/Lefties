@@ -235,56 +235,37 @@
       Your browser does not support the video tag.
   </video>
 
-  <!-- HEADER BAR (Aligned with Index page structure) -->
-  <header>
-    <nav>
-      <!-- Desktop Navigation (Left) -->
-      <div class="hidden md:flex space-x-8 font-bold"> <!-- Adjusted space-x and removed flex-1 -->
-        <a href="index.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Home</a>
-        <a href="services.html" class="block md:inline-block text-[var(--primary-blue)] hover:text-white transition-colors">All Services</a>
-      </div>
+<!-- HEADER: Position Fixed and high z-index -->
+<header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+  <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
+    <a href="index.html#home">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
+    </a>
 
-      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
-      <div class="logo-container">
-        <a href="index.html">
-          <img src="core-logo-transparent.png" alt="Lefties Logo"> 
-        </a>
+    <!-- Mobile Hamburger Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+      <div class="hamburger-icon" id="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+    </button>
 
-      <!-- Mobile Menu Button (Right) -->
-      <div class="flex-1 flex justify-end">
-        <button id="menu-btn" class="block md:hidden focus:outline-none">
-          <div class="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Mobile Menu Overlay (Blueprint Compliant) -->
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
-    <div class="flex justify-between items-center px-4 pt-4 w-full absolute top-0 left-0">
-      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
-      <button id="close-menu">
-        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-8 text-white">
+      <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
+      <a href="index.html#about" class="hover:text-[var(--primary-blue)]">About</a>
+      <a href="index.html#contact" class="hover:text-[var(--primary-blue)]">Contact</a>
     </div>
-    <div class="mt-10 space-y-6 text-center text-xl font-bold">
-      <a href="services.html" class="block"our Services</a>
-      <a href="upholstery-cleaning.html" class="block">Upholstery & Lounge Cleaning</a>
-      <a href="carpet-cleaning.html" class="block">Carpet Cleaning</a>
-      <a href="stain-treatment.html" class="block"> Oh,Ohh Stains</a>
-      <a href="rugs-mattresses.html" class="block">Rug & Mattress Cleaning</a>
-      <a href="index.html#commercial" class="block">Commercial</a>
-      <a href="index.html#quote" class="inline-block mt-6 bg-[var(--primary-blue)] text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">Get a Quote</a>
-    </div>
-  </div>
+  </nav>
+</header>
 
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black bg-opacity-90 z-[90] flex flex-col items-center justify-center space-y-8 text-white text-2xl">
+  <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">Services</a>
+  <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">About</a>
+  <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">Contact</a>
+</div>
   <main class="container mx-auto px-4 py-12 space-y-12"> <!-- Main content over video -->
     <!-- "Our Services" Section - Now a standard section, not a glass-panel, for text overlay on video -->
     <section class="text-center py-20 max-w-4xl mx-auto">
@@ -423,6 +404,21 @@
     // Make the closeMenu function available to the onclick attributes in the HTML
     window.closeMenu = closeMenu;
 
-  </script>
+  
+  <script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button') || document.getElementById('menu-btn');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+
+  function toggleMobileMenu() {
+    if (!mobileMenuOverlay) return;
+    mobileMenuOverlay.classList.toggle('hidden');
+    if (hamburgerIcon) hamburgerIcon.classList.toggle('open');
+  }
+
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+  }
+</script>
 </body>
 </html>
