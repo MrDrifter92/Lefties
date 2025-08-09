@@ -7,38 +7,32 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    /* CSS Variables from the provided new theme blueprint */
     :root {
       --primary-blue: #0071B6;
       --glass-glow: rgba(0, 113, 182, 0.3);
       --text-main: #e0e0e0;
-      --bg-dark: #0f172a; /* Primary background from the new theme */
+      --bg-dark: #0f172a;
     }
-
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark); /* Apply dark background from new theme */
-      color: var(--text-main); /* Apply main text color from new theme */
+      background-color: var(--bg-dark);
+      color: var(--text-main);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
-      position: relative; /* For z-index stacking context if needed */
+      overflow-x: hidden;
+      position: relative;
     }
-
-    /* Full background video for the entire page */
+    /* Background video */
     .body-video-background {
-        position: fixed; /* Fixed so it covers the whole viewport */
-        top: 0;
-        left: 0;
-        width: 100vw;   /* Explicitly viewport width */
-        height: 100vh;  /* Explicitly viewport height */
-        z-index: -2; /* Absolutely the very back layer */
-        transform: translateZ(0); /* For better performance on some browsers */
-        object-fit: cover; /* Ensures video covers the entire area */
-        opacity: 0.25; /* 25% opacity as requested */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -2;
+      transform: translateZ(0);
+      object-fit: cover;
+      opacity: 0.25;
     }
-
-    /* Glass Panel styling for content sections */
+    /* Glass panel */
     .glass-panel {
       background: rgba(30, 41, 59, 0.65);
       backdrop-filter: blur(14px);
@@ -46,406 +40,227 @@
       border-radius: 1.5rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-      position: relative; /* Important for local z-index stacking */
+      position: relative;
       overflow: hidden;
-      z-index: 1; /* Ensure these panels are above the body background video */
+      z-index: 1;
     }
-
-    /* Text glow effect */
-    .text-lift {
-      text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
-    }
-
-    /* Service image styling */
+    .text-lift { text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); }
     .service-img {
-      width: 100%;
-      height: auto;
-      border-radius: 0.75rem; /* rounded-xl */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
-      object-fit: cover;
+      width: 100%; height: auto; object-fit: cover;
+      border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
 
-    /* Hamburger icon styles */
-    .hamburger-icon {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 2rem;
-        height: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        position: relative;
-        z-index: 20; /* Ensure it's above the logo z-index in nav */
+    /* Hamburger icon */
+    .hamburger-icon{
+      display:flex; flex-direction:column; justify-content:space-between;
+      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
     }
+    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;}
+    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .hamburger-icon.open span:nth-child(2){opacity:0;}
+    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
-    .hamburger-icon span {
-        height: 2px;
-        width: 100%;
-        background: #fff;
-        border-radius: 9999px;
-        transition: all 0.3s ease-in-out;
+    /* Fixed header (match index) */
+    header{
+      position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem;
     }
+    header nav{
+      background:rgba(30,41,59,.65);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      max-width:80rem; margin:0 auto; padding:.5rem 1.5rem;
+      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:100px;
+    }
+    header nav .logo-container{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:10;}
+    header nav .logo-container img{height:9rem; width:auto;}
+    header nav .flex-1.flex.justify-end{z-index:20;}
 
-    .hamburger-icon.open span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger-icon.open span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger-icon.open span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* Mobile menu overlay styles */
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(15, 23, 42, 0.95); /* Using bg-dark with opacity from new theme */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        z-index: 90; /* High z-index for overlay */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transform: translateX(100%);
-        transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-    }
-
-    .mobile-menu-overlay[data-state="open"] {
-        transform: translateX(0);
-    }
-
-    /* Custom modal styles (for messages) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 200; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modal-content {
-        background: linear-gradient(145deg, rgba(45, 55, 72, 0.4), rgba(26, 32, 44, 0.6));
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 1.5rem;
-        padding: 2rem;
-        margin: 15% auto;
-        width: 80%;
-        max-width: 500px;
-        box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
-        position: relative;
-        color: var(--text-main);
-    }
-
-    .close-button {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close-button:hover,
-    .close-button:focus {
-        color: white;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    /* HEADER STYLING TO EXACTLY MATCH INDEX.HTML */
-    header {
-        position: fixed; /* Always fixed at the top */
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 100; /* High z-index to be on top of everything */
-        padding: 0.5rem; /* py-2 from index.html header */
-    }
-
-    header nav {
-        /* Apply glass-panel properties here directly for the floating effect */
-        background: rgba(30, 41, 59, 0.65);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border-radius: 1.5rem; /* Matches index.html's deep-glass */
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-        
-        /* Container properties */
-        max-width: 80rem; /* max-w-7xl from index.html */
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1.5rem; /* px-6 for nav content */
-        padding-right: 1.5rem;
-        padding-top: 0.5rem; /* py-2 for nav content */
-        padding-bottom: 0.5rem;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative; /* For logo and hamburger positioning */
-        min-height: 100px; /* Adjusted to fit logo comfortable - should be enough for h-36 */
-    }
-    
-    /* Centered Logo within the header */
-    header nav .logo-container {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10; /* Lower than hamburger, higher than links */
-    }
-
-    header nav .logo-container img {
-        height: 9rem; /* h-30 from index.html */
-        width: auto;
-    }
-
-    /* Mobile hamburger icon specific z-index */
-    header nav .flex-1.flex.justify-end {
-        z-index: 20; /* Ensure button is on top */
-    }
-
-    /* Adjust main content padding for the fixed header */
-    main {
-        padding-top: 150px; /* Adjusted based on the header's height and padding */
-        position: relative; /* Ensure main content respects z-index */
-        z-index: 1; /* Ensure main content is above video */
-    }
-    
+    /* Make space for fixed header */
+    main{ padding-top:150px; position:relative; z-index:1; }
   </style>
 </head>
 <body class="antialiased">
-  <!-- Full background video for the entire page -->
+  <!-- Background video -->
   <video autoplay loop muted playsinline class="body-video-background">
-      <source src="services.video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
+    <source src="services.video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
 
-<!-- HEADER: Position Fixed and high z-index -->
-<header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
-  <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
-    <a href="index.html#home">
-      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
-    </a>
+  <!-- HEADER -->
+  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+    <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
+      <a href="index.html#home">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
+      </a>
 
-   <!-- Mobile Hamburger Menu Button -->
-<button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
-  <div id="hamburger-icon" class="hamburger-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</button>
+      <!-- Mobile Hamburger -->
+      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+        <div id="hamburger-icon" class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
 
-    <!-- Desktop Menu -->
-    <div class="hidden md:flex space-x-8 text-white">
-      <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
-      <a href="index.html#about" class="hover:text-[var(--primary-blue)]">About</a>
-      <a href="index.html#contact" class="hover:text-[var(--primary-blue)]">Contact</a>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 text-white">
+        <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
+        <a href="index.html#about" class="hover:text-[var(--primary-blue)]">About</a>
+        <a href="index.html#contact" class="hover:text-[var(--primary-blue)]">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu Overlay (swipe-in) -->
+  <div id="mobile-menu-overlay"
+       class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
+    <!-- Slide-in panel -->
+    <div id="mobile-menu-panel"
+         class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
+                transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl">
+      <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Services</a>
+      <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">About</a>
+      <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact</a>
     </div>
-  </nav>
-</header>
-
-<!-- Mobile Menu Overlay (swipe-in) -->
-<div id="mobile-menu-overlay"
-     class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300"
-  <!-- Slide-in panel -->
-  <div id="mobile-menu-panel"
-       class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
-              transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl">
-    <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Services</a>
-    <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">About</a>
-    <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact</a>
   </div>
-</div>
-    <!-- "Our Services" Section - Now a standard section, not a glass-panel, for text overlay on video -->
-    <section class="text-center py-20 max-w-4xl mx-auto">
-        <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
 
-          
-            <span class="text-[var(--text-main)]">Our</span>
-            <span class="text-[var(--primary-blue)]">Services</span>
-          <p class="mt-4 text-lg md:text-xl max-w-xl mx-auto text-[var(--text-main)]">Here’s what we do, and how we do it.</p>
+  <!-- MAIN -->
+  <main class="container mx-auto px-4 py-12">
+
+    <!-- Our Services -->
+    <section class="text-center py-20 max-w-4xl mx-auto">
+      <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
+        <span class="text-[var(--text-main)]">Our</span>
+        <span class="text-[var(--primary-blue)]"> Services</span>
+      </h1>
+      <p class="mt-4 text-lg md:text-xl max-w-xl mx-auto text-[var(--text-main)]">
+        Here’s what we do, and how we do it.
+      </p>
     </section>
+
     <!-- CARPET CLEANING -->
     <section class="glass-panel p-6 md:p-12">
-        <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
-                <div>
-                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
-                        <li>Pre-inspection and commercial vacuum</li>
-                        <li>Targeted pre-treatment for stains</li>
-                        <li>Hot water extraction or low-moisture clean</li>
-                        <li>Hand-spot treatment as needed</li>
-                        <li>Carpet grooming for a uniform finish</li>
-                        <li>Fast drying (same-day in most cases)</li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+      <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
+          <div>
+            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+              <li>Pre-inspection and commercial vacuum</li>
+              <li>Targeted pre-treatment for stains</li>
+              <li>Hot water extraction or low-moisture clean</li>
+              <li>Hand-spot treatment as needed</li>
+              <li>Carpet grooming for a uniform finish</li>
+              <li>Fast drying (same-day in most cases)</li>
+            </ul>
+          </div>
+        </div>
+      </a>
     </section>
 
     <!-- UPHOLSTERY CLEANING -->
     <section class="glass-panel p-6 md:p-12">
-        <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
-                <div>
-                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
-                        <li>Pre-assessment of fabric type</li>
-                        <li>Gentle pre-treatment to lift grime</li>
-                        <li>Controlled rinse & extraction</li>
-                        <li>Low moisture = fast drying (4–6 hrs)</li>
-                        <li>Safe for family and pets</li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+      <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
+          <div>
+            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+              <li>Pre-assessment of fabric type</li>
+              <li>Gentle pre-treatment to lift grime</li>
+              <li>Controlled rinse & extraction</li>
+              <li>Low moisture = fast drying (4–6 hrs)</li>
+              <li>Safe for family and pets</li>
+            </ul>
+          </div>
+        </div>
+      </a>
     </section>
 
     <!-- STAIN TREATMENT -->
     <section class="glass-panel p-6 md:p-12">
-        <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <img src="Spot-stain.png" alt="Stain removal" class="service-img">
-                <div>
-                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
-                    <p class="italic mt-2 text-[var(--text-main)]">For those little uh-ohs in the lounge room.</p>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
-                        <li>Stain ID and classification</li>
-                        <li>Spot-specific solutions</li>
-                        <li>Honest advice (no magic promises)</li>
-                        <li>Best paired with a full clean</li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+      <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <img src="Spot-stain.png" alt="Stain removal" class="service-img">
+          <div>
+            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
+            <p class="italic mt-2 text-[var(--text-main)]">For those little uh-ohs in the lounge room.</p>
+            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+              <li>Stain ID and classification</li>
+              <li>Spot-specific solutions</li>
+              <li>Honest advice (no magic promises)</li>
+              <li>Best paired with a full clean</li>
+            </ul>
+          </div>
+        </div>
+      </a>
     </section>
 
     <!-- RUGS & MATTRESSES -->
     <section class="glass-panel p-6 md:p-12">
-        <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
-                <div>
-                    <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
-                    <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
-                        <li>Specialty rug care for all materials</li>
-                        <li>Hygienic mattress sanitation</li>
-                        <li>Dust mite & allergen removal</li>
-                        <li>Safe, non-toxic cleaning products</li>
-                    </ul>
-                </div>
-            </div>
-        </a>
+      <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
+          <div>
+            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+              <li>Specialty rug care for all materials</li>
+              <li>Hygienic mattress sanitation</li>
+              <li>Dust mite & allergen removal</li>
+              <li>Safe, non-toxic cleaning products</li>
+            </ul>
+          </div>
+        </div>
+      </a>
     </section>
+
   </main>
 
-  <!-- FOOTER (Aligned with Index page structure) -->
+  <!-- FOOTER -->
   <footer class="text-center py-8 text-gray-400 bg-black">
     <div class="container mx-auto px-6">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
-        <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-        <p class="text-xs text-gray-600 mt-1">ABN: 64 554 336 330 | Hervey Bay, QLD</p>
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
+      <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+      <p class="text-xs text-gray-600 mt-1">ABN: 64 554 336 330 | Hervey Bay, QLD</p>
     </div>
   </footer>
 
-  <!-- Custom Modal for Messages -->
+  <!-- Modal (unused but kept as-is) -->
   <div id="custom-modal" class="modal">
-      <div class="modal-content">
-          <span class="close-button" id="close-modal">&times;</span>
-          <p id="modal-message" class="text-lg"></p>
-      </div>
+    <div class="modal-content">
+      <span class="close-button" id="close-modal">&times;</span>
+      <p id="modal-message" class="text-lg"></p>
+    </div>
   </div>
 
+  <!-- Mobile menu JS (swipe-in) -->
   <script>
-    const menuBtn = document.getElementById('menu-btn');
-    const closeMenuBtn = document.getElementById('close-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const hamburgerIcon = menuBtn.querySelector('.hamburger-icon');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const panel   = document.getElementById('mobile-menu-panel');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
 
-    // Function to open the menu
-    function openMenu() {
-        mobileMenuOverlay.setAttribute('data-state', 'open');
-        hamburgerIcon.classList.add('open');
+    function openMobileMenu(){
+      if(!overlay || !panel) return;
+      overlay.classList.remove('pointer-events-none','opacity-0');
+      requestAnimationFrame(()=>{ panel.classList.remove('translate-x-full'); });
+      if (hamburgerIcon) hamburgerIcon.classList.add('open');
     }
-
-    // Function to close the menu
-    function closeMenu() {
-        mobileMenuOverlay.setAttribute('data-state', 'closed');
-        hamburgerIcon.classList.remove('open');
+    function closeMobileMenu(){
+      if(!overlay || !panel) return;
+      panel.classList.add('translate-x-full');
+      setTimeout(()=>{
+        overlay.classList.add('opacity-0');
+        overlay.classList.add('pointer-events-none');
+      },300);
+      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
     }
-
-    menuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenuOverlay.getAttribute('data-state') === 'open';
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    closeMenuBtn.addEventListener('click', () => {
-      closeMenu();
-    });
-
-    // Make the closeMenu function available to the onclick attributes in the HTML
-    window.closeMenu = closeMenu;
-
-  
-<script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button') || document.getElementById('menu-btn');
-  const overlay = document.getElementById('mobile-menu-overlay');
-  const panel = document.getElementById('mobile-menu-panel');
-  const hamburgerIcon = document.getElementById('hamburger-icon');
-
-  function openMobileMenu() {
-    if (!overlay || !panel) return;
-    overlay.classList.remove('pointer-events-none', 'opacity-0');
-    requestAnimationFrame(() => {
-      panel.classList.remove('translate-x-full');
-    });
-    if (hamburgerIcon) hamburgerIcon.classList.add('open');
-  }
-
-  function closeMobileMenu() {
-    if (!overlay || !panel) return;
-    panel.classList.add('translate-x-full');
-    setTimeout(() => {
-      overlay.classList.add('opacity-0');
-      overlay.classList.add('pointer-events-none');
-    }, 300);
-    if (hamburgerIcon) hamburgerIcon.classList.remove('open');
-  }
-
-  function toggleMobileMenu() {
-    const isOpen = !overlay.classList.contains('opacity-0');
-    isOpen ? closeMobileMenu() : openMobileMenu();
-  }
-
-  if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
-  if (overlay) overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeMobileMenu();
-  });
-
-  window.closeMobileMenu = closeMobileMenu;
-</script>
+    function toggleMobileMenu(){
+      const isOpen = !overlay.classList.contains('opacity-0');
+      isOpen ? closeMobileMenu() : openMobileMenu();
+    }
+    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    if (overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
+    window.closeMobileMenu = closeMobileMenu;
+  </script>
 </body>
 </html>
