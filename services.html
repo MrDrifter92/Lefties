@@ -242,14 +242,14 @@
       <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
     </a>
 
-    <!-- Mobile Hamburger Menu Button -->
-    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
-      <div class="hamburger-icon" id="hamburger-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
+   <!-- Mobile Hamburger Menu Button -->
+<button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+  <div id="hamburger-icon" class="hamburger-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</button>
 
     <!-- Desktop Menu -->
     <div class="hidden md:flex space-x-8 text-white">
@@ -260,12 +260,18 @@
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
-<div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black bg-opacity-90 z-[90] flex flex-col items-center justify-center space-y-8 text-white text-2xl">
-  <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">Services</a>
-  <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">About</a>
-  <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="toggleMobileMenu()">Contact</a>
-</div>
+<!-- Mobile Menu Overlay (swipe-in) -->
+<div id="mobile-menu-overlay"
+     class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
+  <!-- Slide-in panel -->
+  <div id="mobile-menu-panel"
+       class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
+              transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl">
+    <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Services</a>
+    <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">About</a>
+    <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact</a>
+  </div>
+<
   <main class="container mx-auto px-4 py-12 space-y-12"> <!-- Main content over video -->
     <!-- "Our Services" Section - Now a standard section, not a glass-panel, for text overlay on video -->
     <section class="text-center py-20 max-w-4xl mx-auto">
@@ -405,20 +411,42 @@
     window.closeMenu = closeMenu;
 
   
-  <script>
+<script>
   const mobileMenuButton = document.getElementById('mobile-menu-button') || document.getElementById('menu-btn');
-  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const panel = document.getElementById('mobile-menu-panel');
   const hamburgerIcon = document.getElementById('hamburger-icon');
 
-  function toggleMobileMenu() {
-    if (!mobileMenuOverlay) return;
-    mobileMenuOverlay.classList.toggle('hidden');
-    if (hamburgerIcon) hamburgerIcon.classList.toggle('open');
+  function openMobileMenu() {
+    if (!overlay || !panel) return;
+    overlay.classList.remove('pointer-events-none', 'opacity-0');
+    requestAnimationFrame(() => {
+      panel.classList.remove('translate-x-full');
+    });
+    if (hamburgerIcon) hamburgerIcon.classList.add('open');
   }
 
-  if (mobileMenuButton) {
-    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+  function closeMobileMenu() {
+    if (!overlay || !panel) return;
+    panel.classList.add('translate-x-full');
+    setTimeout(() => {
+      overlay.classList.add('opacity-0');
+      overlay.classList.add('pointer-events-none');
+    }, 300);
+    if (hamburgerIcon) hamburgerIcon.classList.remove('open');
   }
+
+  function toggleMobileMenu() {
+    const isOpen = !overlay.classList.contains('opacity-0');
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  }
+
+  if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+  if (overlay) overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeMobileMenu();
+  });
+
+  window.closeMobileMenu = closeMobileMenu;
 </script>
 </body>
 </html>
