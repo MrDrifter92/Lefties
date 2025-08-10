@@ -2,353 +2,152 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us | Lefties Carpet Cleaning</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --primary-blue:#0071B6;
-      --light-blue-glow:rgba(0,140,255,.25);
-      --dark-text:#334155;
+    :root {
+      --primary-blue: #0071B6;
+      --glass-glow: rgba(0, 113, 182, 0.3);
+      --text-main: #e0e0e0;
+      --bg-dark: #0f172a;
     }
-    body{
-      font-family:'Nunito',sans-serif;
-      color:var(--dark-text);
-      background:#0f172a; /* sits behind video */
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-
-    /* ===== Background video (lighter tint & higher visibility) ===== */
-    .body-video-background{
-      position:fixed; inset:0;
-      width:100vw; height:100vh; object-fit:cover;
-      z-index:-2; opacity:.60; transform:translateZ(0);
+    /* Background video */
+    .body-video-background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -2;
+      object-fit: cover;
+      opacity: 0.15; /* Adjust transparency here */
     }
-    .video-tint{
-      position:fixed; inset:0; z-index:-1; pointer-events:none;
-      /* very light dark-blue wash so white glass reads nicely */
-      background:linear-gradient(
-        180deg,
-        rgba(15,23,42,.12) 0%,
-        rgba(15,23,42,.06) 35%,
-        rgba(15,23,42,.10) 100%
-      );
+    /* Glass panel styling */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
     }
-
-    /* ===== Floating header (light theme) ===== */
-    header{ position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem; }
-    header nav{
-      background:rgba(255,255,255,.58);
-      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:1.5rem; box-shadow:0 10px 28px rgba(0,0,0,.18);
-      max-width:80rem; margin:0 auto; min-height:80px;
-      padding:.35rem 1rem; display:flex; justify-content:space-between; align-items:center;
+    /* Hamburger icon */
+    .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 2rem;
+      height: 1.5rem;
+      cursor: pointer;
     }
-
-    /* Hamburger */
-    .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:all .3s; }
-    .hamburger-icon span{ height:2px; width:100%; background:#0b1b2b; border-radius:9999px; transition:all .3s; }
-    .hamburger-icon.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
-    .hamburger-icon.open span:nth-child(2){ opacity:0; }
-    .hamburger-icon.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
-
-    /* Mobile drawer */
-    .overlay-base{ position:fixed; inset:0; z-index:90; background:rgba(255,255,255,.85); transition:opacity .3s; }
-    .overlay-hidden{ opacity:0; pointer-events:none; }
-    .panel{
-      position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
-      background:rgba(255,255,255,.92); backdrop-filter:blur(14px);
-      border-left:1px solid rgba(0,0,0,.06); box-shadow:-10px 0 30px rgba(0,0,0,.12);
-      padding:2rem; padding-top:7rem; transform:translateX(100%); transition:transform .3s;
-      display:flex; flex-direction:column; gap:2rem; color:#0b1b2b; font-size:1.125rem;
+    .hamburger-icon span {
+      height: 2px;
+      width: 100%;
+      background: white;
+      border-radius: 9999px;
     }
-    .panel-open{ transform:translateX(0); }
-
-    /* Glass blocks (light theme) */
-    .deep-glass{
-      position:relative; overflow:hidden;
-      background:linear-gradient(145deg, rgba(255,255,255,.60), rgba(240,242,245,.88));
-      border:1px solid rgba(0,0,0,.05);
-      border-radius:1.5rem;
-      box-shadow:0 8px 30px rgba(0,0,0,.12), inset 0 2px 2px rgba(255,255,255,.12), inset 0 -2px 2px rgba(0,0,0,.06);
-      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-      transition:all .3s;
+    /* Fixed header */
+    header nav {
+      background: rgba(30, 41, 59, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: .5rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      min-height: 100px;
     }
-    .deep-glass::before{
-      content:''; position:absolute; inset:0; left:-150%; width:75%; height:100%;
-      background:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 100%);
-      transform:skewX(-25deg); animation:shine 6s infinite linear; pointer-events:none;
-    }
-    @keyframes shine{ 100%{ left:150%; } }
-
-    .glass-button{
-      background:linear-gradient(145deg, rgba(0,113,182,.9), rgba(0,80,130,1));
-      border:1px solid rgba(0,140,255,.45); border-radius:9999px;
-      color:#fff; font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.35);
-      box-shadow:0 0 15px rgba(0,140,255,.35), inset 0 1px 1px rgba(255,255,255,.22);
-      transition:all .25s; display:inline-block;
-    }
-    .glass-button:hover{ transform:translateY(-3px) scale(1.04); box-shadow:0 0 34px 6px var(--light-blue-glow), inset 0 1px 1px rgba(255,255,255,.28); }
-
-    /* Inputs */
-    .frosted-input{
-      background-color:rgba(255,255,255,.75); border:1px solid rgba(0,0,0,.08);
-      box-shadow:inset 0 1px 3px rgba(0,0,0,.05); border-radius:.75rem; transition:all .2s;
-    }
-    .frosted-input:focus{ background:#fff; border-color:var(--primary-blue); box-shadow:0 0 0 3px var(--light-blue-glow); outline:none; }
-
-    /* Cards */
-    .contact-card{
-      display:flex; align-items:center; gap:1rem; text-decoration:none;
-      background:rgba(255,255,255,.65); border:1px solid rgba(0,0,0,.06);
-      border-radius:1rem; padding:1rem 1.25rem; transition:all .25s;
-      box-shadow:0 2px 8px rgba(0,0,0,.06);
-    }
-    .contact-card:hover{ transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,113,182,.18); background:rgba(255,255,255,.85); }
-    .contact-card svg{ color:var(--primary-blue); width:2rem; height:2rem; flex-shrink:0; }
-
-    .social-item{
-      display:flex; align-items:center; gap:.75rem; text-decoration:none;
-      padding:.8rem 1rem; border-radius:.75rem;
-      background:rgba(255,255,255,.6); border:1px solid rgba(0,0,0,.06);
-      box-shadow:0 2px 6px rgba(0,0,0,.05); transition:all .25s;
-    }
-    .social-item:hover{ transform:translateY(-3px); box-shadow:0 10px 20px rgba(0,113,182,.16); background:rgba(255,255,255,.85); }
-
-    /* Clear header overlap */
-    main{ padding-top:120px; }
-    @media (min-width:768px){ main{ padding-top:140px; } }
+    main { padding-top: 150px; }
   </style>
 </head>
-<body class="antialiased">
-
-  <!-- ===== Background Video ===== -->
-  <video autoplay muted loop playsinline class="body-video-background">
-    <source src="contact-video.mp4" type="video/mp4">
+<body>
+  <!-- Background Video -->
+  <video autoplay loop muted playsinline class="body-video-background">
+    <source src="cu-video.mp4" type="video/mp4">
   </video>
-  <div class="video-tint"></div>
 
-  <!-- ===== HEADER ===== -->
-  <header>
-    <nav class="container mx-auto px-4 md:px-6 py-1 flex justify-between items-center relative">
-      <a href="index.html#home" class="flex items-center gap-3">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-[100] p-2 md:p-4">
+    <nav>
+      <a href="index.html#home">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
       </a>
-
-      <!-- Mobile -->
-      <button id="mobile-menu-button" class="md:hidden focus:outline-none">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
-        </div>
-      </button>
-
-      <!-- Desktop -->
-      <div class="hidden md:flex items-center gap-8 font-bold text-slate-800">
-        <a href="index.html#home" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery & Lounges</a>
-        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain & Odour</a>
-        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug & Mattresses</a>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-6 text-white">
+        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="carpet-services.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
+        <a href="upholstery-services.html" class="hover:text-[var(--primary-blue)]">Upholstery & Lounges</a>
+        <a href="stain-odour.html" class="hover:text-[var(--primary-blue)]">Stain & Odour</a>
+        <a href="rug-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug & Mattresses</a>
         <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
-        <a href="contact-us.html" class="text-[var(--primary-blue)]">Contact Us</a>
+        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
       </div>
-
-      <a href="index.html#quote" class="glass-button px-5 py-2.5 hidden md:inline-block text-sm">Get a Quote</a>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+        <div class="hamburger-icon"><span></span><span></span><span></span></div>
+      </button>
     </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[rgba(30,41,59,0.9)] p-6 rounded-xl mt-2">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="carpet-services.html" class="block py-2">Carpet Cleaning</a>
+      <a href="upholstery-services.html" class="block py-2">Upholstery & Lounges</a>
+      <a href="stain-odour.html" class="block py-2">Stain & Odour</a>
+      <a href="rug-mattresses.html" class="block py-2">Rug & Mattresses</a>
+      <a href="commercial.html" class="block py-2">Commercial</a>
+      <a href="contact-us.html" class="block py-2">Contact Us</a>
+    </div>
   </header>
 
-  <!-- ===== Mobile Drawer ===== -->
-  <div id="mobile-menu-overlay" class="overlay-base overlay-hidden">
-    <div id="mobile-menu-panel" class="panel">
-      <a href="index.html#home" onclick="closeMobileMenu()">Home</a>
-      <a href="carpet-cleaning.html" onclick="closeMobileMenu()">Carpet Cleaning</a>
-      <a href="upholstery-cleaning.html" onclick="closeMobileMenu()">Upholstery & Lounges</a>
-      <a href="stain-treatment.html" onclick="closeMobileMenu()">Stain & Odour</a>
-      <a href="rugs-mattresses.html" onclick="closeMobileMenu()">Rug & Mattresses</a>
-      <a href="commercial.html" onclick="closeMobileMenu()">Commercial</a>
-      <a href="contact-us.html" class="text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
-      <a href="index.html#quote" class="mt-6 glass-button text-center py-3" onclick="closeMobileMenu()">Get a Quote</a>
-    </div>
-  </div>
+  <!-- MAIN -->
+  <main class="container mx-auto px-6">
+    <h1 class="text-3xl font-bold text-[var(--primary-blue)] mb-8">Get in touch</h1>
 
-  <!-- ===== MAIN ===== -->
-  <main class="container mx-auto px-4 md:px-6 pb-12 space-y-12">
-    <!-- Hero -->
-    <section class="max-w-4xl mx-auto pt-10">
-      <div class="deep-glass p-8 md:p-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Get In Touch</h1>
-        <p class="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto">
-          Questions, quotes, or bookings — we’re here for it. Send a message or reach out directly below.
-        </p>
-      </div>
-    </section>
+    <div class="glass-panel p-8">
+      <p class="mb-6">We’d love to hear from you! Whether you’re after a quote, need advice, or want to talk about a stubborn stain, reach out via any of the methods below.</p>
 
-    <!-- Form + Details -->
-    <section class="max-w-6xl mx-auto">
-      <div class="deep-glass p-6 md:p-10 rounded-2xl">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          <!-- Form -->
-          <div>
-            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Send us a message</h2>
-            <form id="contactForm" class="space-y-6">
-              <div>
-                <label for="name" class="block text-sm font-semibold text-slate-700 mb-1">Name</label>
-                <input id="name" name="name" required class="frosted-input w-full px-4 py-3" />
-              </div>
-              <div>
-                <label for="email" class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
-                <input id="email" name="email" type="email" required class="frosted-input w-full px-4 py-3" />
-              </div>
-              <div>
-                <label for="subject" class="block text-sm font-semibold text-slate-700 mb-1">Subject</label>
-                <input id="subject" name="subject" class="frosted-input w-full px-4 py-3" />
-              </div>
-              <div>
-                <label for="message" class="block text-sm font-semibold text-slate-700 mb-1">Message</label>
-                <textarea id="message" name="message" rows="6" required class="frosted-input w-full px-4 py-3"></textarea>
-              </div>
-              <button type="submit" class="glass-button w-full py-3 text-lg">Send Message</button>
-              <div id="formMessage" class="mt-3 text-center text-sm font-semibold hidden"></div>
-            </form>
-          </div>
-
-          <!-- Direct contact + socials + map -->
-          <div class="space-y-8">
-            <!-- Direct Contact -->
-            <div>
-              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Reach out directly</h2>
-              <div class="space-y-4">
-                <a href="mailto:Hello@leftiesservices.com.au" class="contact-card">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.003 5.884L10 9.892V17h4V9.892l7.997-4.008A2 2 0 0020 5H4a2 2 0 00-1.997.884zM22 8V6a2 2 0 00-2-2H4a2 2 0 00-2 2v2l10 5 10-5z"/></svg>
-                  <div>
-                    <div class="text-sm text-slate-600">Email</div>
-                    <div class="text-lg font-extrabold text-slate-900">Hello@leftiesservices.com.au</div>
-                  </div>
-                </a>
-                <a href="tel:0417220012" class="contact-card">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 .9V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.5 0 .9.4.9 1 0 1.2.2 2.5.6 3.7.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
-                  <div>
-                    <div class="text-sm text-slate-600">Phone — Carpet Cleaning</div>
-                    <div class="text-lg font-extrabold text-slate-900">0417 220 012</div>
-                  </div>
-                </a>
-                <a href="tel:0407796678" class="contact-card">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.5 2.9 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 .9V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.5 0 .9.4.9 1 0 1.2.2 2.5.6 3.7.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
-                  <div>
-                    <div class="text-sm text-slate-600">Phone — Home Services</div>
-                    <div class="text-lg font-extrabold text-slate-900">0407 796 678</div>
-                  </div>
-                </a>
-                <div class="contact-card">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                  <div>
-                    <div class="text-sm text-slate-600">Service Area</div>
-                    <div class="text-lg font-extrabold text-slate-900">Hervey Bay & Fraser Coast (mobile service)</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Socials -->
-            <div>
-              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Follow our journey</h2>
-              <div class="grid grid-cols-1 gap-4">
-                <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" class="social-item">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-600"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
-                  <span class="font-semibold text-slate-800">Facebook — Lefties.Services</span>
-                </a>
-                <a href="https://www.tiktok.com/@Lefties.Services" target="_blank" rel="noopener" class="social-item">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-slate-900"><path d="M16 8.04a6.1 6.1 0 003.5 1.13V6.2a3.9 3.9 0 01-3.5-2.02V4h-3.2v10.06a2.36 2.36 0 11-2-2.32v-2.6a5 5 0 00-4.36 8.95A5 5 0 0016 15.02z"/></svg>
-                  <span class="font-semibold text-slate-800">TikTok — Lefties.Services</span>
-                </a>
-                <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" class="social-item">
-                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-pink-600"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
-                  <span class="font-semibold text-slate-800">Instagram — Lefties.Services</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Map -->
-            <div>
-              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Find us</h2>
-              <div class="rounded-xl overflow-hidden shadow-md" style="height: 320px;">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15276.104445585523!2d152.83689435!3d-25.28919655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6bc3762283e3c049%3A0x500d072f88a2a50!2sHervey%20Bay%20QLD%2C%20Australia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
-                  width="100%" height="100%" style="border:0;" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-                </iframe>
-              </div>
-              <p class="text-sm text-slate-600 mt-3 text-center">
-                Mobile service across Hervey Bay & Fraser Coast.
-              </p>
-            </div>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+        <!-- Facebook -->
+        <div>
+          <img src="icons/facebook-placeholder.png" alt="Facebook" class="mx-auto w-16 h-16 mb-2">
+          <a href="https://www.facebook.com/Leftiesservices" target="_blank">Facebook</a>
+        </div>
+        <!-- Instagram -->
+        <div>
+          <img src="icons/instagram-placeholder.png" alt="Instagram" class="mx-auto w-16 h-16 mb-2">
+          <a href="https://www.instagram.com/leftiescarpetcleaning" target="_blank">Instagram</a>
+        </div>
+        <!-- Old Facebook -->
+        <div>
+          <img src="icons/facebook-old-placeholder.png" alt="Old Facebook" class="mx-auto w-16 h-16 mb-2">
+          <a href="https://www.facebook.com/OldLeftiesPage" target="_blank">Old Facebook</a>
+          <p class="text-xs text-red-400 mt-1">⚠️ Not monitored</p>
+        </div>
+        <!-- Email -->
+        <div>
+          <img src="icons/email-placeholder.png" alt="Email" class="mx-auto w-16 h-16 mb-2">
+          <a href="mailto:hello@leftiescarpetcleaning.com">Email Us</a>
         </div>
       </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="text-center">
-      <a href="index.html#quote" class="glass-button px-8 py-4 text-lg">Get a Quote</a>
-    </section>
+    </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="bg-black/80 text-gray-300 py-8">
-    <div class="container mx-auto px-6 text-center">
-      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-70">
-      <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
-        <a href="tel:0417220012" class="glass-button px-6 py-3 text-sm">Lefties Carpet Cleaning — 0417 220 012</a>
-        <a href="tel:0407796678" class="glass-button px-6 py-3 text-sm">Lefties Home Services — 0407 796 678</a>
-      </div>
-      <a href="mailto:Hello@leftiesservices.com.au" class="text-blue-300 hover:text-blue-200 font-bold text-sm">Hello@leftiesservices.com.au</a>
-      <p class="text-xs text-gray-400 mt-4">&copy; 2025 Lefties. All Rights Reserved.</p>
-    </div>
-  </footer>
-
-  <!-- ===== JS: Mobile menu + form feedback ===== -->
   <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel   = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-
-    function openMobileMenu(){
-      overlay.classList.remove('overlay-hidden');
-      requestAnimationFrame(()=>{ panel.classList.add('panel-open'); });
-      hamburgerIcon && hamburgerIcon.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileMenu(){
-      panel.classList.remove('panel-open');
-      setTimeout(()=>{ overlay.classList.add('overlay-hidden'); },300);
-      hamburgerIcon && hamburgerIcon.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('overlay-hidden');
-      isOpen ? closeMobileMenu() : openMobileMenu();
-    }
-    mobileMenuButton && mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    overlay && overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
-
-    // Simple form demo feedback
-    const form = document.getElementById('contactForm');
-    const formMsg = document.getElementById('formMessage');
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      formMsg.classList.remove('hidden');
-      formMsg.style.color = '#334155';
-      formMsg.textContent = 'Sending...';
-      await new Promise(r=>setTimeout(r,1200));
-      formMsg.style.color = '#16a34a';
-      formMsg.textContent = 'Message sent! We’ll get back to you soon.';
-      form.reset();
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
     });
   </script>
 </body>
