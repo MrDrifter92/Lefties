@@ -22,20 +22,28 @@
       overflow-x:hidden;
     }
 
-    /* Full-screen background video */
-    .body-video-background{
-      position:fixed; inset:0;
-      width:100vw; height:100vh;
-      object-fit:cover;
-      z-index:-2; opacity:.25; transform:translateZ(0);
-    }
+/* Full-screen background video */
+.video-bg{
+  position:fixed; inset:0;
+  width:100vw; height:100vh;
+  object-fit:cover;
+  opacity:.25;                /* lower = more transparent; try .15 if you want lighter */
+  z-index:-2;
+  transform:translateZ(0);
+  pointer-events:none;        /* video won't block clicks */
+}
 
-    /* Optional subtle tint so light glass reads well on bright footage */
-    .video-tint{
-      position:fixed; inset:0; z-index:-1;
-      background:linear-gradient(180deg, rgba(15,23,42,.5), rgba(15,23,42,.25) 30%, rgba(15,23,42,.5) 100%);
-      pointer-events:none;
-    }
+/* Soft tint so text is readable on light scenes */
+.video-tint{
+  position:fixed; inset:0; z-index:-1;
+  background:linear-gradient(
+    180deg,
+    rgba(245,248,252,.25) 0%,
+    rgba(240,242,245,.35) 40%,
+    rgba(240,242,245,.55) 100%
+  );
+  pointer-events:none;
+}
 
     /* Glass containers (light theme) */
     .deep-glass{
