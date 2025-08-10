@@ -3,85 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Upholstery Cleaning | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Hervey Bay’s top-tier upholstery and lounge cleaning service. Safe on all fabrics, pet-friendly, and dries fast.">
+  <title>Upholstery & Lounges | Lefties Carpet Cleaning</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --primary-blue: #0071B6;
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
+    :root{
+      --primary-blue:#0071B6;
+      --text-main:#e0e0e0;
+      --bg-dark:#0f172a;
     }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+    body{
+      font-family:'Nunito',sans-serif;
+      background-color:var(--bg-dark);
+      color:var(--text-main);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      position:relative;
     }
-
-    /* Glass panel */
+    /* Full-page background video (like Services) */
+    .body-video-background{
+      position:fixed; top:0; left:0;
+      width:100vw; height:100vh;
+      z-index:-2; object-fit:cover; opacity:.25; transform:translateZ(0);
+    }
+    /* Glass panel card */
     .glass-panel{
-      background: rgba(30,41,59,.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 10px 28px rgba(0,0,0,.4);
+      background:rgba(30,41,59,.65);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      position:relative; overflow:hidden; z-index:1;
     }
-    .text-lift{ text-shadow: 0 0 8px rgba(0,113,182,.5); }
-    .service-img{ width:100%; height:auto; border-radius:.75rem; box-shadow:0 4px 6px rgba(0,0,0,.1); object-fit:cover; }
-
+    .text-lift{ text-shadow:0 0 8px rgba(0,113,182,.5); }
+    .service-img{ width:100%; height:auto; object-fit:cover; border-radius:.75rem; box-shadow:0 4px 6px rgba(0,0,0,.1);}
     /* Header (matches Services/Carpet) */
     header{ position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem; }
     header nav{
-      background: rgba(30,41,59,.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 10px 28px rgba(0,0,0,.4);
-      max-width: 80rem;
-      margin: 0 auto;
-      padding: .25rem 1rem;           /* tighter like Services/Carpet */
-      display: flex; justify-content: space-between; align-items: center;
-      position: relative; min-height: 80px;
+      background:rgba(30,41,59,.65);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      max-width:80rem; margin:0 auto; padding:.25rem 1rem;
+      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:80px;
     }
-
-    /* Hamburger icon */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out;
-      position:relative; z-index:20;
-    }
-    .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out; }
-    .hamburger-icon.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
-    .hamburger-icon.open span:nth-child(2){ opacity:0; }
-    .hamburger-icon.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
-
+    /* Hamburger */
+    .hamburger-icon{display:flex;flex-direction:column;justify-content:space-between;width:2rem;height:1.5rem;cursor:pointer;transition:.3s;position:relative;z-index:20}
+    .hamburger-icon span{height:2px;width:100%;background:#fff;border-radius:9999px;transition:.3s}
+    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .hamburger-icon.open span:nth-child(2){opacity:0}
+    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
     /* Mobile drawer */
-    #mobile-menu-overlay{
-      position:fixed; inset:0; z-index:90;
-      background: rgba(0,0,0,.6);
-      opacity:0; pointer-events:none;
-      transition: opacity .3s ease;
-    }
+    #mobile-menu-overlay{ position:fixed; inset:0; z-index:90; background:rgba(0,0,0,.6); transition:opacity .3s; }
+    #mobile-menu-overlay.opacity-0{ pointer-events:none; }
     #mobile-menu-panel{
       position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
-      background:#0f172a; padding:2rem;
-      transform: translateX(100%); transition: transform .3s ease;
-      display:flex; flex-direction:column; gap:2rem; color:#fff; font-size:1.25rem;
-      padding-top: 6.5rem;            /* keeps links clear of the header */
+      background:#0f172a; padding:2rem; transform:translateX(100%); transition:transform .3s;
+      display:flex; flex-direction:column; gap:2rem; color:white; font-size:1.25rem;
+      padding-top:7rem; /* clears header */
     }
-
-    /* Space for fixed header — slightly larger here to fix overlap */
-    main{ padding-top: 140px; }       /* <- spacing fix so the first card clears the header */
+    /* Keep content below the fixed header */
+    main{ padding-top:120px; position:relative; z-index:1; }
   </style>
 </head>
 <body class="antialiased">
+  <!-- Background video -->
+  <video autoplay loop muted playsinline class="body-video-background">
+    <source src="u-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
   <!-- HEADER -->
   <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-3">
@@ -97,98 +87,122 @@
         </div>
       </button>
 
-      <!-- Desktop Menu (same set used across pages) -->
+      <!-- Desktop Menu (omit current page) -->
       <div class="hidden md:flex space-x-8 text-white">
-        <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
-        <a href="index.html#about" class="hover:text-[var(--primary-blue)]">About</a>
-        <a href="index.html#contact" class="hover:text-[var(--primary-blue)]">Contact</a>
+        <a href="index.html#home" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="services.html" class="hover:text-[var(--primary-blue)]">All Services</a>
+        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
+        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain + Odour</a>
+        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug & Mattress</a>
+        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
+        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
       </div>
     </nav>
   </header>
 
-  <!-- Mobile Menu Overlay (drawer) -->
-  <div id="mobile-menu-overlay" class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Slide-in panel -->
-    <div id="mobile-menu-panel" class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8 transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl">
-      <a href="index.html#home" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
-      <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">All Services</a>
-      <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Carpet Cleaning</a>
-      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain &amp; Odour</a>
-      <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Rug &amp; Mattress</a>
-      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
-      <a href="about-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">About Us</a>
-      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
-      <a href="index.html#quote" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Get a Quote</a>
+  <!-- MOBILE MENU DRAWER -->
+  <div id="mobile-menu-overlay" class="opacity-0">
+    <div id="mobile-menu-panel">
+      <a href="index.html#home" onclick="closeMobileMenu()">Home</a>
+      <a href="services.html" onclick="closeMobileMenu()">All Services</a>
+      <a href="carpet-cleaning.html" onclick="closeMobileMenu()">Carpet Cleaning</a>
+      <a href="stain-treatment.html" onclick="closeMobileMenu()">Stain + Odour</a>
+      <a href="rugs-mattresses.html" onclick="closeMobileMenu()">Rug & Mattress</a>
+      <a href="commercial.html" onclick="closeMobileMenu()">Commercial</a>
+      <a href="contact-us.html" onclick="closeMobileMenu()">Contact Us</a>
     </div>
   </div>
 
   <!-- MAIN -->
   <main class="container mx-auto px-4 py-12 space-y-12">
-
+    <!-- HERO -->
     <section class="glass-panel p-8 md:p-12 text-center">
       <h1 class="text-5xl font-black text-white mb-4 text-lift">Upholstery &amp; Lounges</h1>
       <p class="text-lg md:text-xl max-w-3xl mx-auto">
-        We specialize in revitalizing your upholstery and lounges, bringing them back to their pristine condition. Whether your furniture is made of delicate fabric or durable leather, and regardless of whether it has grubby arms or food-stained cushions, we provide a deep clean. Our process ensures proper rinsing, leaving your upholstery fresh, hygienic, and looking its best.
+        We specialize in revitalizing your upholstery and lounges, bringing them back to their pristine condition.
+        Whether your furniture is made of delicate fabric or durable leather, and regardless of whether it has grubby
+        arms or food-stained cushions, we provide a deep clean. Our process ensures proper rinsing, leaving your
+        upholstery fresh, hygienic, and looking its best.
       </p>
     </section>
 
+    <!-- PROCESS -->
     <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
       <img src="Upholstery-001.png" alt="Lefties lounge cleaning" class="service-img">
       <div>
         <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
         <ul class="list-disc list-inside space-y-2 text-lg">
-          <li><strong>Pre-check of fabric type (we clean natural &amp; synthetic safely):</strong> Before we begin, our experts meticulously identify your upholstery's fabric type. This crucial step allows us to select the safest and most effective cleaning methods, ensuring that both natural and synthetic materials are treated with the utmost care and precision.</li>
-          <li><strong>Vacuum and prep to remove hair, grit, and surface grime:</strong> We start with a thorough high-powered vacuuming to remove loose dirt, pet hair, dust, and other surface debris. This prepares the fabric for a deeper clean and prevents abrasive particles from being worked into the fibers during the cleaning process.</li>
-          <li><strong>Low-moisture pre-spray to soften oils, sweat, and stains:</strong> A specialized low-moisture pre-treatment solution is gently applied to the fabric. This solution is designed to break down and emulsify tough oils, sweat, and stubborn stains, making them easier to extract without oversaturating your upholstery.</li>
-          <li><strong>Rinsed via hot water extraction or safe low-moisture method:</strong> Depending on your fabric's specific needs, we employ either advanced hot water extraction for a deep rinse or a safe, low-moisture cleaning method. Both techniques are highly effective at flushing out dirt and cleaning solutions, leaving no sticky residue behind.</li>
-          <li><strong>Drying pass to reduce moisture; ready within hours:</strong> After cleaning, we perform a dedicated drying pass to significantly reduce moisture in the fabric. This accelerates the drying time, ensuring your upholstery is ready for use within just a few hours, minimizing inconvenience.</li>
+          <li><strong>Pre-check of fabric type (we clean natural &amp; synthetic safely):</strong> We identify the fabric to choose the safest, most effective method.</li>
+          <li><strong>Vacuum &amp; prep to remove hair, grit, and surface grime:</strong> A thorough pre-vacuum removes loose soil and debris.</li>
+          <li><strong>Low-moisture pre-spray to soften oils, sweat, and stains:</strong> Breaks down stubborn grime without over-wetting.</li>
+          <li><strong>Rinsed via hot water extraction or safe low-moisture method:</strong> Both leave no sticky residue and restore freshness.</li>
+          <li><strong>Drying pass to reduce moisture; ready within hours:</strong> Most pieces are ready to use in 4–6 hours.</li>
         </ul>
       </div>
     </section>
 
+    <!-- DIFFERENCE -->
     <section class="glass-panel p-6 md:p-12">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
       <ul class="space-y-3 text-lg">
-        <li><strong>Local, not a franchise:</strong> We are a locally owned and operated business, not a large franchise. This means we dedicate more time and personalized attention to each job, focusing on delivering superior results rather than rushing through appointments. Our commitment is to quality, not quantity.</li>
-        <li><strong>Ethical operators:</strong> Transparency and honesty are at the core of our service. If we assess a job and determine that we cannot achieve the desired results or if it falls outside our expertise, we will ethically refer you to a trusted professional who can better meet your needs. We believe in no-nonsense, straightforward advice.</li>
-        <li><strong>Child and pet-safe:</strong> Your family's well-being is our priority. All the products we use are professional-grade, non-toxic and completely residue-free once dry. This ensures a safe environment for your children and pets immediately after the cleaning process.</li>
-        <li><strong>Optional Add-ons:</strong> Enhance your cleaning experience with our optional add-ons. We offer effective odour removal treatments to neutralize lingering smells, sanitizers for an extra layer of hygiene, and protective coatings to guard against future spills and stains. These are available upon request to customize your service.</li>
+        <li><strong>Local, not a franchise:</strong> More time and care on every job.</li>
+        <li><strong>Ethical operators:</strong> Straight talk; if we can’t, we’ll say so and point you right.</li>
+        <li><strong>Child &amp; pet-safe:</strong> Non-toxic, professional-grade products that dry residue-free.</li>
+        <li><strong>Optional add-ons:</strong> Odour treatments, sanitizers, and fabric protector on request.</li>
       </ul>
     </section>
 
+    <!-- DRY TIME -->
     <section class="glass-panel p-6 md:p-12">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
-      <p class="text-lg">Most upholstery is typically dry within <strong>4 to 6 hours</strong> after our cleaning process. Factors like fabric type can influence this; for instance, leather and synthetic blends often dry even quicker. To assist with rapid drying, we will ensure windows are open for ventilation or strategically place a fan to promote air circulation.</p>
+      <p class="text-lg">Most upholstery is typically dry within <strong>4–6 hours</strong>. Fabric, humidity, and airflow can nudge that up or down — we’ll help you set ventilation for a quick dry.</p>
     </section>
 
-    <!-- Gallery -->
+    <!-- NEED TO KNOW -->
+    <section class="glass-panel p-6 md:p-12">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Need to know</h2>
+      <ul class="space-y-3 text-lg">
+        <li><strong>Fully insured, police-checked, Blue Card:</strong> Peace of mind in your home.</li>
+        <li><strong>WoolSafe compatible on delicate fabrics:</strong> Gentle and effective for sensitive fibres.</li>
+        <li><strong>Honest stain advice:</strong> Some stains are permanent — we’ll set clear expectations upfront.</li>
+      </ul>
+    </section>
+
+    <!-- GALLERY -->
     <section class="glass-panel p-6 md:p-12">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Upholstery Cleaning Gallery</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery01.png" alt="Upholstery Cleaning Gallery Image 1" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery02.png" alt="Upholstery Cleaning Gallery Image 2" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery03.png" alt="Upholstery Cleaning Gallery Image 3" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery04.png" alt="Upholstery Cleaning Gallery Image 4" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery05.png" alt="Upholstery Cleaning Gallery Image 5" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery06.png" alt="Upholstery Cleaning Gallery Image 6" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery07.png" alt="Upholstery Cleaning Gallery Image 7" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery08.png" alt="Upholstery Cleaning Gallery Image 8" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery09.png" alt="Upholstery Cleaning Gallery Image 9" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery10.png" alt="Upholstery Cleaning Gallery Image 10" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery01.png" alt="Gallery 1" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery02.png" alt="Gallery 2" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery03.png" alt="Gallery 3" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery04.png" alt="Gallery 4" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery05.png" alt="Gallery 5" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery06.png" alt="Gallery 6" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery07.png" alt="Gallery 7" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery08.png" alt="Gallery 8" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery09.png" alt="Gallery 9" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery10.png" alt="Gallery 10" class="rounded-lg w-full h-auto object-cover"></div>
       </div>
     </section>
 
+    <!-- CTA -->
     <section class="text-center">
-      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">Book Now</a>
+      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
+        Book Now
+      </a>
     </section>
   </main>
 
-  <footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
-    <p class="text-sm mt-1">ABN: 64 554 336 330 | Hervey Bay, QLD</p>
+  <!-- FOOTER -->
+  <footer class="text-center py-8 text-gray-400 bg-black">
+    <div class="container mx-auto px-6">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
+      <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+      <p class="text-xs text-gray-600 mt-1">ABN: 64 554 336 330 | Hervey Bay, QLD</p>
+    </div>
   </footer>
 
-  <!-- Mobile menu JS (drawer) -->
+  <!-- Mobile menu JS (same pattern as Services) -->
   <script>
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const overlay = document.getElementById('mobile-menu-overlay');
@@ -197,25 +211,22 @@
 
     function openMobileMenu(){
       if(!overlay || !panel) return;
-      overlay.classList.remove('pointer-events-none','opacity-0');
+      overlay.classList.remove('opacity-0');
       requestAnimationFrame(()=>{ panel.classList.remove('translate-x-full'); });
-      if (hamburgerIcon) hamburgerIcon.classList.add('open');
+      if(hamburgerIcon) hamburgerIcon.classList.add('open');
     }
     function closeMobileMenu(){
       if(!overlay || !panel) return;
       panel.classList.add('translate-x-full');
-      setTimeout(()=>{
-        overlay.classList.add('opacity-0');
-        overlay.classList.add('pointer-events-none');
-      },300);
-      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
+      setTimeout(()=>{ overlay.classList.add('opacity-0'); },300);
+      if(hamburgerIcon) hamburgerIcon.classList.remove('open');
     }
     function toggleMobileMenu(){
       const isOpen = !overlay.classList.contains('opacity-0');
       isOpen ? closeMobileMenu() : openMobileMenu();
     }
-    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    if (overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
+    if(mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
     window.closeMobileMenu = closeMobileMenu;
   </script>
 </body>
