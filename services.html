@@ -12,16 +12,21 @@
       --glass-glow: rgba(0, 113, 182, 0.3);
       --text-main: #e0e0e0;
       --bg-dark: #0f172a;
+      --dark-bg: #0D1117;      /* for index header parity */
+      --mid-dark-bg: #161B22;  /* for index-style bits if needed */
+      --light-text: #e5e7eb;
     }
+
     body {
       font-family: 'Nunito', sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
       position: relative;
     }
+
     /* Background video */
     .body-video-background {
       position: fixed;
@@ -32,6 +37,7 @@
       object-fit: cover;
       opacity: 0.25;
     }
+
     /* Glass panel */
     .glass-panel {
       background: rgba(30, 41, 59, 0.65);
@@ -44,87 +50,148 @@
       overflow: hidden;
       z-index: 1;
     }
+
     .text-lift { text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); }
+
     .service-img {
       width: 100%; height: auto; object-fit: cover;
       border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
 
-    /* Hamburger icon */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
-    }
-    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;}
-    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+    /* ====== HEADER/UI copied to match index ====== */
 
-    /* Fixed header (match index, tighter) */
-    header{
-      position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem;
+    /* Enhanced deep glass (from index) */
+    .deep-glass {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 1.5rem;
+      box-shadow:
+        0 0 25px rgba(0, 140, 255, 0.1),
+        inset 0 2px 2px rgba(255, 255, 255, 0.07),
+        inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: all 0.3s ease;
     }
-    header nav{
-      background:rgba(30,41,59,.65);
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 10px 28px rgba(0,0,0,.4);
-      max-width:80rem; margin:0 auto; padding:.25rem 1rem; /* tighter */
-      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:80px; /* was 100px */
+    .deep-glass::before {
+      content: '';
+      position: absolute; top: 0; left: -150%;
+      width: 75%; height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      animation: shine 6s infinite linear;
+      animation-delay: var(--shine-delay, 0s);
     }
-    header nav .logo-container{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:10;}
-    header nav .logo-container img{height:9rem; width:auto;}
-    header nav .flex-1.flex.justify-end{z-index:20;}
+    @keyframes shine { 100% { left: 150%; } }
 
-    /* Make space for fixed header (reduced) */
-    main{ padding-top:120px; position:relative; z-index:1; } /* was 150px */
+    /* Glass CTA button (from index) */
+    .glass-button {
+      background: linear-gradient(145deg, rgba(0, 113, 182, 0.6), rgba(0, 80, 130, 0.8));
+      border: 1px solid rgba(0, 140, 255, 0.3);
+      border-radius: 9999px;
+      color: white; font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      box-shadow:
+        0 0 15px rgba(0, 140, 255, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+    }
+    .glass-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow:
+        0 0 30px 5px rgba(0, 140, 255, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      background: linear-gradient(145deg, rgba(0, 123, 192, 0.7), rgba(0, 90, 140, 0.9));
+    }
+
+    /* Hamburger icon (from index) */
+    .hamburger-icon {
+      display: flex; flex-direction: column; justify-content: space-between;
+      width: 2rem; height: 1.5rem; cursor: pointer; transition: all 0.3s ease-in-out;
+    }
+    .hamburger-icon span {
+      display: block; height: 2px; width: 100%; background: #fff; border-radius: 9999px; transition: all 0.3s ease-in-out;
+    }
+    .hamburger-icon.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2) { opacity: 0; }
+    .hamburger-icon.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+    /* Full-screen mobile menu overlay (from index) */
+    .mobile-menu-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 90;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+    .mobile-menu-overlay[data-state="open"] { transform: translateX(0); }
+
+    /* Fixed header container spacing (match index proportions) */
+    main { padding-top: 120px; position: relative; z-index: 1; } /* room for fixed header */
   </style>
 </head>
 <body class="antialiased">
+
   <!-- Background video -->
   <video autoplay loop muted playsinline class="body-video-background">
     <source src="services.video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <!-- HEADER -->
-  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-3">
-    <nav class="container mx-auto px-4 py-1 md:px-6 md:py-2 flex justify-between items-center relative">
+  <!-- ===== HEADER (copied structure from index) ===== -->
+  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+    <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
       <a href="index.html#home">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
       </a>
 
-      <!-- Mobile Hamburger -->
+      <!-- Mobile Hamburger Menu Button -->
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
-        <div id="hamburger-icon" class="hamburger-icon">
+        <div class="hamburger-icon" id="hamburger-icon">
           <span></span><span></span><span></span>
         </div>
       </button>
 
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex space-x-8 text-white">
-        <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
-        <a href="index.html#about" class="hover:text-[var(--primary-blue)]">About</a>
-        <a href="index.html#contact" class="hover:text-[var(--primary-blue)]">Contact</a>
+      <!-- Desktop Links (match index) -->
+      <div class="hidden md:flex flex-row space-x-8 font-bold">
+        <a href="services.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Services</a>
+        <a href="commercial.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Commercial</a>
+        <a href="about-us.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">About Us</a>
+        <a href="contact-us.html" class="block md:inline-block text-gray-300 hover:text-white transition-colors">Contact Us</a>
       </div>
+
+      <!-- Desktop Get a Quote button (match index) -->
+      <a href="index.html#quote" class="glass-button px-6 py-3 text-sm hidden md:block">
+        Get a Quote
+      </a>
     </nav>
   </header>
 
-  <!-- Mobile Menu Overlay (drawer) -->
-  <div id="mobile-menu-overlay"
-       class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Slide-in panel -->
-    <div id="mobile-menu-panel"
-         class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
-                transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl
-                pt-24 md:pt-28">
-      <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Services</a>
-      <a href="index.html#about" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">About</a>
-      <a href="index.html#contact" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact</a>
+  <!-- ===== MOBILE MENU OVERLAY (full-screen, match index) ===== -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="p-8 text-center mt-24">
+      <div class="space-y-8 font-bold text-3xl">
+        <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Services</a>
+        <a href="carpet-cleaning.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Carpet Cleaning</a>
+        <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
+        <a href="stain-treatment.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Stain + Odour Treatment</a>
+        <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Rug & Mattress Cleaning</a>
+        <a href="commercial.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
+        <a href="about-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">About Us</a>
+        <a href="contact-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Contact Us</a>
+      </div>
+      <div class="mt-12">
+        <a href="index.html#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">
+          Get a Quote
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN -->
+  <!-- ===== MAIN ===== -->
   <main class="container mx-auto px-4 py-12">
 
     <!-- Our Services -->
@@ -225,43 +292,35 @@
     </div>
   </footer>
 
-  <!-- Modal (kept) -->
-  <div id="custom-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-button" id="close-modal">&times;</span>
-      <p id="modal-message" class="text-lg"></p>
-    </div>
-  </div>
+  <!-- (Kept) Modal shell -->
+  <div id="custom-modal" class="modal" style="display:none"></div>
 
-  <!-- Mobile menu JS (drawer) -->
+  <!-- ===== Mobile menu JS (same behaviour as index) ===== -->
   <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel   = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const menuOverlay = document.getElementById('mobile-menu-overlay');
 
-    function openMobileMenu(){
-      if(!overlay || !panel) return;
-      overlay.classList.remove('pointer-events-none','opacity-0');
-      requestAnimationFrame(()=>{ panel.classList.remove('translate-x-full'); });
-      if (hamburgerIcon) hamburgerIcon.classList.add('open');
-    }
-    function closeMobileMenu(){
-      if(!overlay || !panel) return;
-      panel.classList.add('translate-x-full');
-      setTimeout(()=>{
-        overlay.classList.add('opacity-0');
-        overlay.classList.add('pointer-events-none');
-      },300);
-      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
-    }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('opacity-0');
-      isOpen ? closeMobileMenu() : openMobileMenu();
-    }
-    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    if (overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
+      function openMenu() {
+        menuOverlay.setAttribute('data-state', 'open');
+        hamburgerIcon.classList.add('open');
+        // document.body.style.overflow = 'hidden'; // optional
+      }
+      function closeMenu() {
+        menuOverlay.setAttribute('data-state', 'closed');
+        hamburgerIcon.classList.remove('open');
+        // document.body.style.overflow = ''; // optional
+      }
+
+      menuButton.addEventListener('click', () => {
+        const isOpen = menuOverlay.getAttribute('data-state') === 'open';
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      // Allow links to call closeMenu()
+      window.closeMenu = closeMenu;
+    });
   </script>
 </body>
 </html>
