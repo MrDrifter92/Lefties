@@ -1,94 +1,132 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upholstery Cleaning | Lefties Carpet Cleaning</title>
   <meta name="description" content="Hervey Bay’s top-tier upholstery and lounge cleaning service. Safe on all fabrics, pet-friendly, and dries fast.">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
   <style>
-    /* CSS Variables from the provided services page snippet */
-    :root {
-      --primary-blue: #0071B6;
-      --glass-glow: rgba(0, 113, 182, 0.3);
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
+    :root{
+      --primary-blue:#0071B6;
+      --text-main:#e0e0e0;
+      --bg-dark:#0f172a;
     }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg-dark);
+      color:var(--text-main);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      position:relative;
     }
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+
+    /* Glass panel */
+    .glass-panel{
+      background:rgba(30,41,59,.65);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border-radius:1.5rem;
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      position:relative;
+      overflow:hidden;
+      z-index:1;
     }
-    .text-lift {
-        text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); /* Subtle glow for text */
+    .text-lift{ text-shadow:0 0 8px rgba(0,113,182,.5); }
+    .service-img{ width:100%; height:auto; border-radius:.75rem; box-shadow:0 4px 6px rgba(0,0,0,.1); object-fit:cover; }
+
+    /* Fixed header (same as Services/Carpet) */
+    header{ position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem; }
+    header nav{
+      background:rgba(30,41,59,.65);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      max-width:80rem; margin:0 auto; padding:.25rem 1rem;
+      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:80px;
     }
-    /* Ensure images within sections are responsive */
-    .service-img {
-        width: 100%;
-        height: auto;
-        border-radius: 0.75rem; /* rounded-xl */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+
+    /* Hamburger icon */
+    .hamburger-icon{
+      display:flex; flex-direction:column; justify-content:space-between;
+      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
     }
+    .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out; }
+    .hamburger-icon.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+    .hamburger-icon.open span:nth-child(2){ opacity:0; }
+    .hamburger-icon.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
+
+    /* Drawer overlay */
+    #mobile-menu-overlay{ position:fixed; inset:0; z-index:90; background:rgba(0,0,0,.6); }
+    .overlay-hidden{ opacity:0; pointer-events:none; transition:opacity .3s ease; }
+    .overlay-visible{ opacity:1; pointer-events:auto; transition:opacity .3s ease; }
+    /* Drawer panel */
+    #mobile-menu-panel{
+      position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
+      background:#0f172a; padding:2rem;
+      transform:translateX(100%); transition:transform .3s ease;
+      display:flex; flex-direction:column; gap:2rem; color:#fff; font-size:1.5rem;
+      padding-top:6.5rem; /* clears under fixed header */
+    }
+    .panel-open{ transform:translateX(0); }
+
+    /* Space for header */
+    main{ padding-top:120px; position:relative; z-index:1; }
   </style>
 </head>
 <body>
-  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
-    <nav class="glass-panel flex justify-between items-center p-4 relative" style="min-height: 100px;">
-      <!-- Desktop Navigation (Left) -->
-      <div class="hidden md:flex space-x-6 font-bold flex-1">
-        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="services.html" class="text-[var(--primary-blue)]">All Services</a>
-      </div>
 
-      <!-- Centered Logo (Absolute Positioned and Overlaying) -->
-      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
-        <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-36 w-auto"> <!-- h-36 is 3x h-12 -->
+  <!-- HEADER -->
+  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-3">
+    <nav class="container mx-auto px-4 py-1 md:px-6 md:py-2 flex justify-between items-center relative">
+      <a href="index.html#home">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
       </a>
 
-      <!-- Mobile Menu Button (Right) -->
-      <div class="flex-1 flex justify-end">
-        <button id="menu-btn" class="block md:hidden focus:outline-none">
-          <svg class="w-8 h-8 text-[var(--primary-blue)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </button>
+      <!-- Mobile Hamburger -->
+      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
+        <div id="hamburger-icon" class="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+
+      <!-- Desktop Menu (matches Carpet; excludes this page) -->
+      <div class="hidden md:flex space-x-8 text-white font-bold">
+        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="services.html" class="hover:text-[var(--primary-blue)]">Services</a>
+        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
+        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain &amp; Odour</a>
+        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug &amp; Mattress</a>
+        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
+        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
       </div>
     </nav>
   </header>
 
-  <div id="mobile-menu" class="fixed inset-0 bg-[#0f172a]/95 text-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-    <div class="flex justify-between items-center px-4 pt-4">
-      <img src="core-logo-blue-transparent.png" class="h-12" alt="Lefties Logo">
-      <button id="close-menu">
-        <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-    <div class="mt-10 space-y-6 text-center text-xl font-bold">
-      <a href="services.html" class="block">Services</a>
-      <a href="#" class="block">Commercial</a>
-      <a href="#" class="block">Our Work</a>
-      <a href="#" class="block">Tips & Tricks</a>
-      <a href="index.html#quote" class="inline-block mt-6 bg-[var(--primary-blue)] text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">Get a Quote</a>
+  <!-- Mobile Menu Overlay (drawer) -->
+  <div id="mobile-menu-overlay" class="overlay-hidden">
+    <div id="mobile-menu-panel">
+      <a href="index.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
+      <a href="services.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Services</a>
+      <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Carpet Cleaning</a>
+      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain &amp; Odour</a>
+      <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Rug &amp; Mattress</a>
+      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
+      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
     </div>
   </div>
 
+  <!-- MAIN (unchanged content) -->
   <main class="container mx-auto px-4 py-12 space-y-12">
     <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl font-black text-white mb-4 text-lift">Upholstery & Lounges</h1>
-      <p class="text-lg md:text-xl max-w-3xl mx-auto">We specialize in revitalizing your upholstery and lounges, bringing them back to their pristine condition. Whether your furniture is made of delicate fabric or durable leather, and regardless of whether it has grubby arms or food-stained cushions, we provide a deep clean. Our process ensures proper rinsing, leaving your upholstery fresh, hygienic, and looking its best.</p>
+      <h1 class="text-5xl font-black text-white mb-4 text-lift">Upholstery &amp; Lounges</h1>
+      <p class="text-lg md:text-xl max-w-3xl mx-auto">
+        We specialize in revitalizing your upholstery and lounges, bringing them back to their pristine condition. Whether your furniture is made of delicate fabric or durable leather, and regardless of whether it has grubby arms or food-stained cushions, we provide a deep clean. Our process ensures proper rinsing, leaving your upholstery fresh, hygienic, and looking its best.
+      </p>
     </section>
 
     <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
@@ -96,7 +134,7 @@
       <div>
         <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
         <ul class="list-disc list-inside space-y-2 text-lg">
-          <li><strong>Pre-check of fabric type (we clean natural & synthetic safely):</strong> Before we begin, our experts meticulously identify your upholstery's fabric type. This crucial step allows us to select the safest and most effective cleaning methods, ensuring that both natural and synthetic materials are treated with the utmost care and precision.</li>
+          <li><strong>Pre-check of fabric type (we clean natural &amp; synthetic safely):</strong> Before we begin, our experts meticulously identify your upholstery's fabric type. This crucial step allows us to select the safest and most effective cleaning methods, ensuring that both natural and synthetic materials are treated with the utmost care and precision.</li>
           <li><strong>Vacuum and prep to remove hair, grit, and surface grime:</strong> We start with a thorough high-powered vacuuming to remove loose dirt, pet hair, dust, and other surface debris. This prepares the fabric for a deeper clean and prevents abrasive particles from being worked into the fibers during the cleaning process.</li>
           <li><strong>Low-moisture pre-spray to soften oils, sweat, and stains:</strong> A specialized low-moisture pre-treatment solution is gently applied to the fabric. This solution is designed to break down and emulsify tough oils, sweat, and stubborn stains, making them easier to extract without oversaturating your upholstery.</li>
           <li><strong>Rinsed via hot water extraction or safe low-moisture method:</strong> Depending on your fabric's specific needs, we employ either advanced hot water extraction for a deep rinse or a safe, low-moisture cleaning method. Both techniques are highly effective at flushing out dirt and cleaning solutions, leaving no sticky residue behind.</li>
@@ -129,49 +167,25 @@
       </ul>
     </section>
 
-    <!-- New Gallery Section -->
+    <!-- Gallery -->
     <section class="glass-panel p-6 md:p-12">
-        <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Upholstery Cleaning Gallery</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Photo Placeholders (10 of them) -->
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery01.png" alt="Upholstery Cleaning Gallery Image 1" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery02.png" alt="Upholstery Cleaning Gallery Image 2" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery03.png" alt="Upholstery Cleaning Gallery Image 3" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery04.png" alt="Upholstery Cleaning Gallery Image 4" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery05.png" alt="Upholstery Cleaning Gallery Image 5" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery06.png" alt="Upholstery Cleaning Gallery Image 6" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery07.png" alt="Upholstery Cleaning Gallery Image 7" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery08.png" alt="Upholstery Cleaning Gallery Image 8" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery09.png" alt="Upholstery Cleaning Gallery Image 9" class="rounded-lg w-full h-auto object-cover">
-            </div>
-            <div class="glass-panel p-4 flex justify-center items-center">
-                <img src="u-gallery10.png" alt="Upholstery Cleaning Gallery Image 10" class="rounded-lg w-full h-auto object-cover">
-            </div>
-        </div>
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Upholstery Cleaning Gallery</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery01.png" alt="Upholstery Cleaning 1" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery02.png" alt="Upholstery Cleaning 2" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery03.png" alt="Upholstery Cleaning 3" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery04.png" alt="Upholstery Cleaning 4" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery05.png" alt="Upholstery Cleaning 5" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery06.png" alt="Upholstery Cleaning 6" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery07.png" alt="Upholstery Cleaning 7" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery08.png" alt="Upholstery Cleaning 8" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery09.png" alt="Upholstery Cleaning 9" class="rounded-lg w-full h-auto object-cover"></div>
+        <div class="glass-panel p-4 flex justify-center items-center"><img src="u-gallery10.png" alt="Upholstery Cleaning 10" class="rounded-lg w-full h-auto object-cover"></div>
+      </div>
     </section>
-    <!-- End New Gallery Section -->
 
     <section class="text-center">
-      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
-        Book Now
-      </a>
+      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">Book Now</a>
     </section>
   </main>
 
@@ -180,20 +194,32 @@
     <p class="text-sm mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
   </footer>
 
+  <!-- Drawer JS (same behavior as Services/Carpet) -->
   <script>
-    const btn = document.getElementById('menu-btn');
-    const close = document.getElementById('close-menu');
-    const menu = document.getElementById('mobile-menu');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const panel   = document.getElementById('mobile-menu-panel');
+    const burger  = document.getElementById('hamburger-icon');
 
-    btn.addEventListener('click', () => {
-      menu.classList.remove('translate-x-full');
-      menu.classList.add('translate-x-0');
-    });
-
-    close.addEventListener('click', () => {
-      menu.classList.add('translate-x-full');
-      menu.classList.remove('translate-x-0');
-    });
+    function openMobileMenu(){
+      overlay.classList.remove('overlay-hidden');
+      overlay.classList.add('overlay-visible');
+      panel.classList.add('panel-open');
+      if(burger) burger.classList.add('open');
+    }
+    function closeMobileMenu(){
+      panel.classList.remove('panel-open');
+      overlay.classList.remove('overlay-visible');
+      overlay.classList.add('overlay-hidden');
+      if(burger) burger.classList.remove('open');
+    }
+    function toggleMobileMenu(){
+      const isOpen = overlay.classList.contains('overlay-visible');
+      isOpen ? closeMobileMenu() : openMobileMenu();
+    }
+    if(mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    if(overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
+    window.closeMobileMenu = closeMobileMenu;
   </script>
 </body>
 </html>
