@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us - Lefties</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-blue: #0071B6;
+      --light-blue-glow: rgba(0, 140, 255, 0.2);
+      --light-bg: #f0f2f5;
+      --mid-light-bg: #ffffff;
+      --dark-text: #334155;
+      --gray-text: #4b5563;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Background video */
+    .page-video {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      opacity: 0.18;
+      z-index: -1;
+      transform: translateZ(0);
+    }
+
+    main { flex: 1; padding-top: 6.5rem; } /* space for fixed header */
+
+    /* Light Deep Glass */
+    .deep-glass {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255,255,255,0.55), rgba(240,242,245,0.85));
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 1.5rem;
+      box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.05),
+        inset 0 2px 2px rgba(255, 255, 255, 0.1),
+        inset 0 -2px 2px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: all 0.3s ease;
+    }
+    .deep-glass::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -150%;
+      width: 75%; height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      animation: shine 6s infinite linear;
+      animation-delay: var(--shine-delay, 0s);
+    }
+    @keyframes shine { 100% { left: 150%; } }
+
+    /* Button */
+    .glass-button {
+      background: linear-gradient(145deg, rgba(0,113,182,0.85), rgba(0,80,130,0.95));
+      border: 1px solid rgba(0,140,255,0.5);
+      border-radius: 9999px;
+      color: #fff;
+      font-weight: 800;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      box-shadow:
+        0 0 15px rgba(0,140,255,0.35),
+        inset 0 1px 1px rgba(255,255,255,0.2);
+      transition: all .3s ease;
+    }
+    .glass-button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow:
+        0 0 30px 5px var(--light-blue-glow),
+        inset 0 1px 1px rgba(255,255,255,0.3);
+      background: linear-gradient(145deg, rgba(0,123,192,0.95), rgba(0,90,140,1));
+    }
+
+    /* Header bar (fixed, floating like the rest of the site) */
+    header.deep-glass {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      margin: .5rem; /* floating look */
+    }
+
+    /* Mobile overlay */
+    .mobile-menu-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: rgba(240,242,245,0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 90;
+      transform: translateX(100%);
+      transition: transform .5s cubic-bezier(0.86,0,0.07,1);
+    }
+    .mobile-menu-overlay[data-state="open"] { transform: translateX(0); }
+
+    /* Hamburger */
+    .hamburger-icon {
+      display: flex; flex-direction: column; justify-content: space-between;
+      width: 2rem; height: 1.5rem; cursor: pointer; transition: all .3s ease-in-out;
+    }
+    .hamburger-icon span {
+      display: block; height: 2px; width: 100%;
+      background: var(--dark-text); border-radius: 9999px; transition: all .3s ease-in-out;
+    }
+    .hamburger-icon.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2) { opacity: 0; }
+    .hamburger-icon.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+  </style>
+</head>
+
+<body class="antialiased">
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="page-video">
+    <source src="contact-video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Header -->
+  <header class="deep-glass">
+    <nav class="container mx-auto px-6 py-2 flex justify-between items-center relative">
+      <a href="index.html" aria-label="Lefties Home">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
+      </a>
+
+      <!-- Mobile -->
+      <button id="mobile-menu-button" class="md:hidden focus:outline-none z-[110]" aria-label="Open menu">
+        <div class="hamburger-icon" id="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex flex-row space-x-8 font-bold">
+        <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+        <a href="about-us.html" class="text-gray-700 hover:text-blue-600 transition-colors">About Us</a>
+        <a href="index.html#commercial" class="text-gray-700 hover:text-blue-600 transition-colors">Commercial</a>
+        <a href="index.html#gallery" class="text-gray-700 hover:text-blue-600 transition-colors">Our Work</a>
+        <a href="index.html#tips" class="text-gray-700 hover:text-blue-600 transition-colors">Tips & Tricks</a>
+        <a href="contact-us.html" class="text-blue-600 hover:text-blue-800 transition-colors">Contact Us</a>
+      </div>
+
+      <a href="index.html#quote" class="glass-button px-6 py-3 text-sm hidden md:block">
+        Get a Quote
+      </a>
+    </nav>
+  </header>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="p-8 text-center mt-24">
+      <div class="space-y-8 font-bold text-3xl">
+        <a href="services.html" class="block text-gray-700 hover:text-blue-600 transition-colors" onclick="closeMenu()">Services</a>
+        <a href="about-us.html" class="block text-gray-700 hover:text-blue-600 transition-colors" onclick="closeMenu()">About Us</a>
+        <a href="index.html#commercial" class="block text-gray-700 hover:text-blue-600 transition-colors" onclick="closeMenu()">Commercial</a>
+        <a href="index.html#gallery" class="block text-gray-700 hover:text-blue-600 transition-colors" onclick="closeMenu()">Our Work</a>
+        <a href="index.html#tips" class="block text-gray-700 hover:text-blue-600 transition-colors" onclick="closeMenu()">Tips & Tricks</a>
+        <a href="contact-us.html" class="block text-blue-600 hover:text-blue-800 transition-colors" onclick="closeMenu()">Contact Us</a>
+      </div>
+      <div class="mt-12">
+        <a href="index.html#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">
+          Get a Quote
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="container mx-auto px-4 py-8 md:py-12">
+    <section class="max-w-5xl mx-auto deep-glass p-6 md:p-10 rounded-xl">
+      <h1 class="text-4xl md:text-5xl font-black text-center text-gray-900 mb-8 leading-tight">
+        Get In Touch!
+      </h1>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <!-- Form -->
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">Send us a message</h2>
+          <form id="contactForm" class="space-y-6" novalidate>
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input id="name" name="name" type="text" required
+                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-600 focus:border-blue-600 bg-white/70">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input id="email" name="email" type="email" required
+                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-600 focus:border-blue-600 bg-white/70">
+            </div>
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input id="subject" name="subject" type="text"
+                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-600 focus:border-blue-600 bg-white/70">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-600 focus:border-blue-600 bg-white/70"></textarea>
+            </div>
+            <button type="submit" class="glass-button w-full py-3 px-6 text-lg">
+              Send Message
+            </button>
+            <div id="formMessage" class="mt-3 text-center text-sm font-semibold hidden"></div>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="deep-glass p-6 rounded-lg shadow-inner">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">Our Contact Details</h2>
+          <ul class="space-y-4 text-gray-700 text-base">
+            <li class="flex items-center">
+              <svg class="h-6 w-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0-7a7 7 0 110-14 7 7 0 010 14z"/></svg>
+              <span>Email: <a href="mailto:Hello@leftiesservices.com.au" class="text-blue-600 font-semibold hover:underline">Hello@leftiesservices.com.au</a></span>
+            </li>
+            <li class="flex items-center">
+              <svg class="h-6 w-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.3a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.2l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.2-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/></svg>
+              <span>Carpet Cleaning: <a href="tel:0417220012" class="text-blue-600 font-semibold hover:underline">0417 220 012</a></span>
+            </li>
+            <li class="flex items-center">
+              <svg class="h-6 w-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.3a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.2l-2.3 1.15a11 11 0 005.52 5.52l1.15-2.3a1 1 0 011.2-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/></svg>
+              <span>Home Services: <a href="tel:0407796678" class="text-blue-600 font-semibold hover:underline">0407 796 678</a></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="h-6 w-6 text-blue-600 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.4 15a8 8 0 10-10.8 0L12 22l7.4-7z"/></svg>
+              <span>Address: Hervey Bay, QLD</span>
+            </li>
+          </ul>
+
+          <div class="mt-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Follow Us</h3>
+            <div class="space-y-3">
+              <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800">
+                <svg class="h-6 w-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.49-3.89 3.776-3.89 1.095 0 2.239.195 2.239.195v2.46h-1.261c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.89h-2.33v6.985A10.003 10.003 0 0022 12z"/></svg>
+                <span>Facebook: Lefties.Services</span>
+              </a>
+              <a href="https://www.tiktok.com/@Lefties.Services" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800">
+                <svg class="h-6 w-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12.9 3h2.1a5.7 5.7 0 004 3.7V9a7.8 7.8 0 01-4.1-1.2v6.2a5.9 5.9 0 11-5-5.8v2.3a3.6 3.6 0 103 3.5V3z"/></svg>
+                <span>TikTok: Lefties.Services</span>
+              </a>
+              <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-600 hover:text-blue-800">
+                <svg class="h-6 w-6 mr-3" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-1a1 1 0 100 2 1 1 0 000-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Instagram: Lefties.Services</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white/70 backdrop-blur py-8 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-80">
+      <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
+        <a href="tel:0417220012" class="glass-button p-4 w-full md:w-auto text-center">
+          <span class="text-sm font-bold">Lefties Carpet Cleaning</span><br>
+          <span class="text-xs">0417 220 012</span>
+        </a>
+        <a href="tel:0407796678" class="glass-button p-4 w-full md:w-auto text-center">
+          <span class="text-sm font-bold">Lefties Home Services</span><br>
+          <span class="text-xs">0407 796 678</span>
+        </a>
+      </div>
+      <a href="mailto:Hello@leftiesservices.com.au" class="text-blue-600 hover:underline text-sm font-bold">Hello@leftiesservices.com.au</a>
+      <p class="text-xs text-gray-600 mt-4">&copy; 2025 Lefties. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu (same pattern you've used elsewhere)
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const menuOverlay = document.getElementById('mobile-menu-overlay');
+
+      function openMenu() {
+        menuOverlay.setAttribute('data-state', 'open');
+        hamburgerIcon.classList.add('open');
+      }
+      function closeMenu() {
+        menuOverlay.setAttribute('data-state', 'closed');
+        hamburgerIcon.classList.remove('open');
+      }
+      function toggleMenu() {
+        const isOpen = menuOverlay.getAttribute('data-state') === 'open';
+        isOpen ? closeMenu() : openMenu();
+      }
+
+      if (menuButton) menuButton.addEventListener('click', toggleMenu);
+      // Close on any link tap
+      menuOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      window.closeMenu = closeMenu;
+    });
+
+    // Fake submit (demo only)
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('formMessage');
+      msg.classList.remove('hidden', 'text-green-600', 'text-red-600');
+      msg.textContent = 'Sending message...';
+
+      await new Promise(r => setTimeout(r, 1200)); // simulate
+
+      msg.textContent = 'Message sent successfully! We will get back to you soon.';
+      msg.classList.add('text-green-600');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
