@@ -1,188 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us | Lefties Carpet Cleaning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Nunito', sans-serif;
-      color: #e0e0e0;
-      background-color: #0f172a;
+    :root{
+      --primary-blue:#0071B6;
+      --video-opacity:.35;   /* tweak this (0.15–0.45) to show more/less video */
+      --tint-top: rgba(15,23,42,.55);
+      --tint-mid: rgba(15,23,42,.25);
+      --tint-btm: rgba(15,23,42,.55);
+    }
+    body{
+      font-family:'Nunito',sans-serif;
+      color:#0f172a;
+      background:#0f172a;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
 
     /* Background video */
-    .video-bg {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%;
-      min-height: 100%;
-      z-index: -1;
-      opacity: 0.25; /* adjust transparency here */
+    .body-video{ position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover; z-index:-2; opacity:var(--video-opacity); }
+    .video-tint{ position:fixed; inset:0; z-index:-1;
+      background:linear-gradient(180deg,var(--tint-top),var(--tint-mid) 35%,var(--tint-btm));
+      pointer-events:none;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      padding: 1rem;
-      background: rgba(15, 23, 42, 0.9);
+    /* Floating header */
+    header{ position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem; }
+    .nav-wrap{
+      max-width:80rem; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+      background:rgba(255,255,255,.6);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border:1px solid rgba(0,0,0,.06); border-radius:1.5rem; box-shadow:0 10px 28px rgba(0,0,0,.18);
+      padding:.35rem 1rem; min-height:80px;
     }
+    .hamburger{ width:2rem; height:1.5rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; }
+    .hamburger span{ height:2px; width:100%; background:#0b1b2b; border-radius:9999px; transition:.3s; }
+    .hamburger.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2){ opacity:0; }
+    .hamburger.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
 
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #e0e0e0;
-      font-weight: 600;
+    /* Mobile drawer */
+    .overlay{ position:fixed; inset:0; background:rgba(255,255,255,.9); z-index:90; transition:opacity .3s; }
+    .overlay.hidden{ opacity:0; pointer-events:none; }
+    .drawer{
+      position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
+      background:rgba(255,255,255,.96); backdrop-filter:blur(14px);
+      transform:translateX(100%); transition:transform .3s; padding:7rem 2rem 2rem; box-shadow:-10px 0 30px rgba(0,0,0,.15);
+      display:flex; flex-direction:column; gap:1.25rem; font-weight:800; color:#0b1b2b;
     }
+    .drawer.open{ transform:translateX(0); }
 
-    nav a:hover {
-      color: #0071B6;
+    /* Glass cards */
+    .glass{ position:relative; overflow:hidden;
+      background:linear-gradient(145deg, rgba(255,255,255,.65), rgba(240,242,245,.9));
+      border:1px solid rgba(0,0,0,.06); border-radius:1.25rem;
+      box-shadow:0 8px 26px rgba(0,0,0,.14), inset 0 2px 2px rgba(255,255,255,.12), inset 0 -2px 2px rgba(0,0,0,.06);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
     }
+    .glass-button{
+      background:linear-gradient(145deg, rgba(0,113,182,.95), rgba(0,80,130,1));
+      border:1px solid rgba(0,140,255,.45); border-radius:9999px; color:#fff; font-weight:800;
+      text-shadow:0 1px 2px rgba(0,0,0,.35);
+      box-shadow:0 0 15px rgba(0,140,255,.35), inset 0 1px 1px rgba(255,255,255,.22);
+      transition:.25s;
+    }
+    .glass-button:hover{ transform:translateY(-2px); box-shadow:0 0 34px 6px rgba(0,140,255,.25); }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 2rem;
-    }
+    /* Inputs */
+    .field{ background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.08); border-radius:.75rem; padding:.85rem 1rem; }
+    .field:focus{ outline:none; border-color:var(--primary-blue); box-shadow:0 0 0 3px rgba(0,113,182,.18); background:#fff; }
 
-    h1 {
-      color: #0071B6;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
+    /* Contact rows */
+    .row{ display:flex; align-items:center; gap:.75rem; padding:.85rem 1rem; border-radius:.9rem; border:1px solid rgba(0,0,0,.06); background:rgba(255,255,255,.8); }
+    .row:hover{ background:#fff; box-shadow:0 10px 20px rgba(0,113,182,.12); transform:translateY(-1px); }
+    .icon{ width:28px; height:28px; border-radius:8px; object-fit:contain; }
 
-    .contact-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      background: rgba(15, 23, 42, 0.85);
-      padding: 2rem;
-      border-radius: 10px;
-    }
-
-    form {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 0.5rem 0;
-      border: none;
-      border-radius: 6px;
-    }
-
-    button {
-      background: #0071B6;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .contact-info {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .contact-item {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .contact-item img {
-      width: 32px;
-      height: 32px;
-    }
-
-    .warning {
-      color: #ff4d4d;
-      font-size: 0.85rem;
-    }
-
-    .social-links {
-      margin-top: 1.5rem;
-    }
+    main{ padding-top:120px; }
+    @media (min-width:768px){ main{ padding-top:140px; } }
   </style>
 </head>
 <body>
 
   <!-- Background video -->
-  <video autoplay muted loop class="video-bg">
-    <source src="videos/contact-bg.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
+  <video class="body-video" autoplay muted loop playsinline>
+    <source src="contact-video.mp4" type="video/mp4">
   </video>
+  <div class="video-tint"></div>
 
-  <!-- Nav -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="carpet-cleaning.html">Carpet Cleaning</a>
-    <a href="upholstery-lounges.html">Upholstery & Lounges</a>
-    <a href="stain-odour.html">Stain & Odour</a>
-    <a href="rug-mattresses.html">Rugs & Mattresses</a>
-    <a href="commercial.html">Commercial</a>
-    <a href="contact.html" style="color:#0071B6;">Contact Us</a>
-  </nav>
+  <!-- Header -->
+  <header>
+    <nav class="nav-wrap">
+      <a href="index.html#home" class="flex items-center gap-3">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
+      </a>
 
-  <!-- Content -->
-  <div class="container">
-    <h1>Get in Touch</h1>
-    <div class="contact-wrapper">
-
-      <!-- Form -->
-      <form>
-        <label>Name</label>
-        <input type="text" name="name" required>
-        <label>Email</label>
-        <input type="email" name="email" required>
-        <label>Subject</label>
-        <input type="text" name="subject" required>
-        <label>Message</label>
-        <textarea name="message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-
-      <!-- Contact Info -->
-      <div class="contact-info">
-        <div class="contact-item">
-          <img src="email-icon.png" alt="Email">
-          <div>Email Us: <br><strong>Hello@leftiesservices.com.au</strong></div>
-        </div>
-        <div class="contact-item">
-          <img src="facebook-icon.png" alt="Facebook">
-          <div><a href="https://www.facebook.com/Lefties.Services" target="_blank">Facebook: Lefties.Services</a></div>
-        </div>
-        <div class="contact-item">
-          <img src="old-facebook-icon.png" alt="Old Facebook">
-          <div>
-            <a href="https://www.facebook.com/Old.Lefties.Services" target="_blank">Old Facebook Page</a>
-            <div class="warning">(Not monitored)</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <img src="instagram-icon.png" alt="Instagram">
-          <div><a href="https://www.instagram.com/Lefties.Services" target="_blank">Instagram: Lefties.Services</a></div>
-        </div>
-        <div class="contact-item">
-          <img src="tiktok-icon.png" alt="TikTok">
-          <div><a href="https://www.tiktok.com/@Lefties.Services" target="_blank">TikTok: Lefties.Services</a></div>
-        </div>
+      <div class="hidden md:flex items-center gap-8 font-extrabold text-slate-800">
+        <a href="index.html#home" class="hover:text-[var(--primary-blue)]">Home</a>
+        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
+        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery & Lounges</a>
+        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain & Odour</a>
+        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug & Mattresses</a>
+        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
+        <a href="contact-us.html" class="text-[var(--primary-blue)]">Contact Us</a>
       </div>
 
-    </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html#quote" class="glass-button hidden md:inline-block px-5 py-2.5 text-sm">Get a Quote</a>
+        <button id="menuBtn" class="md:hidden">
+          <div id="hamburger" class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div id="overlay" class="overlay hidden">
+    <nav id="drawer" class="drawer">
+      <a href="index.html#home" onclick="closeMenu()">Home</a>
+      <a href="carpet-cleaning.html" onclick="closeMenu()">Carpet Cleaning</a>
+      <a href="upholstery-cleaning.html" onclick="closeMenu()">Upholstery & Lounges</a>
+      <a href="stain-treatment.html" onclick="closeMenu()">Stain & Odour</a>
+      <a href="rugs-mattresses.html" onclick="closeMenu()">Rug & Mattresses</a>
+      <a href="commercial.html" onclick="closeMenu()">Commercial</a>
+      <a class="text-[var(--primary-blue)]" href="contact-us.html" onclick="closeMenu()">Contact Us</a>
+      <a href="index.html#quote" class="mt-3 glass-button text-center py-3" onclick="closeMenu()">Get a Quote</a>
+    </nav>
   </div>
 
+  <!-- Main -->
+  <main class="container mx-auto px-4 md:px-6 pb-14">
+    <!-- Title -->
+    <section class="max-w-5xl mx-auto mb-8">
+      <div class="glass p-8 md:p-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-black" style="color:var(--primary-blue);">Get in Touch</h1>
+        <p class="mt-3 text-slate-700 text-lg md:text-xl">Questions, quotes, or bookings — we’re here for it. Send a message or reach out directly below.</p>
+      </div>
+    </section>
+
+    <!-- Form + Details -->
+    <section class="max-w-6xl mx-auto">
+      <div class="glass p-6 md:p-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <!-- Form -->
+          <div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Send us a message</h2>
+            <form id="contactForm" class="space-y-5">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" for="name">Name</label>
+                <input id="name" name="name" class="field w-full" required />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" for="email">Email</label>
+                <input id="email" name="email" type="email" class="field w-full" required />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" for="subject">Subject</label>
+                <input id="subject" name="subject" class="field w-full" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" for="message">Message</label>
+                <textarea id="message" name="message" rows="6" class="field w-full" required></textarea>
+              </div>
+              <button class="glass-button w-full py-3 text-lg" type="submit">Send Message</button>
+              <div id="formMessage" class="mt-3 text-center text-sm font-semibold hidden"></div>
+            </form>
+          </div>
+
+          <!-- Direct contact + Socials + Map -->
+          <div class="space-y-8">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Reach Out Directly</h2>
+              <div class="space-y-4">
+                <a href="mailto:Hello@leftiesservices.com.au" class="row">
+                  <img class="icon" src="/email-icon.png" alt="Email">
+                  <div>
+                    <div class="text-sm text-slate-600">Email Us</div>
+                    <div class="text-lg font-extrabold text-slate-900">Hello@leftiesservices.com.au</div>
+                  </div>
+                </a>
+
+                <a href="tel:0417220012" class="row">
+                  <img class="icon" src="/4.png" alt="Phone">
+                  <div>
+                    <div class="text-sm text-slate-600">Carpet Cleaning</div>
+                    <div class="text-lg font-extrabold text-slate-900">0417 220 012</div>
+                  </div>
+                </a>
+
+                <a href="tel:0407796678" class="row">
+                  <img class="icon" src="/4.png" alt="Phone">
+                  <div>
+                    <div class="text-sm text-slate-600">Home Services</div>
+                    <div class="text-lg font-extrabold text-slate-900">0407 796 678</div>
+                  </div>
+                </a>
+
+                <div class="row">
+                  <img class="icon" src="/lefties-home.png" alt="Pin">
+                  <div>
+                    <div class="text-sm text-slate-600">Service Area</div>
+                    <div class="text-lg font-extrabold text-slate-900">Hervey Bay & Fraser Coast (mobile service)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Follow Our Journey</h2>
+              <div class="space-y-3">
+                <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" class="row">
+                  <img class="icon" src="/facebook-icon.png" alt="Facebook">
+                  <span class="font-semibold text-slate-800">Facebook: Lefties.Services</span>
+                </a>
+
+                <a href="https://www.facebook.com/leftiescarpetcleaning" target="_blank" rel="noopener" class="row">
+                  <img class="icon" src="/old-facebook-icon.png" alt="Old Facebook">
+                  <span class="font-semibold text-slate-800">Old Facebook Page <span class="text-red-500 font-bold">(Not monitored)</span></span>
+                </a>
+
+                <a href="https://www.tiktok.com/@Lefties.Services" target="_blank" rel="noopener" class="row">
+                  <img class="icon" src="/tiktok-icon.png" alt="TikTok">
+                  <span class="font-semibold text-slate-800">TikTok: Lefties.Services</span>
+                </a>
+
+                <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" class="row">
+                  <img class="icon" src="/instagram-icon.png" alt="Instagram">
+                  <span class="font-semibold text-slate-800">Instagram: Lefties.Services</span>
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6">Find Us</h2>
+              <div class="rounded-xl overflow-hidden shadow-md" style="height: 320px;">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15276.104445585523!2d152.83689435!3d-25.28919655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6bc3762283e3c049%3A0x500d072f88a2a50!2sHervey%20Bay%20QLD%2C%20Australia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                  width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center mt-10">
+      <a href="index.html#quote" class="glass-button inline-block px-8 py-4 text-lg">Get a Quote</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black/80 text-gray-300 py-8">
+    <div class="container mx-auto px-6 text-center">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-70">
+      <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
+        <a href="tel:0417220012" class="glass-button px-6 py-3 text-sm">Lefties Carpet Cleaning — 0417 220 012</a>
+        <a href="tel:0407796678" class="glass-button px-6 py-3 text-sm">Lefties Home Services — 0407 796 678</a>
+      </div>
+      <a href="mailto:Hello@leftiesservices.com.au" class="text-blue-300 hover:text-blue-200 font-bold text-sm">Hello@leftiesservices.com.au</a>
+      <p class="text-xs text-gray-400 mt-4">&copy; 2025 Lefties. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('overlay');
+    const drawer = document.getElementById('drawer');
+
+    function openMenu(){ overlay.classList.remove('hidden'); requestAnimationFrame(()=>drawer.classList.add('open')); hamburger.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ drawer.classList.remove('open'); setTimeout(()=>overlay.classList.add('hidden'),300); hamburger.classList.remove('open'); document.body.style.overflow=''; }
+    menuBtn.addEventListener('click', ()=> overlay.classList.contains('hidden') ? openMenu() : closeMenu());
+    overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMenu(); });
+    window.closeMenu = closeMenu;
+
+    // Demo form handler
+    const form = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMessage');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      formMsg.classList.remove('hidden'); formMsg.style.color='#334155'; formMsg.textContent='Sending...';
+      await new Promise(r=>setTimeout(r,1200));
+      formMsg.style.color='#16a34a'; formMsg.textContent='Message sent! We’ll get back to you soon.';
+      form.reset();
+    });
+  </script>
 </body>
 </html>
