@@ -16,30 +16,38 @@
       --mid-dark-bg:#161B22;
       --light-text:#e5e7eb;
     }
+
     body{
       font-family:'Nunito',sans-serif;
-      background:var(--dark-bg);
+      background-color:var(--dark-bg);
       color:var(--light-text);
       overflow-x:hidden;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ---------- GLOBAL / SEASONAL BACKGROUND VIDEO (very back) ---------- */
-    .body-video-background{
+    /* ===== GLOBAL BACKGROUND VIDEO (furthest back) ===== */
+    .body-video{
       position:fixed; inset:0;
       width:100vw; height:100vh; object-fit:cover;
-      z-index:-4;        /* furthest back */
-      opacity:.35;       /* tweak if you want more/less season video */
-      transform:translateZ(0);
+      z-index:-3; opacity:.35; pointer-events:none; transform:translateZ(0);
     }
-    .video-tint{
-      position:fixed; inset:0; z-index:-3; /* above global video, still behind everything else */
+    .body-tint{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
       background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25) 35%, rgba(0,0,0,.45) 100%);
-      pointer-events:none;
     }
 
-    /* ---------- Header glass (unchanged) ---------- */
+    /* ===== Mobile menu overlay ===== */
+    .mobile-menu-overlay{
+      position:fixed; inset:0; height:100vh;
+      background:rgba(13,17,23,.95);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      z-index:90; transform:translateX(100%);
+      transition:transform .5s cubic-bezier(.86,0,.07,1);
+    }
+    .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
+
+    /* ===== Deep glass header ===== */
     .deep-glass{
       position:relative; overflow:hidden;
       background:linear-gradient(145deg, rgba(30,41,59,.2), rgba(17,24,39,.4));
@@ -53,26 +61,26 @@
       content:''; position:absolute; top:0; left:-150%; width:75%; height:100%;
       background:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.15) 50%, rgba(255,255,255,0) 100%);
       transform:skewX(-25deg); animation:shine 6s infinite linear;
+      animation-delay:var(--shine-delay,0s);
     }
-    @keyframes shine{100%{left:150%;}}
+    @keyframes shine{ 100%{ left:150%; } }
 
     .glass-button{
       background:linear-gradient(145deg, rgba(0,113,182,.6), rgba(0,80,130,.8));
       border:1px solid rgba(0,140,255,.3);
-      border-radius:9999px;
-      color:#fff; font-weight:700;
+      border-radius:9999px; color:#fff; font-weight:700;
       text-shadow:0 1px 2px rgba(0,0,0,.4);
       box-shadow:0 0 15px rgba(0,140,255,.2), inset 0 1px 1px rgba(255,255,255,.15);
       transition:all .3s ease;
     }
     .glass-button:hover{
       transform:translateY(-3px) scale(1.05);
-      box-shadow:0 0 30px 5px var(--light-blue-glow), inset 0 1px 1px rgba(255,255,255,.2);
+      box-shadow:0 0 30px 5px var(--light-blue-glow);
       background:linear-gradient(145deg, rgba(0,123,192,.7), rgba(0,90,140,.9));
     }
 
-    /* ---------- Floating bubbles (unchanged) ---------- */
-    .bubble-container{position:absolute; inset:0; overflow:hidden; z-index:0;}
+    /* ===== Bubbles (keep your vibe) ===== */
+    .bubble-container{ position:absolute; inset:0; overflow:hidden; z-index:0; }
     .bubble{
       position:absolute;
       background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.1), rgba(0,140,255,.2));
@@ -81,60 +89,58 @@
       animation:float 20s infinite ease-in-out;
     }
     @keyframes float{
-      0%{transform:translateY(10vh) scale(.8); opacity:0;}
-      25%{opacity:.7;}
-      50%{transform:translateY(-15vh) scale(1.1);}
-      75%{opacity:.7;}
-      100%{transform:translateY(-30vh) scale(.9); opacity:0;}
+      0%{ transform:translateY(10vh) scale(.8); opacity:0; }
+      25%{ opacity:.7; }
+      50%{ transform:translateY(-15vh) scale(1.1); }
+      75%{ opacity:.7; }
+      100%{ transform:translateY(-30vh) scale(.9); opacity:0; }
     }
 
-    /* ---------- Mobile menu overlay ---------- */
-    .mobile-menu-overlay{
-      position:fixed; inset:0; height:100vh;
-      background:rgba(13,17,23,.95);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-      z-index:90; transform:translateX(100%);
-      transition:transform .5s cubic-bezier(.86,0,.07,1);
+    /* ===== Hamburger icon ===== */
+    .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; }
+    .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out; display:block; }
+    .hamburger-icon.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2){ opacity:0; }
+    .hamburger-icon.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
+
+    /* ===== Why Us section dog video layering ===== */
+    .section-with-video{ position:relative; overflow:hidden; }
+    .section-video{
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; z-index:-1; opacity:.28; pointer-events:none;
     }
-    .mobile-menu-overlay[data-state="open"]{transform:translateX(0);}
+    .section-gradient{
+      position:absolute; inset:0; z-index:-1; pointer-events:none;
+      background:linear-gradient(to top, #0D1117 0%, rgba(13,17,23,.35) 40%, #0D1117 100%);
+    }
 
-    /* ---------- Hamburger ---------- */
-    .hamburger-icon{display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:all .3s;}
-    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s;}
-    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
-
-    /* ---------- Layer helpers for hero / dog video ---------- */
-    .section-stack{position:relative; z-index:1;}         /* section container (above global video) */
-    .hero-content{position:relative; z-index:10;}         /* text/buttons/logo */
-    .hero-video{position:absolute; inset:0; z-index:-1;}  /* dog video sits in front of global video */
-    .hero-video video{width:100%; height:100%; object-fit:cover; opacity:1;} /* FULL opacity dog video */
-    .hero-overlay{position:absolute; inset:0; z-index:0; background:linear-gradient(to top, rgba(13,17,23,.85), rgba(13,17,23,.25), rgba(13,17,23,.85));}
+    /* utility backgrounds */
+    .bg-mid-dark{ background:var(--mid-dark-bg); }
+    .bg-dark{ background:var(--dark-bg); }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- GLOBAL SEASONAL VIDEO (furthest back) -->
-  <video autoplay muted loop playsinline class="body-video-background">
+  <!-- GLOBAL background video (always at the very back) -->
+  <video class="body-video" autoplay muted loop playsinline>
     <source src="homepage-video.mp4" type="video/mp4">
   </video>
-  <div class="video-tint"></div>
+  <div class="body-tint"></div>
 
-  <!-- HEADER (unchanged) -->
+  <!-- ===== HEADER (unchanged visually) ===== -->
   <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
     <nav class="container mx-auto px-6 py-2 flex items-center relative min-h-[80px]">
-      <!-- Left: Logo -->
+      <!-- Logo -->
       <a href="#home" class="flex items-center gap-3">
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
       </a>
 
-      <!-- Center (MOBILE): socials -->
+      <!-- Mobile center social icons -->
       <div class="absolute md:hidden left-1/2 -translate-x-1/2 flex items-center gap-4">
-        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
@@ -151,22 +157,20 @@
 
       <!-- Desktop socials (far right) -->
       <div class="hidden md:flex items-center gap-4 ml-6">
-        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
 
-      <!-- Desktop CTA -->
+      <!-- CTA -->
       <a href="#quote" class="glass-button px-6 py-3 text-sm hidden md:block ml-4">Get a Quote</a>
 
-      <!-- Mobile hamburger -->
+      <!-- Mobile burger -->
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110] ml-3">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
-        </div>
+        <div id="hamburger-icon" class="hamburger-icon"><span></span><span></span><span></span></div>
       </button>
     </nav>
   </header>
@@ -175,14 +179,14 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay">
     <div class="p-8 text-center mt-24">
       <div class="space-y-8 font-bold text-3xl">
-        <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Services</a>
-        <a href="carpet-service.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
-        <a href="stain-treatment.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Stain + Odour Treatment</a>
-        <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Rug & Mattress Cleaning</a>
-        <a href="commercial.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
-        <a href="about-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">About Us</a>
-        <a href="contact-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Contact Us</a>
+        <a href="services.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Our Services</a>
+        <a href="carpet-service.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Carpet Cleaning</a>
+        <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
+        <a href="stain-treatment.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Stain + Odour Treatment</a>
+        <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Rug & Mattress Cleaning</a>
+        <a href="commercial.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Commercial</a>
+        <a href="about-us.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">About Us</a>
+        <a href="contact-us.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Contact Us</a>
       </div>
       <div class="mt-12">
         <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
@@ -191,9 +195,9 @@
   </div>
 
   <main>
-    <!-- HERO / HEADLINE -->
-    <section id="home" class="section-stack pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-      <!-- Bubbles remain -->
+    <!-- ===== HERO ===== -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <!-- bubbles remain -->
       <div class="bubble-container">
         <div class="bubble" style="width:50px;height:50px;bottom:10%;left:15%;animation-duration:25s;"></div>
         <div class="bubble" style="width:100px;height:100px;bottom:20%;right:10%;animation-duration:18s;animation-delay:3s;"></div>
@@ -201,22 +205,12 @@
         <div class="bubble" style="width:80px;height:80px;bottom:30%;left:5%;animation-duration:22s;animation-delay:5s;"></div>
       </div>
 
-      <!-- DOG VIDEO IN FRONT OF GLOBAL VIDEO -->
-      <div class="hero-video">
-        <video autoplay muted loop playsinline>
-          <source src="Dog-video.mp4" type="video/mp4">
-        </video>
-      </div>
-      <!-- Gentle overlay to keep text readable -->
-      <div class="hero-overlay"></div>
-
-      <!-- CONTENT above dog video -->
-      <div class="container mx-auto px-6 text-center hero-content">
+      <div class="container mx-auto px-6 text-center relative z-10">
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="w-80 md:w-[28rem] h-auto mx-auto mb-8">
         <h1 class="text-7xl md:text-7xl font-black text-white leading-tight">
           <span class="text-blue-400">Hervey Bay.</span>
         </h1>
-        <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+        <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
           We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
         </p>
         <div class="mt-8">
@@ -225,8 +219,26 @@
       </div>
     </section>
 
-    <!-- TRUST / VALUES -->
-    <section id="trust" class="py-16 bg-[color:var(--mid-dark-bg)] relative overflow-hidden section-stack">
+    <!-- ===== WHY US (DOG VIDEO ONLY HERE) ===== -->
+    <section id="why-us" class="py-20 section-with-video">
+      <!-- dog video background (above global, below this content) -->
+      <video class="section-video" autoplay muted loop playsinline>
+        <source src="Dog-video.mp4" type="video/mp4">
+      </video>
+      <div class="section-gradient"></div>
+
+      <div class="container mx-auto px-6 text-center relative z-10">
+        <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 md:h-auto mx-auto mb-12">
+        <h2 class="text-4xl font-black text-white">Not Just Clean. Revived.</h2>
+        <div class="max-w-3xl mx-auto text-lg text-gray-200 space-y-4 mt-6">
+          <p>Lefties isn't a big franchise. We're a local Hervey Bay business, and we genuinely care about the results we deliver.</p>
+          <p class="font-bold text-blue-300">We show up when we say we will, we treat your home with respect, and we stand behind the quality of our clean. It's that simple.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST ===== -->
+    <section id="trust" class="py-16 bg-mid-dark relative overflow-hidden">
       <div class="bubble-container">
         <div class="bubble" style="width:120px;height:120px;top:10%;right:-5%;animation-duration:28s;"></div>
         <div class="bubble" style="width:60px;height:60px;bottom:15%;left:-2%;animation-duration:20s;animation-delay:4s;"></div>
@@ -249,8 +261,8 @@
       </div>
     </section>
 
-    <!-- GALLERY -->
-    <section id="gallery" class="py-20 bg-[color:var(--mid-dark-bg)] section-stack">
+    <!-- ===== GALLERY ===== -->
+    <section id="gallery" class="py-20 bg-mid-dark">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">The Proof is in the Details</h2>
@@ -265,8 +277,8 @@
       </div>
     </section>
 
-    <!-- COMMERCIAL CTA -->
-    <section id="commercial" class="py-20 bg-[color:var(--mid-dark-bg)] border-y border-gray-800 relative overflow-hidden section-stack">
+    <!-- ===== COMMERCIAL ===== -->
+    <section id="commercial" class="py-20 bg-mid-dark border-y border-gray-800 relative overflow-hidden">
       <div class="bubble-container">
         <div class="bubble" style="width:200px;height:200px;top:50%;left:-100px;animation-duration:35s;"></div>
         <div class="bubble" style="width:150px;height:150px;top:10%;right:-80px;animation-duration:25s;animation-delay:2s;"></div>
@@ -282,8 +294,8 @@
       </div>
     </section>
 
-    <!-- TIPS -->
-    <section id="tips" class="py-20 bg-[color:var(--dark-bg)] section-stack">
+    <!-- ===== TIPS ===== -->
+    <section id="tips" class="py-20 bg-dark">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">Tips & Tricks of the Trade</h2>
@@ -306,8 +318,8 @@
       </div>
     </section>
 
-    <!-- QUOTE -->
-    <section id="quote" class="py-20 bg-[color:var(--mid-dark-bg)] border-t border-gray-800 relative overflow-hidden section-stack">
+    <!-- ===== QUOTE ===== -->
+    <section id="quote" class="py-20 bg-mid-dark border-t border-gray-800 relative overflow-hidden">
       <div class="bubble-container">
         <div class="bubble" style="width:250px;height:250px;bottom:-100px;left:-100px;animation-duration:40s;"></div>
         <div class="bubble" style="width:180px;height:180px;top:-50px;right:-80px;animation-duration:30s;animation-delay:5s;"></div>
@@ -336,7 +348,7 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', function () {
       const menuButton = document.getElementById('mobile-menu-button');
       const hamburgerIcon = document.getElementById('hamburger-icon');
       const menuOverlay = document.getElementById('mobile-menu-overlay');
