@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,41 +16,30 @@
       --mid-dark-bg:#161B22;
       --light-text:#e5e7eb;
     }
-
-    html, body{ position:relative; } /* root stacking context */
-
     body{
       font-family:'Nunito',sans-serif;
-      background-color:var(--dark-bg);
+      background:var(--dark-bg);
       color:var(--light-text);
       overflow-x:hidden;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ===== GLOBAL BACKGROUND VIDEO (always behind everything) ===== */
+    /* ---------- GLOBAL / SEASONAL BACKGROUND VIDEO (very back) ---------- */
     .body-video-background{
       position:fixed; inset:0;
       width:100vw; height:100vh; object-fit:cover;
-      z-index:-9999; opacity:.35; pointer-events:none; transform:translateZ(0);
+      z-index:-4;        /* furthest back */
+      opacity:.35;       /* tweak if you want more/less season video */
+      transform:translateZ(0);
     }
     .video-tint{
-      position:fixed; inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25) 35%, rgba(0,0,0,.45));
-      z-index:-9998; pointer-events:none;
+      position:fixed; inset:0; z-index:-3; /* above global video, still behind everything else */
+      background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25) 35%, rgba(0,0,0,.45) 100%);
+      pointer-events:none;
     }
 
-    /* ===== Mobile menu overlay ===== */
-    .mobile-menu-overlay{
-      position:fixed; top:0; left:0; width:100%; height:100vh;
-      background:rgba(13,17,23,.95);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-      z-index:90; transform:translateX(100%);
-      transition:transform .5s cubic-bezier(.86,0,.07,1);
-    }
-    .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
-
-    /* ===== Deep-glass header ===== */
+    /* ---------- Header glass (unchanged) ---------- */
     .deep-glass{
       position:relative; overflow:hidden;
       background:linear-gradient(145deg, rgba(30,41,59,.2), rgba(17,24,39,.4));
@@ -63,14 +52,15 @@
     .deep-glass::before{
       content:''; position:absolute; top:0; left:-150%; width:75%; height:100%;
       background:linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.15) 50%, rgba(255,255,255,0) 100%);
-      transform:skewX(-25deg); animation:shine 6s infinite linear; animation-delay:var(--shine-delay,0s);
+      transform:skewX(-25deg); animation:shine 6s infinite linear;
     }
-    @keyframes shine{ 100%{ left:150%; } }
+    @keyframes shine{100%{left:150%;}}
 
     .glass-button{
       background:linear-gradient(145deg, rgba(0,113,182,.6), rgba(0,80,130,.8));
       border:1px solid rgba(0,140,255,.3);
-      border-radius:9999px; color:#fff; font-weight:bold;
+      border-radius:9999px;
+      color:#fff; font-weight:700;
       text-shadow:0 1px 2px rgba(0,0,0,.4);
       box-shadow:0 0 15px rgba(0,140,255,.2), inset 0 1px 1px rgba(255,255,255,.15);
       transition:all .3s ease;
@@ -81,8 +71,8 @@
       background:linear-gradient(145deg, rgba(0,123,192,.7), rgba(0,90,140,.9));
     }
 
-    /* ===== Bubbles ===== */
-    .bubble-container{ position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0; }
+    /* ---------- Floating bubbles (unchanged) ---------- */
+    .bubble-container{position:absolute; inset:0; overflow:hidden; z-index:0;}
     .bubble{
       position:absolute;
       background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.1), rgba(0,140,255,.2));
@@ -91,41 +81,47 @@
       animation:float 20s infinite ease-in-out;
     }
     @keyframes float{
-      0%{ transform:translateY(10vh) scale(.8); opacity:0; }
-      25%{ opacity:.7; }
-      50%{ transform:translateY(-15vh) scale(1.1); }
-      75%{ opacity:.7; }
-      100%{ transform:translateY(-30vh) scale(.9); opacity:0; }
+      0%{transform:translateY(10vh) scale(.8); opacity:0;}
+      25%{opacity:.7;}
+      50%{transform:translateY(-15vh) scale(1.1);}
+      75%{opacity:.7;}
+      100%{transform:translateY(-30vh) scale(.9); opacity:0;}
     }
 
-    /* ===== Hamburger ===== */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out;
+    /* ---------- Mobile menu overlay ---------- */
+    .mobile-menu-overlay{
+      position:fixed; inset:0; height:100vh;
+      background:rgba(13,17,23,.95);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      z-index:90; transform:translateX(100%);
+      transition:transform .5s cubic-bezier(.86,0,.07,1);
     }
-    .hamburger-icon span{
-      display:block; height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;
-    }
-    .hamburger-icon.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
-    .hamburger-icon.open span:nth-child(2){ opacity:0; }
-    .hamburger-icon.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
+    .mobile-menu-overlay[data-state="open"]{transform:translateX(0);}
 
-    /* ===== Section video isolation (DOG VIDEO SECTION) ===== */
-    #why-us{ position:relative; isolation:isolate; } /* keeps its -1 behind its own content only */
-    #why-us .why-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; opacity:.30; }
-    #why-us .content{ position:relative; z-index:1; }
-    #why-us .video-gradient{ position:absolute; inset:0; z-index:0; background:linear-gradient(to top, #0D1117, transparent, #0D1117); opacity:.8; }
+    /* ---------- Hamburger ---------- */
+    .hamburger-icon{display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:all .3s;}
+    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s;}
+    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg);}
+    .hamburger-icon.open span:nth-child(2){opacity:0;}
+    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
+
+    /* ---------- Layer helpers for hero / dog video ---------- */
+    .section-stack{position:relative; z-index:1;}         /* section container (above global video) */
+    .hero-content{position:relative; z-index:10;}         /* text/buttons/logo */
+    .hero-video{position:absolute; inset:0; z-index:-1;}  /* dog video sits in front of global video */
+    .hero-video video{width:100%; height:100%; object-fit:cover; opacity:1;} /* FULL opacity dog video */
+    .hero-overlay{position:absolute; inset:0; z-index:0; background:linear-gradient(to top, rgba(13,17,23,.85), rgba(13,17,23,.25), rgba(13,17,23,.85));}
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- ===== GLOBAL BACKGROUND VIDEO (very back) ===== -->
+  <!-- GLOBAL SEASONAL VIDEO (furthest back) -->
   <video autoplay muted loop playsinline class="body-video-background">
     <source src="homepage-video.mp4" type="video/mp4">
   </video>
   <div class="video-tint"></div>
 
-  <!-- ===== HEADER (unchanged layout) ===== -->
+  <!-- HEADER (unchanged) -->
   <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
     <nav class="container mx-auto px-6 py-2 flex items-center relative min-h-[80px]">
       <!-- Left: Logo -->
@@ -133,19 +129,19 @@
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
       </a>
 
-      <!-- Center (MOBILE ONLY): Social icons -->
+      <!-- Center (MOBILE): socials -->
       <div class="absolute md:hidden left-1/2 -translate-x-1/2 flex items-center gap-4">
-        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
 
       <div class="flex-1"></div>
 
-      <!-- Desktop Links -->
+      <!-- Desktop links -->
       <div class="hidden md:flex flex-row items-center space-x-8 font-bold">
         <a href="services.html" class="text-gray-300 hover:text-white transition-colors">Services</a>
         <a href="commercial.html" class="text-gray-300 hover:text-white transition-colors">Commercial</a>
@@ -153,12 +149,12 @@
         <a href="contact-us.html" class="text-gray-300 hover:text-white transition-colors">Contact Us</a>
       </div>
 
-      <!-- Desktop Social Icons (far right) -->
+      <!-- Desktop socials (far right) -->
       <div class="hidden md:flex items-center gap-4 ml-6">
-        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
@@ -166,16 +162,16 @@
       <!-- Desktop CTA -->
       <a href="#quote" class="glass-button px-6 py-3 text-sm hidden md:block ml-4">Get a Quote</a>
 
-      <!-- Mobile Hamburger -->
+      <!-- Mobile hamburger -->
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110] ml-3">
-        <div class="hamburger-icon" id="hamburger-icon">
+        <div id="hamburger-icon" class="hamburger-icon">
           <span></span><span></span><span></span>
         </div>
       </button>
     </nav>
   </header>
 
-  <!-- ===== MOBILE MENU OVERLAY ===== -->
+  <!-- MOBILE MENU -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay">
     <div class="p-8 text-center mt-24">
       <div class="space-y-8 font-bold text-3xl">
@@ -195,20 +191,32 @@
   </div>
 
   <main>
-    <!-- ===== HERO ===== -->
-    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+    <!-- HERO / HEADLINE -->
+    <section id="home" class="section-stack pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <!-- Bubbles remain -->
       <div class="bubble-container">
         <div class="bubble" style="width:50px;height:50px;bottom:10%;left:15%;animation-duration:25s;"></div>
         <div class="bubble" style="width:100px;height:100px;bottom:20%;right:10%;animation-duration:18s;animation-delay:3s;"></div>
         <div class="bubble" style="width:30px;height:30px;bottom:5%;left:40%;animation-duration:30s;animation-delay:1s;"></div>
         <div class="bubble" style="width:80px;height:80px;bottom:30%;left:5%;animation-duration:22s;animation-delay:5s;"></div>
       </div>
-      <div class="container mx-auto px-6 text-center relative z-10">
+
+      <!-- DOG VIDEO IN FRONT OF GLOBAL VIDEO -->
+      <div class="hero-video">
+        <video autoplay muted loop playsinline>
+          <source src="Dog-video.mp4" type="video/mp4">
+        </video>
+      </div>
+      <!-- Gentle overlay to keep text readable -->
+      <div class="hero-overlay"></div>
+
+      <!-- CONTENT above dog video -->
+      <div class="container mx-auto px-6 text-center hero-content">
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="w-80 md:w-[28rem] h-auto mx-auto mb-8">
         <h1 class="text-7xl md:text-7xl font-black text-white leading-tight">
           <span class="text-blue-400">Hervey Bay.</span>
         </h1>
-        <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+        <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
           We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
         </p>
         <div class="mt-8">
@@ -217,25 +225,8 @@
       </div>
     </section>
 
-    <!-- ===== WHY US (with its own video sitting ABOVE global, below content) ===== -->
-    <section id="why-us" class="py-20 overflow-hidden">
-      <video autoplay loop muted playsinline class="why-video">
-        <source src="Dog-video.mp4" type="video/mp4">
-      </video>
-      <div class="video-gradient"></div>
-
-      <div class="content container mx-auto px-6 text-center">
-        <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 md:h-auto mx-auto mb-12">
-        <h2 class="text-4xl font-black text-white">Not Just Clean. Revived.</h2>
-        <div class="max-w-3xl mx-auto text-lg text-gray-300 space-y-4 mt-6">
-          <p>Lefties isn't a big franchise. We're a local Hervey Bay business, and we genuinely care about the results we deliver.</p>
-          <p class="font-bold text-blue-400">We show up when we say we will, we treat your home with respect, and we stand behind the quality of our clean. It's that simple.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== TRUST ===== -->
-    <section id="trust" class="py-16 bg-mid-dark-bg relative overflow-hidden">
+    <!-- TRUST / VALUES -->
+    <section id="trust" class="py-16 bg-[color:var(--mid-dark-bg)] relative overflow-hidden section-stack">
       <div class="bubble-container">
         <div class="bubble" style="width:120px;height:120px;top:10%;right:-5%;animation-duration:28s;"></div>
         <div class="bubble" style="width:60px;height:60px;bottom:15%;left:-2%;animation-duration:20s;animation-delay:4s;"></div>
@@ -258,8 +249,8 @@
       </div>
     </section>
 
-    <!-- ===== GALLERY ===== -->
-    <section id="gallery" class="py-20 bg-mid-dark-bg">
+    <!-- GALLERY -->
+    <section id="gallery" class="py-20 bg-[color:var(--mid-dark-bg)] section-stack">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">The Proof is in the Details</h2>
@@ -274,8 +265,8 @@
       </div>
     </section>
 
-    <!-- ===== COMMERCIAL ===== -->
-    <section id="commercial" class="py-20 bg-mid-dark-bg border-y border-gray-800 relative overflow-hidden">
+    <!-- COMMERCIAL CTA -->
+    <section id="commercial" class="py-20 bg-[color:var(--mid-dark-bg)] border-y border-gray-800 relative overflow-hidden section-stack">
       <div class="bubble-container">
         <div class="bubble" style="width:200px;height:200px;top:50%;left:-100px;animation-duration:35s;"></div>
         <div class="bubble" style="width:150px;height:150px;top:10%;right:-80px;animation-duration:25s;animation-delay:2s;"></div>
@@ -291,8 +282,8 @@
       </div>
     </section>
 
-    <!-- ===== TIPS ===== -->
-    <section id="tips" class="py-20 bg-dark-bg">
+    <!-- TIPS -->
+    <section id="tips" class="py-20 bg-[color:var(--dark-bg)] section-stack">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">Tips & Tricks of the Trade</h2>
@@ -301,22 +292,22 @@
         <div class="grid md:grid-cols-3 gap-8 text-left">
           <div class="deep-glass p-8">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #1: Scrubbing Stains</h3>
-            <p class="text-gray-300">Scrubbing a fresh spill is the worst thing you can do. It pushes the stain deeper and can damage fibres. Always blot gently with a clean, white cloth, working from the outside in.</p>
+            <p class="text-gray-300">Scrubbing a fresh spill is the worst thing you can do. It pushes the stain deeper into the carpet fibres and can damage them permanently. Always blot gently with a clean, white cloth, working from the outside in.</p>
           </div>
           <div class="deep-glass p-8" style="--shine-delay:1.5s;">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #2: Supermarket Sprays</h3>
-            <p class="text-gray-300">Those “miracle” sprays often bleach or leave sticky residue that attracts more dirt later. They usually make the job harder.</p>
+            <p class="text-gray-300">Those "miracle" sprays often contain bleaching agents that can discolour your carpet or harsh detergents that leave a sticky residue, attracting even more dirt over time. Most of the time, they just make our job harder.</p>
           </div>
           <div class="deep-glass p-8" style="--shine-delay:2.5s;">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #3: Waiting Too Long</h3>
-            <p class="text-gray-300">The longer a stain sits, the harder it is to remove. For the best chance of success, reach out sooner.</p>
+            <p class="text-gray-300">The longer a stain sits, the harder it is to remove. Acidic stains from coffee or pet urine can permanently dye carpet fibres. For the best chance of a complete removal, give us a call sooner rather than later.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== QUOTE ===== -->
-    <section id="quote" class="py-20 bg-mid-dark-bg border-t border-gray-800 relative overflow-hidden">
+    <!-- QUOTE -->
+    <section id="quote" class="py-20 bg-[color:var(--mid-dark-bg)] border-t border-gray-800 relative overflow-hidden section-stack">
       <div class="bubble-container">
         <div class="bubble" style="width:250px;height:250px;bottom:-100px;left:-100px;animation-duration:40s;"></div>
         <div class="bubble" style="width:180px;height:180px;top:-50px;right:-80px;animation-duration:30s;animation-delay:5s;"></div>
@@ -360,12 +351,10 @@
         hamburgerIcon.classList.remove('open');
         document.body.style.overflow='';
       }
-
       menuButton.addEventListener('click', ()=>{
         const isOpen = menuOverlay.getAttribute('data-state')==='open';
         isOpen ? closeMenu() : openMenu();
       });
-
       window.closeMenu = closeMenu;
     });
   </script>
