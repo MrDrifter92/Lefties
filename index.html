@@ -16,7 +16,6 @@
       --mid-dark-bg:#161B22;
       --light-text:#e5e7eb;
     }
-
     body{
       font-family:'Nunito',sans-serif;
       background:var(--dark-bg);
@@ -26,12 +25,18 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* ========== GLOBAL BACKGROUND (very back) ========== */
-    .global-bg{position:fixed; inset:0; z-index:0; pointer-events:none;}
-    .global-bg video{width:100vw; height:100vh; object-fit:cover; opacity:.22; transform:translateZ(0);}
-    .global-tint{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.2) 40%, rgba(0,0,0,.35));}
+    /* ===== Global background video (VERY back) ===== */
+    .body-video{
+      position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover;
+      z-index:-3; opacity:.28; transform:translateZ(0);
+    }
+    .body-tint{
+      position:fixed; inset:0; z-index:-2;
+      background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25) 35%, rgba(0,0,0,.45));
+      pointer-events:none;
+    }
 
-    /* Glass header (unchanged) */
+    /* ===== Header (unchanged look) ===== */
     .deep-glass{
       position:relative; overflow:hidden;
       background:linear-gradient(145deg, rgba(30,41,59,.2), rgba(17,24,39,.4));
@@ -50,105 +55,113 @@
 
     .glass-button{
       background:linear-gradient(145deg, rgba(0,113,182,.6), rgba(0,80,130,.8));
-      border:1px solid rgba(0,140,255,.3);
-      border-radius:9999px; color:#fff; font-weight:800;
+      border:1px solid rgba(0,140,255,.3); border-radius:9999px; color:#fff; font-weight:800;
       text-shadow:0 1px 2px rgba(0,0,0,.4);
       box-shadow:0 0 15px rgba(0,140,255,.2), inset 0 1px 1px rgba(255,255,255,.15);
       transition:all .25s ease;
     }
-    .glass-button:hover{transform:translateY(-3px) scale(1.05); box-shadow:0 0 30px 5px var(--light-blue-glow), inset 0 1px 1px rgba(255,255,255,.2);}
+    .glass-button:hover{ transform:translateY(-3px) scale(1.05); box-shadow:0 0 30px 5px var(--light-blue-glow), inset 0 1px 1px rgba(255,255,255,.2); }
 
-    /* Bubbles */
-    .bubble-container{position:absolute; inset:0; overflow:hidden; z-index:0;}
+    /* Bubbles (keep) */
+    .bubble-container{ position:absolute; inset:0; overflow:hidden; z-index:0; }
     .bubble{
       position:absolute; border-radius:50%;
       background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.1), rgba(0,140,255,.2));
-      box-shadow:inset 0 3px 5px rgba(255,255,255,.05), 0 0 20px rgba(0,140,255,.2);
+      box-shadow: inset 0 3px 5px rgba(255,255,255,.05), 0 0 20px rgba(0,140,255,.2);
       animation:float 20s infinite ease-in-out;
     }
     @keyframes float{
-      0%{transform:translateY(10vh) scale(.8); opacity:0;}
-      25%{opacity:.7;}
-      50%{transform:translateY(-15vh) scale(1.1);}
-      75%{opacity:.7;}
-      100%{transform:translateY(-30vh) scale(.9); opacity:0;}
+      0%{ transform:translateY(10vh) scale(.8); opacity:0; }
+      25%{ opacity:.7; }
+      50%{ transform:translateY(-15vh) scale(1.1); }
+      75%{ opacity:.7; }
+      100%{ transform:translateY(-30vh) scale(.9); opacity:0; }
     }
 
-    /* Hamburger icon */
-    .hamburger-icon{display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:.3s;}
-    .hamburger-icon span{display:block; height:2px; width:100%; background:#fff; border-radius:9999px; transition:.3s;}
-    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg);}
-
     /* Mobile menu overlay */
-    .mobile-menu-overlay{position:fixed; inset:0; background:rgba(13,17,23,.95); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); z-index:90; transform:translateX(100%); transition:transform .5s cubic-bezier(.86,0,.07,1);}
-    .mobile-menu-overlay[data-state="open"]{transform:translateX(0);}
+    .mobile-menu-overlay{
+      position:fixed; inset:0; background:rgba(13,17,23,.95);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      z-index:90; transform:translateX(100%); transition:transform .5s cubic-bezier(.86,0,.07,1);
+    }
+    .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
 
-    /* Utility to ensure content sits above the global background */
-    main{position:relative; z-index:1;}
-    header{position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem;}
-    .header-inner{max-width:80rem; margin:0 auto; min-height:80px;}
+    /* Hamburger */
+    .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; }
+    .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s; }
+    .hamburger-icon.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2){ opacity:0; }
+    .hamburger-icon.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
 
-    /* Section colors */
-    .bg-mid{background:var(--mid-dark-bg);}
-    .bg-dark{background:var(--dark-bg);}
+    /* Utility to ensure content sits above section videos */
+    .layer-content{ position:relative; z-index:10; }
+
+    /* ===== WHY-US section video (Dog) ===== */
+    .section-video-wrap{ position:relative; overflow:hidden; }
+    .section-video{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      z-index:0; opacity:1;  /* full visibility */
+    }
+    .section-video-tint{
+      position:absolute; inset:0; z-index:1;
+      background:linear-gradient(180deg, rgba(13,17,23,.35), rgba(13,17,23,.15) 35%, rgba(13,17,23,.35));
+      pointer-events:none;
+    }
+
+    /* Section backgrounds kept */
+    .bg-mid-dark{ background:var(--mid-dark-bg); }
+    main{ position:relative; z-index:0; }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- GLOBAL background at the very back -->
-  <div class="global-bg">
-    <video autoplay muted loop playsinline>
-      <source src="homepage-video.mp4" type="video/mp4">
-    </video>
-    <div class="global-tint"></div>
-  </div>
+  <!-- GLOBAL BACKGROUND VIDEO (very back) -->
+  <video class="body-video" autoplay muted loop playsinline>
+    <source src="homepage-video.mp4" type="video/mp4">
+  </video>
+  <div class="body-tint"></div>
 
-  <!-- HEADER (unchanged layout) -->
-  <header class="deep-glass m-2 md:m-4">
-    <nav class="header-inner px-6 py-2 flex items-center relative">
-      <!-- Left: Logo -->
+  <!-- HEADER (unchanged layout & icons) -->
+  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4">
+    <nav class="container mx-auto px-6 py-2 flex items-center relative min-h-[80px]">
       <a href="#home" class="flex items-center gap-3">
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
       </a>
 
-      <!-- Center (mobile) socials -->
+      <!-- Center social (mobile) -->
       <div class="absolute md:hidden left-1/2 -translate-x-1/2 flex items-center gap-4">
-        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
 
       <div class="flex-1"></div>
 
-      <!-- Desktop links -->
-      <div class="hidden md:flex items-center space-x-8 font-bold">
+      <div class="hidden md:flex flex-row items-center space-x-8 font-bold">
         <a href="services.html" class="text-gray-300 hover:text-white transition-colors">Services</a>
         <a href="commercial.html" class="text-gray-300 hover:text-white transition-colors">Commercial</a>
         <a href="about-us.html" class="text-gray-300 hover:text-white transition-colors">About Us</a>
         <a href="contact-us.html" class="text-gray-300 hover:text-white transition-colors">Contact Us</a>
       </div>
 
-      <!-- Desktop socials (far right) -->
       <div class="hidden md:flex items-center gap-4 ml-6">
-        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.facebook.com/leftiesservices/" aria-label="Facebook" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
         </a>
-        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-90 hover:opacity-100 transition">
+        <a href="https://www.instagram.com/Lefties.Services" aria-label="Instagram" target="_blank" rel="noopener" class="opacity-90 hover:opacity-100">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
         </a>
       </div>
 
-      <!-- Desktop CTA -->
       <a href="#quote" class="glass-button px-6 py-3 text-sm hidden md:block ml-4">Get a Quote</a>
 
-      <!-- Mobile hamburger -->
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110] ml-3">
-        <div id="hamburger-icon" class="hamburger-icon"><span></span><span></span><span></span></div>
+        <div class="hamburger-icon" id="hamburger-icon">
+          <span></span><span></span><span></span>
+        </div>
       </button>
     </nav>
   </header>
@@ -157,14 +170,14 @@
   <div id="mobile-menu-overlay" class="mobile-menu-overlay">
     <div class="p-8 text-center mt-24">
       <div class="space-y-8 font-bold text-3xl">
-        <a href="services.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Our Services</a>
-        <a href="carpet-service.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
-        <a href="stain-treatment.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Stain + Odour Treatment</a>
-        <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Rug & Mattress Cleaning</a>
-        <a href="commercial.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Commercial</a>
-        <a href="about-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">About Us</a>
-        <a href="contact-us.html" class="block text-gray-300 hover:text-white transition-colors" onclick="closeMenu()">Contact Us</a>
+        <a href="services.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Our Services</a>
+        <a href="carpet-service.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Carpet Cleaning</a>
+        <a href="upholstery-cleaning.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Upholstery & Lounge Cleaning</a>
+        <a href="stain-treatment.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Stain + Odour Treatment</a>
+        <a href="rugs-mattresses.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Rug & Mattress Cleaning</a>
+        <a href="commercial.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Commercial</a>
+        <a href="about-us.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">About Us</a>
+        <a href="contact-us.html" class="block text-gray-300 hover:text-white" onclick="closeMenu()">Contact Us</a>
       </div>
       <div class="mt-12">
         <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
@@ -173,28 +186,20 @@
   </div>
 
   <main>
-    <!-- HERO (with dog video ABOVE the global background) -->
-    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden" style="z-index:2;">
-      <!-- Dog video (full opacity, section-local) -->
-      <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0" style="opacity:1;">
-        <source src="Dog-video.mp4" type="video/mp4">
-      </video>
-
-      <!-- Bubbles over the dog video -->
-      <div class="bubble-container z-10 pointer-events-none">
-        <div class="bubble" style="width:50px; height:50px; bottom:10%; left:15%; animation-duration:25s;"></div>
-        <div class="bubble" style="width:100px; height:100px; bottom:20%; right:10%; animation-duration:18s; animation-delay:3s;"></div>
-        <div class="bubble" style="width:30px; height:30px; bottom:5%; left:40%; animation-duration:30s; animation-delay:1s;"></div>
-        <div class="bubble" style="width:80px; height:80px; bottom:30%; left:5%; animation-duration:22s; animation-delay:5s;"></div>
+    <!-- ===== HERO (no dog video here) ===== -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+      <div class="bubble-container">
+        <div class="bubble" style="width:50px;height:50px;bottom:10%;left:15%;animation-duration:25s;"></div>
+        <div class="bubble" style="width:100px;height:100px;bottom:20%;right:10%;animation-duration:18s;animation-delay:3s;"></div>
+        <div class="bubble" style="width:30px;height:30px;bottom:5%;left:40%;animation-duration:30s;animation-delay:1s;"></div>
+        <div class="bubble" style="width:80px;height:80px;bottom:30%;left:5%;animation-duration:22s;animation-delay:5s;"></div>
       </div>
-
-      <!-- Foreground hero content -->
-      <div class="container mx-auto px-6 text-center relative z-20">
+      <div class="container mx-auto px-6 text-center layer-content">
         <img src="core-logo-transparent.png" alt="Lefties Logo" class="w-80 md:w-[28rem] h-auto mx-auto mb-8">
         <h1 class="text-7xl md:text-7xl font-black text-white leading-tight">
           <span class="text-blue-400">Hervey Bay.</span>
         </h1>
-        <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+        <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
           We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
         </p>
         <div class="mt-8">
@@ -203,13 +208,29 @@
       </div>
     </section>
 
-    <!-- TRUST / FEATURES (unchanged content styling) -->
-    <section id="trust" class="py-16 bg-mid relative overflow-hidden">
-      <div class="bubble-container">
-        <div class="bubble" style="width:120px; height:120px; top:10%; right:-5%; animation-duration:28s;"></div>
-        <div class="bubble" style="width:60px; height:60px; bottom:15%; left:-2%; animation-duration:20s; animation-delay:4s;"></div>
+    <!-- ===== WHY US (Dog video here, full opacity, only under this section) ===== -->
+    <section id="why-us" class="section-video-wrap py-20 relative">
+      <video class="section-video" autoplay muted loop playsinline>
+        <source src="Dog-video.mp4" type="video/mp4">
+      </video>
+      <div class="section-video-tint"></div>
+
+      <div class="container mx-auto px-6 text-center layer-content">
+        <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo" class="w-48 h-auto md:w-64 mx-auto mb-12">
+        <h2 class="text-4xl font-black text-white">Not Just Clean. Revived.</h2>
+        <div class="max-w-3xl mx-auto text-lg text-gray-200 space-y-4 mt-6">
+          <p>Lefties isn't a big franchise. We're a local Hervey Bay business, and we genuinely care about the results we deliver.</p>
+          <p class="font-bold text-blue-300">We show up when we say we will, we treat your home with respect, and we stand behind the quality of our clean. It's that simple.</p>
+        </div>
       </div>
-      <div class="container mx-auto px-6 relative">
+    </section>
+
+    <section id="trust" class="py-16 bg-mid-dark relative overflow-hidden">
+      <div class="bubble-container">
+        <div class="bubble" style="width:120px;height:120px;top:10%;right:-5%;animation-duration:28s;"></div>
+        <div class="bubble" style="width:60px;height:60px;bottom:15%;left:-2%;animation-duration:20s;animation-delay:4s;"></div>
+      </div>
+      <div class="container mx-auto px-6 relative z-10">
         <div class="grid md:grid-cols-3 gap-8 text-center">
           <div class="deep-glass p-8">
             <h3 class="text-2xl font-bold text-blue-400">Honest Quotes</h3>
@@ -227,7 +248,7 @@
       </div>
     </section>
 
-    <section id="gallery" class="py-20 bg-mid">
+    <section id="gallery" class="py-20 bg-mid-dark">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">The Proof is in the Details</h2>
@@ -242,10 +263,10 @@
       </div>
     </section>
 
-    <section id="commercial" class="py-20 bg-mid border-y border-gray-800 relative overflow-hidden">
+    <section id="commercial" class="py-20 bg-mid-dark border-y border-gray-800 relative overflow-hidden">
       <div class="bubble-container">
-        <div class="bubble" style="width:200px; height:200px; top:50%; left:-100px; animation-duration:35s;"></div>
-        <div class="bubble" style="width:150px; height:150px; top:10%; right:-80px; animation-duration:25s; animation-delay:2s;"></div>
+        <div class="bubble" style="width:200px;height:200px;top:50%;left:-100px;animation-duration:35s;"></div>
+        <div class="bubble" style="width:150px;height:150px;top:10%;right:-80px;animation-duration:25s;animation-delay:2s;"></div>
       </div>
       <div class="container mx-auto px-6 text-center relative">
         <h2 class="text-4xl font-black text-white">Commercial & Real Estate</h2>
@@ -258,7 +279,7 @@
       </div>
     </section>
 
-    <section id="tips" class="py-20 bg-dark">
+    <section id="tips" class="py-20 bg-[#0B1016]">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-black text-white">Tips & Tricks of the Trade</h2>
@@ -267,29 +288,29 @@
         <div class="grid md:grid-cols-3 gap-8 text-left">
           <div class="deep-glass p-8">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #1: Scrubbing Stains</h3>
-            <p class="text-gray-300">Scrubbing a fresh spill is the worst thing you can do. It pushes the stain deeper and can damage fibres.</p>
+            <p class="text-gray-300">Scrubbing a fresh spill is the worst thing you can do. It pushes the stain deeper into the carpet fibres and can damage them permanently. Always blot gently with a clean, white cloth, working from the outside in.</p>
           </div>
           <div class="deep-glass p-8" style="--shine-delay:1.5s;">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #2: Supermarket Sprays</h3>
-            <p class="text-gray-300">“Miracle” sprays can bleach or leave sticky residue that attracts dirt.</p>
+            <p class="text-gray-300">Those "miracle" sprays often contain bleaching agents that can discolour your carpet or harsh detergents that leave a sticky residue, attracting even more dirt over time. Most of the time, they just make our job harder.</p>
           </div>
           <div class="deep-glass p-8" style="--shine-delay:2.5s;">
             <h3 class="text-2xl font-bold text-blue-400 mb-2">Mistake #3: Waiting Too Long</h3>
-            <p class="text-gray-300">The longer a stain sits, the harder it is to remove. Call sooner for best results.</p>
+            <p class="text-gray-300">The longer a stain sits, the harder it is to remove. Acidic stains from coffee or pet urine can permanently dye carpet fibres. For the best chance of a complete removal, give us a call sooner rather than later.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="quote" class="py-20 bg-mid border-t border-gray-800 relative overflow-hidden">
+    <section id="quote" class="py-20 bg-mid-dark border-t border-gray-800 relative overflow-hidden">
       <div class="bubble-container">
-        <div class="bubble" style="width:250px; height:250px; bottom:-100px; left:-100px; animation-duration:40s;"></div>
-        <div class="bubble" style="width:180px; height:180px; top:-50px; right:-80px; animation-duration:30s; animation-delay:5s;"></div>
+        <div class="bubble" style="width:250px;height:250px;bottom:-100px;left:-100px;animation-duration:40s;"></div>
+        <div class="bubble" style="width:180px;height:180px;top:-50px;right:-80px;animation-duration:30s;animation-delay:5s;"></div>
       </div>
       <div class="container mx-auto px-6 text-center relative z-10">
         <h2 class="text-4xl md:text-5xl font-black text-white">Ready to Book Your Clean?</h2>
         <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-blue-200">
-          Message us with a photo for a quick, honest quote, or give us a call.
+          Let's get it sorted. Message us with a photo of the job for a quick, honest quote, or just give us a call to chat about it.
         </p>
         <div class="mt-8 deep-glass p-8 max-w-lg mx-auto">
           <p class="text-2xl font-bold text-white">Call or Text:</p>
@@ -310,16 +331,25 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const btn = document.getElementById('mobile-menu-button');
-      const burger = document.getElementById('hamburger-icon');
-      const overlay = document.getElementById('mobile-menu-overlay');
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const menuOverlay = document.getElementById('mobile-menu-overlay');
 
-      function openMenu(){ overlay.setAttribute('data-state','open'); burger.classList.add('open'); document.body.style.overflow='hidden'; }
-      function closeMenu(){ overlay.setAttribute('data-state','closed'); burger.classList.remove('open'); document.body.style.overflow=''; }
-      function toggle(){ overlay.getAttribute('data-state')==='open'?closeMenu():openMenu(); }
-
-      btn && btn.addEventListener('click', toggle);
+      function openMenu(){
+        menuOverlay.setAttribute('data-state','open');
+        hamburgerIcon.classList.add('open');
+        document.body.style.overflow='hidden';
+      }
+      function closeMenu(){
+        menuOverlay.setAttribute('data-state','closed');
+        hamburgerIcon.classList.remove('open');
+        document.body.style.overflow='';
+      }
+      menuButton?.addEventListener('click', ()=> {
+        const isOpen = menuOverlay.getAttribute('data-state')==='open';
+        isOpen ? closeMenu() : openMenu();
+      });
       window.closeMenu = closeMenu;
     });
   </script>
