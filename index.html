@@ -38,6 +38,7 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
+    /* ===== Global background video (VERY back) ===== */
     .body-video{
       position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover;
       z-index:-3; opacity:.28; transform:translateZ(0);
@@ -48,6 +49,7 @@
       pointer-events:none;
     }
 
+    /* ===== Header (unchanged look) ===== */
     .deep-glass{
       position:relative; overflow:hidden;
       background:linear-gradient(145deg, rgba(30,41,59,.2), rgba(17,24,39,.4));
@@ -73,6 +75,7 @@
     }
     .glass-button:hover{ transform:translateY(-3px) scale(1.05); box-shadow:0 0 30px 5px var(--light-blue-glow), inset 0 1px 1px rgba(255,255,255,.2); }
 
+    /* Bubbles (keep) */
     .bubble-container{ position:absolute; inset:0; overflow:hidden; z-index:0; }
     .bubble{
       position:absolute; border-radius:50%;
@@ -88,6 +91,7 @@
       100%{ transform:translateY(-30vh) scale(.9); opacity:0; }
     }
 
+    /* Mobile menu overlay */
     .mobile-menu-overlay{
       position:fixed; inset:0; background:rgba(13,17,23,.95);
       backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
@@ -95,14 +99,17 @@
     }
     .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
 
+    /* Hamburger */
     .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; }
     .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s; }
     .hamburger-icon.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
     .hamburger-icon.open span:nth-child(2){ opacity:0; }
     .hamburger-icon.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
 
+    /* Utility to ensure content sits above section videos */
     .layer-content{ position:relative; z-index:10; }
 
+    /* ===== WHY-US section video (Dog) ===== */
     .section-video-wrap{ position:relative; overflow:hidden; }
     .section-video{
       position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
@@ -114,28 +121,24 @@
       pointer-events:none;
     }
 
+    /* Section backgrounds kept */
     .bg-mid-dark{ background:var(--mid-dark-bg); }
     main{ position:relative; z-index:0; }
 
-    /* ===== Hervey Bay: electric neon blue glow ===== */
+    /* ===== Hervey Bay: improved contrast & depth ===== */
     .hero-location {
-      color: #1E90FF;
+      color: var(--primary-blue);
       font-weight: 900;
       letter-spacing: .5px;
       text-shadow:
-        0 0 6px rgba(30, 144, 255, 0.9),
-        0 0 14px rgba(0, 140, 255, 0.75),
-        0 0 28px rgba(0, 140, 255, 0.6),
-        0 0 45px rgba(0, 140, 255, 0.45);
+        0 0 6px rgba(0, 113, 182, 0.8),
+        0 0 12px rgba(0, 140, 255, 0.6),
+        0 0 20px rgba(0, 140, 255, 0.45),
+        0 0 35px rgba(0, 140, 255, 0.3);
     }
     @media (max-width:640px){
-      .hero-location { letter-spacing:.2px; }
+      .hero-location{ letter-spacing:.2px; }
     }
   </style>
 </head>
 <body class="antialiased">
-
-<!-- ... rest of your body and sections remain unchanged ... -->
-
-</body>
-</html>
