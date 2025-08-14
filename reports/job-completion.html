@@ -121,10 +121,10 @@
   <!-- JOB DETAILS -->
   <div class="section job-details">
     <h2>Job Details</h2>
-    <p><strong>Client Name:</strong> John Smith</p>
-    <p><strong>Service Address:</strong> 123 Hervey Bay Road, QLD</p>
-    <p><strong>Date & Time Completed:</strong> 14 Aug 2025 - 2:30 PM</p>
-    <p><strong>Technician:</strong> Adam Lefties</p>
+    <p><strong>Client Name:</strong> <span id="clientName"></span></p>
+    <p><strong>Service Address:</strong> <span id="serviceAddress"></span></p>
+    <p><strong>Date & Time Completed:</strong> <span id="jobDate"></span></p>
+    <p><strong>Technician:</strong> <span id="technicianName"></span></p>
   </div>
 
   <!-- BEFORE & AFTER PHOTOS -->
@@ -132,11 +132,11 @@
     <h2>Before & After</h2>
     <div class="photos">
       <div class="photo-box">
-        <img src="before.jpg" alt="Before Cleaning">
+        <img id="beforeImg" src="" alt="Before Cleaning">
         <div class="caption">Before</div>
       </div>
       <div class="photo-box">
-        <img src="after.jpg" alt="After Cleaning">
+        <img id="afterImg" src="" alt="After Cleaning">
         <div class="caption">After</div>
       </div>
     </div>
@@ -145,25 +145,19 @@
   <!-- SERVICES COMPLETED -->
   <div class="section">
     <h2>Services Completed</h2>
-    <ul>
-      <li>Carpet Revival</li>
-      <li>Upholstery Cleaning</li>
-      <li>Pet Odour Treatment</li>
-    </ul>
+    <ul id="servicesList"></ul>
   </div>
 
   <!-- TECHNICIAN NOTES -->
   <div class="section">
     <h2>Technician Notes</h2>
-    <p>All carpets and upholstery were treated with neutral pH solutions for fibre safety. 
-    Pet odour treatment applied to lounge area. Dry passes completed to speed up drying. 
-    Client advised of 4–6 hour dry time.</p>
+    <p id="techNotes"></p>
   </div>
 
   <!-- CARE INSTRUCTIONS -->
   <div class="section care-instructions">
     <h2>Care Instructions</h2>
-    <ul>
+    <ul id="careInstructions">
       <li>Avoid walking on carpets until fully dry.</li>
       <li>Vacuum in 24 hours for best results.</li>
       <li>Leave protective pads under furniture legs for 48 hours.</li>
@@ -188,5 +182,6 @@
   A Spotless Revival — Lefties Carpet Cleaning
 </footer>
 
+<script src="generate-report.js"></script>
 </body>
 </html>
