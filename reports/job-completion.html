@@ -2,179 +2,252 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lefties Job Completion</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Job Completion Report | Lefties</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root { --blue:#007186; --lilac:#D7AFFF; --bg:#0f172a; --glass: rgba(17,24,39,.6); --border: rgba(255,255,255,.08); --tile: rgba(255,255,255,.06); }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#fff}
+
+    /* Layout */
+    .wrap{max-width:880px;margin:0 auto;padding:20px}
+    .glass{background:var(--glass);border:1px solid var(--border);backdrop-filter: blur(8px);border-radius:16px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .grid{display:grid;gap:12px}
+    @media(min-width:720px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+
+    /* Header */
+    .header{position:sticky;top:0;z-index:40}
+    .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+    .badge{background:var(--lilac);color:var(--bg);border-radius:999px;padding:6px 10px;font-weight:800;font-size:12px}
+
+    /* Fields & Buttons */
+    .field{width:100%;padding:12px 14px;border-radius:12px;background:var(--tile);border:1px solid var(--border);color:#fff}
+    .field::placeholder{color:#cbd5e1}
+    .btn{appearance:none;border:1px solid var(--border);background:var(--tile);color:#fff;padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer;transition:.15s}
+    .btn:hover{background:rgba(255,255,255,.12)}
+    .btn-primary{background:var(--blue);border-color:transparent}
+    .btn-primary:hover{filter:brightness(1.08)}
+    .title{font-weight:900;font-size:28px;margin:0 0 14px}
+
+    /* Thumbs */
+    .thumb{position:relative;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+    .thumb img{width:100%;height:120px;object-fit:cover;display:block}
+    .thumb button{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;border:0;border-radius:8px;padding:4px 8px;font-size:12px;cursor:pointer}
+
+    /* Bubbles */
+    .bubbles{position:fixed;inset:0;pointer-events:none;z-index:-1}
+    .bubble{position:absolute;border-radius:999px;filter:blur(28px);
+      background:
+        radial-gradient(circle at 35% 35%, rgba(215,175,255,.35), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(0,113,134,.35), transparent 60%);
+    }
+    .note{color:#cbd5e1;font-size:14px}
+    a.inline{color:#cbd5e1;text-decoration:underline}
+    a.inline:hover{color:#fff}
+  </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-  <div class="max-w-3xl mx-auto p-6 space-y-6">
-    <!-- Header -->
-    <header class="flex items-center space-x-4 border-b border-gray-700 pb-4">
-      <img src="Core Logo_transparent .PNG" alt="Lefties Logo" class="h-12 w-12 object-contain">
-      <h1 class="text-2xl font-bold">Job Completion Report</h1>
-    </header>
-
-    <!-- Client Info -->
-    <section class="space-y-4">
-      <input id="jc_client" type="text" placeholder="Client Name" class="w-full p-3 bg-gray-800 border border-gray-700 rounded">
-      <input id="jc_address" type="text" placeholder="Service Address" class="w-full p-3 bg-gray-800 border border-gray-700 rounded">
-      <textarea id="jc_notes" placeholder="Job Notes" rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded"></textarea>
-    </section>
-
-    <!-- Photo Upload -->
-    <section class="space-y-4">
-      <div class="flex items-center space-x-3">
-        <input id="jc_photos" type="file" accept="image/*" multiple capture="environment" class="hidden">
-        <button id="jc_use_camera" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded">Add Photos</button>
-        <button id="jc_clear" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded">Clear</button>
-      </div>
-      <div id="jc_preview" class="grid grid-cols-3 gap-3"></div>
-    </section>
-
-    <!-- Actions -->
-    <section class="flex space-x-3">
-      <button id="jc_make_pdf" class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-500 rounded">Preview PDF</button>
-      <button id="jc_share_pdf" class="flex-1 px-4 py-3 bg-yellow-600 hover:bg-yellow-500 rounded">Share / Save PDF</button>
-    </section>
+<body>
+  <!-- subtle brand bubbles -->
+  <div class="bubbles" aria-hidden="true">
+    <div class="bubble" style="width:320px;height:320px;top:-120px;right:-120px"></div>
+    <div class="bubble" style="width:320px;height:320px;bottom:-120px;left:-120px"></div>
   </div>
 
-<script>
-// -- Job Completion: photos + PDF + push to Job Log (no server storage) --
-(() => {
-  const input   = document.getElementById('jc_photos');
-  const grid    = document.getElementById('jc_preview');
-  const btnCam  = document.getElementById('jc_use_camera');
-  const btnClr  = document.getElementById('jc_clear');
-  const btnMake = document.getElementById('jc_make_pdf');
-  const btnShare= document.getElementById('jc_share_pdf');
+  <!-- header -->
+  <header class="header glass">
+    <div class="wrap bar">
+      <a class="logo" href="/dashboard.html">
+        <img src="/core-logo-transparent.png" alt="Lefties" onerror="this.style.display='none'" style="height:32px;width:32px;object-fit:contain">
+        <strong>Lefties <span style="color:var(--blue)">OS</span></strong>
+      </a>
+      <span class="badge">Job Report</span>
+    </div>
+  </header>
 
-  const fClient = document.getElementById('jc_client');
-  const fAddr   = document.getElementById('jc_address');
-  const fNotes  = document.getElementById('jc_notes');
+  <main class="wrap" style="padding-top:20px;padding-bottom:40px">
+    <h1 class="title">Job Completion Report</h1>
 
-  let files = [];
-  let pdfBlob = null;
+    <!-- Job details -->
+    <section class="glass" style="padding:16px;margin-bottom:16px">
+      <div class="grid grid-2">
+        <input id="jc_client" class="field" placeholder="Client name" autocomplete="name" />
+        <input id="jc_address" class="field" placeholder="Job address" autocomplete="street-address" />
+      </div>
+      <div style="height:12px"></div>
+      <textarea id="jc_notes" class="field" rows="4" placeholder="Notes (what we did, stains treated, cautions)"></textarea>
+    </section>
 
-  function render() {
-    grid.innerHTML = '';
-    files.forEach((file, i) => {
-      const url = URL.createObjectURL(file);
-      const cell = document.createElement('div');
-      cell.className = 'relative bg-white/5 border border-white/10 rounded-lg overflow-hidden';
-      cell.innerHTML = `
-        <img src="${url}" class="w-full h-24 object-cover" />
-        <button class="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded">Remove</button>
-      `;
-      cell.querySelector('button').onclick = () => { files.splice(i,1); render(); };
-      grid.appendChild(cell);
-    });
-    pdfBlob = null;
-  }
+    <!-- Photos -->
+    <section class="glass" style="padding:16px">
+      <h2 class="title" style="font-size:20px;margin-bottom:10px">Photos</h2>
 
-  input.addEventListener('change', (e) => {
-    files = files.concat(Array.from(e.target.files || []));
-    render();
-  });
+      <div class="row">
+        <input id="jc_photos" type="file" accept="image/*" multiple capture="environment" class="field" style="max-width:100%">
+        <button id="jc_use_camera" type="button" class="btn">Add Photos</button>
+        <button id="jc_clear" type="button" class="btn">Clear</button>
+      </div>
 
-  btnCam.addEventListener('click', () => input.click());
-  btnClr.addEventListener('click', () => { files = []; input.value = ''; render(); });
+      <div id="jc_preview" class="grid grid-3" style="margin-top:12px"></div>
 
-  async function loadJsPDF() {
-    if (window.jspdf) return window.jspdf.jsPDF;
-    await new Promise((res, rej)=>{
-      const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
-      s.onload = res; s.onerror = rej; document.head.appendChild(s);
-    });
-    return window.jspdf.jsPDF;
-  }
+      <div class="row" style="margin-top:14px">
+        <button id="jc_make_pdf" type="button" class="btn btn-primary">Preview PDF</button>
+        <button id="jc_share_pdf" type="button" class="btn">Share / Save PDF</button>
+      </div>
+      <p class="note" style="margin-top:8px">Nothing uploads. We build the PDF on your phone, you share it, then close the page.</p>
+      <p class="note" style="margin-top:4px">Need to edit later? Just come back here: <a class="inline" href="/reports/job-completion.html">/reports/job-completion.html</a></p>
+    </section>
+  </main>
 
-  function compressImage(file, maxW=1600, maxH=1600, quality=0.8) {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const url = URL.createObjectURL(file);
-      img.onload = () => {
-        let {width:w, height:h} = img;
-        const ratio = Math.min(maxW/w, maxH/h, 1);
-        w = Math.round(w*ratio); h = Math.round(h*ratio);
-        const c = document.createElement('canvas');
-        c.width = w; c.height = h;
-        const ctx = c.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
-        c.toBlob((blob)=> resolve(blob), 'image/jpeg', quality);
-      };
-      img.src = url;
-    });
-  }
+  <footer>
+    <div class="wrap" style="text-align:center;color:#94a3b8;padding:24px 0;border-top:1px solid var(--border)">
+      &copy; 2025 Lefties Carpet Cleaning — Hervey Bay.
+    </div>
+  </footer>
 
-  async function buildPdf() {
-    const jsPDF = await loadJsPDF();
-    const doc = new jsPDF({ unit:'pt', format:'a4' });
-    const pageW = doc.internal.pageSize.getWidth();
-    const margin = 40;
+  <!-- Core script: photos + PDF (on-device) -->
+  <script>
+  (() => {
+    const $ = (id) => document.getElementById(id);
+    const input = $('jc_photos'), grid = $('jc_preview');
+    const btnCam = $('jc_use_camera'), btnClr = $('jc_clear');
+    const btnMake = $('jc_make_pdf'), btnShare = $('jc_share_pdf');
+    const fClient = $('jc_client'), fAddr = $('jc_address'), fNotes = $('jc_notes');
 
-    const title = 'Job Completion Report';
-    const client = fClient?.value?.trim() || '';
-    const address= fAddr?.value?.trim()   || '';
-    const notes  = fNotes?.value?.trim()  || '';
-    const when   = new Date().toLocaleString('en-AU', { timeZone:'Australia/Brisbane' });
+    let files = [], pdfBlob = null;
 
-    doc.setFont('helvetica','bold'); doc.setFontSize(18);
-    doc.text(title, margin, 60);
-    doc.setFontSize(12); doc.setFont('helvetica','normal');
-    doc.text(`Client: ${client}`, margin, 90);
-    doc.text(`Address: ${address}`, margin, 110);
-    doc.text(`Date: ${when}`, margin, 130);
-    if (notes) {
-      const lines = doc.splitTextToSize(`Notes: ${notes}`, pageW - margin*2);
-      doc.text(lines, margin, 160);
-    }
-
-    let y = notes ? 200 : 160;
-    for (let i=0;i<files.length;i++) {
-      const blob = await compressImage(files[i]);
-      const dataUrl = await new Promise(r=>{
-        const fr = new FileReader(); fr.onload = ()=>r(fr.result); fr.readAsDataURL(blob);
+    function render() {
+      grid.innerHTML = '';
+      files.forEach((file, i) => {
+        const url = URL.createObjectURL(file);
+        const d = document.createElement('div');
+        d.className = 'thumb';
+        d.innerHTML = '<img><button>Remove</button>';
+        d.querySelector('img').src = url;
+        d.querySelector('button').onclick = () => { files.splice(i,1); render(); };
+        grid.appendChild(d);
       });
-      const imgW = pageW - margin*2;
-      const imgH = imgW * 0.66;
-      if (y + imgH > doc.internal.pageSize.getHeight() - margin) { doc.addPage(); y = margin; }
-      doc.addImage(dataUrl, 'JPEG', margin, y, imgW, imgH, undefined, 'FAST');
-      y += imgH + 12;
+      pdfBlob = null;
     }
 
-    pdfBlob = doc.output('blob');
-    return pdfBlob;
-  }
+    input.addEventListener('change', (e) => {
+      files = files.concat(Array.from(e.target.files || []));
+      render();
+    });
+    btnCam.addEventListener('click', () => input.click());
+    btnClr.addEventListener('click', () => { files = []; input.value = ''; render(); });
 
-  btnMake.addEventListener('click', async () => {
-    const blob = await buildPdf();
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_blank');
-  });
-
-  btnShare.addEventListener('click', async () => {
-    const blob = pdfBlob || await buildPdf();
-    const file = new File([blob], `Lefties-Job-Report-${Date.now()}.pdf`, { type: 'application/pdf' });
-
-    if (navigator.share && navigator.canShare && navigator.canShare({ files:[file] })) {
-      try { await navigator.share({ files:[file], title:'Job Report', text:'Lefties Job Completion Report' }); }
-      catch(e){}
-    } else {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(file);
-      a.download = file.name; a.click();
+    async function loadJsPDF(){
+      if (window.jspdf) return window.jspdf.jsPDF;
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+        s.onload = res; s.onerror = rej; document.head.appendChild(s);
+      });
+      return window.jspdf.jsPDF;
     }
 
-    const payload = {
-      client: fClient?.value || '',
-      address: fAddr?.value || '',
-      notes: fNotes?.value || '',
-      when: new Date().toISOString()
-    };
-    localStorage.setItem('lefties_last_job', JSON.stringify(payload));
-  });
-})();
-</script>
+    function compressImage(file, maxW=1600, maxH=1600, quality=0.8){
+      return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          const r = Math.min(maxW/w, maxH/h, 1);
+          w = Math.round(w*r); h = Math.round(h*r);
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img,0,0,w,h);
+          c.toBlob(b => resolve(b), 'image/jpeg', quality);
+        };
+        img.src = url;
+      });
+    }
+
+    async function getLogoDataURL(){
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          const w = 200, h = w * (img.height / img.width || 0.6);
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img,0,0,w,h);
+          resolve(c.toDataURL('image/png'));
+        };
+        img.onerror = () => resolve(null);
+        img.src = '/core-logo-transparent.png';
+      });
+    }
+
+    async function buildPdf(){
+      const jsPDF = await loadJsPDF();
+      const doc = new jsPDF({ unit:'pt', format:'a4' });
+      const pageW = doc.internal.pageSize.getWidth();
+      const pageH = doc.internal.pageSize.getHeight();
+      const M = 40;
+
+      // Header band
+      doc.setFillColor(15,23,42); // slate-900
+      doc.rect(0,0,pageW,90,'F');
+
+      // Logo + title
+      const logo = await getLogoDataURL();
+      if (logo) doc.addImage(logo,'PNG',pageW-160-M,18,160,160*0.6,undefined,'FAST');
+      doc.setTextColor(255,255,255);
+      doc.setFont('helvetica','bold'); doc.setFontSize(20);
+      doc.text('Job Completion Report', M, 40);
+      doc.setFontSize(11); doc.setFont('helvetica','normal');
+      doc.text('Lefties Carpet Cleaning — Hervey Bay', M, 62);
+
+      // Details
+      doc.setTextColor(0,0,0);
+      let y = 120;
+      const when = new Date().toLocaleString('en-AU',{timeZone:'Australia/Brisbane'});
+      doc.setFontSize(12);
+      doc.text('Client: ' + (fClient.value||''), M, y); y+=18;
+      doc.text('Address: ' + (fAddr.value||''), M, y); y+=18;
+      doc.text('Date: ' + when, M, y); y+=22;
+
+      if (fNotes.value.trim()){
+        const lines = doc.splitTextToSize('Notes: ' + fNotes.value.trim(), pageW - M*2);
+        doc.text(lines, M, y); y += lines.length*14 + 14;
+      }
+
+      // Photos
+      for (let i=0;i<files.length;i++){
+        const blob = await compressImage(files[i]);
+        const dataUrl = await new Promise(r=>{
+          const fr = new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(blob);
+        });
+        const imgW = pageW - M*2, imgH = imgW*0.66;
+        if (y + imgH > pageH - M){ doc.addPage(); y = M; }
+        doc.addImage(dataUrl,'JPEG',M,y,imgW,imgH,undefined,'FAST');
+        y += imgH + 12;
+      }
+
+      return doc.output('blob');
+    }
+
+    btnMake.addEventListener('click', async () => {
+      pdfBlob = await buildPdf();
+      const url = URL.createObjectURL(pdfBlob);
+      window.open(url,'_blank'); // preview
+    });
+
+    btnShare.addEventListener('click', async () => {
+      pdfBlob = pdfBlob || await buildPdf();
+      const file = new File([pdfBlob], `Lefties-Job-Report-${Date.now()}.pdf`, {type:'application/pdf'});
+      if (navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file], title:'Job Report', text:'Lefties Job Completion Report'}); }catch(e){}
+      } else {
+        const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name; a.click();
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
