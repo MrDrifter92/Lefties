@@ -41,6 +41,41 @@
     main {
       padding: 20px;
     }
+    .field {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: 'Nunito', sans-serif;
+    }
+    button {
+      background-color: #0071B6;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #005a91;
+    }
+    .job-log-section {
+      background-color: #1f2937;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -48,21 +83,83 @@
 <header>
   <img src="core-logo.png" alt="Lefties Carpet Cleaning Logo">
   <nav>
-    <!-- Existing nav buttons here -->
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
-
-    <!-- NEW JOB LOG BUTTON -->
-    <a href="job-log.html" target="_blank">Job Log</a>
   </nav>
 </header>
 
 <main>
   <h1>Welcome to Lefties OS Dashboard</h1>
-  <p>Use the navigation above to access tools, logs, and resources.</p>
-  
-  <!-- Existing dashboard content here -->
+  <p>Use the tools below to log jobs and generate client reports.</p>
+
+  <div class="job-log-section">
+    <h2>Job Log</h2>
+
+    <div class="field">
+      <label for="clientNameField">Client Name</label>
+      <input id="clientNameField" type="text" placeholder="Enter client name">
+    </div>
+
+    <div class="field">
+      <label for="serviceAddressField">Service Address</label>
+      <input id="serviceAddressField" type="text" placeholder="Enter service address">
+    </div>
+
+    <div class="field">
+      <label for="jobDateField">Date & Time Completed</label>
+      <input id="jobDateField" type="text" placeholder="e.g. 14 Aug 2025 - 2:30 PM">
+    </div>
+
+    <div class="field">
+      <label for="technicianField">Technician Name</label>
+      <input id="technicianField" type="text" placeholder="Enter technician name">
+    </div>
+
+    <div class="field">
+      <label for="servicesField">Services Completed (comma separated)</label>
+      <input id="servicesField" type="text" placeholder="e.g. Carpet Revival, Upholstery Cleaning">
+    </div>
+
+    <div class="field">
+      <label for="notesField">Technician Notes</label>
+      <textarea id="notesField" placeholder="Enter notes here"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="beforePhotoField">Before Photo URL</label>
+      <input id="beforePhotoField" type="text" placeholder="Paste link to before photo">
+    </div>
+
+    <div class="field">
+      <label for="afterPhotoField">After Photo URL</label>
+      <input id="afterPhotoField" type="text" placeholder="Paste link to after photo">
+    </div>
+
+    <button id="generateReportBtn">Generate Job Report</button>
+  </div>
 </main>
+
+<script>
+  document.getElementById("generateReportBtn").addEventListener("click", function () {
+    const client = encodeURIComponent(document.getElementById("clientNameField").value);
+    const address = encodeURIComponent(document.getElementById("serviceAddressField").value);
+    const date = encodeURIComponent(document.getElementById("jobDateField").value);
+    const tech = encodeURIComponent(document.getElementById("technicianField").value);
+    const services = encodeURIComponent(document.getElementById("servicesField").value);
+    const notes = encodeURIComponent(document.getElementById("notesField").value);
+    const before = encodeURIComponent(document.getElementById("beforePhotoField").value);
+    const after = encodeURIComponent(document.getElementById("afterPhotoField").value);
+
+    if (!client || !address || !date || !tech) {
+      alert("Please fill in at least Client, Address, Date, and Technician before generating report.");
+      return;
+    }
+
+    const reportUrl = `https://leftiesservices.com.au/reports/job-completion.html?client=${client}&address=${address}&date=${date}&tech=${tech}&services=${services}&notes=${notes}&before=${before}&after=${after}`;
+
+    window.open(reportUrl, '_blank');
+  });
+</script>
 
 </body>
 </html>
