@@ -126,7 +126,42 @@
     <p><strong>Date & Time Completed:</strong> <span id="jobDate"></span></p>
     <p><strong>Technician:</strong> <span id="technicianName"></span></p>
   </div>
+<!-- Photos (camera/camera roll) -->
+<section class="mt-8">
+  <h2 class="text-2xl font-extrabold mb-3">Photos</h2>
 
+  <div class="grid gap-3 md:grid-cols-[1fr_auto_auto] items-center">
+    <input id="jc_photos" type="file" accept="image/*" multiple capture="environment"
+           class="file:mr-4 file:px-4 file:py-2 file:rounded-lg file:border-0 file:font-semibold
+                  file:bg-white/10 file:text-white hover:file:bg-white/20
+                  bg-white/5 border border-white/10 rounded-lg p-2 w-full">
+    <button id="jc_use_camera" type="button"
+            class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10">
+      Use Camera
+    </button>
+    <button id="jc_clear" type="button"
+            class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/10">
+      Clear
+    </button>
+  </div>
+
+  <div id="jc_preview" class="mt-4 grid grid-cols-3 md:grid-cols-6 gap-3"></div>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <button id="jc_make_pdf" type="button"
+            class="px-5 py-3 rounded-xl font-extrabold bg-[#007186] hover:bg-white hover:text-[#007186] transition">
+      Create PDF Report
+    </button>
+    <button id="jc_share_pdf" type="button"
+            class="px-5 py-3 rounded-xl font-extrabold border border-white/10 hover:bg-white/5">
+      Share / Save PDF
+    </button>
+  </div>
+
+  <p class="text-gray-400 text-sm mt-3">
+    No uploads to a server — photos stay on your phone, go into the PDF, you share it, then close the page.
+  </p>
+</section>
   <!-- BEFORE & AFTER PHOTOS -->
   <div class="section">
     <h2>Before & After</h2>
