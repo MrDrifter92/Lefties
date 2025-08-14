@@ -1,1 +1,28 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lefties OS — App</title>
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="/app/manifest.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>body{font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}</style>
+</head>
+<body class="bg-[#0f172a] text-white">
+  <main class="min-h-screen max-w-5xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-extrabold mb-6">Lefties Field OS</h1>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <a href="/field.os.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Technician Flow</a>
+      <a href="/client-pre-service-checklist.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Pre-Service Checklist</a>
+      <a href="/job-log.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Job Log</a>
+      <a href="/reports/job-completion.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Job Completion</a>
+      <a href="/services.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Services</a>
+      <a href="/client/aftercare.html" class="p-4 rounded-2xl bg-white/10 border border-white/10">Aftercare</a>
+    </div>
+  </main>
+  <script>
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/app/sw.js').catch(()=>{}); }
+  </script>
+</body>
+</html>
