@@ -1,184 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lefties OS - Job Log</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Log | Lefties</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: #111827;
-      color: #e0e0e0;
-      padding: 20px;
-    }
-    h1 {
-      color: #0071B6;
-    }
-    .field {
-      margin-bottom: 15px;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-family: 'Nunito', sans-serif;
-    }
-    button {
-      background-color: #0071B6;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #005a91;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 20px;
-      background-color: #005a91;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .back-btn:hover {
-      background-color: #004a78;
-    }
-    .job-log-section {
-      background-color: #1f2937;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .pdf-report {
-      background-color: white;
-      color: black;
-      padding: 20px;
-      font-family: 'Nunito', sans-serif;
-    }
-    .pdf-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .pdf-header img {
-      max-height: 80px;
-    }
+    :root { --brand-blue:#007186; }
+    body { font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
   </style>
 </head>
-<body>
+<body class="bg-[#0f172a] text-white">
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <header class="flex items-center justify-between mb-4">
+      <a href="/dashboard.html" class="text-sm text-gray-300 hover:text-white">&larr; Back to Dashboard</a>
+      <span class="text-gray-300 text-sm">Lefties • Hervey Bay</span>
+    </header>
 
-  <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+    <h1 class="text-2xl md:text-3xl font-extrabold mb-6">Job Log</h1>
 
-  <h1>Job Log</h1>
-  <p>Fill out the details below to generate a client-ready report and PDF.</p>
+    <!-- Log form -->
+    <section class="space-y-3 mb-6">
+      <input id="jl_client" type="text" placeholder="Client name"
+             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10" />
+      <input id="jl_address" type="text" placeholder="Job address"
+             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10" />
+      <input id="jl_date" type="date"
+             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10" />
+      <textarea id="jl_notes" placeholder="Notes"
+                class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 h-28"></textarea>
 
-  <div class="job-log-section">
-    <div class="field">
-      <label for="clientNameField">Client Name</label>
-      <input id="clientNameField" type="text" placeholder="Enter client name">
-    </div>
+      <div class="flex flex-wrap gap-3">
+        <button id="jl_save" class="px-5 py-3 rounded-xl font-extrabold bg-[var(--brand-blue)] hover:bg-white hover:text-[var(--brand-blue)] transition">
+          Save to Local Log
+        </button>
+        <button id="jl_export" class="px-5 py-3 rounded-xl font-extrabold border border-white/10 hover:bg-white/5">
+          Export CSV
+        </button>
+        <button id="jl_clear_form" class="px-5 py-3 rounded-xl font-extrabold border border-white/10 hover:bg-white/5">
+          Clear Form
+        </button>
+      </div>
+      <p class="text-gray-400 text-sm">Local only — nothing uploads. Export CSV when you want a copy.</p>
+    </section>
 
-    <div class="field">
-      <label for="serviceAddressField">Service Address</label>
-      <input id="serviceAddressField" type="text" placeholder="Enter service address">
-    </div>
-
-    <div class="field">
-      <label for="jobDateField">Date & Time Completed</label>
-      <input id="jobDateField" type="text" placeholder="e.g. 14 Aug 2025 - 2:30 PM">
-    </div>
-
-    <div class="field">
-      <label for="technicianField">Technician Name</label>
-      <input id="technicianField" type="text" placeholder="Enter technician name">
-    </div>
-
-    <div class="field">
-      <label for="servicesField">Services Completed</label>
-      <input id="servicesField" type="text" placeholder="e.g. Carpet Revival, Upholstery Cleaning">
-    </div>
-
-    <div class="field">
-      <label for="notesField">Technician Notes</label>
-      <textarea id="notesField" placeholder="Enter notes here"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="beforePhotoField">Before Photo URL</label>
-      <input id="beforePhotoField" type="text" placeholder="Paste link to before photo">
-    </div>
-
-    <div class="field">
-      <label for="afterPhotoField">After Photo URL</label>
-      <input id="afterPhotoField" type="text" placeholder="Paste link to after photo">
-    </div>
-
-    <button id="generateReportBtn">Generate Job Report</button>
-  </div>
+    <!-- Log list -->
+    <section class="mt-8">
+      <h2 class="text-xl font-extrabold mb-3">Saved Jobs (on this device)</h2>
+      <div id="jl_list" class="grid gap-2"></div>
+    </section>
+  </main>
 
   <script>
-    document.getElementById("generateReportBtn").addEventListener("click", function () {
-      const client = document.getElementById("clientNameField").value;
-      const address = document.getElementById("serviceAddressField").value;
-      const date = document.getElementById("jobDateField").value;
-      const tech = document.getElementById("technicianField").value;
-      const services = document.getElementById("servicesField").value;
-      const notes = document.getElementById("notesField").value;
-      const before = document.getElementById("beforePhotoField").value;
-      const after = document.getElementById("afterPhotoField").value;
+  // Prefill from Job Completion
+  (function prefill(){
+    try {
+      const raw = localStorage.getItem('lefties_last_job');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      const fClient = document.getElementById('jl_client');
+      const fAddr   = document.getElementById('jl_address');
+      const fNotes  = document.getElementById('jl_notes');
+      const fDate   = document.getElementById('jl_date');
 
-      if (!client || !address || !date || !tech) {
-        alert("Please fill in at least Client, Address, Date, and Technician before generating report.");
+      if (fClient && data.client)  fClient.value = data.client;
+      if (fAddr   && data.address) fAddr.value   = data.address;
+      if (fNotes  && data.notes)   fNotes.value  = data.notes;
+      if (fDate   && data.when)    fDate.value   = data.when.split('T')[0];
+
+      // Clear after prefill so nothing lingers
+      localStorage.removeItem('lefties_last_job');
+    } catch (_) {}
+  })();
+
+  // Local Log
+  (function log(){
+    const key = 'lefties_log';
+    const listEl = document.getElementById('jl_list');
+    const btnSave = document.getElementById('jl_save');
+    const btnExport = document.getElementById('jl_export');
+    const btnClearForm = document.getElementById('jl_clear_form');
+
+    const fClient = document.getElementById('jl_client');
+    const fAddr   = document.getElementById('jl_address');
+    const fDate   = document.getElementById('jl_date');
+    const fNotes  = document.getElementById('jl_notes');
+
+    function load(){ try{ return JSON.parse(localStorage.getItem(key)) || []; }catch{ return []; } }
+    function save(list){ localStorage.setItem(key, JSON.stringify(list)); }
+    function render(){
+      const list = load();
+      listEl.innerHTML = '';
+      if (!list.length) {
+        listEl.innerHTML = '<div class="text-gray-400 text-sm">No jobs saved on this device yet.</div>';
         return;
       }
-
-      // 1. Open HTML Report
-      const reportUrl = `https://leftiesservices.com.au/reports/job-completion.html?client=${encodeURIComponent(client)}&address=${encodeURIComponent(address)}&date=${encodeURIComponent(date)}&tech=${encodeURIComponent(tech)}&services=${encodeURIComponent(services)}&notes=${encodeURIComponent(notes)}&before=${encodeURIComponent(before)}&after=${encodeURIComponent(after)}`;
-      window.open(reportUrl, '_blank');
-
-      // 2. Generate PDF
-      const pdfContent = `
-        <div class="pdf-report">
-          <div class="pdf-header">
-            <img src="core-logo.png" alt="Lefties Logo">
-            <h2>Job Completion Report</h2>
+      list.slice().reverse().forEach((item, idxRev) => {
+        const i = list.length - 1 - idxRev;
+        const row = document.createElement('div');
+        row.className = 'bg-white/5 border border-white/10 rounded-lg p-3 flex items-start justify-between gap-3';
+        row.innerHTML = `
+          <div>
+            <div class="font-bold">${item.client || '(No name)'} — <span class="text-gray-300">${item.date || ''}</span></div>
+            <div class="text-sm text-gray-300">${item.address || ''}</div>
+            ${item.notes ? `<div class="text-sm text-gray-400 mt-1">${item.notes}</div>` : ''}
           </div>
-          <p><strong>Client Name:</strong> ${client}</p>
-          <p><strong>Service Address:</strong> ${address}</p>
-          <p><strong>Date & Time Completed:</strong> ${date}</p>
-          <p><strong>Technician:</strong> ${tech}</p>
-          <p><strong>Services Completed:</strong> ${services}</p>
-          <p><strong>Notes:</strong> ${notes}</p>
-          ${before ? `<p><strong>Before Photo:</strong><br><img src="${before}" style="max-width:100%;"></p>` : ''}
-          ${after ? `<p><strong>After Photo:</strong><br><img src="${after}" style="max-width:100%;"></p>` : ''}
-        </div>
-      `;
+          <div class="flex gap-2">
+            <button data-i="${i}" class="px-3 py-2 rounded bg-white/10 hover:bg-white/20 border border-white/10 jl-del">Delete</button>
+          </div>
+        `;
+        row.querySelector('.jl-del').onclick = () => {
+          const list = load();
+          list.splice(i,1); save(list); render();
+        };
+        listEl.appendChild(row);
+      });
+    }
 
-      const opt = {
-        margin: 10,
-        filename: `Job-Report-${client.replace(/\s+/g, "_")}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    btnSave.onclick = () => {
+      const item = {
+        client: fClient.value.trim(),
+        address: fAddr.value.trim(),
+        date: fDate.value,
+        notes: fNotes.value.trim(),
+        ts: Date.now()
       };
+      const list = load();
+      list.push(item); save(list); render();
+      alert('Saved to local log.');
+    };
 
-      html2pdf().from(pdfContent).set(opt).save();
-    });
+    btnExport.onclick = () => {
+      const list = load();
+      const header = ['Client','Address','Date','Notes'];
+      const rows = list.map(j => [
+        (j.client||'').replaceAll('"','""'),
+        (j.address||'').replaceAll('"','""'),
+        (j.date||'').replaceAll('"','""'),
+        (j.notes||'').replaceAll('"','""')
+      ]);
+      const csv = [header].concat(rows).map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Lefties-Job-Log-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    };
+
+    btnClearForm.onclick = () => {
+      fClient.value=''; fAddr.value=''; fDate.value=''; fNotes.value='';
+    };
+
+    render();
+  })();
   </script>
-
 </body>
 </html>
