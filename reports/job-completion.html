@@ -3,177 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job Completion Report</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css" rel="stylesheet">
+  <title>Lefties Job Completion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white p-4">
-  <h1 class="text-2xl font-bold mb-4">Job Completion Report</h1>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <div class="max-w-3xl mx-auto p-6 space-y-6">
+    <!-- Header -->
+    <header class="flex items-center space-x-4 border-b border-gray-700 pb-4">
+      <img src="Core Logo_transparent .PNG" alt="Lefties Logo" class="h-12 w-12 object-contain">
+      <h1 class="text-2xl font-bold">Job Completion Report</h1>
+    </header>
 
-  <!-- Client details -->
-  <div class="space-y-3 mb-6">
-    <input id="jc_client" type="text" placeholder="Client Name" class="w-full p-2 rounded bg-gray-800 border border-gray-700" />
-    <input id="jc_address" type="text" placeholder="Address" class="w-full p-2 rounded bg-gray-800 border border-gray-700" />
-    <textarea id="jc_notes" placeholder="Notes" class="w-full p-2 rounded bg-gray-800 border border-gray-700"></textarea>
+    <!-- Client Info -->
+    <section class="space-y-4">
+      <input id="jc_client" type="text" placeholder="Client Name" class="w-full p-3 bg-gray-800 border border-gray-700 rounded">
+      <input id="jc_address" type="text" placeholder="Service Address" class="w-full p-3 bg-gray-800 border border-gray-700 rounded">
+      <textarea id="jc_notes" placeholder="Job Notes" rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded"></textarea>
+    </section>
+
+    <!-- Photo Upload -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-3">
+        <input id="jc_photos" type="file" accept="image/*" multiple capture="environment" class="hidden">
+        <button id="jc_use_camera" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded">Add Photos</button>
+        <button id="jc_clear" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded">Clear</button>
+      </div>
+      <div id="jc_preview" class="grid grid-cols-3 gap-3"></div>
+    </section>
+
+    <!-- Actions -->
+    <section class="flex space-x-3">
+      <button id="jc_make_pdf" class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-500 rounded">Preview PDF</button>
+      <button id="jc_share_pdf" class="flex-1 px-4 py-3 bg-yellow-600 hover:bg-yellow-500 rounded">Share / Save PDF</button>
+    </section>
   </div>
 
-  <!-- Photo upload controls -->
-  <div class="flex space-x-2 mb-4">
-    <input id="jc_photos" type="file" accept="image/*" multiple capture="environment" class="hidden" />
-    <button id="jc_use_camera" class="px-4 py-2 bg-blue-600 rounded">Add Photos</button>
-    <button id="jc_clear" class="px-4 py-2 bg-red-600 rounded">Clear</button>
-  </div>
+<script>
+// -- Job Completion: photos + PDF + push to Job Log (no server storage) --
+(() => {
+  const input   = document.getElementById('jc_photos');
+  const grid    = document.getElementById('jc_preview');
+  const btnCam  = document.getElementById('jc_use_camera');
+  const btnClr  = document.getElementById('jc_clear');
+  const btnMake = document.getElementById('jc_make_pdf');
+  const btnShare= document.getElementById('jc_share_pdf');
 
-  <!-- Photo preview grid -->
-  <div id="jc_preview" class="grid grid-cols-3 gap-2 mb-6"></div>
+  const fClient = document.getElementById('jc_client');
+  const fAddr   = document.getElementById('jc_address');
+  const fNotes  = document.getElementById('jc_notes');
 
-  <!-- Action buttons -->
-  <div class="flex space-x-2">
-    <button id="jc_make_pdf" class="px-4 py-2 bg-green-600 rounded">Preview PDF</button>
-    <button id="jc_share_pdf" class="px-4 py-2 bg-yellow-600 rounded">Share / Save PDF</button>
-  </div>
+  let files = [];
+  let pdfBlob = null;
 
-  <script>
-  // -- Job Completion: photos + PDF + push to Job Log (no server storage) --
-  (() => {
-    const input   = document.getElementById('jc_photos');
-    const grid    = document.getElementById('jc_preview');
-    const btnCam  = document.getElementById('jc_use_camera');
-    const btnClr  = document.getElementById('jc_clear');
-    const btnMake = document.getElementById('jc_make_pdf');
-    const btnShare= document.getElementById('jc_share_pdf');
-
-    const fClient = document.getElementById('jc_client');
-    const fAddr   = document.getElementById('jc_address');
-    const fNotes  = document.getElementById('jc_notes');
-
-    let files = [];
-    let pdfBlob = null;
-
-    function render() {
-      grid.innerHTML = '';
-      files.forEach((file, i) => {
-        const url = URL.createObjectURL(file);
-        const cell = document.createElement('div');
-        cell.className = 'relative bg-white/5 border border-white/10 rounded-lg overflow-hidden';
-        cell.innerHTML = `
-          <img src="${url}" class="w-full h-24 object-cover" />
-          <button class="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded">Remove</button>
-        `;
-        cell.querySelector('button').onclick = () => { files.splice(i,1); render(); };
-        grid.appendChild(cell);
-      });
-      pdfBlob = null;
-    }
-
-    input.addEventListener('change', (e) => {
-      files = files.concat(Array.from(e.target.files || []));
-      render();
+  function render() {
+    grid.innerHTML = '';
+    files.forEach((file, i) => {
+      const url = URL.createObjectURL(file);
+      const cell = document.createElement('div');
+      cell.className = 'relative bg-white/5 border border-white/10 rounded-lg overflow-hidden';
+      cell.innerHTML = `
+        <img src="${url}" class="w-full h-24 object-cover" />
+        <button class="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded">Remove</button>
+      `;
+      cell.querySelector('button').onclick = () => { files.splice(i,1); render(); };
+      grid.appendChild(cell);
     });
+    pdfBlob = null;
+  }
 
-    btnCam.addEventListener('click', () => {
-      input.click();
+  input.addEventListener('change', (e) => {
+    files = files.concat(Array.from(e.target.files || []));
+    render();
+  });
+
+  btnCam.addEventListener('click', () => input.click());
+  btnClr.addEventListener('click', () => { files = []; input.value = ''; render(); });
+
+  async function loadJsPDF() {
+    if (window.jspdf) return window.jspdf.jsPDF;
+    await new Promise((res, rej)=>{
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+      s.onload = res; s.onerror = rej; document.head.appendChild(s);
     });
+    return window.jspdf.jsPDF;
+  }
 
-    btnClr.addEventListener('click', () => {
-      files = []; input.value = ''; render();
-    });
-
-    async function loadJsPDF() {
-      if (window.jspdf) return window.jspdf.jsPDF;
-      await new Promise((res, rej)=>{
-        const s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
-        s.onload = res; s.onerror = rej; document.head.appendChild(s);
-      });
-      return window.jspdf.jsPDF;
-    }
-
-    function compressImage(file, maxW=1600, maxH=1600, quality=0.8) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        const url = URL.createObjectURL(file);
-        img.onload = () => {
-          let {width:w, height:h} = img;
-          const ratio = Math.min(maxW/w, maxH/h, 1);
-          w = Math.round(w*ratio); h = Math.round(h*ratio);
-          const c = document.createElement('canvas');
-          c.width = w; c.height = h;
-          const ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          c.toBlob((blob)=> resolve(blob), 'image/jpeg', quality);
-        };
-        img.src = url;
-      });
-    }
-
-    async function buildPdf() {
-      const jsPDF = await loadJsPDF();
-      const doc = new jsPDF({ unit:'pt', format:'a4' });
-      const pageW = doc.internal.pageSize.getWidth();
-      const margin = 40;
-
-      const title = 'Job Completion Report';
-      const client = fClient?.value?.trim() || '';
-      const address= fAddr?.value?.trim()   || '';
-      const notes  = fNotes?.value?.trim()  || '';
-      const when   = new Date().toLocaleString('en-AU', { timeZone:'Australia/Brisbane' });
-
-      doc.setFont('helvetica','bold'); doc.setFontSize(18);
-      doc.text(title, margin, 60);
-      doc.setFontSize(12); doc.setFont('helvetica','normal');
-      doc.text(`Client: ${client}`, margin, 90);
-      doc.text(`Address: ${address}`, margin, 110);
-      doc.text(`Date: ${when}`, margin, 130);
-      if (notes) {
-        const lines = doc.splitTextToSize(`Notes: ${notes}`, pageW - margin*2);
-        doc.text(lines, margin, 160);
-      }
-
-      let y = notes ? 200 : 160;
-      for (let i=0;i<files.length;i++) {
-        const blob = await compressImage(files[i]);
-        const dataUrl = await new Promise(r=>{
-          const fr = new FileReader(); fr.onload = ()=>r(fr.result); fr.readAsDataURL(blob);
-        });
-        const imgW = pageW - margin*2;
-        const imgH = imgW * 0.66;
-        if (y + imgH > doc.internal.pageSize.getHeight() - margin) { doc.addPage(); y = margin; }
-        doc.addImage(dataUrl, 'JPEG', margin, y, imgW, imgH, undefined, 'FAST');
-        y += imgH + 12;
-      }
-
-      pdfBlob = doc.output('blob');
-      return pdfBlob;
-    }
-
-    btnMake.addEventListener('click', async () => {
-      const blob = await buildPdf();
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    });
-
-    btnShare.addEventListener('click', async () => {
-      const blob = pdfBlob || await buildPdf();
-      const file = new File([blob], `Lefties-Job-Report-${Date.now()}.pdf`, { type: 'application/pdf' });
-
-      if (navigator.share && navigator.canShare && navigator.canShare({ files:[file] })) {
-        try { await navigator.share({ files:[file], title:'Job Report', text:'Lefties Job Completion Report' }); }
-        catch(e){}
-      } else {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(file);
-        a.download = file.name; a.click();
-      }
-
-      const payload = {
-        client: fClient?.value || '',
-        address: fAddr?.value || '',
-        notes: fNotes?.value || '',
-        when: new Date().toISOString()
+  function compressImage(file, maxW=1600, maxH=1600, quality=0.8) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        let {width:w, height:h} = img;
+        const ratio = Math.min(maxW/w, maxH/h, 1);
+        w = Math.round(w*ratio); h = Math.round(h*ratio);
+        const c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        c.toBlob((blob)=> resolve(blob), 'image/jpeg', quality);
       };
-      localStorage.setItem('lefties_last_job', JSON.stringify(payload));
+      img.src = url;
     });
-  })();
-  </script>
+  }
+
+  async function buildPdf() {
+    const jsPDF = await loadJsPDF();
+    const doc = new jsPDF({ unit:'pt', format:'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const margin = 40;
+
+    const title = 'Job Completion Report';
+    const client = fClient?.value?.trim() || '';
+    const address= fAddr?.value?.trim()   || '';
+    const notes  = fNotes?.value?.trim()  || '';
+    const when   = new Date().toLocaleString('en-AU', { timeZone:'Australia/Brisbane' });
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(18);
+    doc.text(title, margin, 60);
+    doc.setFontSize(12); doc.setFont('helvetica','normal');
+    doc.text(`Client: ${client}`, margin, 90);
+    doc.text(`Address: ${address}`, margin, 110);
+    doc.text(`Date: ${when}`, margin, 130);
+    if (notes) {
+      const lines = doc.splitTextToSize(`Notes: ${notes}`, pageW - margin*2);
+      doc.text(lines, margin, 160);
+    }
+
+    let y = notes ? 200 : 160;
+    for (let i=0;i<files.length;i++) {
+      const blob = await compressImage(files[i]);
+      const dataUrl = await new Promise(r=>{
+        const fr = new FileReader(); fr.onload = ()=>r(fr.result); fr.readAsDataURL(blob);
+      });
+      const imgW = pageW - margin*2;
+      const imgH = imgW * 0.66;
+      if (y + imgH > doc.internal.pageSize.getHeight() - margin) { doc.addPage(); y = margin; }
+      doc.addImage(dataUrl, 'JPEG', margin, y, imgW, imgH, undefined, 'FAST');
+      y += imgH + 12;
+    }
+
+    pdfBlob = doc.output('blob');
+    return pdfBlob;
+  }
+
+  btnMake.addEventListener('click', async () => {
+    const blob = await buildPdf();
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+  });
+
+  btnShare.addEventListener('click', async () => {
+    const blob = pdfBlob || await buildPdf();
+    const file = new File([blob], `Lefties-Job-Report-${Date.now()}.pdf`, { type: 'application/pdf' });
+
+    if (navigator.share && navigator.canShare && navigator.canShare({ files:[file] })) {
+      try { await navigator.share({ files:[file], title:'Job Report', text:'Lefties Job Completion Report' }); }
+      catch(e){}
+    } else {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(file);
+      a.download = file.name; a.click();
+    }
+
+    const payload = {
+      client: fClient?.value || '',
+      address: fAddr?.value || '',
+      notes: fNotes?.value || '',
+      when: new Date().toISOString()
+    };
+    localStorage.setItem('lefties_last_job', JSON.stringify(payload));
+  });
+})();
+</script>
 </body>
 </html>
