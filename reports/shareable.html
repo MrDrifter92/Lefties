@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lefties Job Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --brand:#007186; }
+    body{ font-family:'Nunito',sans-serif; background:#0D1117; color:#e5e7eb; }
+    .sheet{ max-width:900px; margin:24px auto; background:#0F1620; border:1px solid rgba(255,255,255,.10); border-radius:18px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.35);}
+    .head{ background:linear-gradient(145deg, rgba(0,113,134,.35), rgba(0,88,120,.5)); border-bottom:1px solid rgba(255,255,255,.12); padding:22px 24px;}
+    .brand{ font-weight:900; font-size:22px; letter-spacing:.3px;}
+    .subtle{ opacity:.8; }
+    .pad{ padding:22px 24px; }
+    table{ width:100%; border-collapse:collapse; }
+    th,td{ padding:10px 8px; border-bottom:1px solid rgba(255,255,255,.08); }
+    th{ text-align:left; opacity:.7; font-weight:800; }
+    .tot{ font-weight:900; }
+    .chip{ display:inline-block; padding:.35rem .6rem; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:9999px; margin:.2rem .25rem 0 0; }
+    .photos{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .photos img{ width:100%; height:200px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.10); }
+    .actions{ display:flex; gap:10px; padding:16px 24px 24px; }
+    .btn{ background:linear-gradient(145deg, rgba(0,113,134,.65), rgba(0,88,120,.9)); border:1px solid rgba(0,140,255,.3); border-radius:9999px; padding:.8rem 1.1rem; font-weight:800; }
+    @media print{
+      body{ background:white; color:black; }
+      .sheet{ box-shadow:none; border:none; margin:0; max-width:100%; }
+      .actions{ display:none; }
+      .head{ background:white; border-bottom:2px solid #000; }
+      .photos img{ height:180px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="head">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div>
+          <div class="brand">Lefties Job Completion Report</div>
+          <div id="r_when" class="subtle text-sm"></div>
+        </div>
+        <div class="text-right subtle text-sm">
+          Hervey Bay · 0417 220 012<br> Hello@leftiesservices.com.au
+        </div>
+      </div>
+    </div>
+
+    <div class="pad grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="font-extrabold text-lg mb-1">Client</div>
+        <div id="r_client" class="text-blue-200/90 font-bold"></div>
+        <div id="r_contact" class="subtle"></div>
+      </div>
+      <div>
+        <div class="font-extrabold text-lg mb-1">Job</div>
+        <div id="r_jobmeta" class="subtle"></div>
+        <div><span class="font-extrabold">Address</span>: <span id="r_address"></span></div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <div class="font-extrabold text-lg mb-1">Services</div>
+      <div id="r_services"></div>
+    </div>
+
+    <div class="pad">
+      <div class="font-extrabold text-lg mb-2">Work Summary</div>
+      <div class="overflow-x-auto">
+        <table>
+          <thead><tr><th>Item</th><th style="text-align:right;">Qty</th><th style="text-align:right;">Price</th></tr></thead>
+          <tbody id="r_lines"></tbody>
+          <tfoot>
+            <tr><td></td><td class="tot" style="text-align:right;">Subtotal</td><td id="r_sub" class="tot" style="text-align:right;"></td></tr>
+            <tr><td></td><td class="tot" style="text-align:right;">Total</td><td id="r_tot" class="tot" style="text-align:right;"></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="pad">
+      <div class="font-extrabold text-lg mb-1">Notes</div>
+      <div id="r_notes" class="whitespace-pre-wrap"></div>
+    </div>
+
+    <div class="pad">
+      <div class="font-extrabold text-lg mb-2">Photos</div>
+      <div id="r_photos" class="photos"></div>
+    </div>
+
+    <div class="actions">
+      <button id="act_share" class="btn">Share (use Options → PDF)</button>
+      <button id="act_sent" class="btn">Mark Sent & Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const fos = (()=>{ try{return JSON.parse(localStorage.getItem('lefties_fos_final')||localStorage.getItem('lefties_fos_draft')||"{}");}catch{return {};}})();
+    const photos = (()=>{ try{return JSON.parse(localStorage.getItem('lefties_jc_photos')||"[]");}catch{return [];} })();
+    const money = v => {
+      if(v==null||v==='') return '';
+      const n=parseFloat(String(v).replace(/[^\d.]/g,'')); return isNaN(n)?String(v):('$'+n.toFixed(2));
+    };
+
+    // Fill
+    $('r_when').textContent = new Date().toLocaleString('en-AU',{timeZone:'Australia/Brisbane'});
+    $('r_client').textContent = fos.client || '—';
+    $('r_contact').innerHTML = [fos.phone?`📞 ${fos.phone}`:'', fos.email?`&nbsp;&nbsp;✉️ ${fos.email}`:''].filter(Boolean).join(' ');
+    $('r_jobmeta').innerHTML  = [fos.ref?`Ref: <b>${fos.ref}</b>`:'', fos.date?`Date: <b>${fos.date}</b>`:''].filter(Boolean).join(' &nbsp;&nbsp; ');
+    $('r_address').textContent= fos.address || '—';
+    $('r_services').innerHTML = (fos.services||[]).map(s=>`<span class="chip">${s}</span>`).join('') || '<span class="subtle">No services listed</span>';
+
+    const lines = (fos.lineitems||[]).map(li=>`<tr><td>${li.item||''}</td><td style="text-align:right;">${li.qty||''}</td><td style="text-align:right;">${money(li.price||'')}</td></tr>`).join('');
+    $('r_lines').innerHTML = lines || `<tr><td class="subtle" colspan="3">No line items.</td></tr>`;
+    $('r_sub').textContent = money(fos.subtotal||'');
+    $('r_tot').textContent = money(fos.total||'');
+    $('r_notes').textContent = fos.notes_client || '';
+
+    const ph = $('r_photos');
+    photos.forEach(src=>{
+      const img=new Image(); img.src=src; ph.appendChild(img);
+    });
+
+    // Share button -> open native sheet (the page URL itself; on iPhone use Options→PDF)
+    $('act_share').addEventListener('click', async ()=>{
+      try{
+        if (navigator.share){
+          await navigator.share({ title:'Lefties Job Report', url: location.href });
+        } else {
+          alert('Use your browser Share button, then Options → PDF.');
+        }
+      }catch{}
+    });
+
+    // Mark sent & reset (clears data and returns to Field OS)
+    $('act_sent').addEventListener('click', ()=>{
+      localStorage.removeItem('lefties_fos_final');
+      localStorage.removeItem('lefties_fos_draft');
+      localStorage.removeItem('lefties_jc_photos');
+      location.href = '/field.os.html?reset=1';
+    });
+  </script>
+</body>
+</html>
