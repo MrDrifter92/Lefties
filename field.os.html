@@ -1,425 +1,240 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Lefties • Field.OS</title>
+<!-- =========================
+     JOB COMPLETION (embedded)
+     ========================= -->
+<section id="job-completion" class="mt-10">
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6">
+    <div class="flex items-center justify-between gap-3 mb-2">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Job Completion</h2>
+      <button id="fos_gc_reset" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">
+        Reset for Next Job
+      </button>
+    </div>
+    <p class="text-sm opacity-70 mb-4">This section auto-fills from Field OS. Tweak anything here, add photos, then generate the client report.</p>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
-
-  <style>
-    :root{
-      --ink:#e6ecf3;
-      --muted:#9fb0c8;
-      --panel:rgba(28,36,48,.55);
-      --panel-brd:rgba(255,255,255,.08);
-      --brand:#00a0ff;
-    }
-    body{font-family:'Nunito',sans-serif;background:#0b1220;color:var(--ink)}
-    .tile{
-      background:var(--panel);
-      border:1px solid var(--panel-brd);
-      border-radius:18px;
-      backdrop-filter: blur(16px) saturate(120%);
-      -webkit-backdrop-filter: blur(16px) saturate(120%);
-      box-shadow:0 14px 32px rgba(0,0,0,.35), inset 0 1px 1px rgba(255,255,255,.06);
-    }
-    .subtle{color:var(--muted)}
-    .brand{color:var(--brand)}
-    .btn{
-      background:linear-gradient(145deg,#0094ff,#0071b6);
-      border:1px solid rgba(0,148,255,.35);
-      color:#fff;font-weight:800;border-radius:9999px;
-      box-shadow:0 10px 20px rgba(0,113,182,.28), inset 0 1px 1px rgba(255,255,255,.25);
-      transition:transform .15s, box-shadow .15s;
-    }
-    .btn:hover{transform:translateY(-2px); box-shadow:0 16px 32px rgba(0,113,182,.36), inset 0 1px 1px rgba(255,255,255,.35)}
-    input, textarea{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:10px;
-      padding:.6rem .75rem;
-      width:100%;
-      color:#e6ecf3;
-      outline:none;
-    }
-    input::placeholder, textarea::placeholder{color:#9fb0c8}
-    .table th,.table td{padding:.5rem .25rem}
-    .hr{height:1px;background:rgba(255,255,255,.08)}
-  </style>
-</head>
-<body class="antialiased">
-  <!-- Header -->
-  <header class="sticky top-0 z-40 px-3 pt-3">
-    <div class="tile max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="core-logo-transparent.png" alt="Lefties" class="h-8 w-auto select-none"/>
-        <div class="text-xl font-black">Lefties <span class="brand">OS</span></div>
+    <!-- Summary -->
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-white/10 bg-black/10 p-4">
+        <div class="text-sm opacity-70 font-bold">Client</div>
+        <input id="gc_client" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Client name">
+        <div class="grid grid-cols-2 gap-2 mt-2">
+          <input id="gc_phone" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Phone">
+          <input id="gc_email" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Email">
+        </div>
       </div>
-      <div class="text-right subtle text-sm leading-tight">
-        <div id="now-date"></div>
-        <div>Hervey Bay, QLD</div>
+      <div class="rounded-xl border border-white/10 bg-black/10 p-4">
+        <div class="text-sm opacity-70 font-bold">Job</div>
+        <div class="grid grid-cols-2 gap-2 mt-1">
+          <input id="gc_ref" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Ref / Invoice #">
+          <input id="gc_date" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Date">
+        </div>
+        <input id="gc_address" class="w-full mt-2 px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Address">
       </div>
     </div>
-  </header>
 
-  <main class="max-w-5xl mx-auto px-4 pb-20">
-    <!-- Dashboard tiles -->
-    <section class="mt-6 grid gap-4">
-      <a id="technician-flow" href="#technician-flow" class="tile px-5 py-5 block">
-        <div class="subtle text-sm">On-Job</div>
-        <div class="text-2xl md:text-3xl font-black">Technician Flow</div>
-      </a>
+    <!-- Services -->
+    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
+      <div class="text-sm opacity-70 font-bold mb-1">Services (comma separated)</div>
+      <input id="gc_services" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Carpet (2 rooms), Lounge (3 seater), Stain treatment">
+    </div>
 
-      <a id="job-log" href="#job-log" class="tile px-5 py-5 block">
-        <div class="subtle text-sm">Records</div>
-        <div class="text-2xl md:text-3xl font-black">Job Log</div>
-      </a>
-
-      <a id="wrap-up" href="#wrap-up" class="tile px-5 py-5 block">
-        <div class="subtle text-sm">Wrap-Up</div>
-        <div class="text-2xl md:text-3xl font-black">Job Completion</div>
-      </a>
-
-      <div class="grid md:grid-cols-2 gap-4">
-        <a href="service-agreements.html" class="tile px-5 py-5 block">
-          <div class="subtle text-sm">Docs</div>
-          <div class="text-2xl font-black">Service Agreements</div>
-        </a>
-        <a href="client-aftercare.html" class="tile px-5 py-5 block">
-          <div class="subtle text-sm">Clients</div>
-          <div class="text-2xl font-black">Client Aftercare Guide</div>
-        </a>
-        <a href="services.html" class="tile px-5 py-5 block">
-          <div class="subtle text-sm">Reference</div>
-          <div class="text-2xl font-black">Services</div>
-        </a>
-        <a href="index.html" class="tile px-5 py-5 block">
-          <div class="subtle text-sm">Website</div>
-          <div class="text-2xl font-black">Main Website</div>
-        </a>
+    <!-- Line items -->
+    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
+      <div class="flex items-center justify-between">
+        <div class="font-extrabold">Work Summary</div>
+        <button id="gc_add_row" class="px-3 py-2 rounded-full border border-white/15 bg-white/10 text-sm font-bold">+ Add item</button>
       </div>
-    </section>
+      <div class="overflow-x-auto mt-3">
+        <table class="w-full text-sm">
+          <thead class="opacity-70">
+            <tr><th class="text-left p-2">Item</th><th class="text-right p-2">Qty</th><th class="text-right p-2">Price</th><th class="p-2"></th></tr>
+          </thead>
+          <tbody id="gc_lines"></tbody>
+          <tfoot>
+            <tr><td></td><td class="text-right p-2 font-extrabold">Subtotal</td><td id="gc_sub" class="text-right p-2"></td><td></td></tr>
+            <tr><td></td><td class="text-right p-2 font-extrabold">Total</td><td id="gc_tot" class="text-right p-2 text-blue-300"></td><td></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
 
-    <!-- Divider -->
-    <div class="my-8 hr"></div>
+    <!-- Client notes -->
+    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
+      <div class="text-sm opacity-70 font-bold mb-1">Notes for Client</div>
+      <textarea id="gc_notes" rows="4" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Any care notes, risks, or advice you want the client to have."></textarea>
+    </div>
 
-    <!-- Technician Flow placeholder (keep your existing flow UI here) -->
-    <section aria-labelledby="flowTitle" class="tile p-5">
-      <h2 id="flowTitle" class="text-xl font-black mb-3">Technician Flow</h2>
-      <p class="subtle">Pre-inspection, fibre ID, chemistry, equipment checks, risk notes… (your existing flow components live here). Anything you save to <code>localStorage.fieldOS.currentJob</code> will auto-fill the wrap-up panel below.</p>
-    </section>
-
-    <!-- Job Log placeholder -->
-    <section class="tile p-5 mt-5">
-      <h2 class="text-xl font-black mb-3">Job Log</h2>
-      <p class="subtle">Start/stop times, site notes, consumables, photos, etc.</p>
-    </section>
-
-    <!-- WRAP-UP: Job Completion (merged) -->
-    <section class="tile p-5 mt-5" aria-labelledby="wrapTitle">
-      <h2 id="wrapTitle" class="text-2xl md:text-3xl font-black mb-1">Job Completion</h2>
-      <p class="subtle mb-5">Auto-filled from Field.OS where possible. Tweak anything, attach photos, then generate the client report.</p>
-
-      <!-- CLIENT -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div>
-          <label class="subtle text-sm">Client name</label>
-          <input id="c_name" placeholder="Jane Citizen"/>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="subtle text-sm">Phone</label>
-            <input id="c_phone" placeholder="0417 000 000"/>
-          </div>
-          <div>
-            <label class="subtle text-sm">Email</label>
-            <input id="c_email" type="email" placeholder="hello@example.com"/>
-          </div>
+    <!-- Photos -->
+    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
+      <div class="flex items-center justify-between mb-3">
+        <div class="font-extrabold">Photos</div>
+        <div class="flex items-center gap-2">
+          <input id="gc_file" type="file" accept="image/*" capture="environment" multiple class="hidden">
+          <button id="gc_add" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">Add from Camera / Roll</button>
+          <button id="gc_clear" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">Clear</button>
         </div>
       </div>
+      <div id="gc_preview" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+    </div>
 
-      <!-- JOB -->
-      <div class="grid md:grid-cols-4 gap-4 mt-4">
-        <div class="md:col-span-2">
-          <label class="subtle text-sm">Address</label>
-          <input id="j_address" placeholder="123 Esplanade, Hervey Bay"/>
-        </div>
-        <div>
-          <label class="subtle text-sm">Ref / Invoice #</label>
-          <input id="j_ref" placeholder="HB-2025-001"/>
-        </div>
-        <div>
-          <label class="subtle text-sm">Date</label>
-          <input id="j_date" type="date"/>
-        </div>
-      </div>
+    <!-- Actions -->
+    <div class="grid md:grid-cols-2 gap-3 mt-5">
+      <button id="gc_generate" class="px-5 py-3 rounded-full font-extrabold border border-white/20 bg-[rgba(0,113,134,.65)]">Generate Report (opens share link)</button>
+      <a href="/reports/shareable.html" class="px-5 py-3 rounded-full text-center font-extrabold border border-white/15 bg-white/10">Open last report</a>
+      <p class="text-xs opacity-70 md:col-span-2">iPhone: Share → <em>Options</em> → <strong>PDF</strong> → send.</p>
+    </div>
+  </div>
+</section>
 
-      <!-- SERVICES -->
-      <div class="mt-4">
-        <label class="subtle text-sm">Services (comma separated)</label>
-        <input id="j_services" placeholder="Carpet (2 rooms), Lounge (4-seater)"/>
-      </div>
+<script>
+/* ========= Field OS → Embedded Job Completion ========= */
+(() => {
+  const $ = s => document.querySelector(s);
+  const money = v => {
+    if (v==null || v==='') return '';
+    const n = parseFloat(String(v).replace(/[^\d.]/g,''));
+    return isNaN(n) ? String(v) : ('$' + n.toFixed(2));
+  };
+  const readDraft = () => { try { return JSON.parse(localStorage.getItem('lefties_fos_draft')||'{}'); } catch { return {}; } };
+  const writeDraft = (obj) => localStorage.setItem('lefties_fos_draft', JSON.stringify(obj||{}));
 
-      <!-- WORK SUMMARY -->
-      <div class="mt-6">
-        <div class="flex items-center justify-between">
-          <h3 class="text-xl font-black">Work Summary</h3>
-          <button id="addRow" class="btn px-4 py-2 text-sm">+ Add Item</button>
-        </div>
-        <div class="overflow-x-auto mt-3">
-          <table class="table w-full text-left text-sm">
-            <thead class="subtle">
-              <tr>
-                <th class="w-[55%]">Item</th>
-                <th class="w-[15%]">Qty</th>
-                <th class="w-[15%]">Price</th>
-                <th class="w-[15%]"></th>
-              </tr>
-            </thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
-        <div class="flex gap-6 mt-2 justify-end text-right">
-          <div>Subtotal<br><span id="subtotal" class="font-black">$0.00</span></div>
-          <div>Total<br><span id="total" class="font-black">$0.00</span></div>
-        </div>
-      </div>
+  // UI refs
+  const ui = {
+    client:  $('#gc_client'),
+    phone:   $('#gc_phone'),
+    email:   $('#gc_email'),
+    ref:     $('#gc_ref'),
+    date:    $('#gc_date'),
+    address: $('#gc_address'),
+    services:$('#gc_services'),
+    linesT:  $('#gc_lines'),
+    sub:     $('#gc_sub'),
+    tot:     $('#gc_tot'),
+    notes:   $('#gc_notes'),
+    file:    $('#gc_file'),
+    add:     $('#gc_add'),
+    clear:   $('#gc_clear'),
+    preview: $('#gc_preview'),
+    addRow:  $('#gc_add_row'),
+    gen:     $('#gc_generate'),
+    reset:   $('#fos_gc_reset')
+  };
 
-      <!-- NOTES -->
-      <div class="mt-6">
-        <label class="text-sm subtle">Notes for Client</label>
-        <textarea id="notes" rows="3" placeholder="Care notes, risks, or aftercare reminders for the client."></textarea>
-      </div>
+  // hydrate from draft
+  function hydrate(){
+    const d = readDraft();
+    ui.client.value  = d.client || '';
+    ui.phone.value   = d.phone  || '';
+    ui.email.value   = d.email  || '';
+    ui.ref.value     = d.ref    || '';
+    ui.date.value    = d.date   || '';
+    ui.address.value = d.address|| '';
+    ui.services.value= (d.services||[]).join(', ');
+    ui.notes.value   = d.notes_client || '';
 
-      <!-- PHOTOS -->
-      <div class="mt-6">
-        <h3 class="text-xl font-black mb-2">Photos</h3>
-        <div class="flex flex-wrap gap-3">
-          <input id="photos" type="file" accept="image/*" multiple class="block"/>
-          <button id="clearPhotos" class="px-3 py-2 rounded-md border border-white/15 subtle hover:text-white hover:border-white/30 transition">Clear</button>
-        </div>
-        <div id="preview" class="grid grid-cols-3 md:grid-cols-5 gap-3 mt-3"></div>
-      </div>
+    // line items
+    ui.linesT.innerHTML = '';
+    (d.lineitems||[]).forEach(addRow);
+    calcTotals();
+  }
 
-      <!-- ACTIONS -->
-      <div class="mt-6 flex flex-wrap gap-3">
-        <button id="resetJob" class="px-4 py-2 rounded-md border border-white/15 subtle hover:text-white hover:border-white/30 transition">Reset for Next Job</button>
-        <button id="genReport" class="btn px-5 py-3">Generate Report</button>
-      </div>
-
-      <p class="subtle mt-4 text-sm">iPhone: Share → <em>Options</em> → <strong>PDF</strong> → send.</p>
-    </section>
-  </main>
-
-  <!-- REPORT TEMPLATE (hidden) -->
-  <template id="reportTpl">
-    <html>
-    <head>
-      <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-      <title>Lefties — Job Report</title>
-      <style>
-        body{font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',sans-serif;margin:0;padding:24px;background:#fafafa;color:#222}
-        h1,h2,h3{margin:.2rem 0}
-        .brand{color:#0071B6}
-        .card{background:#fff;border:1px solid #e7ecf2;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.06);padding:18px;margin-bottom:14px}
-        table{width:100%;border-collapse:collapse}
-        th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
-        .right{text-align:right}
-        .grid{display:grid;gap:12px}
-        .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
-        .photos img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid #eee}
-        @media print {.noprint{display:none}}
-      </style>
-    </head>
-    <body>
-      <div class="card">
-        <h1>Lefties <span class="brand">Carpet Cleaning</span></h1>
-        <div id="r_date" style="color:#666"></div>
-      </div>
-
-      <div class="grid" style="grid-template-columns:1fr 1fr">
-        <div class="card">
-          <h3>Client</h3>
-          <div id="r_client"></div>
-        </div>
-        <div class="card">
-          <h3>Job</h3>
-          <div id="r_job"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Services</h3>
-        <div id="r_services"></div>
-      </div>
-
-      <div class="card">
-        <h3>Work Summary</h3>
-        <table id="r_table"><thead><tr><th>Item</th><th>Qty</th><th class="right">Price</th></tr></thead><tbody></tbody></table>
-        <div class="right" style="margin-top:8px">
-          Subtotal: <strong id="r_subtotal"></strong> &nbsp; | &nbsp;
-          Total: <strong id="r_total"></strong>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Notes</h3>
-        <div id="r_notes"></div>
-      </div>
-
-      <div class="card">
-        <h3>Photos</h3>
-        <div id="r_photos" class="photos"></div>
-      </div>
-
-      <div class="noprint" style="text-align:center;margin-top:10px;color:#666">File → Print or Share → PDF</div>
-    </body>
-    </html>
-  </template>
-
-  <script>
-    // Header date
-    const now = new Date();
-    document.getElementById('now-date').textContent =
-      now.toLocaleString(undefined, {weekday:'long', day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'});
-
-    // --- Work rows
-    const rowsEl = document.getElementById('rows');
-    function money(n){ return (isNaN(n)?0:n).toLocaleString(undefined,{style:'currency',currency:'AUD'}); }
-    function calc(){
-      let sub = 0;
-      rowsEl.querySelectorAll('tr').forEach(tr=>{
-        const qty = parseFloat(tr.querySelector('.qty').value||0);
-        const price = parseFloat(tr.querySelector('.price').value||0);
-        sub += qty*price;
-      });
-      document.getElementById('subtotal').textContent = money(sub);
-      document.getElementById('total').textContent = money(sub); // no GST line item here; add if you need
-    }
-    function addRow(item='', qty=1, price=''){
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input class="item" placeholder="e.g. Carpet (2 rooms)" value="${item}"/></td>
-        <td class="w-[15%]"><input class="qty" type="number" step="1" min="0" value="${qty}"/></td>
-        <td class="w-[15%]"><input class="price" type="number" step="0.01" min="0" value="${price}"/></td>
-        <td class="w-[10%]"><button type="button" class="remove subtle hover:text-red-400">Remove</button></td>`;
-      rowsEl.appendChild(tr);
-      tr.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
-      tr.querySelector('.remove').addEventListener('click',()=>{ tr.remove(); calc(); });
-      calc();
-    }
-    document.getElementById('addRow').addEventListener('click',()=>addRow());
-
-    // --- Photos preview
-    const photos = document.getElementById('photos');
-    const preview = document.getElementById('preview');
-    let photoDataURLs = [];
-    function renderPreview(){
-      preview.innerHTML='';
-      photoDataURLs.forEach(src=>{
-        const img = document.createElement('img');
-        img.src = src; img.className='w-full h-24 object-cover rounded-md border border-white/10';
-        preview.appendChild(img);
-      });
-    }
-    photos.addEventListener('change', async (e)=>{
-      const files = Array.from(e.target.files||[]);
-      for(const f of files){
-        const url = await fileToDataURL(f);
-        photoDataURLs.push(url);
-      }
-      renderPreview();
-      photos.value = '';
+  function collect(){
+    const d = readDraft();
+    d.client = ui.client.value.trim();
+    d.phone  = ui.phone.value.trim();
+    d.email  = ui.email.value.trim();
+    d.ref    = ui.ref.value.trim();
+    d.date   = ui.date.value.trim();
+    d.address= ui.address.value.trim();
+    d.services = ui.services.value.split(',').map(s=>s.trim()).filter(Boolean);
+    d.notes_client = ui.notes.value;
+    d.lineitems = Array.from(ui.linesT.querySelectorAll('tr')).map(tr=>{
+      const [item, qty, price] = tr.querySelectorAll('input');
+      return { item:item.value, qty:qty.value, price:price.value };
     });
-    document.getElementById('clearPhotos').addEventListener('click',()=>{
-      photoDataURLs = []; renderPreview();
+    d.subtotal = ui.sub.textContent;
+    d.total    = ui.tot.textContent;
+    writeDraft(d);
+    return d;
+  }
+
+  function addRow(li={item:'',qty:'',price:''}){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="p-2"><input class="w-full px-2 py-1 rounded bg-white/10 border border-white/15" value="${li.item||''}" placeholder="Item"></td>
+      <td class="p-2 text-right"><input class="w-24 px-2 py-1 rounded bg-white/10 border border-white/15 text-right" value="${li.qty||''}" placeholder="1"></td>
+      <td class="p-2 text-right"><input class="w-28 px-2 py-1 rounded bg-white/10 border border-white/15 text-right" value="${li.price||''}" placeholder="$0.00"></td>
+      <td class="p-2 text-right"><button class="px-2 py-1 text-xs rounded border border-white/20 bg-white/10">Remove</button></td>`;
+    tr.querySelector('button').onclick = () => { tr.remove(); calcTotals(); collect(); };
+    tr.querySelectorAll('input').forEach(i => i.addEventListener('input', ()=>{ calcTotals(); collect(); }));
+    ui.linesT.appendChild(tr);
+  }
+
+  function calcTotals(){
+    let sub = 0;
+    ui.linesT.querySelectorAll('tr').forEach(tr=>{
+      const price = tr.querySelectorAll('input')[2]?.value || '';
+      const n = parseFloat(String(price).replace(/[^\d.]/g,''));
+      if (!isNaN(n)) sub += n;
     });
-    function fileToDataURL(file){
-      return new Promise((res,rej)=>{
-        const r=new FileReader();
-        r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file);
-      });
+    ui.sub.textContent = money(sub);
+    ui.tot.textContent = money(sub); // add taxes/discounts here if needed
+  }
+
+  // Photos
+  let photos = [];
+  function renderPhotos(){
+    ui.preview.innerHTML='';
+    photos.forEach((file,i)=>{
+      const url = URL.createObjectURL(file);
+      const cell = document.createElement('div');
+      cell.className='relative rounded-lg overflow-hidden border border-white/10';
+      cell.innerHTML = `<img src="${url}" class="w-full h-28 object-cover"><button class="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded">Remove</button>`;
+      cell.querySelector('button').onclick = ()=>{ photos.splice(i,1); renderPhotos(); };
+      ui.preview.appendChild(cell);
+    });
+  }
+  function compressToDataURL(file, maxW=1600,maxH=1600,q=.82){
+    return new Promise(resolve=>{
+      const img=new Image(), url=URL.createObjectURL(file);
+      img.onload=()=>{
+        let w=img.width,h=img.height; const r=Math.min(maxW/w,maxH/h,1); w=Math.round(w*r); h=Math.round(h*r);
+        const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(c.toDataURL('image/jpeg',q));
+      }; img.src=url;
+    });
+  }
+
+  // events
+  ['client','phone','email','ref','date','address','services','notes'].forEach(k=>{
+    ui[k].addEventListener('input', ()=> collect());
+  });
+  ui.addRow.addEventListener('click', ()=>{ addRow(); collect(); });
+
+  ui.file.addEventListener('change', e=>{ photos = photos.concat(Array.from(e.target.files||[])); renderPhotos(); });
+  ui.add.addEventListener('click', ()=> ui.file.click());
+  ui.clear.addEventListener('click', ()=>{ photos=[]; ui.file.value=''; renderPhotos(); });
+
+  ui.gen.addEventListener('click', async ()=>{
+    const draft = collect();                             // ensure latest values are saved
+    localStorage.setItem('lefties_fos_final', JSON.stringify(draft));
+    if (photos.length){
+      const dataUrls=[]; for (let f of photos){ dataUrls.push(await compressToDataURL(f)); }
+      localStorage.setItem('lefties_jc_photos', JSON.stringify(dataUrls));
+    } else {
+      localStorage.removeItem('lefties_jc_photos');
     }
+    location.href = '/reports/shareable.html?from=fos';
+  });
 
-    // --- Load auto-fill from Field.OS flow (localStorage)
-    try{
-      const saved = JSON.parse(localStorage.getItem('fieldOS')||'{}');
-      const job = saved.currentJob || {};
-      if(job.client){
-        document.getElementById('c_name').value = job.client.name||'';
-        document.getElementById('c_phone').value = job.client.phone||'';
-        document.getElementById('c_email').value = job.client.email||'';
-      }
-      if(job.address){ document.getElementById('j_address').value = job.address; }
-      if(job.ref){ document.getElementById('j_ref').value = job.ref; }
-      if(job.date){ document.getElementById('j_date').value = job.date; }
-      if(job.services){ document.getElementById('j_services').value = Array.isArray(job.services)? job.services.join(', ') : job.services; }
-      (job.items||[]).forEach(it=> addRow(it.name||'', it.qty||1, it.price||'' ));
-      if((job.items||[]).length===0) addRow(); // at least one row
-      if(job.notes){ document.getElementById('notes').value = job.notes; }
-    }catch(e){ addRow(); }
+  ui.reset.addEventListener('click', ()=>{
+    localStorage.removeItem('lefties_fos_draft');
+    localStorage.removeItem('lefties_fos_final');
+    localStorage.removeItem('lefties_jc_photos');
+    photos=[]; renderPhotos(); hydrate();
+  });
 
-    // --- Reset
-    document.getElementById('resetJob').addEventListener('click',()=>{
-      if(!confirm('Clear current job data and start fresh?')) return;
-      ['c_name','c_phone','c_email','j_address','j_ref','j_date','j_services','notes'].forEach(id=>document.getElementById(id).value='');
-      rowsEl.innerHTML=''; addRow();
-      photoDataURLs=[]; renderPreview(); calc();
-    });
-
-    // --- Report
-    document.getElementById('genReport').addEventListener('click',()=>{
-      const tpl = document.getElementById('reportTpl').innerHTML;
-      const w = window.open('','_blank');
-      w.document.open(); w.document.write(tpl); w.document.close();
-
-      const $ = sel => w.document.querySelector(sel);
-
-      $('#r_date').textContent = new Date().toLocaleString();
-      $('#r_client').innerHTML = `
-        <strong>${val('c_name')}</strong><br>
-        ${val('c_phone')} • ${val('c_email')}
-      `;
-      $('#r_job').innerHTML = `
-        Ref: <strong>${val('j_ref')}</strong><br>
-        ${val('j_address')}<br>
-        Date: ${val('j_date')}
-      `;
-      $('#r_services').textContent = val('j_services');
-
-      // table
-      const tbody = w.document.querySelector('#r_table tbody');
-      let sub = 0;
-      rowsEl.querySelectorAll('tr').forEach(tr=>{
-        const item = tr.querySelector('.item').value;
-        const qty = parseFloat(tr.querySelector('.qty').value||0);
-        const price = parseFloat(tr.querySelector('.price').value||0);
-        if(!item && !qty && !price) return;
-        const row = w.document.createElement('tr');
-        row.innerHTML = `<td>${escapeHtml(item)}</td><td>${qty}</td><td class="right">${money(price)}</td>`;
-        tbody.appendChild(row);
-        sub += qty*price;
-      });
-      $('#r_subtotal').textContent = money(sub);
-      $('#r_total').textContent = money(sub);
-
-      $('#r_notes').textContent = val('notes');
-
-      // photos
-      const phWrap = $('#r_photos');
-      photoDataURLs.forEach(src=>{
-        const img = w.document.createElement('img');
-        img.src = src; phWrap.appendChild(img);
-      });
-
-      // ready
-      w.focus();
-    });
-
-    function val(id){ return document.getElementById(id).value||''; }
-    function escapeHtml(s){ return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
-  </script>
-</body>
-</html>
+  // keep in sync if Field OS above changes
+  setInterval(hydrate, 1200);
+  hydrate();
+})();
+</script>
