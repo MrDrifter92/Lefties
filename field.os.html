@@ -255,33 +255,76 @@
         <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
       </section>
 
-      <!-- Job Completion Report (prefilled) -->
-      <section class="frosted p-4 md:col-span-3" id="job-completion">
-        <div class="mb-2 flex items-center gap-2">
-          <div class="h2">Job Completion Report</div>
-          <span class="label">Prefilled from Field OS entries — copy/email/print</span>
-        </div>
+      // === REPLACE your existing buildReport() with this version ===
+function buildReport(){
+  const data = JSON.parse(localStorage.getItem('lefties_field_os')||'{}');
+  const elapsed = document.getElementById('elapsed')?.textContent || '—';
 
-        <div class="flex flex-col md:flex-row gap-4">
-          <div class="flex-1">
-            <div class="label mb-1">Report preview</div>
-            <div id="reportPreview" class="report-area text-sm"></div>
-          </div>
-          <div class="w-full md:w-64">
-            <div class="label mb-1">Client email (optional)</div>
-            <input id="clientEmail" type="text" placeholder="name@example.com">
-            <div class="mt-3 flex flex-col gap-2">
-              <button id="refreshReport" class="btn tap">Refresh from data</button>
-              <button id="copyReport" class="btn secondary tap">Copy report text</button>
-              <button id="emailReport" class="btn ghost tap">Open email draft</button>
-              <button id="printReport" class="btn secondary tap">Open printable view</button>
-            </div>
-          </div>
-        </div>
-        <div class="label mt-2">The report uses your timer, fibre & stain picks, solutions, flags, notes and job total.</div>
-      </section>
-    </div>
-  </main>
+  const fibre = window.pickFibre || '—';
+  const stain = window.pickStain || '—';
+
+  const flags = (RULES[fibre]?.base.flags || [])
+    .map(s => s.replace('colourfastness','colour fastness')
+               .replace('pH','pH')
+               .replace('alkalinity','strong cleaners'))
+    .join('; ');
+
+  const proc  = (RULES[fibre]?.base.proc  || [])
+    .map(step => step
+      .replace('Thorough vacuum','Thorough vacuum to lift dry soil')
+      .replace('Apply wool-safe prespray (enzyme if organic)','Apply a fibre-safe cleaning solution')
+      .replace('Gentle agitation','Gently work solution into the pile')
+      .replace('Rinse at ~pH 7','Rinse & extract to remove soils and residue')
+      .replace('Rinse extract','Rinse & extract')
+      .replace('Low moisture clean','Low-moisture clean')
+      .replace('Groom and set airflow','Groom fibres and set airflow for faster drying')
+    ).join(' • ');
+
+  const price = document.getElementById('pbPrice')?.textContent || '—';
+
+  const splits = (data.splits||[]);
+  const splitsText = splits.length
+    ? splits.map((s,i)=>`| Room ${i+1} | ${Math.round(s.duration/60000)} min | ${s.note||'-'} |`).join('\n')
+    : '—';
+
+  const aftercare = data.aftercare ? 'Yes' : 'No';
+
+  // Plain-text client copy
+  const report =
+`Lefties Carpet Cleaning — Job Completion Report
+
+Time
+• Arrival Time: ${data.started || '—'}
+• Completion Time: ${data.ended || '—'}
+• Total Duration: ${elapsed}
+
+Service Overview
+• Carpet Type: ${fibre}
+• Main Issue: ${stain}
+• Key Care Notes: ${flags || 'Routine professional care applied'}
+
+Work Completed
+• ${proc || 'Professional clean completed'}
+
+Products & Techniques
+• Cleaning Solution: Professional, fibre-appropriate formulation
+• Extra Care: ${data.dryPass ? 'Additional drying passes for quicker turnaround' : 'Standard drying'}
+
+Room Breakdown
+${splits.length ? '| Room | Time Spent | Notes |\n|-----|-----------:|-------|\n'+splitsText : '—'}
+
+Outcome & Recommendations
+• Optional Extras: ${price.replace('+ ','') || '—'}
+• Aftercare Provided: ${aftercare}
+• Additional Notes: ${data.jobNotes || '—'}
+
+Total & Next Steps
+• Amount Charged: $${data.amount || '—'}
+• Thank you for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
+
+  document.getElementById('reportPreview').textContent = report;
+  return report;
+}
 
   <!-- Quick bar -->
   <nav class="fixedbar">
@@ -497,136 +540,142 @@ document.getElementById('emailReport').addEventListener('click', ()=>{
 });
 
 /* ======================== GORGEOUS PRINT VIEW (LeftiesLite) ======================== */
-/* No extra page. This opens a styled, control-free window ready for Share → PDF */
-document.getElementById('printReport').addEventListener('click', openLeftiesLitePrintView);
+// === REPLACE your existing printReport handler with this block ===
+document.getElementById('printReport').addEventListener('click', ()=>{
+  const text = buildReport();
+  const html = text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\n/g,'<br>');
 
-function openLeftiesLitePrintView(){
-  const {report, data} = buildReport(); // ensure fresh
-  const fibre = (data.pickFibre || window.pickFibre || '—');
-  const stain = (data.pickStain || window.pickStain || '—');
-  const flags = (RULES[fibre]?.base.flags||[]).map(x=>`<li>${escapeHTML(x)}</li>`).join('') || '<li>—</li>';
-  const proc  = (RULES[fibre]?.base.proc||[]).map(x=>`<li>${escapeHTML(x)}</li>`).join('') || '<li>—</li>';
-  const price = document.getElementById('pbPrice')?.textContent || '—';
-  const splits = (data.splits||[]).map((s,i)=>`<tr><td>Room ${i+1}</td><td>${Math.round(s.duration/60000)} min</td><td>${escapeHTML(s.note||'')}</td></tr>`).join('') || '<tr><td colspan="3">—</td></tr>';
-
-  const prettyHTML = `
-<!DOCTYPE html>
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lefties — Job Completion Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --primary:#0071B6; --cream:#EFE3CF; --cream-2:#E7D7BE;
-    --text:#1b2025; --muted:#526172; --glass:rgba(255,255,255,.6); --border:rgba(0,0,0,.08);
+    --primary:#0071B6;
+    --cream:#EFE3CF;
+    --cream2:#E7D7BE;
+    --text:#1b2025;
+    --muted:#3d4754;
+    --glass:rgba(255,255,255,.55);
+    --glass-b:rgba(0,0,0,.08);
   }
-  html,body{height:100%;}
+  @page{ margin:24mm 16mm; }
+  *{ box-sizing:border-box; }
   body{
-    font-family: 'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     color:var(--text);
-    background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
-    margin:0;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%);
+    margin:0; padding:0;
   }
-  .page{max-width:860px;margin:28px auto;padding:0 16px;}
+  .wrap{ max-width:840px; margin:0 auto; padding:24px; }
+  .header{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--glass); border:1px solid var(--glass-b); border-radius:16px;
+    padding:14px 18px; margin:24px 0;
+    box-shadow:0 12px 24px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.35);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .circle{
+    width:38px; height:38px; border-radius:9999px;
+    background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));
+    border:1px solid rgba(0,0,0,.05);
+  }
+  .title{ font-weight:900; font-size:22px; }
+  .badge{
+    font-weight:900; font-size:12px; color:#fff; background:var(--primary);
+    padding:6px 10px; border-radius:9999px;
+  }
   .card{
-    background:var(--glass);
-    border:1px solid rgba(0,0,0,.08);
-    border-radius:18px;
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.35);
-    padding:22px;
+    background:#fff; border:1px solid #e8e2d8; border-radius:18px; padding:18px; margin:12px 0;
+    box-shadow:0 8px 18px rgba(0,0,0,.06);
   }
-  .head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand img{height:42px;width:auto}
-  .title{font-weight:900;font-size:22px;letter-spacing:.2px}
-  .meta{font-size:12px;color:var(--muted)}
-  h2{font-size:16px;margin:18px 0 8px 0;font-weight:900;color:#0a1520}
-  .row{display:grid;grid-template-columns:1fr 1fr; gap:12px}
-  .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,.08);background:#fff}
-  .list{margin:0;padding-left:18px}
-  table{width:100%;border-collapse:collapse;border:1px solid var(--border);background:#fff;border-radius:12px;overflow:hidden}
-  table th, table td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;font-size:14px}
-  table th{background:#f6f6f6}
-  .foot{margin-top:18px;font-size:12px;color:var(--muted);text-align:center}
+  h2{ margin:0 0 8px 0; font-size:16px; font-weight:900; }
+  .muted{ color:var(--muted); font-size:12px; }
+  .kv{ display:flex; gap:12px; flex-wrap:wrap; }
+  .kv > div{ flex:1 1 220px; }
+  .pill{
+    display:inline-block; padding:6px 10px; border-radius:9999px;
+    background:#f4f0e8; border:1px solid #e5dccf; font-weight:800; font-size:12px;
+  }
+  table{ width:100%; border-collapse:collapse; margin-top:6px; }
+  th,td{ text-align:left; padding:10px 12px; border-bottom:1px solid #eee8dd; }
+  th{ background:#f8f4ec; font-weight:900; }
+  .footer{
+    text-align:center; color:var(--muted); font-size:12px; margin:18px 0 40px;
+  }
+  /* Print tidy */
   @media print{
-    @page{size:A4;margin:14mm}
-    a[href]:after{content:""}
+    .wrap{ padding:0; }
+    .header{ margin:8px 0 16px; }
   }
 </style>
 </head>
 <body>
-  <div class="page">
-    <div class="head">
+  <div class="wrap">
+    <div class="header">
       <div class="brand">
-        <img src="core-logo-transparent.png" alt="Lefties">
+        <div class="circle"></div>
         <div>
           <div class="title">Lefties — Job Completion Report</div>
-          <div class="meta">${new Date().toLocaleString()}</div>
+          <div class="muted">${new Date().toLocaleString('en-AU')}</div>
         </div>
       </div>
-      <div class="badge" style="font-weight:900;color:var(--primary)">Hervey Bay • Final</div>
+      <div class="badge">Hervey Bay • Final</div>
+    </div>
+
+    <!-- We re-parse the plain text into sections for nicer layout -->
+    <div class="card">
+      <h2>Time</h2>
+      ${html.split('Service Overview')[0]
+            .replace(/^.*Time<br>/,'')
+            .replace(/<br>Service Overview.*/,'')
+      }
     </div>
 
     <div class="card">
-      <h2>Time</h2>
-      <div class="row">
-        <div><strong>Started:</strong> ${escapeHTML(data.started||'—')}</div>
-        <div><strong>Ended:</strong> ${escapeHTML(data.ended||'—')}</div>
-      </div>
-      <div style="margin-top:6px"><strong>Elapsed:</strong> ${escapeHTML(document.getElementById('elapsed')?.textContent||'—')}</div>
-
-      <h2>Diagnosis</h2>
-      <div class="row">
-        <div><strong>Fibre:</strong> <span class="badge">${escapeHTML(fibre||'—')}</span></div>
-        <div><strong>Stain:</strong> <span class="badge">${escapeHTML(stain||'—')}</span></div>
-      </div>
-
-      <h2>Our Approach</h2>
-      <div><strong>Flags/Notes</strong></div>
-      <ul class="list">${flags}</ul>
-      <div style="margin-top:8px"><strong>Procedure</strong></div>
-      <ol class="list" style="list-style:decimal">${proc}</ol>
-      <div class="row" style="margin-top:8px">
-        <div><strong>Solutions used:</strong> ${escapeHTML(data.solutions||'—')}</div>
-        <div><strong>Dry passes performed:</strong> ${escapeHTML(data.dryPass||'—')}</div>
-      </div>
-
-      <h2>Per-Room Splits</h2>
-      <table>
-        <thead><tr><th>Room</th><th>Time</th><th>Note</th></tr></thead>
-        <tbody>${splits}</tbody>
-      </table>
-
-      <h2>Outcome & Recommendations</h2>
-      <ul class="list">
-        <li><strong>Suggested add-on:</strong> ${escapeHTML(price)}</li>
-        <li><strong>Aftercare provided:</strong> ${data.aftercare?'Yes':'No'}</li>
-        <li><strong>Notes:</strong> ${escapeHTML(data.jobNotes||'—')}</li>
-      </ul>
-
-      <h2>Total & Next Steps</h2>
-      <div><strong>Amount Charged:</strong> $${escapeHTML(data.amount||'—')}</div>
-      <div style="margin-top:6px">Thank you for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
+      <h2>Service Overview</h2>
+      ${html.split('Service Overview')[1]?.split('Work Completed')[0]||''}
     </div>
 
-    <div class="foot">Lefties Carpet Cleaning • Hervey Bay, QLD • ABN 64 554 336 330</div>
+    <div class="card">
+      <h2>Work Completed</h2>
+      ${html.split('Work Completed')[1]?.split('Products & Techniques')[0]||''}
+    </div>
+
+    <div class="card">
+      <h2>Products & Techniques</h2>
+      ${html.split('Products & Techniques')[1]?.split('Room Breakdown')[0]||''}
+    </div>
+
+    <div class="card">
+      <h2>Room Breakdown</h2>
+      ${html.split('Room Breakdown')[1]?.split('Outcome & Recommendations')[0]||''}
+    </div>
+
+    <div class="card">
+      <h2>Outcome & Recommendations</h2>
+      ${html.split('Outcome & Recommendations')[1]?.split('Total & Next Steps')[0]||''}
+    </div>
+
+    <div class="card">
+      <h2>Total & Next Steps</h2>
+      ${html.split('Total & Next Steps')[1]||''}
+    </div>
+
+    <div class="footer">
+      Lefties Carpet Cleaning • Hervey Bay, QLD • ABN 64 554 336 330
+    </div>
   </div>
 </body>
-</html>`;
-
-  const win = window.open('', '_blank');
-  win.document.write(prettyHTML);
+</html>`);
   win.document.close();
   win.focus();
-  // Do NOT auto print. On iPhone: use Share → Options → PDF.
-}
-function escapeHTML(s){return String(s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));}
-
-/* Convenience */
+});
 document.getElementById('openAftercare')?.addEventListener('click', ()=> save());
 </script>
 </body>
