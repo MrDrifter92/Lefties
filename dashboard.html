@@ -1,28 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lefties OS — Dashboard</title>
+
+  <title>Lefties OS — Dashboard (LeftiesLite)</title>
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#0f172a" />
+
+  <!-- PWA / Icons -->
+  <link rel="icon" href="/icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/icons/site.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Lefties OS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#EBDCC5" />
+
+  <!-- Brand font + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    :root { --brand-blue:#007186; --brand-lilac:#D7AFFF; }
-    body { font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
-    .glass { background: rgba(17, 24, 39, .6); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(8px); }
-    .tile  { background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
-    .tile:hover { background: rgba(255,255,255,.09); }
+    :root{
+      /* LeftiesLite palette */
+      --primary:#0071B6;
+      --cream:#EFE3CF;   /* page bg */
+      --cream-2:#E7D7BE; /* gradient stop */
+      --glass:rgba(255,255,255,.42);
+      --glass-border:rgba(0,0,0,.08);
+      --ink:#1b2025;
+      --muted:#485261;
+    }
+    html,body{height:100%}
+    body{
+      font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
+    }
+
+    /* Frosted header + tiles */
+    .glass{
+      background:var(--glass);
+      border:1px solid var(--glass-border);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      box-shadow:0 12px 24px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.35);
+    }
+    .tile{
+      background:rgba(255,255,255,.55);
+      border:1px solid var(--glass-border);
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .tile:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.10); background:rgba(255,255,255,.7); }
+
+    .badge{ background:#D7AFFF; color:#0f172a; }
+
+    /* Header logo placeholder circle (replace <img> with your logo if preferred) */
+    .logo-circle{
+      width:40px;height:40px;border-radius:9999px;
+      background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    /* Subtle decorative blobs */
+    .blob{ filter: blur(26px); opacity:.75; }
   </style>
 </head>
-<body class="bg-[#0f172a] text-white">
+<body>
+
   <!-- Decorative bubbles -->
   <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full"
-         style="background: radial-gradient(circle at 30% 30%, rgba(215,175,255,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(0,113,134,0.35), transparent 60%); filter: blur(26px);"></div>
-    <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full"
-         style="background: radial-gradient(circle at 30% 30%, rgba(0,113,134,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(215,175,255,0.35), transparent 60%); filter: blur(28px);"></div>
+    <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full blob"
+         style="background: radial-gradient(circle at 30% 30%, rgba(215,175,255,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(0,113,182,0.35), transparent 60%);"></div>
+    <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full blob"
+         style="background: radial-gradient(circle at 30% 30%, rgba(0,113,182,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(215,175,255,0.35), transparent 60%);"></div>
   </div>
 
   <!-- Header -->
@@ -30,83 +83,87 @@
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/dashboard.html" class="flex items-center gap-2">
-          <img src="/core-logo-transparent.png" alt="Lefties logo" class="h-8 w-8 object-contain" />
-          <span class="text-xl md:text-2xl font-extrabold leading-none">Lefties <span class="text-[var(--brand-blue)]">OS</span></span>
+          <!-- If you prefer the actual PNG, swap this div for: <img src="/icons/icon-192.png" class="h-10 w-10 rounded-xl" alt="Lefties"> -->
+          <div class="logo-circle"></div>
+          <span class="text-xl md:text-2xl font-extrabold leading-none">
+            Lefties <span class="text-[var(--primary)]">OS</span>
+          </span>
         </a>
-        <span class="ml-2 px-3 py-1 rounded-full text-xs font-bold bg-[var(--brand-lilac)]/90 text-[#0f172a]">v1.0 • Final</span>
+        <span class="ml-2 px-3 py-1 rounded-full text-xs font-extrabold badge">v1.1 • LeftiesLite</span>
       </div>
       <div class="text-right">
-        <div id="now" class="text-sm md:text-base font-bold"></div>
-        <div class="text-xs text-gray-300">Hervey Bay, QLD</div>
+        <div id="now" class="text-sm md:text-base font-black"></div>
+        <div class="text-xs text-[color:var(--muted)]">Hervey Bay, QLD</div>
       </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 pb-16">
+
     <!-- Quick actions -->
     <section class="mt-6 grid gap-3 md:grid-cols-4">
       <button onclick="shareAftercare()" class="tile rounded-xl px-4 py-3 text-left">
-        <div class="text-sm text-gray-300">Quick Action</div>
-        <div class="font-bold">Share Aftercare</div>
+        <div class="text-xs text-[color:var(--muted)]">Quick Action</div>
+        <div class="font-extrabold">Share Aftercare</div>
       </button>
       <button onclick="openSquare()" class="tile rounded-xl px-4 py-3 text-left">
-        <div class="text-sm text-gray-300">Payments</div>
-        <div class="font-bold">Open Square POS</div>
+        <div class="text-xs text-[color:var(--muted)]">Payments</div>
+        <div class="font-extrabold">Open Square POS</div>
       </button>
       <button onclick="cacheNow()" class="tile rounded-xl px-4 py-3 text-left">
-        <div class="text-sm text-gray-300">Offline</div>
-        <div class="font-bold">Cache Key Pages</div>
+        <div class="text-xs text-[color:var(--muted)]">Offline</div>
+        <div class="font-extrabold">Cache Key Pages</div>
       </button>
       <button onclick="copyLink('/client-pre-service-checklist.html')" class="tile rounded-xl px-4 py-3 text-left">
-        <div class="text-sm text-gray-300">Share</div>
-        <div class="font-bold">Copy Pre‑Service Link</div>
+        <div class="text-xs text-[color:var(--muted)]">Share</div>
+        <div class="font-extrabold">Copy Pre-Service Link</div>
       </button>
     </section>
 
     <!-- App tiles -->
     <section class="mt-8 grid gap-4 md:grid-cols-3">
       <a href="/internal-price-guide.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Reference</div><div class="text-xl font-extrabold">Internal Price Guide</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Reference</div><div class="text-xl font-extrabold">Internal Price Guide</div></div>
         <span class="text-2xl">💬</span>
       </a>
 
       <a href="/client-pre-service-checklist.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Client Prep</div><div class="text-xl font-extrabold">Pre‑Service Checklist</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Client Prep</div><div class="text-xl font-extrabold">Pre-Service Checklist</div></div>
         <span class="text-2xl">📋</span>
       </a>
 
       <a href="/" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Website</div><div class="text-xl font-extrabold">Main Website</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Website</div><div class="text-xl font-extrabold">Main Website</div></div>
         <span class="text-2xl">🧭</span>
       </a>
 
       <a href="/field.os.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">On‑Job</div><div class="text-xl font-extrabold">Technician Flow</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">On-Job</div><div class="text-xl font-extrabold">Technician Flow</div></div>
         <span class="text-2xl">🧰</span>
       </a>
 
       <a href="/job-log.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Records</div><div class="text-xl font-extrabold">Job Log</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Records</div><div class="text-xl font-extrabold">Job Log</div></div>
         <span class="text-2xl">🕒</span>
       </a>
 
       <a href="/reports/job-completion.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Wrap‑Up</div><div class="text-xl font-extrabold">Job Completion</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Wrap-Up</div><div class="text-xl font-extrabold">Job Completion</div></div>
         <span class="text-2xl">✅</span>
       </a>
 
       <a href="/service-agreements.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Docs</div><div class="text-xl font-extrabold">Service Agreements</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Docs</div><div class="text-xl font-extrabold">Service Agreements</div></div>
         <span class="text-2xl">📄</span>
       </a>
 
       <a href="/client/aftercare.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Clients</div><div class="text-xl font-extrabold">Client Aftercare Guide</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Clients</div><div class="text-xl font-extrabold">Client Aftercare Guide</div></div>
         <span class="text-2xl">✔️</span>
       </a>
 
       <a href="/services.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-300">Reference</div><div class="text-xl font-extrabold">Services</div></div>
+        <div><div class="text-xs text-[color:var(--muted)]">Reference</div><div class="text-xl font-extrabold">Services</div></div>
         <span class="text-2xl">🧼</span>
       </a>
     </section>
@@ -114,15 +171,15 @@
     <!-- Notes -->
     <section class="mt-8 glass rounded-2xl p-6">
       <div class="font-extrabold text-lg mb-2">Notes</div>
-      <ul class="text-gray-300 text-sm list-disc pl-5 space-y-1">
-        <li>This dashboard is backend‑only. It’s <strong>noindex</strong> and not linked from the public site.</li>
-        <li>Add to Home Screen for full‑screen app feel.</li>
+      <ul class="text-[color:var(--muted)] text-sm list-disc pl-5 space-y-1">
+        <li>This dashboard is backend-only. It’s <strong>noindex</strong> and not linked from the public site.</li>
+        <li>Add to Home Screen for a full-screen app feel.</li>
       </ul>
     </section>
   </main>
 
   <footer class="mt-10">
-    <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 py-10 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-[color:var(--muted)] py-10 border-t border-black/10">
       <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. All rights reserved.</p>
     </div>
   </footer>
@@ -157,6 +214,13 @@
       await c.addAll(['/dashboard.html','/field.os.html','/services.html','/client-pre-service-checklist.html','/client/aftercare.html']);
       alert('Cached key pages for offline use.');
     }
+
+    // Optional: prompt Add to Home Screen
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e)=>{
+      e.preventDefault(); deferredPrompt = e;
+      // you can surface a “Add to Home” button and call deferredPrompt.prompt()
+    });
   </script>
 </body>
 </html>
