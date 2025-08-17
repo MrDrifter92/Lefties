@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
 
-  <!-- PWA (optional – safe if missing) -->
+  <!-- PWA (safe if missing) -->
   <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#0071B6">
+  <meta name="theme-color" content="#0077C2">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <!-- Tailwind + Font -->
+  <!-- Tailwind + Brand Font (Nunito) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,165 +20,141 @@
     :root{
       --primary-blue:#0071B6;
       --cream:#F1E8DA;          /* page background */
-      --cream-deeper:#E7DAC5;   /* subtle banding */
-      --glass-bg:rgba(255,255,255,.40);  /* frosted fill */
+      --cream-deeper:#E7DAC5;   /* subtle separation bands */
+      --glass-bg:rgba(255,255,255,.40);
       --glass-border:rgba(255,255,255,.28);
       --text:#1c1f23;
       --muted:#3b4652;
+      --border-soft: rgba(0,0,0,.06);
     }
     html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
     body{
       font-family:'Nunito',sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(1000px 600px at 10% 0%, #fff8ee 0%, var(--cream) 45%, var(--cream-deeper) 100%);
+      background: radial-gradient(900px 520px at 10% -10%, #fff8ee 0%, var(--cream) 45%, var(--cream-deeper) 100%);
       overflow-x:hidden;
     }
 
-    /* Background video (full opacity, no overlay) */
-    .bg-video-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;}
-    .bg-video{width:100%;height:100%;object-fit:cover;}
-
-    /* Frosted glass card used everywhere */
+    /* Frosted glass card used site‑wide */
     .frosted{
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 1.25rem;
+      border-radius: 1.25rem; /* 20px */
       backdrop-filter: blur(14px) saturate(120%);
       -webkit-backdrop-filter: blur(14px) saturate(120%);
       box-shadow: 0 12px 28px rgba(0,0,0,.16), inset 0 1px 1px rgba(255,255,255,.25);
     }
 
-    /* Hero accents */
-    .hero-location{
-      color: var(--primary-blue);
-      font-weight: 900;
-      letter-spacing:.25px;
-      text-shadow: 0 0 6px rgba(0,113,182,.35), 0 0 14px rgba(0,140,255,.28);
-    }
-
     /* Buttons */
     .glass-button{
-      background: linear-gradient(145deg, rgba(0,148,255,.88), rgba(0,113,182,.94));
-      color:#fff; font-weight:800;
-      border-radius:9999px;
+      background: linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95));
+      color:#fff; font-weight:800; border-radius:9999px;
       border:1px solid rgba(0,148,255,.35);
       box-shadow: 0 10px 20px rgba(0,113,182,.28), inset 0 1px 1px rgba(255,255,255,.35);
       transition: transform .2s ease, box-shadow .2s ease;
     }
-    .glass-button:hover{ transform: translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.35), inset 0 1px 1px rgba(255,255,255,.45); }
+    .glass-button:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.35), inset 0 1px 1px rgba(255,255,255,.45); }
 
-    .container{max-width:1100px;}
-    .band{ background: linear-gradient(180deg, rgba(255,255,255,.55), var(--cream) 30%, var(--cream-deeper)); }
+    /* Hero accents */
+    .hero-location{ color:var(--primary-blue); font-weight:900; letter-spacing:.25px; text-shadow:0 0 6px rgba(0,113,182,.35), 0 0 14px rgba(0,140,255,.28); }
+
+    /* Simple container */
+    .container{ max-width:1100px; }
 
     /* Mobile menu overlay */
-    .mobile-menu-overlay{
-      position:fixed; inset:0; z-index:60;
-      background: rgba(241,232,218, .92);
-      backdrop-filter: blur(10px) saturate(150%);
-      -webkit-backdrop-filter: blur(10px) saturate(150%);
-      transform: translateX(100%);
-      transition: transform .45s cubic-bezier(.65,.05,.36,1);
-    }
-    .mobile-menu-overlay[data-open="true"]{ transform: translateX(0); }
-    .hamburger{ width:28px; height:20px; display:flex; flex-direction:column; justify-content:space-between; }
-    .hamburger span{ height:2px; width:100%; background:#1c1f23; border-radius:2px; transition:all .25s; }
-    .hamburger.open span:nth-child(1){ transform: translateY(9px) rotate(45deg); }
-    .hamburger.open span:nth-child(2){ opacity:0; }
-    .hamburger.open span:nth-child(3){ transform: translateY(-9px) rotate(-45deg); }
+    .mobile-menu-overlay{ position:fixed; inset:0; background:rgba(24,28,34,.75); backdrop-filter:blur(14px) saturate(120%); -webkit-backdrop-filter:blur(14px) saturate(120%); z-index:90; transform:translateX(100%); transition:transform .5s cubic-bezier(.86,0,.07,1); }
+    .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
+    .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; }
+    .hamburger-icon span{ height:2px; width:100%; background:#222; border-radius:9999px; transition:all .3s; }
+    .hamburger-icon.open span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
+    .hamburger-icon.open span:nth-child(2){ opacity:0; }
+    .hamburger-icon.open span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
+
+    /* Section video (WHY-US only) */
+    .section-video-wrap{ position:relative; overflow:hidden; border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft); }
+    .section-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:1; }
+    .layer-content{ position:relative; z-index:10; }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- Background video (sitewide; if you only want it on a section later, we can scope it) -->
-  <div class="bg-video-wrap" aria-hidden="true">
-    <video class="bg-video" autoplay muted loop playsinline>
-      <source src="Dog-video.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <!-- Header -->
-  <header class="sticky top-0 z-50">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40">
     <nav class="container mx-auto px-4 py-3">
       <div class="frosted px-4 md:px-6 py-3 flex items-center justify-between">
-        <!-- Logo with safe fallbacks (handles name with/without the extra space + case) -->
-        <img
-          src="Core Logo_transparent.PNG"
-          alt="Lefties Logo"
-          class="h-10 md:h-12 w-auto select-none"
-          onerror="this.onerror=null;
-                   this.src='Core Logo_transparent .PNG';
-                   this.onerror=function(){this.src='Core Logo_transparent.png'}" />
-
-        <!-- Desktop nav -->
-        <div class="hidden md:flex items-center gap-6 font-extrabold text-[16px]">
+        <!-- Brand logo (header) -->
+        <a href="#home" class="flex items-center gap-3" aria-label="Lefties Home">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto select-none" />
+        </a>
+        <!-- Desktop nav (no Gallery) -->
+        <div class="hidden md:flex items-center gap-6 font-extrabold text-[15px] md:text-[16px]">
           <a href="services.html" class="hover:text-[color:var(--primary-blue)]">Services</a>
+          <a href="commercial.html" class="hover:text-[color:var(--primary-blue)]">Commercial</a>
+          <a href="about-us.html" class="hover:text-[color:var(--primary-blue)]">About Us</a>
           <a href="contact-us.html" class="hover:text-[color:var(--primary-blue)]">Contact Us</a>
         </div>
-
-        <!-- Mobile hamburger -->
-        <button id="menuBtn" class="md:hidden" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
-          <div id="hamburger" class="hamburger">
-            <span></span><span></span><span></span>
-          </div>
-        </button>
+        <!-- CTA + Burger -->
+        <div class="flex items-center gap-3 md:gap-4">
+          <a href="#quote" class="glass-button px-5 py-2 text-sm hidden md:inline-block">Get a Quote</a>
+          <button id="mobile-menu-button" class="md:hidden focus:outline-none z-[110] ml-2" aria-expanded="false" aria-controls="mobile-menu-overlay" aria-label="Open menu">
+            <div class="hamburger-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
+          </button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- Mobile menu -->
-  <aside id="mobileMenu" class="mobile-menu-overlay" role="dialog" aria-modal="true">
-    <div class="container mx-auto px-6 pt-24">
-      <div class="frosted p-8 text-center space-y-6">
-        <a href="services.html" class="block text-2xl font-extrabold">Services</a>
-        <a href="contact-us.html" class="block text-2xl font-extrabold">Contact Us</a>
+  <!-- MOBILE MENU (no Gallery) -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" role="dialog" aria-modal="true" aria-label="Mobile Menu">
+    <div class="p-8 text-center mt-24">
+      <div class="space-y-8 font-bold text-3xl">
+        <a href="services.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Services</a>
+        <a href="commercial.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Commercial</a>
+        <a href="about-us.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">About Us</a>
+        <a href="contact-us.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Contact Us</a>
       </div>
-      <div class="text-center mt-6">
-        <a href="#quote" class="glass-button inline-block px-8 py-4 text-lg">Get a Quote</a>
+      <div class="mt-10">
+        <a href="#quote" class="glass-button px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
       </div>
     </div>
-  </aside>
+  </div>
 
   <main>
 
-    <!-- HERO (logo + Hervey Bay) -->
-    <section class="container mx-auto px-4 pt-8 md:pt-12">
-      <div class="frosted px-5 md:px-10 py-8 md:py-10">
-        <div class="text-center">
-          <img
-            src="Core Logo_transparent.PNG"
-            alt="Lefties Carpet Cleaning"
-            class="w-36 md:w-48 mx-auto mb-4 select-none"
-            onerror="this.onerror=null;
-                     this.src='Core Logo_transparent .PNG';
-                     this.onerror=function(){this.src='Core Logo_transparent.png'}" />
-          <h1 class="text-[42px] md:text-[64px] leading-tight font-black">
-            <span class="hero-location">Hervey Bay.</span>
-          </h1>
-          <p class="mt-4 text-lg md:text-xl text-[color:var(--muted)] max-w-3xl mx-auto">
-            We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
-          </p>
-          <div class="mt-8">
-            <a href="#quote" class="glass-button inline-block px-8 py-4 text-lg">Book With Us Today</a>
-          </div>
+    <!-- ================= HERO (logo above Hervey Bay) ================= -->
+    <section id="home" class="container mx-auto px-4 pt-8 md:pt-12">
+      <div class="frosted px-5 md:px-10 py-8 md:py-10 text-center">
+        <!-- Brand logo (hero) -->
+        <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning" class="w-36 md:w-48 mx-auto mb-4 select-none" />
+        <h1 class="text-[42px] md:text-[64px] leading-tight font-black">
+          <span class="hero-location">Hervey Bay.</span>
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-[color:var(--muted)] max-w-3xl mx-auto">
+          We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
+        </p>
+        <div class="mt-8">
+          <a href="#quote" class="glass-button inline-block px-8 py-4 text-lg">Book With Us Today</a>
         </div>
       </div>
     </section>
 
-    <!-- Not just clean. Revived. -->
-    <section class="container mx-auto px-4 mt-8 md:mt-10">
-      <div class="frosted px-6 md:px-10 py-8 md:py-10 text-center">
-        <h2 class="text-3xl md:text-4xl font-black mb-2">
-          Not Just Clean. <span class="hero-location">Revived.</span>
-        </h2>
-        <p class="text-lg md:text-xl text-[color:var(--muted)] max-w-3xl mx-auto">
-          Lefties isn't a big, faceless franchise. We're a local Hervey Bay business, and we're obsessed with the results we deliver.
-          We show up when we say we will, treat your home with respect, and stand behind the quality of our clean.
-        </p>
+    <!-- ================= WHY-US (Dog video ONLY here, no overlay) ================= -->
+    <section id="why-us" class="section-video-wrap mt-8 md:mt-10">
+      <video class="section-video" autoplay muted loop playsinline>
+        <source src="Dog-video.mp4" type="video/mp4">
+      </video>
+      <div class="container mx-auto px-4 md:px-6 py-16 md:py-24 layer-content">
+        <div class="frosted max-w-4xl mx-auto p-8 md:p-12 text-center">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="w-40 md:w-56 mx-auto mb-6 select-none" />
+          <h2 class="text-3xl md:text-4xl font-black">Not Just Clean. <span class="hero-location">Revived.</span></h2>
+          <p class="mt-4 text-lg md:text-xl text-[color:var(--muted)] max-w-3xl mx-auto">
+            Lefties isn't a big, faceless franchise. We're a local Hervey Bay business, and we're obsessed with the results we deliver. We show up when we say we will, treat your home with respect, and stand behind the quality of our clean.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- Trust tiles -->
+    <!-- ================= TRUST tiles (frosted) ================= -->
     <section class="container mx-auto px-4 mt-10 md:mt-12">
       <div class="grid md:grid-cols-3 gap-6">
         <div class="frosted p-6">
@@ -191,12 +167,12 @@
         </div>
         <div class="frosted p-6">
           <h3 class="text-xl md:text-2xl font-extrabold text-[color:var(--primary-blue)]">Local. Zero BS.</h3>
-          <p class="mt-2 text-[color:var(--muted)]">Your local Hervey Bay crew. On time, respectful, straight-up advice.</p>
+          <p class="mt-2 text-[color:var(--muted)]">Your local Hervey Bay crew. On time, respectful, straight‑up advice.</p>
         </div>
       </div>
     </section>
 
-    <!-- Gallery (images wrapped in frosted tiles) -->
+    <!-- ================= GALLERY (images inside frosted frames) ================= -->
     <section id="gallery" class="container mx-auto px-4 mt-12 md:mt-16">
       <div class="text-center mb-6">
         <h2 class="text-3xl md:text-4xl font-black">The Proof is in the Details</h2>
@@ -210,7 +186,7 @@
       </div>
     </section>
 
-    <!-- Tips & Tricks -->
+    <!-- ================= Tips & Tricks (frosted) ================= -->
     <section class="container mx-auto px-4 mt-12 md:mt-16">
       <h2 class="text-3xl md:text-4xl font-black text-center mb-8">Tips & Tricks of the Trade</h2>
       <div class="grid md:grid-cols-3 gap-6">
@@ -229,7 +205,7 @@
       </div>
     </section>
 
-    <!-- CTA / Quote -->
+    <!-- ================= CTA / Quote (frosted) ================= -->
     <section id="quote" class="container mx-auto px-4 mt-12 md:mt-16 mb-16">
       <div class="frosted px-6 md:px-10 py-8 md:py-10 text-center">
         <h2 class="text-3xl md:text-4xl font-black">Ready to Book Your Clean?</h2>
@@ -245,21 +221,15 @@
 
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="py-10">
     <div class="container mx-auto px-4 text-center">
-      <img
-        src="Core Logo_transparent.PNG"
-        alt="Lefties Logo"
-        class="h-10 mx-auto mb-3 opacity-70"
-        onerror="this.onerror=null;
-                 this.src='Core Logo_transparent .PNG';
-                 this.onerror=function(){this.src='Core Logo_transparent.png'}" />
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 mx-auto mb-3 opacity-70">
       <p class="text-sm text-[color:var(--muted)]">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- Optional: service worker registration (safe if missing) -->
+  <!-- Minimal JS: mobile menu + (optional) service worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -267,22 +237,28 @@
       });
     }
 
-    // Mobile menu logic
-    const menuBtn = document.getElementById('menuBtn');
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const hamburgerIcon = document.getElementById('hamburger-icon');
+      const menuOverlay = document.getElementById('mobile-menu-overlay');
 
-    function toggleMenu() {
-      const isOpen = mobileMenu.getAttribute('data-open') === 'true';
-      mobileMenu.setAttribute('data-open', String(!isOpen));
-      hamburger.classList.toggle('open', !isOpen);
-      menuBtn.setAttribute('aria-expanded', String(!isOpen));
-      document.body.style.overflow = !isOpen ? 'hidden' : '';
-    }
-    menuBtn.addEventListener('click', toggleMenu);
-    mobileMenu.addEventListener('click', (e) => {
-      // close if you tap outside the frosted card
-      if (e.target === mobileMenu) toggleMenu();
+      function openMenu(){
+        menuOverlay.setAttribute('data-state','open');
+        hamburgerIcon.classList.add('open');
+        menuButton.setAttribute('aria-expanded','true');
+        document.body.style.overflow='hidden';
+      }
+      function closeMenu(){
+        menuOverlay.setAttribute('data-state','closed');
+        hamburgerIcon.classList.remove('open');
+        menuButton.setAttribute('aria-expanded','false');
+        document.body.style.overflow='';
+      }
+      window.closeMenu = closeMenu;
+      menuButton?.addEventListener('click', ()=> {
+        const isOpen = menuOverlay.getAttribute('data-state')==='open';
+        isOpen ? closeMenu() : openMenu();
+      });
     });
   </script>
 </body>
