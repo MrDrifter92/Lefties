@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lefties — Job Completion Report</title>
+
+  <!-- Fonts + Tailwind (for utility only) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --primary:#0071B6;
+      --cream:#EFE3CF;
+      --glass:rgba(255,255,255,.42);
+      --glass-border:rgba(255,255,255,.28);
+      --ink:#1b2025;
+      --muted:#3d4754;
+    }
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    body{
+      font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, #e7d7be 100%);
+      padding:24px;
+    }
+
+    /* Frosted container */
+    .sheet{
+      background:var(--glass);
+      border:1px solid var(--glass-border);
+      border-radius:18px;
+      backdrop-filter:blur(14px) saturate(120%);
+      -webkit-backdrop-filter:blur(14px) saturate(120%);
+      box-shadow:0 14px 30px rgba(0,0,0,.16), inset 0 1px 1px rgba(255,255,255,.25);
+      max-width:900px; margin:0 auto;
+    }
+
+    .brand{color:var(--primary);}
+    .h1{font-size:clamp(22px,3.2vw,30px); font-weight:900;}
+    .h2{font-size:18px; font-weight:800; margin-bottom:.25rem;}
+    .label{color:var(--muted); font-size:.9rem;}
+    .kv .k{color:var(--muted)}
+    .dot{height:.45rem;width:.45rem;background:#cbd5e1;border-radius:9999px;display:inline-block;margin:0 .5rem}
+
+    /* action bar (screen only) */
+    .bar{position:sticky; top:10px; z-index:10}
+    .btn{
+      display:inline-flex; gap:.5rem; align-items:center; justify-content:center;
+      padding:.65rem 1rem; border-radius:12px; font-weight:800; border:1px solid rgba(0,0,0,.08);
+      background:#fff; color:var(--ink); box-shadow:0 8px 18px rgba(0,0,0,.12);
+    }
+    .btn.primary{background:linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95)); color:#fff; border:1px solid rgba(0,148,255,.35)}
+
+    /* print styles */
+    @page{ size:A4; margin:16mm; }
+    @media print{
+      body{ background:#fff; padding:0; }
+      .sheet{ box-shadow:none; background:#fff; border:0; }
+      .no-print{ display:none !important; }
+      .brand{ color:#000; } /* ensure B/W friendly if printer ignores colours */
+      *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .section{ break-inside:avoid; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Actions (screen only) -->
+  <div class="no-print bar max-w-[900px] mx-auto mb-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <img src="/core-logo-transparent.png" alt="Lefties Logo" class="h-8 w-auto"
+           onerror="this.style.opacity='.3'">
+      <span class="font-extrabold">Lefties — Job Completion Report</span>
+    </div>
+    <div class="flex gap-2">
+      <button class="btn" id="copyLinkBtn" title="Copy shareable link">🔗 Copy Link</button>
+      <button class="btn primary" onclick="window.print()" title="Print / Save to PDF">🖨️ Print / PDF</button>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <main class="sheet p-6 md:p-10">
+    <!-- Header -->
+    <header class="flex items-start justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <img src="/core-logo-transparent.png" alt="Lefties Carpet Cleaning" class="h-12 md:h-14 w-auto"
+             onerror="this.style.opacity='.25'">
+        <div>
+          <div class="h1">Lefties Carpet Cleaning <span class="brand">— Job Completion</span></div>
+          <div class="label" id="stamp">—</div>
+        </div>
+      </div>
+      <div class="text-right text-sm">
+        <div class="font-extrabold">Hervey Bay, QLD</div>
+        <div class="label">0417 220 012</div>
+        <div class="label">Hello@leftiesservices.com.au</div>
+        <div class="label">leftiesservices.com.au</div>
+      </div>
+    </header>
+
+    <hr class="my-6 border-white/40">
+
+    <!-- Client + Job -->
+    <section class="section grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="h2">Client</div>
+        <div class="kv space-y-1 text-[15px]" id="clientBlock">
+          <!-- filled by JS -->
+        </div>
+      </div>
+      <div>
+        <div class="h2">Job</div>
+        <div class="kv space-y-1 text-[15px]" id="jobBlock">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section mt-6 grid md:grid-cols-3 gap-4">
+      <div class="tile p-4 rounded-xl border border-white/30 bg-white/40">
+        <div class="label">Started</div>
+        <div id="startedOut" class="font-extrabold mt-1">—</div>
+      </div>
+      <div class="tile p-4 rounded-xl border border-white/30 bg-white/40">
+        <div class="label">Ended</div>
+        <div id="endedOut" class="font-extrabold mt-1">—</div>
+      </div>
+      <div class="tile p-4 rounded-xl border border-white/30 bg-white/40">
+        <div class="label">Elapsed</div>
+        <div id="elapsedOut" class="font-extrabold mt-1">—</div>
+      </div>
+    </section>
+
+    <!-- Diagnosis -->
+    <section class="section mt-8">
+      <div class="h2">Diagnosis</div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl border border-white/30 bg-white/40">
+          <div class="label">Fibre</div>
+          <div id="fibreOut" class="font-extrabold mt-1">—</div>
+        </div>
+        <div class="p-4 rounded-xl border border-white/30 bg-white/40">
+          <div class="label">Stain</div>
+          <div id="stainOut" class="font-extrabold mt-1">—</div>
+        </div>
+        <div class="p-4 rounded-xl border border-white/30 bg-white/40">
+          <div class="label">Suggested add-on</div>
+          <div id="addonOut" class="font-extrabold mt-1">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Approach -->
+    <section class="section mt-8">
+      <div class="h2">Our Approach</div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <div class="label mb-1">Flags / Notes</div>
+          <ul id="flagsOut" class="list-disc pl-5 space-y-1 text-[15px]"></ul>
+          <div class="label mt-4 mb-1">Procedure</div>
+          <ol id="procOut" class="list-decimal pl-5 space-y-1 text-[15px]"></ol>
+        </div>
+        <div>
+          <div class="label mb-1">Solutions used</div>
+          <div id="solutionsOut" class="font-bold">—</div>
+          <div class="label mt-3">Dry passes performed</div>
+          <div id="dryOut" class="font-bold">—</div>
+          <div class="label mt-3">Aftercare provided</div>
+          <div id="afterOut" class="font-bold">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Splits -->
+    <section class="section mt-8">
+      <div class="h2">Per-Room Splits</div>
+      <ul id="splitsOut" class="list-disc pl-5 space-y-1 text-[15px]"></ul>
+    </section>
+
+    <!-- Notes + Total -->
+    <section class="section mt-8 grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="h2">Notes</div>
+        <div id="notesOut" class="text-[15px] leading-relaxed">—</div>
+      </div>
+      <div>
+        <div class="h2">Total & Next Steps</div>
+        <div class="text-[15px]">
+          <div><span class="k">Amount charged:</span> <span class="font-extrabold" id="amountOut">—</span></div>
+          <div class="mt-2">
+            Thank you for choosing Lefties. If we earned it, a quick review helps locals find us:
+            <span class="brand font-extrabold">leftiesservices.com.au</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-10 pt-6 border-t border-white/40 text-sm text-[color:var(--muted)]">
+      © 2025 Lefties Carpet Cleaning — ABN 64 554 336 330 • Hervey Bay & Surrounds
+    </footer>
+  </main>
+
+  <script>
+    // --- Light rules so we can rebuild flags/procedure and add-on from choices ---
+    const RULES = {
+      "Wool":{ base:{flags:["Test colourfastness first","Keep rinse pH near neutral","Avoid high heat or aggressive alkalinity"],
+                     proc:["Thorough vacuum","Apply wool-safe prespray (enzyme if organic)","Gentle agitation","Rinse at ~pH 7","Groom and set airflow"]},
+               stain:{ "Organic":{price:"+ Enzyme/odour treatment"},
+                       "Tannin": {price:"+ Tannin reducer"},
+                       "Oil":    {price:"+ Solvent pre-spot"},
+                       "Synthetic Dye":{price:"+ Dye treatment (quote on-site)"} } },
+      "Nylon":{ base:{flags:["Watch bright colours and acid dye sites","Rinse thoroughly to reduce residue"],
+                      proc:["Vacuum","Alkaline prespray on soil","Agitate","Rinse extract","Groom and dry"]},
+                stain:{ "Organic":{price:"+ Enzyme/deodoriser"},
+                        "Tannin": {price:"+ Tannin reducer"},
+                        "Oil":    {price:"+ Solvent assist"},
+                        "Synthetic Dye":{price:"+ Dye remover attempt"} } },
+      "Polyester":{ base:{flags:["Holds oils. Use solvent assist on greasy soil"],
+                          proc:["Vacuum","Solvent/citrus assist on oils","Prespray","Rinse","Groom and dry"]},
+                    stain:{ "Organic":{price:"+ Enzyme boost"},
+                            "Tannin": {price:"+ Tannin reducer"},
+                            "Oil":    {price:"+ Solvent assist"},
+                            "Synthetic Dye":{price:"+ Dye attempt"} } },
+      "Olefin/PP":{ base:{flags:["Heat sensitive. Keep temps modest"],
+                          proc:["Vacuum","Low heat prespray","Gentle rinse","Groom","Rapid dry"]},
+                    stain:{ "Organic":{price:"+ Enzyme/odour treat"},
+                            "Tannin": {price:"+ Reducer"},
+                            "Oil":    {price:"+ Solvent assist"},
+                            "Synthetic Dye":{price:"+ Dye attempt"} } },
+      "Cellulosic":{ base:{flags:["High browning risk","Control moisture and pH","Favour low-moisture methods"],
+                           proc:["Vacuum","Low moisture clean","Acid rinse","Quick dry with airflow"]},
+                     stain:{ "Organic":{price:"+ Anti-browning / enzyme"},
+                             "Tannin": {price:"+ Tannin reducer"},
+                             "Oil":    {price:"+ Solvent assist"},
+                             "Synthetic Dye":{price:"+ Dye attempt (limited)"} } },
+      "Unknown":{ base:{flags:["Unknown fibre. High risk. Test first","Signed disclaimer recommended"],
+                        proc:["Colourfast test","Hidden patch test","Low moisture trial","Reassess before full clean"]},
+                  stain:{ "Organic":{price:"+ Risk load"},
+                          "Tannin": {price:"+ Risk load"},
+                          "Oil":    {price:"+ Risk load"},
+                          "Synthetic Dye":{price:"+ Risk load"} } }
+    };
+
+    // --- Formatters ---
+    const fmtTime = t => t || "—";
+    const fmtMoney = v => v ? (v.startsWith("$") ? v : `$${v}`) : "—";
+    const mins = ms => Math.round((ms||0)/60000);
+
+    // --- Load saved data from Field OS ---
+    const data = JSON.parse(localStorage.getItem('lefties_field_os')||'{}');
+    const now = new Date();
+
+    // Stamp
+    const stampEl = document.getElementById('stamp');
+    stampEl.textContent = new Intl.DateTimeFormat('en-AU', {
+      weekday:'long', day:'2-digit', month:'long', year:'numeric',
+      hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true
+    }).format(now);
+
+    // Client + Job blocks (supports optional query params but defaults to empty)
+    const qp = new URLSearchParams(location.search);
+    const client = {
+      name: qp.get('name') || data.clientName || '',
+      email: qp.get('email') || data.clientEmail || '',
+      phone: qp.get('phone') || data.clientPhone || '',
+      address: qp.get('address') || data.address || ''
+    };
+    const job = {
+      ref: qp.get('ref') || data.jobRef || '',
+      date: qp.get('date') || '',
+      services: (qp.get('services') || data.services || '').toString()
+    };
+
+    const clientBlock = document.getElementById('clientBlock');
+    clientBlock.innerHTML = `
+      ${client.name ? `<div><span class="k">Name:</span> ${client.name}</div>`:''}
+      ${client.email ? `<div><span class="k">Email:</span> ${client.email}</div>`:''}
+      ${client.phone ? `<div><span class="k">Phone:</span> ${client.phone}</div>`:''}
+      ${client.address ? `<div><span class="k">Address:</span> ${client.address}</div>`:''}
+      ${!client.name && !client.email && !client.phone && !client.address ? '<div class="label">Client details not provided</div>' : ''}
+    `;
+
+    const jobBlock = document.getElementById('jobBlock');
+    jobBlock.innerHTML = `
+      ${job.ref ? `<div><span class="k">Ref/Invoice #:</span> ${job.ref}</div>`:''}
+      ${job.date ? `<div><span class="k">Date:</span> ${job.date}</div>`:''}
+      ${job.services ? `<div><span class="k">Services:</span> ${job.services}</div>`:''}
+      ${!job.ref && !job.date && !job.services ? '<div class="label">Job details not provided</div>' : ''}
+    `;
+
+    // Time
+    document.getElementById('startedOut').textContent = fmtTime(data.started);
+    document.getElementById('endedOut').textContent   = fmtTime(data.ended);
+    document.getElementById('elapsedOut').textContent = document.getElementById('elapsed')?.textContent || '—';
+
+    // Diagnosis + add-on (recomputed from choices)
+    const fibre = data.pickFibre || '—';
+    const stain = data.pickStain || '—';
+    document.getElementById('fibreOut').textContent = fibre;
+    document.getElementById('stainOut').textContent = stain;
+
+    const rules = RULES[fibre] || null;
+    const stainRule = rules?.stain?.[stain] || null;
+    document.getElementById('addonOut').textContent = stainRule?.price || '—';
+
+    // Flags & Procedure
+    const flagsEl = document.getElementById('flagsOut');
+    const procEl  = document.getElementById('procOut');
+    (rules?.base?.flags || []).forEach(s => { const li=document.createElement('li'); li.textContent=s; flagsEl.appendChild(li); });
+    (rules?.base?.proc || []).forEach(s  => { const li=document.createElement('li'); li.textContent=s;  procEl.appendChild(li); });
+
+    // Solutions / dry / aftercare
+    document.getElementById('solutionsOut').textContent = data.solutions || '—';
+    document.getElementById('dryOut').textContent       = data.dryPass || '—';
+    document.getElementById('afterOut').textContent     = data.aftercare ? 'Yes' : (data.aftercare===false ? 'No' : '—');
+
+    // Splits
+    const splits = Array.isArray(data.splits) ? data.splits : [];
+    const splitsOut = document.getElementById('splitsOut');
+    if (splits.length){
+      splits.forEach((s,i)=>{
+        const li = document.createElement('li');
+        li.textContent = `Room ${i+1}: ${mins(s.duration)} min${s.note ? ` — ${s.note}`:''}`;
+        splitsOut.appendChild(li);
+      });
+    } else {
+      splitsOut.innerHTML = '<li class="label">No room splits were recorded</li>';
+    }
+
+    // Notes, amount
+    document.getElementById('notesOut').textContent  = data.jobNotes || '—';
+    document.getElementById('amountOut').textContent = fmtMoney(data.amount || '');
+
+    // Copy share link (screen only) — copies current URL
+    document.getElementById('copyLinkBtn')?.addEventListener('click', async ()=>{
+      try { await navigator.clipboard.writeText(location.href); alert('Link copied. You can paste it into a message.'); } catch(e){}
+    });
+  </script>
+</body>
+</html>
