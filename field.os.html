@@ -1,240 +1,295 @@
-<!-- =========================
-     JOB COMPLETION (embedded)
-     ========================= -->
-<section id="job-completion" class="mt-10">
-  <div class="rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6">
-    <div class="flex items-center justify-between gap-3 mb-2">
-      <h2 class="text-2xl md:text-3xl font-extrabold">Job Completion</h2>
-      <button id="fos_gc_reset" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">
-        Reset for Next Job
-      </button>
-    </div>
-    <p class="text-sm opacity-70 mb-4">This section auto-fills from Field OS. Tweak anything here, add photos, then generate the client report.</p>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Job Completion | Lefties Field OS</title>
 
-    <!-- Summary -->
-    <div class="grid md:grid-cols-2 gap-4">
-      <div class="rounded-xl border border-white/10 bg-black/10 p-4">
-        <div class="text-sm opacity-70 font-bold">Client</div>
-        <input id="gc_client" class="w-full mt-1 px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Client name">
-        <div class="grid grid-cols-2 gap-2 mt-2">
-          <input id="gc_phone" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Phone">
-          <input id="gc_email" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Email">
+  <!-- Tailwind + Nunito -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --primary:#0071B6;
+      --cream:#EFE3CF;              /* page background */
+      --glass-fill:rgba(255,255,255,.42);
+      --glass-border:rgba(255,255,255,.28);
+      --text:#1b2025;
+      --muted:#3d4754;
+    }
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    body{
+      font-family:'Nunito',sans-serif;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, #e7d7be 100%);
+      overflow-x:hidden;
+    }
+
+    /* Frosted card */
+    .frosted{
+      background:var(--glass-fill);
+      border:1px solid var(--glass-border);
+      border-radius:1.25rem;
+      backdrop-filter:blur(14px) saturate(120%);
+      -webkit-backdrop-filter:blur(14px) saturate(120%);
+      box-shadow:0 14px 30px rgba(0,0,0,.16), inset 0 1px 1px rgba(255,255,255,.25);
+    }
+    /* Inputs */
+    .lt-input{
+      width:100%;
+      border-radius:.8rem;
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(0,0,0,.06);
+      padding:.75rem 1rem;
+      outline:none;
+      transition:box-shadow .15s ease, border-color .15s ease;
+    }
+    .lt-input:focus{
+      border-color:rgba(0,113,182,.35);
+      box-shadow:0 0 0 4px rgba(0,113,182,.15);
+    }
+    /* Buttons */
+    .btn{
+      display:inline-block; border-radius:9999px; font-weight:800;
+      padding:.75rem 1.25rem; transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .btn-primary{
+      color:#fff; background:linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95));
+      border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 12px 26px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.35);
+    }
+    .btn-secondary{ color:var(--text); background:#fff; border:1px solid rgba(0,0,0,.08); }
+    .btn:hover{ transform:translateY(-2px); }
+    .muted{ color:var(--muted); }
+
+    /* Table */
+    .items-table th, .items-table td{ padding:.5rem .75rem; }
+    .items-table thead th{
+      font-weight:900; color:var(--muted);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .chip{ background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.06); border-radius:999px; padding:.25rem .6rem; }
+
+    /* Photo dropzone */
+    .dropzone{
+      border:2px dashed rgba(0,0,0,.12);
+      border-radius:1rem; padding:1rem; background:rgba(255,255,255,.6);
+    }
+    .preview-img{
+      width:86px; height:86px; object-fit:cover; border-radius:.75rem;
+      border:1px solid rgba(0,0,0,.06);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="container mx-auto px-4 pt-4">
+    <div class="frosted px-4 md:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto select-none"/>
+        <div class="hidden sm:block">
+          <p class="text-xs -mb-1 muted">Field OS</p>
+          <h1 class="text-xl md:text-2xl font-black">Job Completion</h1>
         </div>
       </div>
-      <div class="rounded-xl border border-white/10 bg-black/10 p-4">
-        <div class="text-sm opacity-70 font-bold">Job</div>
-        <div class="grid grid-cols-2 gap-2 mt-1">
-          <input id="gc_ref" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Ref / Invoice #">
-          <input id="gc_date" class="px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Date">
+      <a href="index.html" class="btn btn-secondary">Back to Site</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-6 md:py-8 space-y-6 md:space-y-8">
+
+    <!-- Top note -->
+    <section class="frosted p-5 md:p-7">
+      <p class="muted"><strong>This section auto-fills from Field OS.</strong> Tweak anything here, add photos, then generate the client report.</p>
+    </section>
+
+    <!-- CLIENT + JOB -->
+    <section class="grid md:grid-cols-2 gap-6">
+      <div class="frosted p-5 md:p-7">
+        <h2 class="text-2xl font-black mb-3">Client</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input class="lt-input" name="client_name" placeholder="Client name" />
+          <input class="lt-input" name="client_email" placeholder="Email" type="email" />
+          <input class="lt-input sm:col-span-2" name="client_phone" placeholder="Phone" />
         </div>
-        <input id="gc_address" class="w-full mt-2 px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Address">
       </div>
-    </div>
 
-    <!-- Services -->
-    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
-      <div class="text-sm opacity-70 font-bold mb-1">Services (comma separated)</div>
-      <input id="gc_services" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Carpet (2 rooms), Lounge (3 seater), Stain treatment">
-    </div>
-
-    <!-- Line items -->
-    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
-      <div class="flex items-center justify-between">
-        <div class="font-extrabold">Work Summary</div>
-        <button id="gc_add_row" class="px-3 py-2 rounded-full border border-white/15 bg-white/10 text-sm font-bold">+ Add item</button>
+      <div class="frosted p-5 md:p-7">
+        <h2 class="text-2xl font-black mb-3">Job</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input class="lt-input" name="ref" placeholder="Ref / Invoice #" />
+          <input class="lt-input" name="date" placeholder="Date" type="date" />
+          <input class="lt-input sm:col-span-2" name="address" placeholder="Address" />
+        </div>
       </div>
-      <div class="overflow-x-auto mt-3">
-        <table class="w-full text-sm">
-          <thead class="opacity-70">
-            <tr><th class="text-left p-2">Item</th><th class="text-right p-2">Qty</th><th class="text-right p-2">Price</th><th class="p-2"></th></tr>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="frosted p-5 md:p-7">
+      <h2 class="text-2xl font-black mb-3">Services <span class="chip muted ml-2">comma separated</span></h2>
+      <input class="lt-input" name="services" placeholder="Carpet (2 rooms), Lounge (4 seats), …" />
+    </section>
+
+    <!-- WORK SUMMARY -->
+    <section class="frosted p-5 md:p-7">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-2xl font-black">Work Summary</h2>
+        <button id="add-item" type="button" class="btn btn-secondary">+ Add Item</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="items-table w-full text-sm">
+          <thead>
+            <tr>
+              <th class="text-left">Item</th>
+              <th class="text-center w-24">Qty</th>
+              <th class="text-right w-32">Price</th>
+              <th class="w-10"></th>
+            </tr>
           </thead>
-          <tbody id="gc_lines"></tbody>
-          <tfoot>
-            <tr><td></td><td class="text-right p-2 font-extrabold">Subtotal</td><td id="gc_sub" class="text-right p-2"></td><td></td></tr>
-            <tr><td></td><td class="text-right p-2 font-extrabold">Total</td><td id="gc_tot" class="text-right p-2 text-blue-300"></td><td></td></tr>
-          </tfoot>
+          <tbody id="items-body">
+            <!-- rows injected by JS -->
+          </tbody>
         </table>
       </div>
-    </div>
-
-    <!-- Client notes -->
-    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
-      <div class="text-sm opacity-70 font-bold mb-1">Notes for Client</div>
-      <textarea id="gc_notes" rows="4" class="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/15" placeholder="Any care notes, risks, or advice you want the client to have."></textarea>
-    </div>
-
-    <!-- Photos -->
-    <div class="rounded-xl border border-white/10 bg-black/10 p-4 mt-4">
-      <div class="flex items-center justify-between mb-3">
-        <div class="font-extrabold">Photos</div>
-        <div class="flex items-center gap-2">
-          <input id="gc_file" type="file" accept="image/*" capture="environment" multiple class="hidden">
-          <button id="gc_add" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">Add from Camera / Roll</button>
-          <button id="gc_clear" class="px-4 py-2 rounded-full font-extrabold border border-white/15 bg-white/10">Clear</button>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 mt-4">
+        <div class="text-right">
+          <div>Subtotal <span id="subtotal" class="font-extrabold ml-2">$0.00</span></div>
+          <div class="text-lg">Total <span id="total" class="font-black text-[color:var(--primary)] ml-2">$0.00</span></div>
         </div>
       </div>
-      <div id="gc_preview" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+    </section>
+
+    <!-- NOTES -->
+    <section class="frosted p-5 md:p-7">
+      <h2 class="text-2xl font-black mb-3">Notes for Client</h2>
+      <textarea class="lt-input" rows="4" placeholder="Any care notes, risks, or advice you want the client to have."></textarea>
+    </section>
+
+    <!-- PHOTOS -->
+    <section class="frosted p-5 md:p-7">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-2xl font-black">Photos</h2>
+        <div class="space-x-2">
+          <label class="btn btn-secondary cursor-pointer">
+            Choose Files
+            <input id="file-input" type="file" accept="image/*" class="hidden" multiple>
+          </label>
+          <button id="camera-btn" type="button" class="btn btn-secondary">Add from Camera / Roll</button>
+          <button id="clear-photos" type="button" class="btn btn-secondary">Clear</button>
+        </div>
+      </div>
+      <div id="dropzone" class="dropzone text-center muted">
+        Drag & drop photos here (or use the buttons above)
+      </div>
+      <div id="previews" class="mt-3 flex flex-wrap gap-3"></div>
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="frosted p-5 md:p-7">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+        <button id="generate-report" class="btn btn-primary">Generate Report (opens share link)</button>
+        <a href="#" id="open-last" class="btn btn-secondary">Open last report</a>
+        <p class="muted sm:ml-auto text-sm">
+          iPhone: <strong>Share</strong> → <em>Options</em> → <strong>PDF</strong> → send.
+        </p>
+      </div>
+    </section>
+
+    <!-- RESET -->
+    <div class="text-center pb-10">
+      <button id="reset-btn" class="btn btn-secondary">Reset for Next Job</button>
     </div>
 
-    <!-- Actions -->
-    <div class="grid md:grid-cols-2 gap-3 mt-5">
-      <button id="gc_generate" class="px-5 py-3 rounded-full font-extrabold border border-white/20 bg-[rgba(0,113,134,.65)]">Generate Report (opens share link)</button>
-      <a href="/reports/shareable.html" class="px-5 py-3 rounded-full text-center font-extrabold border border-white/15 bg-white/10">Open last report</a>
-      <p class="text-xs opacity-70 md:col-span-2">iPhone: Share → <em>Options</em> → <strong>PDF</strong> → send.</p>
-    </div>
-  </div>
-</section>
+  </main>
 
-<script>
-/* ========= Field OS → Embedded Job Completion ========= */
-(() => {
-  const $ = s => document.querySelector(s);
-  const money = v => {
-    if (v==null || v==='') return '';
-    const n = parseFloat(String(v).replace(/[^\d.]/g,''));
-    return isNaN(n) ? String(v) : ('$' + n.toFixed(2));
-  };
-  const readDraft = () => { try { return JSON.parse(localStorage.getItem('lefties_fos_draft')||'{}'); } catch { return {}; } };
-  const writeDraft = (obj) => localStorage.setItem('lefties_fos_draft', JSON.stringify(obj||{}));
+  <!-- ===== Minimal JS: rows, totals, preview (non-intrusive) ===== -->
+  <script>
+    const currency = v => isFinite(v) ? '$' + Number(v).toFixed(2) : '$0.00';
 
-  // UI refs
-  const ui = {
-    client:  $('#gc_client'),
-    phone:   $('#gc_phone'),
-    email:   $('#gc_email'),
-    ref:     $('#gc_ref'),
-    date:    $('#gc_date'),
-    address: $('#gc_address'),
-    services:$('#gc_services'),
-    linesT:  $('#gc_lines'),
-    sub:     $('#gc_sub'),
-    tot:     $('#gc_tot'),
-    notes:   $('#gc_notes'),
-    file:    $('#gc_file'),
-    add:     $('#gc_add'),
-    clear:   $('#gc_clear'),
-    preview: $('#gc_preview'),
-    addRow:  $('#gc_add_row'),
-    gen:     $('#gc_generate'),
-    reset:   $('#fos_gc_reset')
-  };
+    // Work items
+    const body = document.getElementById('items-body');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+    const addRow = (item='', qty=1, price='') => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="lt-input" placeholder="Description" value="${item}"></td>
+        <td class="text-center"><input class="lt-input text-center" type="number" min="0" step="1" value="${qty}"></td>
+        <td class="text-right"><input class="lt-input text-right" type="number" min="0" step="0.01" value="${price}"></td>
+        <td class="text-right">
+          <button class="btn btn-secondary remove">×</button>
+        </td>`;
+      body.appendChild(tr);
+      tr.querySelectorAll('input').forEach(i => i.addEventListener('input', updateTotals));
+      tr.querySelector('.remove').addEventListener('click', () => { tr.remove(); updateTotals(); });
+    };
+    const updateTotals = () => {
+      let sub = 0;
+      body.querySelectorAll('tr').forEach(tr => {
+        const [desc, qty, price] = tr.querySelectorAll('input');
+        sub += (parseFloat(qty.value||0) * parseFloat(price.value||0));
+      });
+      subtotalEl.textContent = currency(sub);
+      totalEl.textContent = currency(sub); // add tax/discount if needed
+    };
+    document.getElementById('add-item').addEventListener('click', () => addRow());
+    // Start with one row
+    addRow();
 
-  // hydrate from draft
-  function hydrate(){
-    const d = readDraft();
-    ui.client.value  = d.client || '';
-    ui.phone.value   = d.phone  || '';
-    ui.email.value   = d.email  || '';
-    ui.ref.value     = d.ref    || '';
-    ui.date.value    = d.date   || '';
-    ui.address.value = d.address|| '';
-    ui.services.value= (d.services||[]).join(', ');
-    ui.notes.value   = d.notes_client || '';
+    // Photos
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    const previews = document.getElementById('previews');
+    const clearBtn = document.getElementById('clear-photos');
+    const cameraBtn = document.getElementById('camera-btn');
 
-    // line items
-    ui.linesT.innerHTML = '';
-    (d.lineitems||[]).forEach(addRow);
-    calcTotals();
-  }
-
-  function collect(){
-    const d = readDraft();
-    d.client = ui.client.value.trim();
-    d.phone  = ui.phone.value.trim();
-    d.email  = ui.email.value.trim();
-    d.ref    = ui.ref.value.trim();
-    d.date   = ui.date.value.trim();
-    d.address= ui.address.value.trim();
-    d.services = ui.services.value.split(',').map(s=>s.trim()).filter(Boolean);
-    d.notes_client = ui.notes.value;
-    d.lineitems = Array.from(ui.linesT.querySelectorAll('tr')).map(tr=>{
-      const [item, qty, price] = tr.querySelectorAll('input');
-      return { item:item.value, qty:qty.value, price:price.value };
-    });
-    d.subtotal = ui.sub.textContent;
-    d.total    = ui.tot.textContent;
-    writeDraft(d);
-    return d;
-  }
-
-  function addRow(li={item:'',qty:'',price:''}){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="p-2"><input class="w-full px-2 py-1 rounded bg-white/10 border border-white/15" value="${li.item||''}" placeholder="Item"></td>
-      <td class="p-2 text-right"><input class="w-24 px-2 py-1 rounded bg-white/10 border border-white/15 text-right" value="${li.qty||''}" placeholder="1"></td>
-      <td class="p-2 text-right"><input class="w-28 px-2 py-1 rounded bg-white/10 border border-white/15 text-right" value="${li.price||''}" placeholder="$0.00"></td>
-      <td class="p-2 text-right"><button class="px-2 py-1 text-xs rounded border border-white/20 bg-white/10">Remove</button></td>`;
-    tr.querySelector('button').onclick = () => { tr.remove(); calcTotals(); collect(); };
-    tr.querySelectorAll('input').forEach(i => i.addEventListener('input', ()=>{ calcTotals(); collect(); }));
-    ui.linesT.appendChild(tr);
-  }
-
-  function calcTotals(){
-    let sub = 0;
-    ui.linesT.querySelectorAll('tr').forEach(tr=>{
-      const price = tr.querySelectorAll('input')[2]?.value || '';
-      const n = parseFloat(String(price).replace(/[^\d.]/g,''));
-      if (!isNaN(n)) sub += n;
-    });
-    ui.sub.textContent = money(sub);
-    ui.tot.textContent = money(sub); // add taxes/discounts here if needed
-  }
-
-  // Photos
-  let photos = [];
-  function renderPhotos(){
-    ui.preview.innerHTML='';
-    photos.forEach((file,i)=>{
-      const url = URL.createObjectURL(file);
-      const cell = document.createElement('div');
-      cell.className='relative rounded-lg overflow-hidden border border-white/10';
-      cell.innerHTML = `<img src="${url}" class="w-full h-28 object-cover"><button class="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded">Remove</button>`;
-      cell.querySelector('button').onclick = ()=>{ photos.splice(i,1); renderPhotos(); };
-      ui.preview.appendChild(cell);
-    });
-  }
-  function compressToDataURL(file, maxW=1600,maxH=1600,q=.82){
-    return new Promise(resolve=>{
-      const img=new Image(), url=URL.createObjectURL(file);
-      img.onload=()=>{
-        let w=img.width,h=img.height; const r=Math.min(maxW/w,maxH/h,1); w=Math.round(w*r); h=Math.round(h*r);
-        const c=document.createElement('canvas'); c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h);
-        resolve(c.toDataURL('image/jpeg',q));
-      }; img.src=url;
-    });
-  }
-
-  // events
-  ['client','phone','email','ref','date','address','services','notes'].forEach(k=>{
-    ui[k].addEventListener('input', ()=> collect());
-  });
-  ui.addRow.addEventListener('click', ()=>{ addRow(); collect(); });
-
-  ui.file.addEventListener('change', e=>{ photos = photos.concat(Array.from(e.target.files||[])); renderPhotos(); });
-  ui.add.addEventListener('click', ()=> ui.file.click());
-  ui.clear.addEventListener('click', ()=>{ photos=[]; ui.file.value=''; renderPhotos(); });
-
-  ui.gen.addEventListener('click', async ()=>{
-    const draft = collect();                             // ensure latest values are saved
-    localStorage.setItem('lefties_fos_final', JSON.stringify(draft));
-    if (photos.length){
-      const dataUrls=[]; for (let f of photos){ dataUrls.push(await compressToDataURL(f)); }
-      localStorage.setItem('lefties_jc_photos', JSON.stringify(dataUrls));
-    } else {
-      localStorage.removeItem('lefties_jc_photos');
+    function addFiles(files){
+      [...files].forEach(f => {
+        const url = URL.createObjectURL(f);
+        const img = document.createElement('img');
+        img.src = url; img.className = 'preview-img';
+        previews.appendChild(img);
+      });
     }
-    location.href = '/reports/shareable.html?from=fos';
-  });
+    fileInput.addEventListener('change', e => addFiles(e.target.files));
+    clearBtn.addEventListener('click', () => { previews.innerHTML=''; fileInput.value=''; });
+    cameraBtn.addEventListener('click', () => {
+      // Prefer camera when available
+      const cam = document.createElement('input');
+      cam.type = 'file';
+      cam.accept = 'image/*';
+      cam.capture = 'environment';
+      cam.multiple = true;
+      cam.onchange = e => addFiles(e.target.files);
+      cam.click();
+    });
+    ;['dragenter','dragover'].forEach(evt => dropzone.addEventListener(evt, e => {
+      e.preventDefault(); e.stopPropagation(); dropzone.style.background='rgba(255,255,255,.8)';
+    }));
+    ;['dragleave','drop'].forEach(evt => dropzone.addEventListener(evt, e => {
+      e.preventDefault(); e.stopPropagation(); dropzone.style.background='rgba(255,255,255,.6)';
+    }));
+    dropzone.addEventListener('drop', e => addFiles(e.dataTransfer.files));
 
-  ui.reset.addEventListener('click', ()=>{
-    localStorage.removeItem('lefties_fos_draft');
-    localStorage.removeItem('lefties_fos_final');
-    localStorage.removeItem('lefties_jc_photos');
-    photos=[]; renderPhotos(); hydrate();
-  });
-
-  // keep in sync if Field OS above changes
-  setInterval(hydrate, 1200);
-  hydrate();
-})();
-</script>
+    // Hooks so your existing backend JS can bind to these IDs safely:
+    document.getElementById('generate-report').addEventListener('click', () => {
+      // call your existing report function here if needed
+      // e.g., window.generateReport && window.generateReport();
+    });
+    document.getElementById('open-last').addEventListener('click', (e)=> {
+      // e.g., window.openLastReport && window.openLastReport();
+      e.preventDefault();
+    });
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      // e.g., window.resetForNextJob && window.resetForNextJob();
+      // Soft clear of our UI bits:
+      body.innerHTML=''; addRow(); updateTotals(); previews.innerHTML=''; fileInput.value='';
+      document.querySelectorAll('.lt-input').forEach(i => { if(i.type!=='number'&&i.type!=='date') i.value=''; });
+    });
+  </script>
+</body>
+</html>
