@@ -1,160 +1,163 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Services | Lefties Carpet Cleaning</title>
+
+  <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+
   <style>
-    :root {
-      --primary-blue: #0071B6;
-      --glass-glow: rgba(0, 113, 182, 0.3);
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
+    :root{
+      --primary:#0071B6;
+      --cream:#EFE3CF;              /* deeper cream so the frost reads clearly */
+      --glass-fill:rgba(255,255,255,.42);
+      --glass-border:rgba(255,255,255,.28);
+      --text:#1b2025;
+      --muted:#3d4754;
     }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-      position: relative;
-    }
-    /* Background video */
-    .body-video-background {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: -2;
-      transform: translateZ(0);
-      object-fit: cover;
-      opacity: 0.25;
-    }
-    /* Glass panel */
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .text-lift { text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); }
-    .service-img {
-      width: 100%; height: auto; object-fit: cover;
-      border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    body{
+      font-family:'Nunito',sans-serif;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, #e7d7be 100%);
+      overflow-x:hidden;
+      position:relative;
     }
 
-    /* Hamburger icon */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
-    }
-    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;}
-    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+    /* ===== Site-wide background video (no tint) ===== */
+    .page-video-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;}
+    .page-video{width:100%;height:100%;object-fit:cover;}
 
-    /* Fixed header (match index, tighter) */
-    header{
-      position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem;
+    /* ===== Frosted cards (site-wide) ===== */
+    .frosted{
+      background:var(--glass-fill);
+      border:1px solid var(--glass-border);
+      border-radius:1.25rem;
+      backdrop-filter:blur(14px) saturate(120%);
+      -webkit-backdrop-filter:blur(14px) saturate(120%);
+      box-shadow:0 14px 30px rgba(0,0,0,.16), inset 0 1px 1px rgba(255,255,255,.25);
     }
-    header nav{
-      background:rgba(30,41,59,.65);
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 10px 28px rgba(0,0,0,.4);
-      max-width:80rem; margin:0 auto; padding:.25rem 1rem; /* tighter */
-      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:80px; /* was 100px */
-    }
-    header nav .logo-container{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:10;}
-    header nav .logo-container img{height:9rem; width:auto;}
-    header nav .flex-1.flex.justify-end{z-index:20;}
 
-    /* Make space for fixed header (reduced) */
-    main{ padding-top:120px; position:relative; z-index:1; } /* was 150px */
+    /* Buttons */
+    .btn-glass{
+      background:linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95));
+      color:#fff;font-weight:800;border-radius:9999px;
+      border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 12px 26px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.35);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-glass:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,113,182,.38), inset 0 1px 1px rgba(255,255,255,.45);}
+
+    /* Header / nav */
+    .container{max-width:1100px;}
+    .link-muted{color:var(--muted)}
+
+    /* Mobile drawer */
+    .mobile-menu-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.65);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      z-index:90;transform:translateX(100%);
+      transition:transform .45s cubic-bezier(.86,0,.07,1);
+    }
+    .mobile-menu-overlay[data-state="open"]{transform:translateX(0);}
+    .hamburger-icon{display:flex;flex-direction:column;justify-content:space-between;width:2rem;height:1.5rem}
+    .hamburger-icon span{height:2px;width:100%;background:#111;border-radius:9999px;transition:all .3s}
+    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg)}
+    .hamburger-icon.open span:nth-child(2){opacity:0}
+    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg)}
   </style>
 </head>
 <body class="antialiased">
-  <!-- Background video -->
-  <video autoplay loop muted playsinline class="body-video-background">
-    <source src="services.video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
 
-  <!-- HEADER -->
-  <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-3">
-    <nav class="container mx-auto px-4 py-1 md:px-6 md:py-2 flex justify-between items-center relative">
-      <a href="index.html#home">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
-      </a>
+  <!-- ===== BACKGROUND VIDEO ===== -->
+  <div class="page-video-wrap" aria-hidden="true">
+    <video class="page-video" autoplay muted loop playsinline>
+      <source src="services.video.mp4" type="video/mp4">
+    </video>
+  </div>
 
-      <!-- Mobile Hamburger -->
-      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
+  <!-- ===== HEADER (LeftiesLite) ===== -->
+  <header class="sticky top-0 z-40">
+    <nav class="container mx-auto px-4 py-3">
+      <div class="frosted px-4 md:px-6 py-3 flex items-center justify-between">
+        <!-- Brand -->
+        <a href="index.html#home" class="flex items-center gap-3" aria-label="Lefties Home">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto select-none"/>
+        </a>
+
+        <!-- Desktop menu (your Services links preserved) -->
+        <div class="hidden md:flex items-center gap-6 font-extrabold text-[15px]">
+          <a href="index.html" class="hover:text-[color:var(--primary)]">Home</a>
+          <a href="carpet-cleaning.html" class="hover:text-[color:var(--primary)]">Carpet Cleaning</a>
+          <a href="upholstery-cleaning.html" class="hover:text-[color:var(--primary)]">Upholstery & Lounges</a>
+          <a href="stain-treatment.html" class="hover:text-[color:var(--primary)]">Stain & Odour</a>
+          <a href="rugs-mattresses.html" class="hover:text-[color:var(--primary)]">Rugs & Mattresses</a>
+          <a href="commercial.html" class="hover:text-[color:var(--primary)]">Commercial</a>
+          <a href="contact-us.html" class="hover:text-[color:var(--primary)]">Contact Us</a>
         </div>
-      </button>
 
-      <!-- Desktop Menu (UPDATED ONLY THIS LIST) -->
-      <div class="hidden md:flex space-x-8 text-white">
-        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery and Lounges</a>
-        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain and Odour</a>
-        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug and Mattresses</a>
-        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
-        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
+        <!-- CTA + Burger -->
+        <div class="flex items-center gap-3 md:gap-4">
+          <a href="contact-us.html" class="btn-glass px-5 py-2 text-sm hidden md:inline-block">Get a Quote</a>
+          <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+            <div class="hamburger-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
+          </button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- Mobile Menu Overlay (drawer) -->
-  <div id="mobile-menu-overlay"
-       class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Slide-in panel -->
-    <div id="mobile-menu-panel"
-         class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
-                transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl
-                pt-24 md:pt-28">
-      <!-- UPDATED ONLY THIS LIST -->
-      <a href="index.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
-      <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Carpet Cleaning</a>
-      <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Upholstery and Lounges</a>
-      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain and Odour</a>
-      <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Rug and Mattresses</a>
-      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
-      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
+  <!-- ===== MOBILE MENU (LeftiesLite pattern) ===== -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true" role="dialog" aria-label="Mobile Menu">
+    <div class="p-8 text-center mt-24 flex flex-col h-full">
+      <div class="space-y-8 font-bold text-3xl">
+        <a href="index.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Home</a>
+        <a href="carpet-cleaning.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Carpet Cleaning</a>
+        <a href="upholstery-cleaning.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Upholstery & Lounges</a>
+        <a href="stain-treatment.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Stain & Odour</a>
+        <a href="rugs-mattresses.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Rugs & Mattresses</a>
+        <a href="commercial.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Commercial</a>
+        <a href="contact-us.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Contact Us</a>
+      </div>
+      <div class="mt-10">
+        <a href="contact-us.html" class="btn-glass px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
+      </div>
+      <div class="mt-auto pb-8 flex justify-center gap-8">
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="text-white/80 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="text-white/80 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M12 2C8.74 2 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.784.305-1.455.718-2.126 1.388C1.343 2.69 1.03 3.36.725 4.14c-.305.784-.507 1.65-.568 2.913C.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.262.263 2.132.568 2.913.305.784.718 1.455 1.388 2.126.67.67 1.342.983 2.126 1.288.784.305 1.65.507 2.913.568C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.262-.06 2.132-.263 2.913-.568.784-.305 1.455-.718 2.126-1.388.67-.67.983-1.342 1.288-2.126.305-.784.507-1.65.568-2.913C23.985 15.667 24 15.26 24 12s-.015-3.667-.072-4.947c-.06-1.262-.263-2.132-.568-2.913-.305-.784-.718-1.455-1.388-2.126C21.31 1.343 20.64 1.03 19.86.725c-.784-.305-1.65-.507-2.913-.568C15.667.015 15.26 0 12 0zm0 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN -->
+  <!-- ===== MAIN ===== -->
   <main class="container mx-auto px-4 py-12">
-
-    <!-- Our Services -->
-    <section class="text-center py-20 max-w-4xl mx-auto">
-      <h1 class="font-black text-lift text-7xl md:text-8xl mb-6">
-        <span class="text-[var(--text-main)]">Our</span>
-        <span class="text-[var(--primary-blue)]"> Services</span>
+    <!-- Page title -->
+    <section class="text-center py-12 md:py-16 max-w-4xl mx-auto">
+      <h1 class="font-black text-5xl md:text-6xl mb-4">
+        <span>Our</span> <span class="text-[color:var(--primary)]">Services</span>
       </h1>
-      <p class="mt-4 text-lg md:text-xl max-w-xl mx-auto text-[var(--text-main)]">
+      <p class="mt-2 text-lg md:text-xl link-muted max-w-xl mx-auto">
         Here’s what we do, and how we do it.
       </p>
     </section>
 
-    <!-- CARPET CLEANING -->
-    <section class="glass-panel p-6 md:p-12">
-      <a href="carpet-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
+    <!-- Service cards (frosted) -->
+    <section class="frosted p-6 md:p-10 mb-6">
+      <a href="carpet-cleaning.html" class="block transform transition-transform duration-200 hover:scale-[1.01]">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <img src="Carpet-services-1.png" alt="Carpet cleaning" class="w-full h-auto rounded-xl shadow"/>
           <div>
-            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Carpet Cleaning</h2>
-            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+            <h2 class="text-3xl font-extrabold text-[color:var(--primary)]">Carpet Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
               <li>Pre-inspection and commercial vacuum</li>
               <li>Targeted pre-treatment for stains</li>
               <li>Hot water extraction or low-moisture clean</li>
@@ -167,14 +170,13 @@
       </a>
     </section>
 
-    <!-- UPHOLSTERY CLEANING -->
-    <section class="glass-panel p-6 md:p-12">
-      <a href="upholstery-cleaning.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <img src="Upholstery-001.png" alt="Upholstery cleaning" class="service-img">
+    <section class="frosted p-6 md:p-10 mb-6">
+      <a href="upholstery-cleaning.html" class="block transform transition-transform duration-200 hover:scale-[1.01]">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <img src="Upholstery-001.png" alt="Upholstery cleaning" class="w-full h-auto rounded-xl shadow"/>
           <div>
-            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Upholstery & Lounge Cleaning</h2>
-            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+            <h2 class="text-3xl font-extrabold text-[color:var(--primary)]">Upholstery & Lounge Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
               <li>Pre-assessment of fabric type</li>
               <li>Gentle pre-treatment to lift grime</li>
               <li>Controlled rinse & extraction</li>
@@ -186,15 +188,14 @@
       </a>
     </section>
 
-    <!-- STAIN TREATMENT -->
-    <section class="glass-panel p-6 md:p-12">
-      <a href="stain-treatment.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <img src="Spot-stain.png" alt="Stain removal" class="service-img">
+    <section class="frosted p-6 md:p-10 mb-6">
+      <a href="stain-treatment.html" class="block transform transition-transform duration-200 hover:scale-[1.01]">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <img src="Spot-stain.png" alt="Stain removal" class="w-full h-auto rounded-xl shadow"/>
           <div>
-            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Woopsie Daisy Stains</h2>
-            <p class="italic mt-2 text-[var(--text-main)]">For those little uh-ohs in the lounge room.</p>
-            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+            <h2 class="text-3xl font-extrabold text-[color:var(--primary)]">Woopsie Daisy Stains</h2>
+            <p class="italic mt-2 link-muted">For those little uh-ohs in the lounge room.</p>
+            <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
               <li>Stain ID and classification</li>
               <li>Spot-specific solutions</li>
               <li>Honest advice (no magic promises)</li>
@@ -205,14 +206,13 @@
       </a>
     </section>
 
-    <!-- RUGS & MATTRESSES -->
-    <section class="glass-panel p-6 md:p-12">
-      <a href="rugs-mattresses.html" class="block transform transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="service-img">
+    <section class="frosted p-6 md:p-10">
+      <a href="rugs-mattresses.html" class="block transform transition-transform duration-200 hover:scale-[1.01]">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <img src="Rugs-01.png" alt="Rug and mattress cleaning" class="w-full h-auto rounded-xl shadow"/>
           <div>
-            <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Rug & Mattress Cleaning</h2>
-            <ul class="mt-4 list-disc list-inside space-y-2 text-[var(--text-main)]">
+            <h2 class="text-3xl font-extrabold text-[color:var(--primary)]">Rug & Mattress Cleaning</h2>
+            <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
               <li>Specialty rug care for all materials</li>
               <li>Hygienic mattress sanitation</li>
               <li>Dust mite & allergen removal</li>
@@ -222,55 +222,43 @@
         </div>
       </a>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer class="text-center py-8 text-gray-400 bg-black">
-    <div class="container mx-auto px-6">
-      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 mx-auto mb-4 opacity-50">
-      <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-      <p class="text-xs text-gray-600 mt-1">ABN: 64 554 336 330 | Hervey Bay, QLD</p>
+  <!-- ===== FOOTER ===== -->
+  <footer class="py-10">
+    <div class="container mx-auto px-4 text-center">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 mx-auto mb-3 opacity-70">
+      <p class="text-sm link-muted">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- Modal (kept) -->
-  <div id="custom-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-button" id="close-modal">&times;</span>
-      <p id="modal-message" class="text-lg"></p>
-    </div>
-  </div>
-
-  <!-- Mobile menu JS (drawer) -->
+  <!-- ===== JS (LeftiesLite burger) ===== -->
   <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel   = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('mobile-menu-button');
+      const burger = document.getElementById('hamburger-icon');
+      const overlay = document.getElementById('mobile-menu-overlay');
 
-    function openMobileMenu(){
-      if(!overlay || !panel) return;
-      overlay.classList.remove('pointer-events-none','opacity-0');
-      requestAnimationFrame(()=>{ panel.classList.remove('translate-x-full'); });
-      if (hamburgerIcon) hamburgerIcon.classList.add('open');
-    }
-    function closeMobileMenu(){
-      if(!overlay || !panel) return;
-      panel.classList.add('translate-x-full');
-      setTimeout(()=>{
-        overlay.classList.add('opacity-0');
-        overlay.classList.add('pointer-events-none');
-      },300);
-      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
-    }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('opacity-0');
-      isOpen ? closeMobileMenu() : openMobileMenu();
-    }
-    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    if (overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
+      function openMenu(){
+        overlay.setAttribute('data-state','open');
+        overlay.setAttribute('aria-hidden','false');
+        burger.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow='hidden';
+      }
+      function closeMenu(){
+        overlay.setAttribute('data-state','closed');
+        overlay.setAttribute('aria-hidden','true');
+        burger.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow='';
+      }
+      window.closeMenu = closeMenu;
+      btn?.addEventListener('click', ()=> {
+        const isOpen = overlay.getAttribute('data-state')==='open';
+        isOpen ? closeMenu() : openMenu();
+      });
+    });
   </script>
 </body>
 </html>
