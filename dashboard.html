@@ -4,70 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lefties OS — Dashboard</title>
+
+  <!-- Robots: keep it private -->
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#0f172a" />
 
-  <!-- App icons (place actual files in /icons) -->
+  <!-- PWA / App icons (files in /icons/) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="manifest" href="/icons/site.webmanifest">
 
-  <!-- Brand font + Tailwind -->
+  <!-- Fonts & Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root { --brand-blue:#007186; --brand-lilac:#D7AFFF; }
-    body { font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
+    html,body { height:100%; }
+    body { font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:#0f172a; color:#fff;}
     .glass { background: rgba(17, 24, 39, .6); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(8px); }
-    .tile  { background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); transition:background .2s ease }
-    .tile:hover { background: rgba(255,255,255,.09); }
-
-    /* ===== Password Gate (overlay) ===== */
-    #leftiesGate{
-      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-      background:radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, #efe3cf 45%, #e7d7be 100%);
-      z-index:9999; font-family:inherit;
+    .tile  { background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); transition:.15s; }
+    .tile:hover { background: rgba(255,255,255,.09); transform: translateY(-1px); }
+    .bubble-bg:before,
+    .bubble-bg:after{
+      content:""; position:absolute; inset:auto; pointer-events:none; filter:blur(26px);
+      width:18rem; height:18rem; border-radius:9999px; z-index:-1;
+      background: radial-gradient(circle at 30% 30%, rgba(215,175,255,0.35), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(0,113,134,0.35), transparent 60%);
     }
-    #leftiesGate.show{ display:flex; }
-    #leftiesGate .card{
-      width:min(92vw, 460px);
-      background:rgba(255,255,255,.65);
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:18px; padding:24px;
-      box-shadow:0 18px 40px rgba(0,0,0,.18), inset 0 1px 1px rgba(255,255,255,.4);
-      -webkit-backdrop-filter: blur(14px) saturate(120%); backdrop-filter: blur(14px) saturate(120%);
-      text-align:center; color:#1b2025;
-    }
-    #leftiesGate h2{ margin:10px 0 4px; font-weight:900; font-size:22px}
-    #leftiesGate p{ margin:0 0 14px; color:#3d4754; font-size:14px}
-    #leftiesGate input{
-      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(0,0,0,.12);
-      background:rgba(255,255,255,.85); outline:none; font-size:16px;
-    }
-    #leftiesGate .btn{
-      display:inline-flex; justify-content:center; align-items:center;
-      padding:12px 14px; border-radius:12px; margin-top:12px; width:100%;
-      color:#fff; font-weight:800; border:1px solid rgba(0,148,255,.35);
-      background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
-      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);
-      cursor:pointer;
-    }
-    #leftiesGate .hint{ font-size:12px; color:#6b7280; margin-top:10px}
-    #leftiesGate .err{ color:#b91c1c; font-size:13px; min-height:18px; margin-top:8px}
-    .lock-scroll{ height:100%; overflow:hidden;}
+    .bubble-bg:before{ top:-4rem; right:-4rem; }
+    .bubble-bg:after { bottom:-4rem; left:-4rem; }
+    /* password gate basic styles */
+    #gate{position:fixed; inset:0; background:#0f172a; display:flex; align-items:center; justify-content:center; z-index:9999;}
+    #gate.hidden{display:none;}
   </style>
+
+  <!-- Password gate (runs ASAP) -->
+  <script>
+    (function(){
+      const PASS = "Susan";           // <-- change me
+      const ALLOW_EMAILS = [];                   // e.g. ["you@domain.com"]
+      const KEY = "lefties_dash_ok";
+
+      const skip = sessionStorage.getItem(KEY) === "1";
+      const byMail = ALLOW_EMAILS.length && ALLOW_EMAILS.includes(localStorage.getItem("lefties_user_email"));
+      if (skip || byMail || !PASS) { document.documentElement.dataset.ok="1"; return; }
+
+      // build minimal gate quickly (no CSS dependency)
+      const g = document.createElement("div");
+      g.id = "gate";
+      g.innerHTML = `
+        <div style="width:92%;max-width:26rem" class="bubble-bg">
+          <div style="background:#111827cc;border:1px solid #ffffff14;border-radius:1rem;padding:1.25rem 1.25rem 1rem">
+            <h1 style="font:900 1.25rem Nunito,system-ui;margin:0 0 .5rem">Lefties OS — Dashboard</h1>
+            <p style="opacity:.8;margin:.25rem 0 .75rem">Private area. Enter passphrase to continue.</p>
+            <input id="pw" type="password" placeholder="Passphrase" style="width:100%;padding:.75rem;border-radius:.75rem;border:1px solid #ffffff22;background:#0b1220;color:#fff;outline:none" />
+            <button id="go" style="margin-top:.75rem;width:100%;padding:.75rem;border-radius:.75rem;background:#007186;font:800 1rem Nunito;color:#fff;border:0">Unlock</button>
+            <div id="msg" style="height:1.25rem;color:#fda4af;margin-top:.5rem;font:700 .875rem Nunito"></div>
+          </div>
+        </div>`;
+      document.addEventListener("DOMContentLoaded",()=>document.body.appendChild(g));
+      window.addEventListener("click",e=>{
+        if(e.target && e.target.id==="go"){
+          const ok = document.getElementById("pw").value.trim()===PASS;
+          if(ok){ sessionStorage.setItem(KEY,"1"); g.classList.add("hidden"); document.documentElement.dataset.ok="1"; }
+          else { document.getElementById("msg").textContent = "Wrong passphrase."; }
+        }
+      });
+      window.addEventListener("keydown",e=>{ if(e.key==="Enter" && document.getElementById("pw")) document.getElementById("go").click(); });
+    })();
+  </script>
 </head>
 
-<body class="bg-[#0f172a] text-white">
-  <!-- BG bubbles -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full"
-         style="background: radial-gradient(circle at 30% 30%, rgba(215,175,255,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(0,113,134,0.35), transparent 60%); filter: blur(26px);"></div>
-    <div class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full"
-         style="background: radial-gradient(circle at 30% 30%, rgba(0,113,134,0.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(215,175,255,0.35), transparent 60%); filter: blur(28px);"></div>
-  </div>
+<body class="relative min-h-full" data-app="lefties-lite">
+  <!-- Decorative bubbles -->
+  <div class="pointer-events-none fixed inset-0 -z-10 bubble-bg"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 glass">
@@ -77,7 +89,7 @@
           <img src="/core-logo-transparent.png" alt="Lefties logo" class="h-8 w-8 object-contain" />
           <span class="text-xl md:text-2xl font-extrabold leading-none">Lefties <span class="text-[var(--brand-blue)]">OS</span></span>
         </a>
-        <span class="ml-2 px-3 py-1 rounded-full text-xs font-bold bg-[var(--brand-lilac)]/90 text-[#0f172a]">v1.0 • Final</span>
+        <span class="ml-2 px-3 py-1 rounded-full text-xs font-bold bg-[var(--brand-lilac)]/90 text-[#0f172a]">LeftiesLite</span>
       </div>
       <div class="text-right">
         <div id="now" class="text-sm md:text-base font-bold"></div>
@@ -161,7 +173,6 @@
       <ul class="text-gray-300 text-sm list-disc pl-5 space-y-1">
         <li>This dashboard is backend-only. It’s <strong>noindex</strong> and not linked from the public site.</li>
         <li>Add to Home Screen for full-screen app feel.</li>
-        <li><kbd>Cmd/Ctrl+Shift+L</kbd> to sign out.</li>
       </ul>
     </section>
   </main>
@@ -172,30 +183,23 @@
     </div>
   </footer>
 
-  <!-- ===== Password Gate Overlay ===== -->
-  <div id="leftiesGate" aria-modal="true" role="dialog">
-    <div class="card">
-      <img src="/icons/icon-192x192.png" alt="Lefties" style="height:56px;width:auto;margin:0 auto 6px;opacity:.9">
-      <h2>Lefties OS — Staff Access</h2>
-      <p>Enter the daily passcode to open the Dashboard.</p>
-      <input id="gateInput" type="password" inputmode="text" placeholder="Passcode" autocomplete="one-time-code" />
-      <div id="gateErr" class="err"></div>
-      <button id="gateBtn" class="btn">Unlock</button>
-      <div class="hint">Tip: add to Home Screen for a full-screen app.</div>
-    </div>
-  </div>
-
   <script>
-    /* Live time (Australia/Brisbane) */
-    const nowEl = document.getElementById('now');
+    // Live time (Hervey Bay = Australia/Brisbane)
+    const el = document.getElementById('now');
     const fmt = new Intl.DateTimeFormat('en-AU', {
       weekday:'long', day:'2-digit', month:'long', year:'numeric',
       hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'Australia/Brisbane'
     });
-    function tick(){ nowEl.textContent = fmt.format(new Date()); }
+    function tick(){ el.textContent = fmt.format(new Date()); }
     tick(); setInterval(tick, 30000);
 
-    /* Quick actions */
+    // Utilities
+    async function copyLink(path){
+      const url = new URL(path, location.origin).toString();
+      try { await navigator.clipboard.writeText(url); alert('Link copied: ' + url); }
+      catch(e){ prompt('Copy link:', url); }
+    }
+
     async function shareAftercare(){
       const url = new URL('/client/aftercare.html', location.origin).toString();
       try {
@@ -203,67 +207,26 @@
         else { await navigator.clipboard.writeText(url); alert('Aftercare link copied.'); }
       } catch(e){}
     }
+
     function openSquare(){
       const fallback = 'https://squareup.com/dashboard';
       const scheme = 'square-commerce-v1://';
       setTimeout(()=>location.href=fallback, 800);
       location.href = scheme;
     }
+
     async function cacheNow(){
       if (!('caches' in window)) return alert('Caching not supported on this device/browser.');
       const c = await caches.open('lefties-os-v2');
-      await c.addAll(['/dashboard.html','/field.os.html','/services.html','/client-pre-service-checklist.html','/client/aftercare.html']);
+      await c.addAll([
+        '/dashboard.html',
+        '/field.os.html',
+        '/services.html',
+        '/client-pre-service-checklist.html',
+        '/client/aftercare.html'
+      ]);
       alert('Cached key pages for offline use.');
     }
-    async function copyLink(path){
-      const url = new URL(path, location.origin).toString();
-      await navigator.clipboard.writeText(url);
-      alert('Link copied:\n' + url);
-    }
-
-    /* ===== Password gate logic =====
-       - Passcode is checked locally (for convenience). For stronger protection, use HTTP Basic or Cloudflare Zero Trust.
-    */
-    const PASSCODE = "Susan";         // <<< change this
-    const KEY = "lefties-os-pass-ok"; // sessionStorage key
-
-    const gate = document.getElementById('leftiesGate');
-    const input = document.getElementById('gateInput');
-    const btn = document.getElementById('gateBtn');
-    const err = document.getElementById('gateErr');
-
-    function showGate(){
-      document.documentElement.classList.add('lock-scroll');
-      gate.classList.add('show');
-      setTimeout(()=>input.focus(), 50);
-    }
-    function hideGate(){
-      gate.classList.remove('show');
-      document.documentElement.classList.remove('lock-scroll');
-    }
-    function unlockIfValid(){
-      const ok = input.value.trim() === PASSCODE;
-      if(!ok){ err.textContent = "Incorrect passcode."; input.select(); return; }
-      sessionStorage.setItem(KEY, "1");
-      hideGate();
-    }
-    btn.addEventListener('click', unlockIfValid);
-    input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') unlockIfValid(); });
-
-    // Sign out: Cmd/Ctrl+Shift+L or ?logout
-    window.addEventListener('keydown', (e)=>{
-      const mod = (e.metaKey || e.ctrlKey) && e.shiftKey && (e.key.toLowerCase()==='l');
-      if(mod){ sessionStorage.removeItem(KEY); showGate(); }
-    });
-    if (new URLSearchParams(location.search).has('logout')) {
-      sessionStorage.removeItem(KEY);
-    }
-
-    // Gate on load unless already unlocked
-    if (!sessionStorage.getItem(KEY)) showGate();
-
-    // NoScript fallback text (for very old browsers)
-    // (we keep JS required for the gate)
   </script>
 </body>
 </html>
