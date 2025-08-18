@@ -7,12 +7,20 @@
   <title>Lefties OS — Dashboard (LeftiesLite)</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Icons / PWA -->
-  <link rel="icon" href="/icons/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/icons/site.webmanifest">
+  <!-- PWA / Icons (ROOT paths) -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16"  href="/icon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32"  href="/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48"  href="/icon-48x48.png">
+  <link rel="icon" type="image/png" sizes="64x64"  href="/icon-64x64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icon-128x128.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icon-256x256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
+  <!-- iOS add-to-home -->
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <link rel="manifest" href="/site.webmanifest">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Lefties OS">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -24,6 +32,7 @@
 
   <style>
     :root{
+      /* LeftiesLite palette */
       --primary:#0071B6;
       --cream:#EFE3CF;   /* page bg */
       --cream-2:#E7D7BE; /* gradient stop */
@@ -53,9 +62,10 @@
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
     .tile:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.10); background:rgba(255,255,255,.7); }
+
     .badge{ background:#D7AFFF; color:#0f172a; }
 
-    /* Decorative blobs */
+    /* Subtle decorative blobs */
     .blob{ filter: blur(26px); opacity:.75; }
   </style>
 </head>
@@ -74,8 +84,8 @@
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/dashboard.html" class="flex items-center gap-2">
-          <!-- Use your existing 192 icon as a tiny brand mark -->
-          <img src="/icons/icon-192.png" class="h-10 w-10 rounded-xl object-cover" alt="Lefties" loading="eager">
+          <!-- Transparent brand mark -->
+          <img src="/core-logo-transparent.png" alt="Lefties logo" class="h-10 w-10 object-contain select-none" />
           <span class="text-xl md:text-2xl font-extrabold leading-none">
             Lefties <span class="text-[var(--primary)]">OS</span>
           </span>
@@ -90,6 +100,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-4 pb-16">
+
     <!-- Quick actions -->
     <section class="mt-6 grid gap-3 md:grid-cols-4">
       <button onclick="shareAftercare()" class="tile rounded-xl px-4 py-3 text-left">
@@ -161,7 +172,7 @@
     <!-- Notes -->
     <section class="mt-8 glass rounded-2xl p-6">
       <div class="font-extrabold text-lg mb-2">Notes</div>
-      <ul class="text-[color:var(--muted)]] text-sm list-disc pl-5 space-y-1">
+      <ul class="text-[color:var(--muted)] text-sm list-disc pl-5 space-y-1">
         <li>This dashboard is backend-only. It’s <strong>noindex</strong> and not linked from the public site.</li>
         <li>Add to Home Screen for a full-screen app feel.</li>
       </ul>
@@ -202,16 +213,25 @@
       if (!('caches' in window)) return alert('Caching not supported on this device/browser.');
       const c = await caches.open('lefties-os-v2');
       await c.addAll([
-        '/dashboard.html','/field.os.html','/services.html',
-        '/client-pre-service-checklist.html','/client/aftercare.html'
+        '/dashboard.html',
+        '/field.os.html',
+        '/services.html',
+        '/client-pre-service-checklist.html',
+        '/client/aftercare.html'
       ]);
       alert('Cached key pages for offline use.');
     }
+    async function copyLink(path){
+      const url = new URL(path, location.origin).toString();
+      try { await navigator.clipboard.writeText(url); alert('Link copied to clipboard.'); }
+      catch{ prompt('Copy this link:', url); }
+    }
 
-    // Optional A2HS hook (Chrome/Android)
+    // Optional: Add-to-Home prompt hook
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e)=>{
       e.preventDefault(); deferredPrompt = e;
+      // Surface your own "Add to Home" button and call deferredPrompt.prompt() if you want
     });
   </script>
 </body>
