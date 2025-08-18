@@ -1,78 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lefties OS — Dashboard</title>
-
-  <!-- Search engines off -->
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- System colors -->
-  <meta name="theme-color" content="#0b1220" />
-  <meta name="color-scheme" content="light dark" />
-
-  <!-- Fonts + Tailwind -->
+  <!-- Brand fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- ===== ICONS (use files that already exist in your repo) ===== -->
-  <!-- iOS Home Screen icon (you already have this at the repo root) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <!-- ===== Icons (EXACTLY what's in your repo) ===== -->
+  <!-- iOS Home Screen icon (full image, no border) -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Favicons that already exist in /icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+  <link rel="manifest" href="/icons/manifest.webmanifest">
 
-  <!-- Favicons (optional – keep if they exist, otherwise remove) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <!-- PWA-iOS tweaks -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0b1220" />
 
   <style>
     :root{
-      --brand-blue:#0071B6;
-      --brand-lilac:#D7AFFF;
-      --ink:#0b1220;
-      --panel: rgba(255,255,255,.60);
-      --glass: rgba(255,255,255,.55);
-      --glass-brd: rgba(255,255,255,.55);
-      --bg1:#0b1220;
-      --bg2:#0e1a2e;
+      --brand-blue:#0EA5B6;      /* teal-ish accent used across the new theme */
+      --brand-lilac:#A78BFA;     /* soft lilac glow */
+      --ink:#0b1220;             /* deep ink background */
+      --glass-bg: rgba(20,26,38,.55);
+      --glass-brd: rgba(255,255,255,.14);
     }
     html,body{height:100%}
     body{
       font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:#E6ECF3;
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(215,175,255,.21), transparent 60%),
-        radial-gradient(1200px 600px at 120% 110%, rgba(0,113,182,.20), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      color:#e7ecf6;
+        radial-gradient(1200px 700px at 15% -10%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(1200px 700px at 120% 120%, rgba(14,165,182,.18), transparent 60%),
+        linear-gradient(180deg, #0b1220 0%, #0d1426 100%);
     }
     .glass{
-      background: var(--glass);
+      background: var(--glass-bg);
       border: 1px solid var(--glass-brd);
-      backdrop-filter: blur(10px) saturate(130%);
-      -webkit-backdrop-filter: blur(10px) saturate(130%);
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.25);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06);
     }
     .tile{
-      background: var(--panel);
-      border:1px solid rgba(255,255,255,.65);
-      backdrop-filter: blur(8px) saturate(130%);
-      transition: transform .08s ease, background .15s ease;
-      color:#0f172a;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
     }
+    .tile:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14);}
     .tile:active{ transform: translateY(1px) scale(.995); }
     .brand-pill{
-      background: color-mix(in oklab, var(--brand-lilac) 75%, white);
+      background: color-mix(in oklab, var(--brand-lilac) 70%, white);
       color:#0b1220;
     }
 
     /* Gate */
-    .gate{
+    .gate-backdrop{
       position:fixed; inset:0; z-index:50;
       background:
-        radial-gradient(800px 500px at 20% 0%, rgba(0,113,182,.18), transparent 60%),
-        radial-gradient(800px 500px at 80% 100%, rgba(215,175,255,.20), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.92));
+        radial-gradient(900px 600px at 20% 0%, rgba(14,165,182,.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 100%, rgba(167,139,250,.24), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.9));
       display:flex; align-items:center; justify-content:center; padding:20px;
     }
     .shake{ animation:sh .4s ease both; }
@@ -81,11 +74,11 @@
 </head>
 <body>
 
-  <!-- ================== PASS-PHRASE GATE ================== -->
-  <div id="gate" class="gate">
+  <!-- ===== Passphrase Gate ===== -->
+  <div id="gate" class="gate-backdrop">
     <div class="glass w-full max-w-xl rounded-2xl p-6 md:p-8 text-white/90">
       <div class="flex items-center gap-3 mb-5">
-        <img src="/apple-touch-icon.png" alt="Lefties" class="h-8 w-8 rounded-lg object-cover">
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-8 w-8 object-contain">
         <div class="text-xl md:text-2xl font-extrabold">Lefties <span class="text-[var(--brand-blue)]">OS</span> — Dashboard</div>
       </div>
       <p class="text-white/80 mb-4">Private area. Enter passphrase to continue.</p>
@@ -98,41 +91,41 @@
     </div>
   </div>
 
-  <!-- ================== HEADER ================== -->
+  <!-- ===== Header ===== -->
   <header class="glass sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/dashboard.html" class="flex items-center gap-2">
-          <img src="/apple-touch-icon.png" alt="Lefties logo" class="h-8 w-8 rounded-lg object-cover select-none" />
+          <img src="/core-logo-transparent.png" alt="Lefties logo" class="h-8 w-8 object-contain select-none" />
           <span class="text-xl md:text-2xl font-extrabold leading-none">Lefties <span class="text-[var(--brand-blue)]">OS</span></span>
         </a>
         <span class="ml-2 px-3 py-1 rounded-full text-xs font-black brand-pill">LeftiesLite • v1.0</span>
       </div>
       <div class="text-right">
         <div id="now" class="text-sm md:text-base font-extrabold"></div>
-        <div class="text-xs text-gray-200/80">Hervey Bay, QLD</div>
+        <div class="text-xs text-white/60">Hervey Bay, QLD</div>
       </div>
     </div>
   </header>
 
-  <!-- ================== MAIN ================== -->
+  <!-- ===== Main ===== -->
   <main class="max-w-7xl mx-auto px-4 pb-16">
     <!-- Quick actions -->
     <section class="mt-6 grid gap-3 md:grid-cols-4">
       <button onclick="shareAftercare()" class="tile rounded-xl px-4 py-4 text-left">
-        <div class="text-sm text-gray-600">Quick Action</div>
+        <div class="text-sm text-white/60">Quick Action</div>
         <div class="font-extrabold text-lg">Share Aftercare</div>
       </button>
       <button onclick="openSquare()" class="tile rounded-xl px-4 py-4 text-left">
-        <div class="text-sm text-gray-600">Payments</div>
+        <div class="text-sm text-white/60">Payments</div>
         <div class="font-extrabold text-lg">Open Square POS</div>
       </button>
       <button onclick="cacheNow()" class="tile rounded-xl px-4 py-4 text-left">
-        <div class="text-sm text-gray-600">Offline</div>
+        <div class="text-sm text-white/60">Offline</div>
         <div class="font-extrabold text-lg">Cache Key Pages</div>
       </button>
       <button onclick="copyLink('/client-pre-service-checklist.html')" class="tile rounded-xl px-4 py-4 text-left">
-        <div class="text-sm text-gray-600">Share</div>
+        <div class="text-sm text-white/60">Share</div>
         <div class="font-extrabold text-lg">Copy Pre-Service Link</div>
       </button>
     </section>
@@ -140,47 +133,47 @@
     <!-- App tiles -->
     <section class="mt-8 grid gap-4 md:grid-cols-3">
       <a href="/internal-price-guide.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Reference</div><div class="text-xl font-extrabold">Internal Price Guide</div></div>
+        <div><div class="text-sm text-white/60">Reference</div><div class="text-xl font-extrabold">Internal Price Guide</div></div>
         <span class="text-2xl">💬</span>
       </a>
 
       <a href="/client-pre-service-checklist.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Client Prep</div><div class="text-xl font-extrabold">Pre-Service Checklist</div></div>
+        <div><div class="text-sm text-white/60">Client Prep</div><div class="text-xl font-extrabold">Pre-Service Checklist</div></div>
         <span class="text-2xl">📋</span>
       </a>
 
       <a href="/" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Website</div><div class="text-xl font-extrabold">Main Website</div></div>
+        <div><div class="text-sm text-white/60">Website</div><div class="text-xl font-extrabold">Main Website</div></div>
         <span class="text-2xl">🧭</span>
       </a>
 
       <a href="/field.os.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">On-Job</div><div class="text-xl font-extrabold">Technician Flow</div></div>
+        <div><div class="text-sm text-white/60">On-Job</div><div class="text-xl font-extrabold">Technician Flow</div></div>
         <span class="text-2xl">🧰</span>
       </a>
 
       <a href="/job-log.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Records</div><div class="text-xl font-extrabold">Job Log</div></div>
+        <div><div class="text-sm text-white/60">Records</div><div class="text-xl font-extrabold">Job Log</div></div>
         <span class="text-2xl">🕒</span>
       </a>
 
       <a href="/reports/job-completion.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Wrap-Up</div><div class="text-xl font-extrabold">Job Completion</div></div>
+        <div><div class="text-sm text-white/60">Wrap-Up</div><div class="text-xl font-extrabold">Job Completion</div></div>
         <span class="text-2xl">✅</span>
       </a>
 
       <a href="/service-agreements.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Docs</div><div class="text-xl font-extrabold">Service Agreements</div></div>
+        <div><div class="text-sm text-white/60">Docs</div><div class="text-xl font-extrabold">Service Agreements</div></div>
         <span class="text-2xl">📄</span>
       </a>
 
       <a href="/client/aftercare.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Clients</div><div class="text-xl font-extrabold">Client Aftercare Guide</div></div>
+        <div><div class="text-sm text-white/60">Clients</div><div class="text-xl font-extrabold">Client Aftercare Guide</div></div>
         <span class="text-2xl">✔️</span>
       </a>
 
       <a href="/services.html" class="tile rounded-2xl p-6 flex items-center justify-between">
-        <div><div class="text-sm text-gray-600">Reference</div><div class="text-xl font-extrabold">Services</div></div>
+        <div><div class="text-sm text-white/60">Reference</div><div class="text-xl font-extrabold">Services</div></div>
         <span class="text-2xl">🧼</span>
       </a>
     </section>
@@ -188,24 +181,24 @@
     <!-- Notes -->
     <section class="mt-8 glass rounded-2xl p-6">
       <div class="font-extrabold text-lg mb-2">Notes</div>
-      <ul class="text-gray-200/90 text-sm list-disc pl-5 space-y-1">
-        <li>This dashboard is private (<strong>noindex</strong>) and not linked from the public site.</li>
-        <li>Use “Add to Home Screen” for a full-screen feel. iOS icon reads <code>/apple-touch-icon.png</code>.</li>
+      <ul class="text-white/70 text-sm list-disc pl-5 space-y-1">
+        <li>This dashboard is backend-only. It’s <strong>noindex</strong> and not linked from the public site.</li>
+        <li>Add to Home Screen for a full-screen app feel.</li>
       </ul>
     </section>
   </main>
 
   <footer class="mt-10">
-    <div class="max-w-7xl mx-auto px-4 text-center text-gray-300 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-white/50 py-10">
       <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
     /* ===== CONFIG ===== */
-    const PASSPHRASE = 'Susan'; // change if needed
+    const PASSPHRASE = 'Susan'; // keep in sync with you
 
-    /* ===== Gate ===== */
+    /* ===== Gate logic ===== */
     const gate = document.getElementById('gate');
     const gateForm = document.getElementById('gateForm');
     const gateInput = document.getElementById('gateInput');
@@ -228,7 +221,7 @@
       }
     });
 
-    /* ===== Live time (AEST) ===== */
+    /* ===== Live time ===== */
     const el = document.getElementById('now');
     const fmt = new Intl.DateTimeFormat('en-AU', {
       weekday:'long', day:'2-digit', month:'long', year:'numeric',
