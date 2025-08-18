@@ -1,608 +1,801 @@
-Here’s a complete, drop-in replacement for field.os.html with everything we discussed: tabs (Carpet / Upholstery / Rugs / General Clean), multi-select fibre types and stains (with an N/A quick toggle), photo uploads with previews, a payment section, autosave to localStorage, a working “Refresh form data” (clear/reset), and “Open printable view” that stores the payload for a printable page (key: fieldOSData). It’s styled in the LeftiesLite look and expects your icons/logo in the site root.
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lefties OS — Field.OS (LeftiesLite)</title>
-  <meta name="robots" content="noindex,nofollow" />
+  <title>Lefties | Field OS v1.5 — LeftiesLite</title>
 
-  <!-- Icons in ROOT (as you have them) -->
+  <!-- PWA / Icons (root-level, no /icons folder) -->
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Lefties OS">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#EBDCC5" />
 
   <!-- Brand font + Tailwind -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root{
+      /* LeftiesLite */
       --primary:#0071B6;
-      --cream:#EFE3CF;
+      --cream:#EFE3CF;                 /* page background */
       --cream-2:#E7D7BE;
-      --glass:rgba(255,255,255,.45);
-      --glass-border:rgba(0,0,0,.10);
-      --ink:#1b2025;
-      --muted:#4b5563;
-      --ok:#16a34a;
-      --warn:#d97706;
-      --bad:#dc2626;
+      --glass:rgba(255,255,255,.42);   /* frosted fill */
+      --glass-border:rgba(255,255,255,.28);
+      --text:#1b2025;
+      --muted:#3d4754;
+      --ring: rgba(0,113,182,.30);
     }
+
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
     body{
       font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--ink);
+      color:var(--text);
       background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
+      overflow-x:hidden;
+      min-height:100vh;
     }
-    .glass{
+
+    .frosted{
       background:var(--glass);
       border:1px solid var(--glass-border);
+      border-radius:1rem;
       backdrop-filter: blur(14px) saturate(120%);
       -webkit-backdrop-filter: blur(14px) saturate(120%);
-      box-shadow:0 12px 24px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.35);
+      box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
     }
-    .tile{
-      background:rgba(255,255,255,.6);
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
+      background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
+      color:#fff;border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45); }
+    .btn.secondary{
+      background:transparent;color:var(--text);font-weight:800;
       border:1px solid var(--glass-border);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.35);
     }
-    .badge{ background:#D7AFFF; color:#0f172a; }
-    .tab-btn[aria-selected="true"]{ background:white; border-color:rgba(0,0,0,.12); }
-    .chip{ background:white; border:1px solid rgba(0,0,0,.12); }
-    .chip.active{ outline:2px solid var(--primary); outline-offset:1px; }
-    .thumb{ aspect-ratio:1/1; object-fit:cover; }
-    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .btn.ghost{ background:rgba(255,255,255,.6); color:var(--text); border:1px solid var(--glass-border); }
+    .btn.small{ padding:.55rem .8rem; border-radius:.65rem; font-weight:900; }
+
+    .chip{
+      padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;
+      background:rgba(255,255,255,.35); border:1px solid var(--glass-border); cursor:pointer;
+      user-select:none;
+    }
+    .chip input{ margin-right:.5rem; }
+
+    .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
+
+    .grid-cards{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media (min-width:768px){ .grid-cards{grid-template-columns:repeat(2,1fr)} }
+    @media (min-width:1024px){ .grid-cards{grid-template-columns:repeat(3,1fr)} }
+
+    .fixedbar{
+      position:fixed; bottom:12px; left:12px; right:12px; z-index:50;
+      display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;
+    }
+    .pill{
+      flex:1 1 22%; text-align:center; padding:10px; border-radius:12px;
+      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800;
+    }
+
+    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
+    .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
+    .label{color:var(--muted);font-size:12px}
+
+    input[type="text"],textarea,select{
+      width:100%;
+      background:rgba(255,255,255,.55);
+      border:1px solid var(--glass-border);
+      border-radius:.75rem; padding:.75rem; color:var(--text); outline:none;
+    }
+    input[type="file"]{color:var(--muted)}
+    .tap{min-height:48px}
+
+    .header-card img{height:44px; width:auto}
+    .logo-circle{
+      width:40px;height:40px;border-radius:9999px;
+      background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .report-area{
+      background: rgba(255,255,255,.65);
+      border:1px dashed rgba(0,0,0,.1);
+      border-radius:.75rem; padding:1rem;
+      white-space:pre-wrap; color:#222;
+    }
+    .toggle{ border:1px solid var(--glass-border); background: rgba(255,255,255,.6); padding:.6rem .8rem; border-radius:.6rem; font-weight:900; }
+    .toggle.active{ outline:3px solid var(--ring); }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 glass">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+  <header class="frosted header-card mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
+    <div class="flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <a href="/dashboard.html" class="flex items-center gap-2">
-          <img src="/core-logo-transparent.png" alt="Lefties" class="h-9 w-9 object-contain select-none" />
-          <span class="text-xl md:text-2xl font-extrabold leading-none">
-            Lefties <span class="text-[var(--primary)]">OS</span>
-          </span>
-        </a>
-        <span class="ml-2 px-3 py-1 rounded-full text-xs font-extrabold badge">Field.OS • LeftiesLite</span>
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-10 w-auto" />
+        <div>
+          <div class="font-black text-lg">Lefties Field OS</div>
+          <div class="label" id="clock">—</div>
+        </div>
       </div>
-      <div class="text-right">
-        <div id="now" class="text-sm md:text-base font-black"></div>
-        <div class="text-xs text-[color:var(--muted)]">Hervey Bay, QLD</div>
+      <div class="flex items-center gap-2">
+        <a href="/dashboard.html" class="btn secondary tap">Dashboard</a>
+        <a href="/" class="btn secondary tap">Website</a>
       </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 pb-24">
-    <!-- Job header -->
-    <section class="mt-6 grid gap-4 md:grid-cols-3">
-      <div class="glass rounded-2xl p-4 md:col-span-2">
+  <!-- Main -->
+  <main class="mx-auto max-w-5xl px-4 pb-28">
+
+    <!-- Service Types (MULTI-SELECT) -->
+    <section class="frosted p-4 mb-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Service types</div><span class="label">Choose all that apply</span>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button class="toggle" data-service="Carpet">Carpet</button>
+        <button class="toggle" data-service="Upholstery">Upholstery</button>
+        <button class="toggle" data-service="Rugs">Rugs</button>
+        <button class="toggle" data-service="General Clean">General Clean</button>
+      </div>
+    </section>
+
+    <!-- Job timer -->
+    <section class="frosted p-4 mb-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <div class="h1">Job timer</div>
+          <div class="label">Tap start in the driveway. Split per room/item.</div>
+        </div>
+        <div class="flex gap-2">
+          <button id="startBtn" class="btn tap">Start</button>
+          <button id="splitBtn" class="btn secondary tap" disabled>Split room</button>
+          <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
+        </div>
+      </div>
+      <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
+        <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
+      </div>
+      <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-1"></ul>
+    </section>
+
+    <div class="grid-cards">
+
+      <!-- Walk-through -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Walk-through</div><span class="label">Pre-service checklist, risks, disclaimers</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div><label class="label">Address confirmed</label><select id="addrOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+          <div><label class="label">Parking set</label><select id="parkOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+          <div><label class="label">Risks noted</label><select id="risk"><option value="">Select</option><option>Trip hazards</option><option>Pet present</option><option>Delicate fibre</option><option>Water access</option></select></div>
+          <div><label class="label">Disclaimers shown</label><select id="disc"><option value="">Select</option><option>Unknown fibre</option><option>Pre-treated stains</option><option>Bleach damage</option><option>Pet urine</option><option>General limits</option></select></div>
+        </div>
+        <div class="mt-3 flex gap-2">
+          <a href="/client-pre-service-checklist.html" class="btn secondary tap">Open checklist</a>
+          <button id="scriptWalk" class="btn ghost tap">Client script</button>
+        </div>
+      </section>
+
+      <!-- Set-up -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Set-up</div><span class="label">Tap, power, hoses, drop sheets</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <label class="chip"><input type="checkbox" class="mr-2" id="tapOk" /> Tap access</label>
+          <label class="chip"><input type="checkbox" class="mr-2" id="powerOk" /> Power access</label>
+          <label class="chip"><input type="checkbox" class="mr-2" id="hoseRun" /> Hoses laid safe</label>
+          <label class="chip"><input type="checkbox" class="mr-2" id="slipWarn" /> Slip warning given</label>
+        </div>
+      </section>
+
+      <!-- Diagnosis -->
+      <section class="frosted p-4" id="Diagnosis">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (multi-select)</span>
+        </div>
+
+        <div class="mb-2 font-bold">Step 1. Fibre (pick all that apply)</div>
+        <div class="grid md:grid-cols-3 gap-2" id="fibreBtns">
+          <button class="btn secondary tap fibre" data-fibre="Wool">Wool</button>
+          <button class="btn secondary tap fibre" data-fibre="Nylon">Nylon</button>
+          <button class="btn secondary tap fibre" data-fibre="Polyester">Polyester</button>
+          <button class="btn secondary tap fibre" data-fibre="Olefin/PP">Olefin/PP</button>
+          <button class="btn secondary tap fibre" data-fibre="Cellulosic">Cellulosic</button>
+          <button class="btn secondary tap fibre" data-fibre="N/A">N/A</button>
+        </div>
+
+        <div class="mt-4 mb-2 font-bold">Step 2. Stain (pick all that apply)</div>
+        <div class="grid md:grid-cols-2 gap-2" id="stainBtns">
+          <button class="btn secondary tap stain" data-stain="Organic">Organic</button>
+          <button class="btn secondary tap stain" data-stain="Tannin">Tannin</button>
+          <button class="btn secondary tap stain" data-stain="Oil">Oil/Grease/Ink</button>
+          <button class="btn secondary tap stain" data-stain="Synthetic Dye">Synthetic Dye</button>
+        </div>
+      </section>
+
+      <!-- Playbook -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">The Playbook</div><span class="label">Auto filled from your picks</span>
+        </div>
+
         <div class="grid md:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Client Name</label>
-            <input id="clientName" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. Jane Doe">
+            <div class="label">Fibre(s)</div>
+            <div id="pbFibre" class="font-bold">—</div>
           </div>
           <div>
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Phone</label>
-            <input id="clientPhone" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. 04xx xxx xxx" inputmode="tel">
+            <div class="label">Stain(s)</div>
+            <div id="pbStain" class="font-bold">—</div>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <div class="label">Suggested Pricing Add-on</div>
+          <div id="pbPrice" class="font-bold">—</div>
+        </div>
+
+        <div class="mt-3">
+          <div class="label">Client script</div>
+          <textarea id="pbScript" rows="3" readonly></textarea>
+          <div class="mt-2 flex gap-2">
+            <button id="copyScript" class="btn secondary tap">Copy script</button>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <div class="label">Flags & warnings</div>
+          <ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
+        </div>
+
+        <div class="mt-3">
+          <div class="label">Standard procedure</div>
+          <ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol>
+        </div>
+
+        <div class="mt-3">
+          <div class="label">Recommended chemicals</div>
+          <ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
+          <div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div>
+        </div>
+      </section>
+
+      <!-- Clean -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Clean</div><span class="label">Record solutions and passes</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div><label class="label">Solutions used</label><input id="solutions" type="text" placeholder="Prespray, rinse, spotter…"></div>
+          <div><label class="label">Dry passes tick-off</label><select id="dryPass"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        </div>
+      </section>
+
+      <!-- Wrap-down -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Wrap-down</div><span class="label">Groom, airflow, aftercare</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <label class="chip"><input type="checkbox" class="mr-2" id="groomed" /> Groomed fibres</label>
+          <label class="chip"><input type="checkbox" class="mr-2" id="airflow" /> Airflow set</label>
+          <label class="chip"><input type="checkbox" class="mr-2" id="aftercare" /> Aftercare given</label>
+          <a id="openAftercare" href="/client/aftercare.html" class="btn secondary tap">Open aftercare</a>
+        </div>
+      </section>
+
+      <!-- Payment + Review -->
+      <section class="frosted p-4">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Payment + Review</div><span class="label">Square + review SMS</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div class="flex gap-2">
+            <input id="amount" type="text" inputmode="decimal" placeholder="Amount e.g. 220">
+            <button id="takePayment" class="btn tap">Take payment</button>
+          </div>
+          <div class="flex gap-2">
+            <input id="clientMobile" type="text" inputmode="tel" placeholder="Client mobile">
+            <button id="sendReview" class="btn secondary tap">Copy review SMS</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Job Log -->
+      <section class="frosted p-4 md:col-span-3">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Job Log</div><span class="label">Autosaves locally</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div>
+            <label class="label">Job notes</label>
+            <textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea>
           </div>
           <div>
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Address</label>
-            <input id="clientAddress" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="Street, Suburb">
-          </div>
-          <div>
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Job Date</label>
-            <input id="jobDate" type="date" class="w-full rounded-lg border border-black/10 px-3 py-2">
+            <label class="label">Before photo</label>
+            <input id="beforePhoto" type="file" accept="image/*" capture="environment">
+            <label class="label mt-3 block">After photo</label>
+            <input id="afterPhoto" type="file" accept="image/*" capture="environment">
           </div>
         </div>
-      </div>
-
-      <div class="glass rounded-2xl p-4">
-        <div class="text-sm font-extrabold mb-2">Quick Actions</div>
-        <div class="grid grid-cols-2 gap-2">
-          <button id="btnPrintable" class="tile rounded-lg px-3 py-2 text-sm font-bold">Open Printable View</button>
-          <button id="btnCopyLink" class="tile rounded-lg px-3 py-2 text-sm font-bold">Copy Aftercare Link</button>
-          <button id="btnSave" class="tile rounded-lg px-3 py-2 text-sm font-bold">Save Now</button>
-          <button id="btnReset" class="tile rounded-lg px-3 py-2 text-sm font-bold text-red-700">Refresh form data</button>
+        <div class="mt-3 flex gap-2">
+          <button id="exportJSON" class="btn tap">Export JSON</button>
+          <button id="copySummary" class="btn secondary tap">Copy summary</button>
+          <button id="resetAll" class="btn ghost tap">Start over</button>
         </div>
-        <div id="saveMsg" class="text-xs text-[color:var(--muted)] mt-2"></div>
-      </div>
-    </section>
+        <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
+      </section>
 
-    <!-- Tabs -->
-    <section class="mt-6">
-      <div role="tablist" aria-label="Service type" class="flex gap-2 flex-wrap">
-        <button class="tab-btn tile rounded-xl px-4 py-2 text-sm font-bold" role="tab" aria-selected="true" data-tab="carpet">Carpet</button>
-        <button class="tab-btn tile rounded-xl px-4 py-2 text-sm font-bold" role="tab" aria-selected="false" data-tab="upholstery">Upholstery</button>
-        <button class="tab-btn tile rounded-xl px-4 py-2 text-sm font-bold" role="tab" aria-selected="false" data-tab="rugs">Rugs</button>
-        <button class="tab-btn tile rounded-xl px-4 py-2 text-sm font-bold" role="tab" aria-selected="false" data-tab="general">General Clean</button>
-      </div>
-
-      <!-- Panels -->
-      <div class="mt-4 space-y-6">
-        <!-- Carpet -->
-        <div class="glass rounded-2xl p-5" id="panel-carpet" role="tabpanel">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-lg font-extrabold">Carpet</div>
-            <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="carpet">N/A</button>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="md:col-span-2">
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Areas / Rooms</label>
-              <textarea id="carpetAreas" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="List rooms or areas…"></textarea>
-            </div>
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Approx. sqm</label>
-              <input id="carpetSqm" type="number" min="0" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. 65">
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="text-sm font-extrabold">Fibre type</div>
-              <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="carpet-fibre">N/A</button>
-            </div>
-            <div id="carpetFibre" class="flex flex-wrap gap-2">
-              <!-- chips -->
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="text-sm font-extrabold">Stains / Issues</div>
-              <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="carpet-stains">N/A</button>
-            </div>
-            <div id="carpetStains" class="flex flex-wrap gap-2"></div>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Notes</label>
-            <textarea id="carpetNotes" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="Anything we should know…"></textarea>
-          </div>
-
-          <!-- Photos -->
-          <div class="mt-4">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-extrabold">Photos</div>
-              <label class="tile cursor-pointer rounded-md px-3 py-2 text-xs font-bold">
-                <input id="carpetPhotosInput" type="file" accept="image/*" multiple class="sr-only">
-                Add photos
-              </label>
-            </div>
-            <div id="carpetPhotos" class="mt-2 grid grid-cols-4 gap-2"></div>
-          </div>
+      <!-- Job Completion Report (auto-prefilled) -->
+      <section class="frosted p-4 md:col-span-3" id="job-completion">
+        <div class="mb-2 flex items-center gap-2">
+          <div class="h2">Job Completion Report</div>
+          <span class="label">Prefilled from Field OS entries — copy/email/open customer view</span>
         </div>
 
-        <!-- Upholstery -->
-        <div class="glass rounded-2xl p-5 hidden" id="panel-upholstery" role="tabpanel">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-lg font-extrabold">Upholstery</div>
-            <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="upholstery">N/A</button>
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="flex-1">
+            <div class="label mb-1">Report preview</div>
+            <div id="reportPreview" class="report-area text-sm"></div>
           </div>
-
-          <div class="grid md:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Item Type</label>
-              <input id="uphType" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. Sofa 3-seater">
-            </div>
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Seats / Pieces</label>
-              <input id="uphPieces" type="number" min="0" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. 3">
-            </div>
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Fabric</label>
-              <input id="uphFabric" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. Microfibre">
+          <div class="w-full md:w-64">
+            <div class="label mb-1">Client email (optional)</div>
+            <input id="clientEmail" type="text" placeholder="name@example.com">
+            <div class="mt-3 flex flex-col gap-2">
+              <button id="refreshReport" class="btn tap">Refresh from data</button>
+              <button id="copyReport" class="btn secondary tap">Copy report text</button>
+              <button id="emailReport" class="btn ghost tap">Open email draft</button>
+              <button id="openCustomerView" class="btn secondary tap">Open customer view</button>
             </div>
           </div>
-
-          <div class="mt-4">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="text-sm font-extrabold">Issues</div>
-              <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="upholstery-issues">N/A</button>
-            </div>
-            <div id="uphIssues" class="flex flex-wrap gap-2"></div>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Notes</label>
-            <textarea id="uphNotes" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="Placement, pets, delicate trims…"></textarea>
-          </div>
-
-          <div class="mt-4">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-extrabold">Photos</div>
-              <label class="tile cursor-pointer rounded-md px-3 py-2 text-xs font-bold">
-                <input id="uphPhotosInput" type="file" accept="image/*" multiple class="sr-only">
-                Add photos
-              </label>
-            </div>
-            <div id="uphPhotos" class="mt-2 grid grid-cols-4 gap-2"></div>
-          </div>
         </div>
-
-        <!-- Rugs -->
-        <div class="glass rounded-2xl p-5 hidden" id="panel-rugs" role="tabpanel">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-lg font-extrabold">Rugs</div>
-            <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="rugs">N/A</button>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="md:col-span-2">
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Description</label>
-              <input id="rugDesc" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="e.g. Wool Persian rug ~2x3m">
-            </div>
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Qty</label>
-              <input id="rugQty" type="number" min="0" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="1">
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Notes</label>
-            <textarea id="rugNotes" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="Backing, fringing, colour run risk…"></textarea>
-          </div>
-
-          <div class="mt-4">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-extrabold">Photos</div>
-              <label class="tile cursor-pointer rounded-md px-3 py-2 text-xs font-bold">
-                <input id="rugPhotosInput" type="file" accept="image/*" multiple class="sr-only">
-                Add photos
-              </label>
-            </div>
-            <div id="rugPhotos" class="mt-2 grid grid-cols-4 gap-2"></div>
-          </div>
-        </div>
-
-        <!-- General Clean -->
-        <div class="glass rounded-2xl p-5 hidden" id="panel-general" role="tabpanel">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-lg font-extrabold">General Clean</div>
-            <button type="button" class="text-xs px-2 py-1 rounded-md border border-black/10" data-na="general">N/A</button>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="md:col-span-2">
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Scope</label>
-              <textarea id="genScope" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="High-traffic refresh, deodorise only, etc."></textarea>
-            </div>
-            <div>
-              <label class="block text-xs text-[color:var(--muted)] mb-1">Time Estimate (hrs)</label>
-              <input id="genHours" type="number" step="0.5" min="0" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="2.0">
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs text-[color:var(--muted)] mb-1">Notes</label>
-            <textarea id="genNotes" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="Equipment, access, pets, parking…"></textarea>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Payment -->
-    <section class="mt-6 glass rounded-2xl p-5">
-      <div class="text-lg font-extrabold mb-3">Payment</div>
-      <div class="grid md:grid-cols-4 gap-4">
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Status</label>
-          <select id="payStatus" class="w-full rounded-lg border border-black/10 px-3 py-2">
-            <option value="Unpaid">Unpaid</option>
-            <option value="Paid">Paid</option>
-            <option value="Partial">Partial</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Amount (AUD)</label>
-          <input id="payAmount" type="number" step="0.01" min="0" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="0.00">
-        </div>
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Method</label>
-          <select id="payMethod" class="w-full rounded-lg border border-black/10 px-3 py-2">
-            <option>Card (Square)</option>
-            <option>Bank Transfer</option>
-            <option>Cash</option>
-          </select>
-        </div>
-        <div class="flex items-end">
-          <button id="btnOpenSquare" class="tile rounded-lg px-3 py-2 font-bold w-full">Open Square POS</button>
-        </div>
-      </div>
-
-      <div class="mt-4 grid md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Reference / Notes</label>
-          <input id="payRef" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="Invoice #, TXN ref, etc.">
-        </div>
-        <div class="flex items-end gap-2">
-          <button id="btnMarkPaid" class="rounded-lg px-4 py-2 font-extrabold text-white" style="background:var(--primary)">Mark as Paid</button>
-          <div id="payMsg" class="text-xs text-[color:var(--muted)]"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technician wrap-up -->
-    <section class="mt-6 glass rounded-2xl p-5">
-      <div class="text-lg font-extrabold mb-3">Wrap-Up</div>
-      <div class="grid md:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Technician</label>
-          <input id="techName" class="w-full rounded-lg border border-black/10 px-3 py-2" placeholder="Your name">
-        </div>
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Start</label>
-          <input id="startTime" type="time" class="w-full rounded-lg border border-black/10 px-3 py-2">
-        </div>
-        <div>
-          <label class="block text-xs text-[color:var(--muted)] mb-1">Finish</label>
-          <input id="finishTime" type="time" class="w-full rounded-lg border border-black/10 px-3 py-2">
-        </div>
-      </div>
-      <div class="mt-4">
-        <label class="block text-xs text-[color:var(--muted)] mb-1">Summary for client (plain English)</label>
-        <textarea id="summary" class="w-full min-h-[84px] rounded-lg border border-black/10 px-3 py-2" placeholder="What we did, what we found, aftercare highlights…"></textarea>
-      </div>
-    </section>
-
+        <div class="label mt-2">The report uses your timer, fibre & stain picks, solutions, flags, notes and job total.</div>
+      </section>
+    </div>
   </main>
 
-  <footer class="mt-10">
-    <div class="max-w-6xl mx-auto px-4 text-center text-[color:var(--muted)] py-10 border-t border-black/10">
-      <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Quick bar -->
+  <nav class="fixedbar">
+    <a class="pill tap" href="#Diagnosis">Stain/Fibre</a>
+    <a class="pill tap" href="#Diagnosis" onclick="alert('Burn test cues are listed in fibre notes and flags')">Burn Test</a>
+    <a class="pill tap" href="/internal-price-guide.html">Price Guide</a>
+    <a class="pill tap" href="/client/aftercare.html">Aftercare</a>
+  </nav>
 
-  <script>
-    // --- Live time ---
-    const nowEl = document.getElementById('now');
-    const fmt = new Intl.DateTimeFormat('en-AU', {
-      weekday:'long', day:'2-digit', month:'long', year:'numeric',
-      hour:'2-digit', minute:'2-digit', hour12:false, timeZone:'Australia/Brisbane'
+<script>
+/* ===== Clock ===== */
+const clockEl = document.getElementById('clock');
+function tickClock(){ clockEl.textContent = new Date().toLocaleString(); }
+setInterval(tickClock, 1000); tickClock();
+
+/* ===== Service types (multi-select) ===== */
+const serviceState = new Set();
+document.querySelectorAll('.toggle').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const v = btn.dataset.service;
+    if(serviceState.has(v)){ serviceState.delete(v); btn.classList.remove('active'); }
+    else { serviceState.add(v); btn.classList.add('active'); }
+    save();
+  });
+});
+
+/* ===== Timer ===== */
+let startTime=null, timerInt=null, splits=[];
+const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
+const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
+const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
+function renderSplits(){ splitsList.innerHTML=''; splits.forEach((s,i)=>{ const li=document.createElement('li'); li.textContent=`Room/Item ${i+1}: ${fmt(s.duration)} ${s.note?`— ${s.note}`:''}`; splitsList.appendChild(li); }); splitsCount.textContent=splits.length; }
+startBtn.addEventListener('click', ()=>{ if(startTime) return; startTime=Date.now(); startedEl.textContent=new Date(startTime).toLocaleTimeString(); timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250); startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false; save(); });
+splitBtn.addEventListener('click', ()=>{ if(!startTime) return; const now=Date.now(); const elapsed= now - startTime - splits.reduce((t,s)=>t+s.duration,0); const note=prompt('Room/item name or note? (optional)')||''; splits.push({duration:elapsed, note}); renderSplits(); save(); });
+stopBtn.addEventListener('click', ()=>{ if(!startTime) return; clearInterval(timerInt); endedEl.textContent=new Date().toLocaleTimeString(); splitBtn.disabled=true; stopBtn.disabled=true; save(); });
+
+/* ===== Chemical master list (names + notes + SDS placeholders) ===== */
+const CHEM = {
+  winnerPlus: {name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid', note:'Strong alkaline prespray for heavy soil', sds:'#'},
+  citrusSonisteam: {name:'Citrus Sonisteam Prespray (booster)', note:'Citrus solvent boost for grease/oil', sds:'#'},
+  sonizymePrespray: {name:'Sonizyme (enzyme prespray)', note:'Protein/organic prespray, allow dwell', sds:'#'},
+  sonizymeOdour: {name:'Sonizyme (enzyme odour treatment)', note:'Digest odour sources, long dwell', sds:'#'},
+  fiberinse: {name:'Fiberinse (acidic rinse)', note:'Neutralises alkalinity; anti-browning', sds:'#'},
+  browningRemover: {name:'Sonitron Browning Remover (H₂O₂ oxidiser)', note:'Tannin/coffee, yellowing — test first', sds:'#'},
+  solventGel: {name:'Solvent Gel Spotter', note:'Gum/tar/glue/paint; rinse after use', sds:'#'},
+  reducerSpotter: {name:'Reducer Spotter (sodium bisulfite)', note:'Synthetic dye removal attempt', sds:'#'},
+  neutralSpotter: {name:'pH Neutral Spotter / Zenith Encap Spot & Stain', note:'Safe general spotter', sds:'#'},
+  exotica: {name:'Sampson Exotica Mango & Orange', note:'Post-clean fragrance additive', sds:'#'},
+  oxidisingDeo: {name:'Oxidising Deodoriser', note:'Smoke/mildew odour control', sds:'#'},
+  zenithEncap: {name:'Sonitron Zenith Encapsulating Shampoo', note:'Low-moisture maintenance', sds:'#'},
+  brollyCarpet: {name:'Brolly Carpet Protector Concentrate', note:'Post-clean protector', sds:'#'},
+  brollyFabric: {name:'Brolly Fabric Protector', note:'Upholstery protector', sds:'#'},
+  antiResoil: {name:'Anti-Resoiling Agent', note:'Polymer soil resistance', sds:'#'}
+};
+
+/* ===== Rules per fibre ===== */
+const RULES = {
+  'Wool':{
+    base:{ flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],
+      proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],
+      chems:['fiberinse','neutralSpotter'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/odour treatment', script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent pre-spot', script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye treatment (quote on-site)', script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.', add:['reducerSpotter'] }
+    }
+  },
+  'Nylon':{
+    base:{ flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],
+      proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],
+      chems:['winnerPlus','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/deodoriser', script:'We’ll hit the organic source then flush. Nylon handles this well.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent or citrus boost first, then rinse out the residue.', add:['citrusSonisteam','solventGel'] },
+      'Synthetic Dye': { price:'+ Dye remover attempt', script:'We can attempt a dye removal. Results vary.', add:['reducerSpotter'] }
+    }
+  },
+  'Polyester':{
+    base:{ flags:['Clings to oils — solvent assist helps'],
+      proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],
+      chems:['winnerPlus','citrusSonisteam','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme boost', script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse. Shadow can linger if old.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Oil bonds to polyester. We’ll break it down before rinsing.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'We’ll try a reducer. Synthetic colour often bonds hard.', add:['reducerSpotter'] }
+    }
+  },
+  'Olefin/PP':{
+    base:{ flags:['Heat sensitive — keep temps modest'],
+      proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],
+      chems:['winnerPlus','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/odour treat', script:'We’ll treat odour then rinse. Temps kept low.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Reducer', script:'Reducer then rinse. Careful with heat.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse. Polypropylene holds oils.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt only if safe. Heat low.', add:['reducerSpotter'] }
+    }
+  },
+  'Cellulosic':{
+    base:{ flags:['Higher browning risk — control moisture/pH','Favour low-moisture methods'],
+      proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],
+      chems:['fiberinse','browningRemover'] },
+    stain:{
+      'Organic':{ price:'+ Anti-browning / enzyme', script:'We’ll keep moisture low and manage dry time to avoid browning.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse. Shadow risk if old.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent then low-moisture clean.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Limited attempts only due to fibre risk.', add:['reducerSpotter'] }
+    }
+  },
+  'N/A':{
+    base:{ flags:['Unknown fibre — test first','Signed disclaimer recommended'],
+      proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],
+      chems:['neutralSpotter','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Risk load', script:'We’ll run a small test patch first since the fibre is unknown.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Risk load', script:'We’ll test a reducer on a hidden spot first.', add:['browningRemover'] },
+      'Oil':    { price:'+ Risk load', script:'We’ll test a solvent on a hidden spot first.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe. No guarantee.', add:['reducerSpotter'] }
+    }
+  }
+};
+const POST_ADDONS = ['brollyCarpet','brollyFabric','antiResoil','exotica','oxidisingDeo'];
+
+/* ===== Diagnosis: MULTI-SELECT ===== */
+const pickFibres = new Set();
+const pickStains = new Set();
+
+function toggleBtn(btn, set, key){
+  if(set.has(key)){ set.delete(key); btn.classList.remove('ring'); }
+  else { set.add(key); btn.classList.add('ring'); }
+  updatePlaybook(); save();
+}
+
+document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>toggleBtn(b, pickFibres, b.dataset.fibre)));
+document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>toggleBtn(b, pickStains, b.dataset.stain)));
+
+document.getElementById('copyScript').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(document.getElementById('pbScript').value || '');
+});
+
+/* ===== Walk-through script quick copy ===== */
+document.getElementById('scriptWalk').addEventListener('click', ()=>{
+  const txt = `We’ll walk through with you, point out any risks, and talk through what’s realistic. Hoses and floors can be slippery while we set up. Pets are welcome to say hi while we prep, then we’ll pop them away once machines are running.`;
+  navigator.clipboard.writeText(txt);
+  alert('Walk-through script copied.');
+});
+
+/* ===== Payment + Review helpers ===== */
+document.getElementById('takePayment').addEventListener('click', ()=>{
+  const amt = document.getElementById('amount').value.trim();
+  if(!amt){ alert('Enter amount'); return; }
+  // Deep link to Square app if present; fall back to dashboard
+  const fallback = 'https://squareup.com/dashboard';
+  const scheme = 'square-commerce-v1://';
+  setTimeout(()=>location.href=fallback, 800);
+  location.href = scheme;
+});
+document.getElementById('sendReview').addEventListener('click', ()=>{
+  const mobile = document.getElementById('clientMobile').value.trim();
+  const body = encodeURIComponent(`Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`);
+  if(mobile){
+    navigator.clipboard.writeText(`To: ${mobile}\n\n${decodeURIComponent(body)}`);
+    alert('Review SMS copied. Paste into Messages.');
+  } else {
+    navigator.clipboard.writeText(decodeURIComponent(body));
+    alert('Review SMS copied to clipboard.');
+  }
+});
+
+/* ===== Playbook merge logic ===== */
+function uniq(arr){ return Array.from(new Set(arr)); }
+
+function updatePlaybook(){
+  const fibreArr = Array.from(pickFibres);
+  const stainArr = Array.from(pickStains);
+
+  document.getElementById('pbFibre').textContent = fibreArr.length ? fibreArr.join(', ') : '—';
+  document.getElementById('pbStain').textContent = stainArr.length ? stainArr.join(', ') : '—';
+
+  const pbPrice = document.getElementById('pbPrice');
+  const pbScript = document.getElementById('pbScript');
+  const pbFlags = document.getElementById('pbFlags');
+  const pbProc = document.getElementById('pbProc');
+  const pbChems = document.getElementById('pbChems');
+  pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML='';
+  pbPrice.textContent='—'; pbScript.value='';
+
+  if(!fibreArr.length || !stainArr.length){ buildReport(); return; }
+
+  // Use first fibre+stain to seed price/script (clear, human readable)
+  const seedF = fibreArr[0], seedS = stainArr[0];
+  const seed = RULES[seedF]?.stain?.[seedS];
+  if(seed){ pbPrice.textContent = seed.price; pbScript.value = seed.script; }
+
+  // Merge flags / procedures / chems across all chosen fibres & stains
+  let flags=[], proc=[], chems=[];
+  fibreArr.forEach(f=>{
+    const base = RULES[f]?.base;
+    if(base){
+      flags = flags.concat(base.flags||[]);
+      proc  = proc.concat(base.proc||[]);
+      chems = chems.concat(base.chems||[]);
+    }
+    stainArr.forEach(s=>{
+      const st = RULES[f]?.stain?.[s];
+      if(st){ chems = chems.concat(st.add||[]); }
     });
-    function tick(){ if(nowEl) nowEl.textContent = fmt.format(new Date()); }
-    tick(); setInterval(tick, 30000);
+  });
 
-    // --- Tabs ---
-    const tabButtons = [...document.querySelectorAll('.tab-btn')];
-    const panels = {
-      carpet: document.getElementById('panel-carpet'),
-      upholstery: document.getElementById('panel-upholstery'),
-      rugs: document.getElementById('panel-rugs'),
-      general: document.getElementById('panel-general'),
+  flags = uniq(flags);
+  proc  = uniq(proc);
+  chems = uniq(chems.concat(POST_ADDONS).slice(0, chems.length + 2)); // ensure a couple of post-add reminders
+
+  flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
+  proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
+  uniq(chems).forEach(key=>{
+    const c = CHEM[key]; if(!c) return;
+    const li = document.createElement('li');
+    const a = document.createElement('a'); a.href=c.sds||'#'; a.target='_blank'; a.rel='noopener'; a.className='underline'; a.textContent=c.name;
+    li.appendChild(a); li.append(` — ${c.note}`); pbChems.appendChild(li);
+  });
+
+  buildReport(); // keep report in sync
+}
+
+/* ===== Local autosave and export ===== */
+const FIELDS = ['addrOk','parkOk','risk','disc','tapOk','powerOk','hoseRun','slipWarn','solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'];
+function save(){
+  const obj = { ts: Date.now(),
+    services: Array.from(serviceState),
+    fibres: Array.from(pickFibres),
+    stains: Array.from(pickStains),
+    splits, started: startedEl.textContent, ended: endedEl.textContent
+  };
+  FIELDS.forEach(id=>{ const el=document.getElementById(id); obj[id]= el?.type==='checkbox' ? el.checked : el?.value || ''; });
+  const existing = JSON.parse(localStorage.getItem('lefties_field_os_v15')||'{}');
+  obj.beforePhotoData = existing.beforePhotoData || null;
+  obj.afterPhotoData  = existing.afterPhotoData  || null;
+  localStorage.setItem('lefties_field_os_v15', JSON.stringify(obj));
+  buildReport();
+}
+function load(){
+  const raw = localStorage.getItem('lefties_field_os_v15'); if(!raw) return;
+  const obj = JSON.parse(raw);
+
+  (obj.services||[]).forEach(v=>{
+    serviceState.add(v);
+    const b = [...document.querySelectorAll('.toggle')].find(x=>x.dataset.service===v);
+    if(b) b.classList.add('active');
+  });
+
+  (obj.fibres||[]).forEach(f=>{
+    pickFibres.add(f);
+    const b = [...document.querySelectorAll('.fibre')].find(x=>x.dataset.fibre===f);
+    if(b) b.classList.add('ring');
+  });
+  (obj.stains||[]).forEach(s=>{
+    pickStains.add(s);
+    const b = [...document.querySelectorAll('.stain')].find(x=>x.dataset.stain===s);
+    if(b) b.classList.add('ring');
+  });
+  updatePlaybook();
+
+  splits = obj.splits || []; renderSplits();
+  startedEl.textContent = obj.started || '—';
+  endedEl.textContent = obj.ended || '—';
+  FIELDS.forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(el.type==='checkbox') el.checked=!!obj[id]; else el.value=obj[id]||''; });
+  buildReport();
+}
+setInterval(save, 1500);
+window.addEventListener('load', load);
+
+// Persist before/after images to localStorage (data URLs) for the printable view
+function fileToDataURL(input, key){
+  input?.addEventListener('change', ()=>{
+    const file = input.files && input.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const data = JSON.parse(localStorage.getItem('lefties_field_os_v15')||'{}');
+      data[key] = reader.result; // data URL
+      localStorage.setItem('lefties_field_os_v15', JSON.stringify(data));
+      buildReport();
     };
-    tabButtons.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        tabButtons.forEach(b=>b.setAttribute('aria-selected','false'));
-        btn.setAttribute('aria-selected','true');
-        Object.values(panels).forEach(p=>p.classList.add('hidden'));
-        panels[btn.dataset.tab]?.classList.remove('hidden');
-      });
-    });
+    reader.readAsDataURL(file);
+  });
+}
+fileToDataURL(document.getElementById('beforePhoto'), 'beforePhotoData');
+fileToDataURL(document.getElementById('afterPhoto'),  'afterPhotoData');
 
-    // --- Chips (multi-select) ---
-    const FIBRES = ['Wool','Nylon','Polyester','Polypropylene','Blend','Unknown'];
-    const STAINS = ['Pet urine','Wine','Coffee/Tea','Makeup','Food/Oil','Rust','Mould','Other'];
-    const UPH_ISSUES = ['Body oils','Food/Drink','Pet hair','Dye transfer','Tears/Seams','Odour','Other'];
+// Export & summary
+document.getElementById('exportJSON').addEventListener('click', ()=>{
+  const data = localStorage.getItem('lefties_field_os_v15') || '{}';
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+document.getElementById('copySummary').addEventListener('click', ()=>{
+  const data = JSON.parse(localStorage.getItem('lefties_field_os_v15')||'{}');
+  const lines = [];
+  lines.push(`Lefties Field OS Summary`);
+  lines.push(`Services: ${(data.services||[]).join(', ')||'—'}`);
+  lines.push(`Started: ${data.started||'—'}  Ended: ${data.ended||'—'}`);
+  lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
+  lines.push(`Fibres: ${(data.fibres||[]).join(', ')||'—'}  Stains: ${(data.stains||[]).join(', ')||'—'}`);
+  lines.push(`Price add-on: ${document.getElementById('pbPrice').textContent}`);
+  lines.push(`Solutions: ${data.solutions||'—'}  Dry passes: ${data.dryPass||'—'}`);
+  if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room/Item ${i+1}: ${Math.round(s.duration/60000)} min ${s.note?'- '+s.note:''}`));
+  lines.push(`Notes: ${data.jobNotes||'—'}`);
+  navigator.clipboard.writeText(lines.join('\n'));
+  alert('Summary copied.');
+});
+document.getElementById('resetAll').addEventListener('click', ()=>{
+  if(!confirm('Clear current job?')) return;
+  localStorage.removeItem('lefties_field_os_v15'); location.reload();
+});
 
-    function makeChips(container, items, key){
-      container.innerHTML = '';
-      items.forEach(name=>{
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.textContent = name;
-        b.className = 'chip rounded-full px-3 py-1 text-sm';
-        b.dataset.key = key;
-        b.dataset.val = name;
-        b.addEventListener('click', ()=>{
-          b.classList.toggle('active');
-          save();
-        });
-        container.appendChild(b);
-      });
-    }
+/* ===== Job Completion Report (prefill & actions) ===== */
+const previewEl = document.getElementById('reportPreview');
+const clientEmailEl = document.getElementById('clientEmail');
 
-    makeChips(document.getElementById('carpetFibre'), FIBRES, 'carpetFibre');
-    makeChips(document.getElementById('carpetStains'), STAINS, 'carpetStains');
-    makeChips(document.getElementById('uphIssues'), UPH_ISSUES, 'uphIssues');
+function prettyMins(m){ if(isNaN(m)) return '—'; if(m<60) return `${m} min`; const h=Math.floor(m/60), r=m%60; return r?`${h}h ${r}m`:`${h}h`; }
 
-    // --- N/A toggles ---
-    document.querySelectorAll('[data-na]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const what = btn.dataset.na;
-        if(what==='carpet'){
-          document.getElementById('carpetAreas').value = 'N/A';
-          document.getElementById('carpetSqm').value = '';
-          document.getElementById('carpetNotes').value = '';
-          clearChips('carpetFibre'); clearChips('carpetStains');
-          document.getElementById('carpetPhotos').innerHTML = '';
-        } else if(what==='carpet-fibre'){ clearChips('carpetFibre'); }
-        else if(what==='carpet-stains'){ clearChips('carpetStains'); }
-        else if(what==='upholstery'){
-          ['uphType','uphPieces','uphFabric','uphNotes'].forEach(id=>document.getElementById(id).value='N/A');
-          document.getElementById('uphPhotos').innerHTML='';
-          clearChips('uphIssues');
-        } else if(what==='upholstery-issues'){ clearChips('uphIssues'); }
-        else if(what==='rugs'){
-          ['rugDesc','rugQty','rugNotes'].forEach(id=>document.getElementById(id).value='N/A');
-          document.getElementById('rugPhotos').innerHTML='';
-        } else if(what==='general'){
-          ['genScope','genHours','genNotes'].forEach(id=>document.getElementById(id).value='N/A');
-        }
-        save();
-      });
-    });
+function collectData(){
+  const data = JSON.parse(localStorage.getItem('lefties_field_os_v15')||'{}');
+  return {
+    services: data.services||[],
+    started: data.started||'—',
+    ended: data.ended||'—',
+    elapsed: document.getElementById('elapsed')?.textContent || '—',
+    fibres: data.fibres||[],
+    stains: data.stains||[],
+    flags: (data.fibres||[]).flatMap(f => RULES[f]?.base?.flags||[]),
+    procedure: uniq((data.fibres||[]).flatMap(f => RULES[f]?.base?.proc||[])),
+    price: document.getElementById('pbPrice')?.textContent || '—',
+    solutions: data.solutions||'—',
+    dryPass: data.dryPass||'—',
+    splits: (data.splits||[]).map((s,i)=>({label:`Room/Item ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
+    aftercare: !!data.aftercare,
+    notes: data.jobNotes||'—',
+    amount: data.amount||'—',
+    beforePhotoData: data.beforePhotoData||null,
+    afterPhotoData: data.afterPhotoData||null
+  };
+}
 
-    function clearChips(key){
-      document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c=>c.classList.remove('active'));
-    }
+function clientFacingCopy(d){
+  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
+  return {
+    title: 'Job Completion Report',
+    intro: `Thanks for having Lefties in today. Here’s a quick summary of what we cleaned and how we cared for your home.`,
+    timing: [
+      `Started: ${d.started}`,
+      `Finished: ${d.ended}`,
+      `Total time on site: ${d.elapsed}`
+    ],
+    diagnosis: [
+      `Fibre(s): ${d.fibres.length ? d.fibres.join(', ') : '—'}`,
+      `Issue(s) treated: ${d.stains.length ? d.stains.join(', ') : '—'}`
+    ],
+    approach: [
+      `Our process: ${d.procedure.join(' → ') || '—'}`,
+      `Solutions used: ${d.solutions}`,
+      `Dry passes for faster drying: ${d.dryPass || '—'}`
+    ],
+    watchouts: uniq(d.flags),
+    perRoom: d.splits.length ? d.splits.map(s=> `${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`) : ['—'],
+    outcome: [
+      `Recommended add-on: ${d.price || '—'}`,
+      care,
+      `Notes: ${d.notes}`
+    ],
+    total: `Amount charged: ${d.amount==='—' ? '—' : `$${d.amount}`}`,
+    services: d.services.length ? `Services: ${d.services.join(', ')}` : ''
+  };
+}
 
-    // --- Photos (preview only; images are kept in memory/localStorage as data URLs) ---
-    function wirePhotos(inputId, gridId, storeKey){
-      const input = document.getElementById(inputId);
-      const grid = document.getElementById(gridId);
-      input.addEventListener('change', async ()=>{
-        for (const file of input.files){
-          const url = await fileToDataURL(file);
-          const img = document.createElement('img');
-          img.src = url; img.className = 'thumb w-full rounded-lg border border-black/10';
-          grid.appendChild(img);
-        }
-        save();
-        input.value = '';
-      });
-      return {input, grid, storeKey};
-    }
-    const photoSets = [
-      wirePhotos('carpetPhotosInput','carpetPhotos','carpetPhotos'),
-      wirePhotos('uphPhotosInput','uphPhotos','uphPhotos'),
-      wirePhotos('rugPhotosInput','rugPhotos','rugPhotos'),
-    ];
-    async function fileToDataURL(file){
-      return new Promise((res,rej)=>{
-        const fr = new FileReader();
-        fr.onload = ()=>res(fr.result); fr.onerror = rej; fr.readAsDataURL(file);
-      });
-    }
-    function grabPhotos(){
-      const out = {};
-      photoSets.forEach(set=>{
-        out[set.storeKey] = [...set.grid.querySelectorAll('img')].map(i=>i.src);
-      });
-      return out;
-    }
-    function loadPhotos(obj){
-      photoSets.forEach(set=>{
-        set.grid.innerHTML = '';
-        (obj?.[set.storeKey]||[]).forEach(src=>{
-          const img = document.createElement('img');
-          img.src = src; img.className = 'thumb w-full rounded-lg border border-black/10';
-          set.grid.appendChild(img);
-        });
-      });
-    }
+function buildReport(){
+  const d = collectData();
+  const c = clientFacingCopy(d);
+  const lines = [];
+  if(c.services) lines.push(c.services);
+  const report =
+`Lefties Carpet Cleaning — Job Completion Report
 
-    // --- Payment actions ---
-    document.getElementById('btnOpenSquare').addEventListener('click', ()=>{
-      const fallback = 'https://squareup.com/dashboard';
-      const scheme = 'square-commerce-v1://';
-      setTimeout(()=>location.href=fallback, 700);
-      location.href = scheme;
-    });
-    document.getElementById('btnMarkPaid').addEventListener('click', ()=>{
-      document.getElementById('payStatus').value = 'Paid';
-      save();
-      flashMsg(document.getElementById('payMsg'), 'Marked as paid.');
-    });
+Time
+• ${c.timing.join('\n• ')}
 
-    // --- Quick actions ---
-    document.getElementById('btnPrintable').addEventListener('click', ()=>{
-      const data = collect();
-      localStorage.setItem('fieldOSData', JSON.stringify(data));
-      window.open('/printable-view.html', '_blank');
-    });
-    document.getElementById('btnCopyLink').addEventListener('click', async ()=>{
-      const url = new URL('/client/aftercare.html', location.origin).toString();
-      try { await navigator.clipboard.writeText(url); alert('Aftercare link copied.'); }
-      catch{ prompt('Copy this link:', url); }
-    });
-    document.getElementById('btnSave').addEventListener('click', ()=>{ save(); flashMsg(document.getElementById('saveMsg'), 'Saved.'); });
-    document.getElementById('btnReset').addEventListener('click', ()=>{
-      if(!confirm('This will clear the form and local data. Continue?')) return;
-      localStorage.removeItem('fieldOSDraft');
-      location.reload();
-    });
+What we cleaned
+• ${c.diagnosis.join('\n• ')}
 
-    // --- Autosave ---
-    const inputs = [
-      'clientName','clientPhone','clientAddress','jobDate',
-      'carpetAreas','carpetSqm','carpetNotes',
-      'uphType','uphPieces','uphFabric','uphNotes',
-      'rugDesc','rugQty','rugNotes',
-      'genScope','genHours','genNotes',
-      'payStatus','payAmount','payMethod','payRef',
-      'techName','startTime','finishTime','summary'
-    ].map(id=>document.getElementById(id));
-    inputs.forEach(el=>el && el.addEventListener('input', throttle(save, 400)));
+How we cared for your home
+• ${c.approach.join('\n• ')}
 
-    function collect(){
-      const pickChips = key => [...document.querySelectorAll(`.chip[data-key="${key}"].active`)].map(c=>c.dataset.val);
-      return {
-        meta: { savedAt: new Date().toISOString() },
-        client: {
-          name: clientName.value || '',
-          phone: clientPhone.value || '',
-          address: clientAddress.value || '',
-          date: jobDate.value || ''
-        },
-        carpet:{
-          areas: carpetAreas.value || '',
-          sqm: carpetSqm.value || '',
-          fibres: pickChips('carpetFibre'),
-          stains: pickChips('carpetStains'),
-          notes: carpetNotes.value || ''
-        },
-        upholstery:{
-          type: uphType.value || '',
-          pieces: uphPieces.value || '',
-          fabric: uphFabric.value || '',
-          issues: pickChips('uphIssues'),
-          notes: uphNotes.value || ''
-        },
-        rugs:{
-          desc: rugDesc.value || '',
-          qty: rugQty.value || '',
-          notes: rugNotes.value || ''
-        },
-        general:{
-          scope: genScope.value || '',
-          hours: genHours.value || '',
-          notes: genNotes.value || ''
-        },
-        payment:{
-          status: payStatus.value || 'Unpaid',
-          amount: payAmount.value || '',
-          method: payMethod.value || '',
-          reference: payRef.value || ''
-        },
-        tech:{
-          name: techName.value || '',
-          start: startTime.value || '',
-          finish: finishTime.value || '',
-          summary: summary.value || ''
-        },
-        photos: grabPhotos()
-      };
-    }
+Per-room detail
+${c.perRoom.map(x=>`• ${x}`).join('\n')}
 
-    function save(){
-      const data = collect();
-      localStorage.setItem('fieldOSDraft', JSON.stringify(data));
-    }
+Outcome & next steps
+• ${c.outcome.join('\n• ')}
 
-    function load(){
-      const raw = localStorage.getItem('fieldOSDraft');
-      if(!raw) return;
-      const d = JSON.parse(raw);
-      // text fields
-      (d.client||{}); clientName.value = d.client?.name||''; clientPhone.value = d.client?.phone||''; clientAddress.value = d.client?.address||''; jobDate.value = d.client?.date||'';
-      (d.carpet||{}); carpetAreas.value = d.carpet?.areas||''; carpetSqm.value = d.carpet?.sqm||''; carpetNotes.value = d.carpet?.notes||'';
-      (d.upholstery||{}); uphType.value = d.upholstery?.type||''; uphPieces.value = d.upholstery?.pieces||''; uphFabric.value = d.upholstery?.fabric||''; uphNotes.value = d.upholstery?.notes||'';
-      (d.rugs||{}); rugDesc.value = d.rugs?.desc||''; rugQty.value = d.rugs?.qty||''; rugNotes.value = d.rugs?.notes||'';
-      (d.general||{}); genScope.value = d.general?.scope||''; genHours.value = d.general?.hours||''; genNotes.value = d.general?.notes||'';
-      (d.payment||{}); payStatus.value = d.payment?.status||'Unpaid'; payAmount.value = d.payment?.amount||''; payMethod.value = d.payment?.method||''; payRef.value = d.payment?.reference||'';
-      (d.tech||{}); techName.value = d.tech?.name||''; startTime.value = d.tech?.start||''; finishTime.value = d.tech?.finish||''; summary.value = d.tech?.summary||'';
+${c.total}
 
-      // chips
-      const setActive = (key, arr=[])=>{
-        document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c=>{
-          if(arr.includes(c.dataset.val)) c.classList.add('active'); else c.classList.remove('active');
-        });
-      };
-      setActive('carpetFibre', d.carpet?.fibres||[]);
+If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
+  previewEl.textContent = (c.services ? c.services + '\n\n' : '') + report;
+  return {text: (c.services ? c.services + '\n\n' : '') + report, data: d, copy: c};
+}
+
+document.getElementById('refreshReport').addEventListener('click', ()=> buildReport());
+document.getElementById('copyReport').addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
+
+document.getElementById('emailReport').addEventListener('click', ()=>{
+  const to = (clientEmailEl.value||'').trim();
+  const subject = encodeURIComponent('Lefties — Job Completion Report');
+  const body = encodeURIComponent(buildReport().text);
+  const href = `mailto:${to}?subject=${subject}&body=${body}`;
+  window.location.href = href;
+});
+
+// ===== Customer view =====
+function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&
 
