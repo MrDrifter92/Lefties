@@ -1,107 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lefties Carpet Cleaning | A Spotless Revival</title>
-  
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="manifest" href="icons/site.webmanifest">
-  <meta name="theme-color" content="#0071B6">
-
-  <!-- SEO -->
-  <meta name="description" content="Lefties Carpet Cleaning - Bringing carpets, rugs, and lounges back to life. A Spotless Revival in Hervey Bay and Fraser Coast.">
-  <meta property="og:title" content="Lefties Carpet Cleaning | A Spotless Revival">
-  <meta property="og:description" content="Hervey Bay’s trusted carpet cleaning. Honest work, no gimmicks.">
-  <meta property="og:image" content="icons/lefties-og.png">
-  <meta property="og:type" content="website">
-
-  <!-- Fonts & Tailwind -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Styles -->
-  <style>
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: #EFE3CF; /* LeftiesLite background */
-    }
-  </style>
-</head>
-  <meta charset="UTF-8" />
+<head>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lefties OS — Dashboard</title>
-  <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#EFE3CF" />
 
-  <!-- Brand fonts + Tailwind -->
+  <!-- Search engines off -->
+  <meta name="robots" content="noindex,nofollow" />
+
+  <!-- System colors -->
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Fonts + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- PWA / Icons -->
-<<link rel="apple-touch-icon" href="/apple-touch-icon-180x180-v2.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon.png?v=2">
-<link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon.png?v=2">
-<link rel="apple-touch-icon" sizes="76x76"  href="/icons/apple-touch-icon.png?v=2">
+  <!-- ===== ICONS (use files that already exist in your repo) ===== -->
+  <!-- iOS Home Screen icon (you already have this at the repo root) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<link rel="icon" type="image/png" sizes="32x32"  href="/icons/favicon-32.png?v=2">
-<link rel="icon" type="image/png" sizes="16x16"  href="/icons/favicon-16.png?v=2">
-<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png?v=2">
-<link rel="manifest" href="/icons/manifest.webmanifest?v=2">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Favicons (optional – keep if they exist, otherwise remove) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 
   <style>
     :root{
       --brand-blue:#0071B6;
       --brand-lilac:#D7AFFF;
-      --cream-1:#EFE3CF;
-      --cream-2:#F7ECD9;
-      --ink:#0f172a;
-      --glass-bg: rgba(255,255,255,.55);
+      --ink:#0b1220;
+      --panel: rgba(255,255,255,.60);
+      --glass: rgba(255,255,255,.55);
       --glass-brd: rgba(255,255,255,.55);
+      --bg1:#0b1220;
+      --bg2:#0e1a2e;
     }
     html,body{height:100%}
     body{
       font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(215,175,255,.25), transparent 60%),
+        radial-gradient(1200px 600px at 20% -10%, rgba(215,175,255,.21), transparent 60%),
         radial-gradient(1200px 600px at 120% 110%, rgba(0,113,182,.20), transparent 60%),
-        linear-gradient(180deg, var(--cream-2), var(--cream-1));
-      color:#1f2937;
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      color:#e7ecf6;
     }
     .glass{
-      background: var(--glass-bg);
+      background: var(--glass);
       border: 1px solid var(--glass-brd);
       backdrop-filter: blur(10px) saturate(130%);
       -webkit-backdrop-filter: blur(10px) saturate(130%);
       box-shadow:
-        0 10px 30px rgba(0,0,0,.06),
-        inset 0 1px 0 rgba(255,255,255,.35);
+        0 10px 30px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.25);
     }
     .tile{
-      background: rgba(255,255,255,.6);
+      background: var(--panel);
       border:1px solid rgba(255,255,255,.65);
       backdrop-filter: blur(8px) saturate(130%);
       transition: transform .08s ease, background .15s ease;
+      color:#0f172a;
     }
     .tile:active{ transform: translateY(1px) scale(.995); }
     .brand-pill{
       background: color-mix(in oklab, var(--brand-lilac) 75%, white);
-      color:#0f172a;
+      color:#0b1220;
     }
 
     /* Gate */
-    .gate-backdrop{
+    .gate{
       position:fixed; inset:0; z-index:50;
       background:
         radial-gradient(800px 500px at 20% 0%, rgba(0,113,182,.18), transparent 60%),
         radial-gradient(800px 500px at 80% 100%, rgba(215,175,255,.20), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.86));
+        linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.92));
       display:flex; align-items:center; justify-content:center; padding:20px;
     }
     .shake{ animation:sh .4s ease both; }
@@ -110,11 +81,11 @@
 </head>
 <body>
 
-  <!-- ===== Passphrase Gate ===== -->
-  <div id="gate" class="gate-backdrop">
+  <!-- ================== PASS-PHRASE GATE ================== -->
+  <div id="gate" class="gate">
     <div class="glass w-full max-w-xl rounded-2xl p-6 md:p-8 text-white/90">
       <div class="flex items-center gap-3 mb-5">
-        <img src="/core-logo-transparent.png" alt="Lefties" class="h-8 w-8 object-contain">
+        <img src="/apple-touch-icon.png" alt="Lefties" class="h-8 w-8 rounded-lg object-cover">
         <div class="text-xl md:text-2xl font-extrabold">Lefties <span class="text-[var(--brand-blue)]">OS</span> — Dashboard</div>
       </div>
       <p class="text-white/80 mb-4">Private area. Enter passphrase to continue.</p>
@@ -127,24 +98,24 @@
     </div>
   </div>
 
-  <!-- ===== Header ===== -->
+  <!-- ================== HEADER ================== -->
   <header class="glass sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <a href="/dashboard.html" class="flex items-center gap-2">
-          <img src="/core-logo-transparent.png" alt="Lefties logo" class="h-8 w-8 object-contain select-none" />
+          <img src="/apple-touch-icon.png" alt="Lefties logo" class="h-8 w-8 rounded-lg object-cover select-none" />
           <span class="text-xl md:text-2xl font-extrabold leading-none">Lefties <span class="text-[var(--brand-blue)]">OS</span></span>
         </a>
         <span class="ml-2 px-3 py-1 rounded-full text-xs font-black brand-pill">LeftiesLite • v1.0</span>
       </div>
       <div class="text-right">
         <div id="now" class="text-sm md:text-base font-extrabold"></div>
-        <div class="text-xs text-gray-600">Hervey Bay, QLD</div>
+        <div class="text-xs text-gray-200/80">Hervey Bay, QLD</div>
       </div>
     </div>
   </header>
 
-  <!-- ===== Main ===== -->
+  <!-- ================== MAIN ================== -->
   <main class="max-w-7xl mx-auto px-4 pb-16">
     <!-- Quick actions -->
     <section class="mt-6 grid gap-3 md:grid-cols-4">
@@ -217,30 +188,29 @@
     <!-- Notes -->
     <section class="mt-8 glass rounded-2xl p-6">
       <div class="font-extrabold text-lg mb-2">Notes</div>
-      <ul class="text-gray-700 text-sm list-disc pl-5 space-y-1">
-        <li>This dashboard is backend-only. It’s <strong>noindex</strong> and not linked from the public site.</li>
-        <li>Add to Home Screen for a full-screen app feel.</li>
+      <ul class="text-gray-200/90 text-sm list-disc pl-5 space-y-1">
+        <li>This dashboard is private (<strong>noindex</strong>) and not linked from the public site.</li>
+        <li>Use “Add to Home Screen” for a full-screen feel. iOS icon reads <code>/apple-touch-icon.png</code>.</li>
       </ul>
     </section>
   </main>
 
   <footer class="mt-10">
-    <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-gray-300 py-10">
       <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    /* ========== CONFIG ========== */
-    const PASSPHRASE = 'Susan'; // <- change this
+    /* ===== CONFIG ===== */
+    const PASSPHRASE = 'Susan'; // change if needed
 
-    /* ========== Gate logic ========== */
+    /* ===== Gate ===== */
     const gate = document.getElementById('gate');
     const gateForm = document.getElementById('gateForm');
     const gateInput = document.getElementById('gateInput');
     const gateMsg = document.getElementById('gateMsg');
 
-    // Auto-unlock if already granted this browser
     if (localStorage.getItem('lefties_gate_ok') === '1') {
       gate.remove();
     }
@@ -258,7 +228,7 @@
       }
     });
 
-    /* ========== Live time ========== */
+    /* ===== Live time (AEST) ===== */
     const el = document.getElementById('now');
     const fmt = new Intl.DateTimeFormat('en-AU', {
       weekday:'long', day:'2-digit', month:'long', year:'numeric',
@@ -267,7 +237,7 @@
     function tick(){ if(el) el.textContent = fmt.format(new Date()); }
     tick(); setInterval(tick, 30000);
 
-    /* ========== Quick actions ========== */
+    /* ===== Quick actions ===== */
     async function shareAftercare(){
       const url = new URL('/client/aftercare.html', location.origin).toString();
       try {
