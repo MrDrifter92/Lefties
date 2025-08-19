@@ -123,6 +123,33 @@
     .split-row input[type="text"]{
       background:rgba(255,255,255,.75);
     }
+
+    /* Report images – responsive + print-safe */
+.report-photos {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+.report-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.report-img.square { aspect-ratio: 1/1; }
+.report-img.wide   { aspect-ratio: 16/9; }
+
+@media (min-width: 640px) {
+  .report-photos { grid-template-columns: repeat(2, 1fr); }
+  .report-photos .wide { grid-column: 1 / -1; }
+}
+
+.report-section { overflow: hidden; }
+@media print {
+  .report-photos { break-inside: avoid; page-break-inside: avoid; }
+  .report-img { max-width: 100%; }
+}
   </style>
 </head>
 <body>
@@ -301,6 +328,26 @@
         <div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div>
       </div>
     </section>
+
+    <!-- Per-room detail -->
+<section class="report-section">
+  <h3 class="font-extrabold">Per-room detail</h3>
+
+  <h4 class="mt-2 font-bold">Before</h4>
+  <div class="report-photos">
+    <img src="before-1.jpg" alt="Before 1" class="report-img square" loading="lazy" decoding="async">
+    <img src="before-2.jpg" alt="Before 2" class="report-img square" loading="lazy" decoding="async">
+    <img src="before-wide.jpg" alt="Before wide" class="report-img wide" loading="lazy" decoding="async">
+  </div>
+
+  <h4 class="mt-6 font-bold">After</h4>
+  <div class="report-photos">
+    <img src="after-1.jpg" alt="After 1" class="report-img square" loading="lazy" decoding="async">
+    <img src="after-2.jpg" alt="After 2" class="report-img square" loading="lazy" decoding="async">
+    <img src="after-wide.jpg" alt="After wide" class="report-img wide" loading="lazy" decoding="async">
+  </div>
+</section>
+
 
     <!-- Clean -->
     <section class="frosted p-4">
