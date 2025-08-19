@@ -1,0 +1,475 @@
+Awesome—let’s spin up a lightweight, client‑side “Home Services” portal for your dad that works like Field OS but produces an invoice (and can email it / open Square). Below is a single, drop‑in file named home-services.html. It:
+	•	Uses your LeftiesLite look/feel + your root‑level icons.
+	•	Saves everything to localStorage.
+	•	Lets him select services (multi‑select), add custom line items, set rates/qty, add notes, and attach photos (from camera or camera roll).
+	•	Auto‑builds an invoice preview (with GST toggle), can copy, open email draft (Zoho or any mail app), print, download JSON, and open Square POS to take payment.
+	•	Auto-increments invoice numbers locally (prefix “HS‑”).
+	•	Includes a clean, print‑ready customer invoice window.
+
+⸻
+
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lefties | Home Services — Invoicing (LeftiesLite)</title>
+
+  <!-- Icons (ROOT paths) -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16"  href="/icon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32"  href="/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48"  href="/icon-48x48.png">
+  <link rel="icon" type="image/png" sizes="64x64"  href="/icon-64x64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/icon-128x128.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="/icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/icon-256x256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Lefties Home">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#EBDCC5" />
+
+  <!-- Brand font + Tailwind -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --primary:#0071B6;
+      --cream:#EFE3CF; --cream-2:#E7D7BE;
+      --glass:rgba(255,255,255,.42); --glass-border:rgba(0,0,0,.08);
+      --ink:#1b2025; --muted:#485261; --ring:rgba(0,113,182,.30);
+    }
+    html,body{height:100%}
+    body{
+      font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
+      overflow-x:hidden;
+    }
+    .glass{background:var(--glass);border:1px solid var(--glass-border);
+      backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%);
+      box-shadow:0 12px 24px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.35); border-radius:1rem;}
+    .tile{background:rgba(255,255,255,.55);border:1px solid var(--glass-border);border-radius:1rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
+      background:linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96)); color:#fff;border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35); transition:.2s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--glass-border)}
+    .btn.ghost{background:rgba(255,255,255,.65);color:var(--ink);border:1px solid var(--glass-border)}
+    .chip{padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.35);border:1px solid var(--glass-border)}
+    .ring{box-shadow:0 0 0 3px var(--ring)!important;border-radius:.75rem}
+    input,select,textarea{background:rgba(255,255,255,.6);border:1px solid var(--glass-border);border-radius:.75rem;padding:.6rem .75rem;width:100%}
+    .h1{font-size:clamp(22px,3vw,30px);font-weight:900}
+    .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
+    .label{color:var(--muted);font-size:12px}
+    .report{white-space:pre-wrap;background:rgba(255,255,255,.65);border:1px dashed rgba(0,0,0,.1);border-radius:.75rem;padding:1rem}
+    .grid3{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media(min-width:900px){.grid3{grid-template-columns:2fr 2fr 1.5fr}}
+    .k{width:100%}
+    .row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 32px;gap:.5rem;align-items:center}
+    .row input{padding:.5rem}
+    .mini{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="glass mx-auto mt-3 mb-4 max-w-6xl px-4 py-3">
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain select-none" />
+        <div>
+          <div class="font-black text-lg">Lefties Home Services</div>
+          <div class="label">Simple job → invoice flow • Offline‑ready</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a class="btn secondary" href="/dashboard.html">Dashboard</a>
+        <a class="btn secondary" href="https://mail.zoho.com" target="_blank" rel="noopener">Open Zoho Mail</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 pb-24">
+    <section class="glass p-4 mb-4">
+      <div class="h1 mb-1">Job & Client</div>
+      <div class="mini mb-3">Fill the job details; these prefill the invoice.</div>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div><label class="label">Client / Company</label><input id="client" placeholder="Name or Company"></div>
+        <div><label class="label">Email</label><input id="email" type="email" placeholder="name@example.com"></div>
+        <div><label class="label">Phone</label><input id="phone" inputmode="tel" placeholder="04xx xxx xxx"></div>
+        <div class="md:col-span-2"><label class="label">Property address</label><input id="address" placeholder="Street, suburb, state"></div>
+        <div><label class="label">Job date</label><input id="jobDate" type="date"></div>
+      </div>
+      <div class="mt-3 grid md:grid-cols-4 gap-3">
+        <div>
+          <label class="label">Job type</label>
+          <select id="jobType">
+            <option value="">Select</option>
+            <option>Residential</option>
+            <option>Commercial</option>
+            <option>Real estate</option>
+          </select>
+        </div>
+        <div>
+          <label class="label">General clean?</label>
+          <select id="generalClean"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div>
+          <label class="label">Surfaces (multi)</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="chip"><input type="checkbox" id="s-carpet"> Carpet</label>
+            <label class="chip"><input type="checkbox" id="s-uph"> Upholstery</label>
+            <label class="chip"><input type="checkbox" id="s-tile"> Tile/Hard</label>
+            <label class="chip"><input type="checkbox" id="s-outdoor"> Outdoor</label>
+          </div>
+        </div>
+        <div>
+          <label class="label">Fibre (multi)</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="chip"><input type="checkbox" id="f-wool"> Wool</label>
+            <label class="chip"><input type="checkbox" id="f-nylon"> Nylon</label>
+            <label class="chip"><input type="checkbox" id="f-poly"> Polyester</label>
+            <label class="chip"><input type="checkbox" id="f-pp"> Olefin/PP</label>
+            <label class="chip"><input type="checkbox" id="f-cell"> Cellulosic</label>
+            <label class="chip"><input type="checkbox" id="f-synth"> Synthetic blend</label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3">
+        <label class="label">Job notes</label>
+        <textarea id="jobNotes" rows="3" placeholder="Scope, risks, access, site notes…"></textarea>
+      </div>
+      <div class="mt-3 grid md:grid-cols-2 gap-3">
+        <div>
+          <label class="label">Photos (before/after — camera OR camera roll)</label>
+          <input id="photos" type="file" accept="image/*" multiple>
+          <div id="photoThumbs" class="flex flex-wrap gap-2 mt-2"></div>
+        </div>
+        <div class="glass p-3">
+          <div class="h2">Quick actions</div>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <button class="btn" id="saveAll">Save</button>
+            <button class="btn secondary" id="exportJSON">Export JSON</button>
+            <button class="btn ghost" id="resetAll">Start over</button>
+          </div>
+          <div class="mini mt-2">Data saves locally every few seconds as well.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Items -->
+    <section class="glass p-4 mb-4">
+      <div class="h1 mb-1">Services & Line Items</div>
+      <div class="mini mb-3">Pick a preset or add your own rows. Amount = Qty × Rate (ex GST).</div>
+
+      <div class="flex flex-wrap gap-2 mb-3">
+        <!-- Presets common to home services -->
+        <button class="btn secondary preset" data-desc="General clean" data-rate="80" data-qty="1">+ General clean</button>
+        <button class="btn secondary preset" data-desc="Gutter clean" data-rate="180" data-qty="1">+ Gutter clean</button>
+        <button class="btn secondary preset" data-desc="Pressure wash" data-rate="220" data-qty="1">+ Pressure wash</button>
+        <button class="btn secondary preset" data-desc="Lawn & edges" data-rate="70" data-qty="1">+ Lawn & edges</button>
+        <button class="btn secondary preset" data-desc="Rubbish removal" data-rate="60" data-qty="1">+ Rubbish removal</button>
+        <button class="btn secondary preset" data-desc="Minor repair" data-rate="90" data-qty="1">+ Minor repair</button>
+      </div>
+
+      <div class="row font-bold mini">
+        <div>Description</div><div>Qty</div><div>Rate</div><div>Line $</div><div></div>
+      </div>
+      <div id="items"></div>
+
+      <div class="mt-3">
+        <button id="addRow" class="btn">+ Add custom line</button>
+      </div>
+
+      <div class="mt-4 grid md:grid-cols-4 gap-3">
+        <label class="chip"><input type="checkbox" id="gstOn" checked> GST (10%)</label>
+        <div><label class="label">Invoice prefix</label><input id="invPrefix" value="HS-"></div>
+        <div><label class="label">Invoice #</label><input id="invNo" placeholder="(auto)"></div>
+        <div><label class="label">Payment terms</label><input id="terms" value="Due on receipt"></div>
+      </div>
+
+      <div class="mt-4 grid3">
+        <div class="tile p-3">
+          <div class="h2">Totals</div>
+          <div class="mt-2 flex flex-col gap-1">
+            <div class="flex justify-between"><span class="mini">Subtotal (ex GST)</span><strong id="tSub">$0.00</strong></div>
+            <div class="flex justify-between"><span class="mini">GST 10%</span><strong id="tGST">$0.00</strong></div>
+            <div class="flex justify-between text-lg"><span><strong>Total</strong></span><strong id="tTotal">$0.00</strong></div>
+          </div>
+        </div>
+        <div class="tile p-3">
+          <div class="h2">Invoice preview (plain text)</div>
+          <div id="preview" class="report text-sm"></div>
+          <div class="mt-2 flex flex-wrap gap-2">
+            <button class="btn secondary" id="copyInvoice">Copy text</button>
+            <button class="btn ghost" id="printInvoice">Open print view</button>
+          </div>
+        </div>
+        <div class="tile p-3">
+          <div class="h2">Send & Pay</div>
+          <div class="mt-2 flex flex-col gap-2">
+            <button class="btn" id="openEmailDraft">Email invoice (Zoho)</button>
+            <button class="btn secondary" id="openSquare">Open Square POS</button>
+          </div>
+          <div class="mini mt-2">Email uses a mailto: draft with the preview text. Square opens the POS app (or dashboard fallback).</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* ===== Utilities ===== */
+    const $ = id => document.getElementById(id);
+    const fmtMoney = n => '$' + (Number(n||0).toFixed(2));
+    const LSKEY = 'lefties_home_services_v1';
+
+    function loadState(){
+      try{ return JSON.parse(localStorage.getItem(LSKEY)||'{}'); }catch{return {}}
+    }
+    function saveState(obj){
+      localStorage.setItem(LSKEY, JSON.stringify(obj));
+    }
+    function nowISO(){ return new Date().toISOString().slice(0,10); }
+
+    /* ===== Items table ===== */
+    const itemsEl = $('items');
+    function makeRow(desc='', qty=1, rate=0){
+      const wrap = document.createElement('div');
+      wrap.className='row mt-1';
+      wrap.innerHTML = `
+        <input class="desc" placeholder="Description" value="${desc}">
+        <input class="qty"  type="number" step="0.01" value="${qty}">
+        <input class="rate" type="number" step="0.01" value="${rate}">
+        <input class="amt"  type="text" value="0.00" readonly>
+        <button class="del btn secondary" title="Remove">×</button>`;
+      itemsEl.appendChild(wrap);
+
+      const qtyEl  = wrap.querySelector('.qty');
+      const rateEl = wrap.querySelector('.rate');
+      const amtEl  = wrap.querySelector('.amt');
+      function recalc(){
+        const a = (parseFloat(qtyEl.value||0) * parseFloat(rateEl.value||0)) || 0;
+        amtEl.value = a.toFixed(2);
+        renderTotals(); persist();
+      }
+      qtyEl.addEventListener('input', recalc);
+      rateEl.addEventListener('input', recalc);
+      wrap.querySelector('.desc').addEventListener('input', ()=>{persist()});
+      wrap.querySelector('.del').addEventListener('click', ()=>{ wrap.remove(); renderTotals(); persist(); });
+      recalc();
+    }
+
+    /* Presets */
+    document.querySelectorAll('.preset').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        makeRow(b.dataset.desc, b.dataset.qty, b.dataset.rate);
+      });
+    });
+    $('addRow').addEventListener('click', ()=> makeRow());
+
+    /* ===== Photos (camera OR camera roll) ===== */
+    const photosInput = $('photos'), thumbs = $('photoThumbs');
+    function renderThumbs(arr){
+      thumbs.innerHTML=''; (arr||[]).forEach(src=>{
+        const img = new Image(); img.src = src; img.className='h-16 w-16 object-cover rounded border';
+        thumbs.appendChild(img);
+      });
+    }
+    photosInput.addEventListener('change', ()=>{
+      const files = Array.from(photosInput.files||[]);
+      const proms = files.map(f=> new Promise(res=>{
+        const r=new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(f);
+      }));
+      Promise.all(proms).then(data=>{
+        const s=loadState(); s.photos=data; saveState(s); renderThumbs(data);
+      });
+    });
+
+    /* ===== Totals & preview ===== */
+    function gatherItems(){
+      const rows = [...itemsEl.querySelectorAll('.row')];
+      return rows.map(r=>({
+        desc: r.querySelector('.desc').value.trim(),
+        qty:  parseFloat(r.querySelector('.qty').value||0),
+        rate: parseFloat(r.querySelector('.rate').value||0),
+        amt:  parseFloat(r.querySelector('.amt').value||0),
+      })).filter(x=>x.desc || x.amt);
+    }
+    function renderTotals(){
+      const arr = gatherItems();
+      const sub = arr.reduce((t,x)=> t + x.amt, 0);
+      const gst = $('gstOn').checked ? sub * 0.10 : 0;
+      const tot = sub + gst;
+      $('tSub').textContent   = fmtMoney(sub);
+      $('tGST').textContent   = fmtMoney(gst);
+      $('tTotal').textContent = fmtMoney(tot);
+      $('preview').textContent = buildInvoiceText();
+    }
+
+    function surfacesText(){
+      const s = [];
+      if ($('s-carpet').checked) s.push('Carpet');
+      if ($('s-uph').checked)    s.push('Upholstery');
+      if ($('s-tile').checked)   s.push('Tile/Hard');
+      if ($('s-outdoor').checked)s.push('Outdoor');
+      return s.join(', ') || '—';
+    }
+    function fibresText(){
+      const f = [];
+      if ($('f-wool').checked) f.push('Wool');
+      if ($('f-nylon').checked) f.push('Nylon');
+      if ($('f-poly').checked)  f.push('Polyester');
+      if ($('f-pp').checked)    f.push('Olefin/PP');
+      if ($('f-cell').checked)  f.push('Cellulosic');
+      if ($('f-synth').checked) f.push('Synthetic blend');
+      return f.join(', ') || '—';
+    }
+
+    function buildInvoiceText(){
+      const items = gatherItems();
+      const lines = items.map(x=>`• ${x.desc} — ${x.qty} × ${fmtMoney(x.rate)} = ${fmtMoney(x.amt)}`).join('\n') || '• (no items)';
+      const sub = $('tSub').textContent, gst=$('tGST').textContent, tot=$('tTotal').textContent;
+      const inv = ($('invPrefix').value || 'HS-') + ($('invNo').value || '(auto)');
+      return `INVOICE ${inv}
+Lefties Home Services
+
+Bill to: ${$('client').value || '—'}
+Email: ${$('email').value || '—'}  Phone: ${$('phone').value || '—'}
+Address: ${$('address').value || '—'}
+Job date: ${$('jobDate').value || nowISO()}
+
+Job type: ${$('jobType').value || '—'}   General clean: ${$('generalClean').value || '—'}
+Surfaces: ${surfacesText()}
+Fibre types: ${fibresText()}
+
+Items:
+${lines}
+
+Subtotal: ${sub}
+GST: ${gst}
+TOTAL: ${tot}
+
+Terms: ${$('terms').value || 'Due on receipt'}
+Notes: ${$('jobNotes').value || '—'}
+
+Thank you for your business.
+`;
+    }
+
+    /* ===== Email / Print / Square ===== */
+    $('copyInvoice').addEventListener('click', ()=>{
+      navigator.clipboard.writeText(buildInvoiceText()); alert('Invoice copied.');
+    });
+
+    $('openEmailDraft').addEventListener('click', ()=>{
+      const to = ($('email').value || '').trim();
+      // Assign/auto invoice number
+      ensureInvoiceNumber();
+      const subj = encodeURIComponent(`Invoice ${$('invPrefix').value}${$('invNo').value} — Lefties Home Services`);
+      const body = encodeURIComponent(buildInvoiceText());
+      // Using Zoho? mailto opens the default handler; on iOS it’s Mail, but Zoho can register.
+      window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
+    });
+
+    $('printInvoice').addEventListener('click', ()=>{
+      ensureInvoiceNumber();
+      const text = buildInvoiceText();
+      const photos = (loadState().photos)||[];
+      const win = window.open('', '_blank');
+      win.document.write(`<!doctype html><html><head>
+        <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Invoice ${$('invPrefix').value}${$('invNo').value}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+        <style>
+          body{font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:0;padding:24px;color:#1b2025}
+          .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+          .logo{height:46px}
+          .card{border:1px solid #ddd;border-radius:12px;padding:16px}
+          pre{white-space:pre-wrap}
+          .grid{display:grid;grid-template-columns:1fr;gap:12px}
+          @media(min-width:800px){.grid{grid-template-columns:2fr 1fr}}
+          .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+          img{width:100%;height:auto;border-radius:8px;border:1px solid #ddd}
+        </style>
+      </head><body>
+        <div class="head">
+          <img src="/core-logo-transparent.png" class="logo">
+          <div><div style="font-weight:900">Lefties Home Services — Invoice</div>
+          <div style="color:#555">Hervey Bay, QLD • ${new Date().toLocaleString()}</div></div>
+        </div>
+        <div class="grid">
+          <div class="card"><pre>${text.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre></div>
+          <div class="card">
+            <div style="font-weight:900;margin-bottom:6px">Photos</div>
+            <div class="photos">${photos.map(p=>`<img src="${p}">`).join('') || '—'}</div>
+          </div>
+        </div>
+        <script>window.addEventListener('load',()=>setTimeout(()=>print(),200));</script>
+      </body></html>`);
+      win.document.close(); win.focus();
+    });
+
+    $('openSquare').addEventListener('click', ()=>{
+      const scheme = 'square-commerce-v1://'; // opens the Square POS app if installed
+      const fallback = 'https://squareup.com/dashboard';
+      setTimeout(()=>location.href=fallback, 800); location.href=scheme;
+    });
+
+    /* ===== Autosave / Restore ===== */
+    function collectState(){
+      return {
+        client:$('client').value, email:$('email').value, phone:$('phone').value, address:$('address').value,
+        jobDate:$('jobDate').value, jobType:$('jobType').value, generalClean:$('generalClean').value,
+        surfaces:{carpet:$('s-carpet').checked, uph:$('s-uph').checked, tile:$('s-tile').checked, outdoor:$('s-outdoor').checked},
+        fibres:{wool:$('f-wool').checked, nylon:$('f-nylon').checked, poly:$('f-poly').checked, pp:$('f-pp').checked, cell:$('f-cell').checked, synth:$('f-synth').checked},
+        jobNotes:$('jobNotes').value,
+        items:gatherItems(),
+        gstOn:$('gstOn').checked,
+        invPrefix:$('invPrefix').value, invNo:$('invNo').value, terms:$('terms').value,
+        photos:(loadState().photos)||[]
+      };
+    }
+    function applyState(s){
+      $('client').value=s.client||''; $('email').value=s.email||''; $('phone').value=s.phone||''; $('address').value=s.address||'';
+      $('jobDate').value=s.jobDate||nowISO(); $('jobType').value=s.jobType||''; $('generalClean').value=s.generalClean||'';
+      $('s-carpet').checked=!!(s.surfaces||{}).carpet; $('s-uph').checked=!!(s.surfaces||{}).uph;
+      $('s-tile').checked=!!(s.surfaces||{}).tile; $('s-outdoor').checked=!!(s.surfaces||{}).outdoor;
+      $('f-wool').checked=!!(s.fibres||{}).wool; $('f-nylon').checked=!!(s.fibres||{}).nylon; $('f-poly').checked=!!(s.fibres||{}).poly;
+      $('f-pp').checked=!!(s.fibres||{}).pp; $('f-cell').checked=!!(s.fibres||{}).cell; $('f-synth').checked=!!(s.fibres||{}).synth;
+      $('jobNotes').value=s.jobNotes||'';
+      itemsEl.innerHTML=''; (s.items||[]).forEach(it=> makeRow(it.desc, it.qty, it.rate));
+      $('gstOn').checked = s.gstOn!==false;
+      $('invPrefix').value = s.invPrefix || 'HS-'; $('invNo').value = s.invNo || '';
+      $('terms').value = s.terms || 'Due on receipt';
+      renderThumbs(s.photos||[]);
+      renderTotals();
+    }
+    function persist(){ saveState(collectState()); }
+
+    $('saveAll').addEventListener('click', ()=>{ persist(); alert('Saved.'); });
+    $('exportJSON').addEventListener('click', ()=>{
+      const data = JSON.stringify(collectState(), null, 2);
+      const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download=`Lefties_Home_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+    $('resetAll').addEventListener('click', ()=>{ if(confirm('Clear current form?')){ localStorage.removeItem(LSKEY); location.reload(); } });
+    $('gstOn').addEventListener('change', renderTotals);
+
+    // Auto invoice number if blank, keep a simple counter
+    function ensureInvoiceNumber(){
+      if(($('invNo').value||'').trim()) return;
+      const k='lefties_home_inv_seq'; let n = parseInt(localStorage.getItem(k)||'1001',10);
+      $('invNo').value = n; localStorage.setItem(k, (n+1).toString()); persist();
+    }
+
+    // Boot
+    (function init(){
+      applyState(load
