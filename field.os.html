@@ -3,103 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow" />
-  <title>Lefties | Field OS v1.4 — LeftiesLite</title>
-
-  <!-- PWA / Icons (root-level, no /icons folder) -->
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <!-- If you have a manifest in root, keep this; if not, you can remove it -->
-  <link rel="manifest" href="/site.webmanifest">
+  <title>Lefties | Field OS v1.5 — LeftiesLite</title>
 
   <!-- Brand font + Tailwind -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root{
-      /* LeftiesLite palette */
       --primary:#0071B6;
-      --cream:#EFE3CF;   /* page bg */
-      --cream-2:#E7D7BE; /* gradient stop */
+      --cream:#EFE3CF;
+      --cream-2:#E7D7BE;
       --glass:rgba(255,255,255,.42);
       --glass-border:rgba(255,255,255,.28);
-      --ink:#1b2025;
+      --text:#1b2025;
       --muted:#3d4754;
-      --ring:rgba(0,113,182,.30);
+      --ring: rgba(0,113,182,.30);
+      --chip-on: rgba(0,113,182,.12);
+      --chip-brd-on: rgba(0,113,182,.35);
     }
     html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
     body{
       font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--ink);
+      color:var(--text);
       background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
-      min-height:100vh; overflow-x:hidden;
+      overflow-x:hidden; min-height:100vh;
     }
 
-    /* Frosted cards / header */
-    .glass{
+    /* Frosted tile */
+    .frosted{
       background:var(--glass);
       border:1px solid var(--glass-border);
       border-radius:1rem;
       backdrop-filter: blur(14px) saturate(120%);
       -webkit-backdrop-filter: blur(14px) saturate(120%);
-      box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
+      box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
     }
-    .tile{
-      background:rgba(255,255,255,.55);
-      border:1px solid var(--glass-border);
-      border-radius:1rem;
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
-    }
-    .tile:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.10); background:rgba(255,255,255,.7); }
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:800}
-    .btn.primary{background:linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));color:#fff;border:1px solid rgba(0,148,255,.35);box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35)}
-    .btn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45)}
-    .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--glass-border);box-shadow:inset 0 1px 1px rgba(255,255,255,.35)}
-    .btn.ghost{background:rgba(255,255,255,.6);color:var(--ink);border:1px solid var(--glass-border)}
-    .ring{box-shadow:0 0 0 3px var(--ring)!important;border-radius:.75rem}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
+      background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
+      color:#fff;border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45); }
+    .btn.secondary{
+      background:transparent;color:var(--text);font-weight:800;
+      border:1px solid var(--glass-border);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.35);
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,.6); color:var(--text);
+      border:1px solid var(--glass-border);
+    }
 
-    .chip{padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.35);border:1px solid var(--glass-border)}
-    .label{color:var(--muted);font-size:.8rem}
-    .h1{font-size:clamp(22px,3.4vw,32px);font-weight:900}
+    /* Chips */
+    .chip{
+      padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;
+      background:rgba(255,255,255,.35); border:1px solid var(--glass-border);
+      font-weight:800; cursor:pointer; user-select:none;
+    }
+    .chip.on{
+      background:var(--chip-on); border-color:var(--chip-brd-on);
+      box-shadow: 0 0 0 3px var(--ring);
+    }
+
+    .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
+
+    .grid-cards{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media (min-width:768px){ .grid-cards{grid-template-columns:repeat(2,1fr)} }
+    @media (min-width:1024px){ .grid-cards{grid-template-columns:repeat(3,1fr)} }
+
+    .fixedbar{
+      position:fixed; bottom:12px; left:12px; right:12px; z-index:50;
+      display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;
+    }
+    .pill{
+      flex:1 1 22%; text-align:center; padding:10px; border-radius:12px;
+      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800;
+    }
+
+    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
     .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
-    .tap{min-height:48px}
+    .label{color:var(--muted);font-size:12px}
 
-    input[type="text"], input[type="number"], textarea, select{
-      width:100%;background:rgba(255,255,255,.55);border:1px solid var(--glass-border);
-      border-radius:.75rem;padding:.75rem;color:var(--ink);outline:none
+    input[type="text"],textarea,select{
+      width:100%;
+      background:rgba(255,255,255,.55);
+      border:1px solid var(--glass-border);
+      border-radius:.75rem; padding:.75rem; color:var(--text); outline:none;
     }
     input[type="file"]{color:var(--muted)}
+    .tap{min-height:48px}
 
-    .logo-dot{width:40px;height:40px;border-radius:9999px;background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));border:1px solid rgba(255,255,255,.35)}
+    /* Header */
+    .header-card img{height:44px; width:auto}
+    .logo-circle{
+      width:40px;height:40px;border-radius:9999px;
+      background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));
+      border:1px solid rgba(255,255,255,.35);
+    }
 
-    /* Accordions */
-    details{border-radius:1rem;overflow:hidden}
-    summary{list-style:none;cursor:pointer}
-    summary::-webkit-details-marker{display:none}
+    /* Report preview */
+    .report-area{
+      background: rgba(255,255,255,.65);
+      border:1px dashed rgba(0,0,0,.1);
+      border-radius:.75rem; padding:1rem;
+      white-space:pre-wrap; color:#222;
+    }
 
-    /* Fixed quick bar */
-    .fixedbar{position:fixed;bottom:12px;left:12px;right:12px;z-index:50;display:flex;gap:10px;flex-wrap:wrap}
-    .pill{flex:1 1 22%;text-align:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.5);border:1px solid var(--glass-border);font-weight:800}
-    @media (max-width:420px){.pill{flex-basis:48%}}
-
-    /* Report area */
-    .report-area{background:rgba(255,255,255,.65);border:1px dashed rgba(0,0,0,.1);border-radius:.75rem;padding:1rem;white-space:pre-wrap;color:#222}
+    /* Split row */
+    .split-row{
+      display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem;
+      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;
+    }
+    .split-row input[type="text"]{
+      background:rgba(255,255,255,.75);
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="glass mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
+  <header class="frosted header-card mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
     <div class="flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <!-- Transparent logo in ROOT. Fallback to glass dot if missing -->
-        <img src="/core-logo-transparent.png" alt="Lefties" class="h-11 w-auto hidden" onload="this.classList.remove('hidden')" onerror="this.remove();document.getElementById('logo-fallback').classList.remove('hidden')">
-        <div id="logo-fallback" class="logo-dot hidden"></div>
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-11 w-auto" />
         <div>
           <div class="font-black text-lg">Lefties Field OS</div>
           <div class="label" id="clock">—</div>
@@ -115,644 +147,726 @@
   <!-- Main -->
   <main class="mx-auto max-w-5xl px-4 pb-28">
 
-    <!-- Service + Timer (compact) -->
-    <section class="glass p-4 mb-4">
-      <div class="grid md:grid-cols-2 gap-3">
+    <!-- Job timer -->
+    <section class="frosted p-4 mb-4" id="Timer">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
-          <div class="h2 mb-2">Service type</div>
-          <div class="flex flex-wrap gap-2">
-            <button class="btn secondary tap svc" data-svc="Carpet">Carpet</button>
-            <button class="btn secondary tap svc" data-svc="Upholstery">Upholstery</button>
-            <button class="btn secondary tap svc" data-svc="Rug">Rug</button>
-            <button class="btn secondary tap svc" data-svc="Tile">Tile</button>
-          </div>
-          <div class="label mt-2">Used in the report + playbook tips.</div>
+          <div class="h1">Job timer</div>
+          <div class="label">Tap start in the driveway. Add splits per room and comment.</div>
         </div>
-        <div>
-          <div class="h2 mb-2">Job timer</div>
-          <div class="flex gap-2">
-            <button id="startBtn" class="btn primary tap">Start</button>
-            <button id="splitBtn" class="btn secondary tap" disabled>Split room</button>
-            <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
-          </div>
-          <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
-            <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
-            <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
-            <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
-            <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
-          </div>
-          <ul id="splitsList" class="mt-2 text-sm text-[color:var(--muted)] space-y-1"></ul>
+        <div class="flex gap-2">
+          <button id="startBtn" class="btn tap">Start</button>
+          <button id="splitBtn" class="btn secondary tap" disabled>Split room</button>
+          <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
+        </div>
+      </div>
+      <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
+        <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
+      </div>
+      <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-2"></ul>
+    </section>
+
+    <!-- ID & Job Tags (MULTI-SELECT) -->
+    <section class="frosted p-4 mb-4" id="ID">
+      <div class="mb-2">
+        <div class="h2">ID & Job Tags</div>
+        <div class="label">Pick all that apply (multi‑select). These are for records and reporting.</div>
+      </div>
+
+      <div class="mt-2">
+        <div class="label mb-1">Service Type</div>
+        <div class="flex flex-wrap gap-2" id="svcChips">
+          <div class="chip" data-key="service" data-val="Carpet">Carpet</div>
+          <div class="chip" data-key="service" data-val="Upholstery">Upholstery</div>
+          <div class="chip" data-key="service" data-val="General Clean">General Clean</div>
+          <div class="chip" data-key="service" data-val="Tile & Grout">Tile & Grout</div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="label mb-1">Job Type</div>
+        <div class="flex flex-wrap gap-2" id="jobTypeChips">
+          <div class="chip" data-key="jobType" data-val="Residential">Residential</div>
+          <div class="chip" data-key="jobType" data-val="Commercial">Commercial</div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="label mb-1">Fibres Present</div>
+        <div class="flex flex-wrap gap-2" id="fibreChips">
+          <div class="chip" data-key="fibres" data-val="Wool">Wool</div>
+          <div class="chip" data-key="fibres" data-val="Nylon">Nylon</div>
+          <div class="chip" data-key="fibres" data-val="Polyester">Polyester</div>
+          <div class="chip" data-key="fibres" data-val="Olefin/PP">Olefin/PP</div>
+          <div class="chip" data-key="fibres" data-val="Cellulosic">Cellulosic</div>
+          <div class="chip" data-key="fibres" data-val="Synthetic Blend">Synthetic Blend</div>
         </div>
       </div>
     </section>
 
-    <!-- Accordions -->
-    <div class="space-y-3">
+    <!-- Walk-through -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Walk-through</div><span class="label">Pre-service checklist, risks, disclaimers</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div><label class="label">Address confirmed</label><select id="addrOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label class="label">Parking set</label><select id="parkOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label class="label">Risks noted</label><select id="risk"><option value="">Select</option><option>Trip hazards</option><option>Pet present</option><option>Delicate fibre</option><option>Water access</option></select></div>
+        <div><label class="label">Disclaimers shown</label><select id="disc"><option value="">Select</option><option>Unknown fibre</option><option>Pre-treated stains</option><option>Bleach damage</option><option>Pet urine</option><option>General limits</option></select></div>
+      </div>
+      <div class="mt-3 flex gap-2">
+        <a href="/client-pre-service-checklist.html" class="btn secondary tap">Open checklist</a>
+        <button id="scriptWalk" class="btn ghost tap">Client script</button>
+      </div>
+    </section>
 
-      <!-- Walk-through -->
-      <details open class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Walk‑through <span class="label ml-2">Checklist, risks, disclaimers</span></div>
-          <span class="label">Tap to collapse</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <div><label class="label">Address confirmed</label><select id="addrOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
-            <div><label class="label">Parking set</label><select id="parkOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
-            <div><label class="label">Risks noted</label><select id="risk"><option value="">Select</option><option>Trip hazards</option><option>Pet present</option><option>Delicate fibre</option><option>Water access</option></select></div>
-            <div><label class="label">Disclaimers shown</label><select id="disc"><option value="">Select</option><option>Unknown fibre</option><option>Pre-treated stains</option><option>Bleach damage</option><option>Pet urine</option><option>General limits</option></select></div>
-          </div>
-          <div class="mt-3 flex gap-2">
-            <a href="/client-pre-service-checklist.html" class="btn secondary tap">Open checklist</a>
-            <button id="scriptWalk" class="btn ghost tap">Copy client script</button>
+    <!-- Set-up -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Set-up</div><span class="label">Tap, power, hoses, drop sheets</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <label class="chip"><input type="checkbox" class="mr-2" id="tapOk" /> Tap access</label>
+        <label class="chip"><input type="checkbox" class="mr-2" id="powerOk" /> Power access</label>
+        <label class="chip"><input type="checkbox" class="mr-2" id="hoseRun" /> Hoses laid safe</label>
+        <label class="chip"><input type="checkbox" class="mr-2" id="slipWarn" /> Slip warning given</label>
+      </div>
+    </section>
+
+    <!-- Diagnosis (single select to drive Playbook) -->
+    <section class="frosted p-4" id="Diagnosis">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (drives Playbook)</span>
+      </div>
+
+      <div class="mb-2 font-bold">Step 1. Fibre</div>
+      <div class="grid md:grid-cols-3 gap-2">
+        <button class="btn secondary tap fibre" data-fibre="Wool">Wool</button>
+        <button class="btn secondary tap fibre" data-fibre="Nylon">Nylon</button>
+        <button class="btn secondary tap fibre" data-fibre="Polyester">Polyester</button>
+        <button class="btn secondary tap fibre" data-fibre="Olefin/PP">Olefin/PP</button>
+        <button class="btn secondary tap fibre" data-fibre="Cellulosic">Cellulosic</button>
+        <button class="btn secondary tap fibre" data-fibre="Unknown">Unknown</button>
+      </div>
+
+      <div class="mt-4 mb-2 font-bold">Step 2. Stain</div>
+      <div class="grid md:grid-cols-2 gap-2">
+        <button class="btn secondary tap stain" data-stain="Organic">Organic</button>
+        <button class="btn secondary tap stain" data-stain="Tannin">Tannin</button>
+        <button class="btn secondary tap stain" data-stain="Oil">Oil/Grease/Ink</button>
+        <button class="btn secondary tap stain" data-stain="Synthetic Dye">Synthetic Dye</button>
+      </div>
+    </section>
+
+    <!-- Playbook -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">The Playbook</div><span class="label">Auto filled from your picks</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div><div class="label">Fibre</div><div id="pbFibre" class="font-bold">—</div></div>
+        <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
+      </div>
+
+      <div class="mt-3">
+        <div class="label">Suggested Pricing Add-on</div>
+        <div id="pbPrice" class="font-bold">—</div>
+      </div>
+
+      <div class="mt-3">
+        <div class="label">Client script</div>
+        <textarea id="pbScript" rows="3" readonly></textarea>
+        <div class="mt-2 flex gap-2">
+          <button id="copyScript" class="btn secondary tap">Copy script</button>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div class="label">Flags & warnings</div>
+        <ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
+      </div>
+
+      <div class="mt-3">
+        <div class="label">Standard procedure</div>
+        <ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol>
+      </div>
+
+      <div class="mt-3">
+        <div class="label">Recommended chemicals</div>
+        <ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
+        <div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div>
+      </div>
+    </section>
+
+    <!-- Clean -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Clean</div><span class="label">Record solutions and passes</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div><label class="label">Solutions used</label><input id="solutions" type="text" placeholder="Prespray, rinse, spotter…"></div>
+        <div><label class="label">Dry passes tick-off</label><select id="dryPass"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+      </div>
+    </section>
+
+    <!-- Wrap-down -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Wrap-down</div><span class="label">Groom, airflow, aftercare</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <label class="chip"><input type="checkbox" class="mr-2" id="groomed" /> Groomed fibres</label>
+        <label class="chip"><input type="checkbox" class="mr-2" id="airflow" /> Airflow set</label>
+        <label class="chip"><input type="checkbox" class="mr-2" id="aftercare" /> Aftercare given</label>
+        <a id="openAftercare" href="/client/aftercare.html" class="btn secondary tap">Open aftercare</a>
+      </div>
+    </section>
+
+    <!-- Payment + Review -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Payment + Review</div><span class="label">Square + review SMS</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="flex gap-2">
+          <input id="amount" type="text" inputmode="decimal" placeholder="Amount e.g. 220">
+          <button id="takePayment" class="btn tap">Take payment</button>
+        </div>
+        <div class="flex gap-2">
+          <input id="clientMobile" type="text" inputmode="tel" placeholder="Client mobile">
+          <button id="sendReview" class="btn secondary tap">Copy review SMS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Job Log -->
+    <section class="frosted p-4 md:col-span-3">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Job Log</div><span class="label">Autosaves locally</span>
+      </div>
+
+      <!-- Photos: allow Camera OR Library -->
+      <div class="grid md:grid-cols-2 gap-3">
+        <div>
+          <label class="label block mb-1">Before photo</label>
+          <div class="flex gap-2 flex-wrap">
+            <label class="btn ghost tap">
+              <input id="beforePhotoCam" type="file" accept="image/*" capture="environment" class="hidden">
+              Take photo
+            </label>
+            <label class="btn secondary tap">
+              <input id="beforePhotoLib" type="file" accept="image/*" class="hidden">
+              Choose from library
+            </label>
           </div>
         </div>
-      </details>
-
-      <!-- Set-up -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Set‑up <span class="label ml-2">Tap, power, hoses, sheets</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <label class="chip"><input type="checkbox" class="mr-2" id="tapOk"> Tap access</label>
-            <label class="chip"><input type="checkbox" class="mr-2" id="powerOk"> Power access</label>
-            <label class="chip"><input type="checkbox" class="mr-2" id="hoseRun"> Hoses laid safe</label>
-            <label class="chip"><input type="checkbox" class="mr-2" id="slipWarn"> Slip warning given</label>
+        <div>
+          <label class="label block mb-1">After photo</label>
+          <div class="flex gap-2 flex-wrap">
+            <label class="btn ghost tap">
+              <input id="afterPhotoCam" type="file" accept="image/*" capture="environment" class="hidden">
+              Take photo
+            </label>
+            <label class="btn secondary tap">
+              <input id="afterPhotoLib" type="file" accept="image/*" class="hidden">
+              Choose from library
+            </label>
           </div>
         </div>
-      </details>
+      </div>
 
-      <!-- Diagnosis -->
-      <details id="Diagnosis" class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Diagnosis <span class="label ml-2">Fibre & stain → auto playbook</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="mb-2 font-bold">Step 1. Fibre</div>
-          <div class="grid md:grid-cols-3 gap-2">
-            <button class="btn secondary tap fibre" data-fibre="Wool">Wool</button>
-            <button class="btn secondary tap fibre" data-fibre="Nylon">Nylon</button>
-            <button class="btn secondary tap fibre" data-fibre="Polyester">Polyester</button>
-            <button class="btn secondary tap fibre" data-fibre="Olefin/PP">Olefin/PP</button>
-            <button class="btn secondary tap fibre" data-fibre="Cellulosic">Cellulosic</button>
-            <button class="btn secondary tap fibre" data-fibre="Unknown">Unknown</button>
-          </div>
-
-          <div class="mt-4 mb-2 font-bold">Step 2. Stain</div>
-          <div class="grid md:grid-cols-2 gap-2">
-            <button class="btn secondary tap stain" data-stain="Organic">Organic</button>
-            <button class="btn secondary tap stain" data-stain="Tannin">Tannin</button>
-            <button class="btn secondary tap stain" data-stain="Oil">Oil/Grease/Ink</button>
-            <button class="btn secondary tap stain" data-stain="Synthetic Dye">Synthetic Dye</button>
-          </div>
+      <div class="grid md:grid-cols-2 gap-3 mt-3">
+        <div>
+          <label class="label">Job notes</label>
+          <textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea>
         </div>
-      </details>
-
-      <!-- Playbook -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">The Playbook <span class="label ml-2">Auto‑filled from your picks</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <div><div class="label">Fibre</div><div id="pbFibre" class="font-bold">—</div></div>
-            <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
-          </div>
-
-          <div class="mt-3">
-            <div class="label">Suggested Pricing Add‑on</div>
-            <div id="pbPrice" class="font-bold">—</div>
-          </div>
-
-          <div class="mt-3">
-            <div class="label">Client script</div>
-            <textarea id="pbScript" rows="3" readonly></textarea>
-            <div class="mt-2 flex gap-2">
-              <button id="copyScript" class="btn secondary tap">Copy script</button>
-            </div>
-          </div>
-
-          <div class="mt-3">
-            <div class="label">Flags & warnings</div>
-            <ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
-          </div>
-
-          <div class="mt-3">
-            <div class="label">Standard procedure</div>
-            <ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol>
-          </div>
-
-          <div class="mt-3">
-            <div class="label">Recommended chemicals</div>
-            <ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
-            <div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div>
-          </div>
-        </div>
-      </details>
-
-      <!-- Clean -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Clean <span class="label ml-2">Record solutions & passes</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <div><label class="label">Solutions used</label><input id="solutions" type="text" placeholder="Prespray, rinse, spotter…"></div>
-            <div><label class="label">Dry passes tick‑off</label><select id="dryPass"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
-          </div>
-        </div>
-      </details>
-
-      <!-- Wrap‑down -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Wrap‑down <span class="label ml-2">Groom, airflow, aftercare</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <label class="chip"><input type="checkbox" class="mr-2" id="groomed"> Groomed fibres</label>
-            <label class="chip"><input type="checkbox" class="mr-2" id="airflow"> Airflow set</label>
-            <label class="chip"><input type="checkbox" class="mr-2" id="aftercare"> Aftercare given</label>
-            <a id="openAftercare" href="/client/aftercare.html" class="btn secondary tap">Open aftercare</a>
-          </div>
-        </div>
-      </details>
-
-      <!-- Payment + Review -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Payment + Review <span class="label ml-2">Square deep‑link & review SMS</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <div class="flex gap-2">
-              <input id="amount" type="text" inputmode="decimal" placeholder="Amount e.g. 220">
-              <button id="takePayment" class="btn primary tap">Take payment</button>
-            </div>
-            <div class="flex gap-2">
-              <input id="clientMobile" type="text" inputmode="tel" placeholder="Client mobile">
-              <button id="sendReview" class="btn secondary tap">Copy review SMS</button>
-            </div>
-          </div>
-          <div class="label mt-2">This is a safe front‑end stub. It records the amount and opens Square POS (or dashboard fallback).</div>
-        </div>
-      </details>
-
-      <!-- Job Log -->
-      <details class="glass">
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Job Log <span class="label ml-2">Autosaves locally</span></div>
-          <span class="label">Tap to expand</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="grid md:grid-cols-2 gap-3">
-            <div>
-              <label class="label">Job notes</label>
-              <textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea>
-            </div>
-            <div>
-              <label class="label">Before photo</label>
-              <input id="beforePhoto" type="file" accept="image/*" capture="environment">
-              <label class="label mt-3 block">After photo</label>
-              <input id="afterPhoto" type="file" accept="image/*" capture="environment">
-            </div>
-          </div>
-          <div class="mt-3 flex gap-2">
-            <button id="exportJSON" class="btn primary tap">Export JSON</button>
+        <div>
+          <div class="label mb-1">Quick actions</div>
+          <div class="flex gap-2 flex-wrap">
+            <button id="exportJSON" class="btn tap">Export JSON</button>
             <button id="copySummary" class="btn secondary tap">Copy summary</button>
             <button id="resetAll" class="btn ghost tap">Start over</button>
           </div>
-          <div class="label mt-2">Data saves to your device while this page is open. Export or copy the summary for a record.</div>
         </div>
-      </details>
+      </div>
 
-      <!-- Job Completion Report -->
-      <details class="glass" id="job-completion" open>
-        <summary class="p-4 flex items-center justify-between">
-          <div class="h2">Job Completion Report <span class="label ml-2">Prefilled from your entries</span></div>
-          <span class="label">Tap to collapse</span>
-        </summary>
-        <div class="p-4 pt-0">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex-1">
-              <div class="label mb-1">Report preview</div>
-              <div id="reportPreview" class="report-area text-sm"></div>
-            </div>
-            <div class="w-full md:w-64">
-              <div class="label mb-1">Client email (optional)</div>
-              <input id="clientEmail" type="text" placeholder="name@example.com">
-              <div class="mt-3 flex flex-col gap-2">
-                <button id="refreshReport" class="btn primary tap">Refresh from data</button>
-                <button id="copyReport" class="btn secondary tap">Copy report text</button>
-                <button id="emailReport" class="btn ghost tap">Open email draft</button>
-                <button id="openCustomerView" class="btn secondary tap">Open customer view</button>
-              </div>
-            </div>
+      <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
+    </section>
+
+    <!-- Job Completion Report (auto-prefilled) -->
+    <section class="frosted p-4 md:col-span-3" id="job-completion">
+      <div class="mb-2 flex items-center gap-2">
+        <div class="h2">Job Completion Report</div>
+        <span class="label">Prefilled from Field OS entries — copy/email/open customer view</span>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <div class="label mb-1">Report preview</div>
+          <div id="reportPreview" class="report-area text-sm"></div>
+        </div>
+        <div class="w-full md:w-64">
+          <div class="label mb-1">Client email (optional)</div>
+          <input id="clientEmail" type="text" placeholder="name@example.com">
+          <div class="mt-3 flex flex-col gap-2">
+            <button id="refreshReport" class="btn tap">Refresh from data</button>
+            <button id="copyReport" class="btn secondary tap">Copy report text</button>
+            <button id="emailReport" class="btn ghost tap">Open email draft</button>
+            <button id="openCustomerView" class="btn secondary tap">Open customer view</button>
           </div>
-          <div class="label mt-2">The report uses your timer, fibre & stain picks, solutions, flags, notes and job total.</div>
         </div>
-      </details>
+      </div>
+      <div class="label mt-2">The report uses your timer, ID tags, fibre & stain picks, solutions, flags, notes and job total.</div>
+    </section>
 
-    </div>
   </main>
 
   <!-- Quick bar -->
   <nav class="fixedbar">
     <a class="pill tap" href="#Diagnosis">Stain/Fibre</a>
-    <a class="pill tap" href="#Diagnosis" onclick="alert('Burn test cues are included in fibre flags/notes');">Burn Test</a>
+    <a class="pill tap" href="#Diagnosis" onclick="alert('Burn test cues are listed in fibre notes and flags')">Burn Test</a>
     <a class="pill tap" href="/internal-price-guide.html">Price Guide</a>
     <a class="pill tap" href="/client/aftercare.html">Aftercare</a>
   </nav>
 
-  <script>
-  /* ===== Clock ===== */
-  const clockEl = document.getElementById('clock');
-  function tickClock(){ clockEl.textContent = new Date().toLocaleString('en-AU',{hour12:false}); }
-  tickClock(); setInterval(tickClock,1000);
+<script>
+/* ===== Clock ===== */
+const clockEl = document.getElementById('clock');
+function tickClock(){ clockEl.textContent = new Date().toLocaleString(); }
+setInterval(tickClock, 1000); tickClock();
 
-  /* ===== Timer ===== */
-  let startTime=null, timerInt=null, splits=[];
-  const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
-  const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
-  const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
+/* ===== Local storage helpers ===== */
+const LS_KEY = 'lefties_field_os';
+function loadState(){ try{ return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }catch{ return {}; } }
+function saveState(patch){
+  const cur = loadState();
+  const next = {...cur, ...patch, ts: Date.now()};
+  localStorage.setItem(LS_KEY, JSON.stringify(next));
+  return next;
+}
 
-  function renderSplits(){
-    splitsList.innerHTML='';
-    splits.forEach((s,i)=>{ const li=document.createElement('li'); li.textContent=`Room ${i+1}: ${fmt(s.duration)} ${s.note?`— ${s.note}`:''}`; splitsList.appendChild(li); });
-    splitsCount.textContent=splits.length;
+/* ===== Timer & Splits (with editable comments) ===== */
+let startTime=null, timerInt=null, splits=[];
+const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
+const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
+const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
+
+function renderSplits(){
+  splitsList.innerHTML='';
+  splits.forEach((s,i)=>{
+    const li = document.createElement('li');
+    li.className = 'split-row';
+    const label = document.createElement('div');
+    label.className='font-bold shrink-0';
+    label.textContent = `Room ${i+1}`;
+    const time = document.createElement('div');
+    time.className='text-xs text-[color:var(--muted)]';
+    time.textContent = fmt(s.duration||0);
+
+    const input = document.createElement('input');
+    input.type='text';
+    input.placeholder='Comment e.g. “Bed 2 — mould”';
+    input.value = s.note || '';
+    input.addEventListener('input', ()=>{
+      splits[i].note = input.value;
+      saveState({splits});
+      buildReport();
+    });
+
+    const del = document.createElement('button');
+    del.className='btn secondary tap';
+    del.textContent='Delete';
+    del.addEventListener('click', ()=>{
+      splits.splice(i,1);
+      saveState({splits});
+      renderSplits();
+      splitsCount.textContent=splits.length;
+      buildReport();
+    });
+
+    li.appendChild(label);
+    li.appendChild(time);
+    li.appendChild(input);
+    li.appendChild(del);
+    li.style.gap='0.75rem';
+    splitsList.appendChild(li);
+  });
+  splitsCount.textContent=splits.length;
+}
+
+startBtn.addEventListener('click', ()=>{
+  if(startTime) return;
+  startTime=Date.now();
+  startedEl.textContent=new Date(startTime).toLocaleTimeString();
+  timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250);
+  startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false;
+  saveState({started: startedEl.textContent});
+});
+
+splitBtn.addEventListener('click', ()=>{
+  if(!startTime) return;
+  const now=Date.now();
+  const used = splits.reduce((t,s)=> t + (s.duration||0), 0);
+  const elapsed = now - startTime - used;
+  splits.push({duration: elapsed, note:''});
+  saveState({splits});
+  renderSplits(); buildReport();
+});
+
+stopBtn.addEventListener('click', ()=>{
+  if(!startTime) return;
+  clearInterval(timerInt);
+  endedEl.textContent = new Date().toLocaleTimeString();
+  splitBtn.disabled=true; stopBtn.disabled=true;
+  saveState({ended: endedEl.textContent});
+  buildReport();
+});
+
+/* ===== Multi-select chips (ID & Job Tags) ===== */
+const tagState = { service:new Set(), jobType:new Set(), fibres:new Set() };
+function hydrateTags(){
+  const st = loadState();
+  (st.service||[]).forEach(v=> tagState.service.add(v));
+  (st.jobType||[]).forEach(v=> tagState.jobType.add(v));
+  (st.fibres||[]).forEach(v=> tagState.fibres.add(v));
+
+  document.querySelectorAll('.chip[data-key]').forEach(ch=>{
+    const key = ch.dataset.key, val = ch.dataset.val;
+    if(tagState[key]?.has(val)) ch.classList.add('on');
+  });
+}
+function toggleChip(ch){
+  const key = ch.dataset.key, val = ch.dataset.val;
+  if(!tagState[key]) tagState[key]=new Set();
+  if(ch.classList.contains('on')){
+    ch.classList.remove('on'); tagState[key].delete(val);
+  }else{
+    ch.classList.add('on'); tagState[key].add(val);
   }
+  saveState({ service:[...tagState.service], jobType:[...tagState.jobType], fibres:[...tagState.fibres] });
+  buildReport();
+}
+document.addEventListener('click', (e)=>{
+  const ch = e.target.closest('.chip[data-key]');
+  if(!ch) return;
+  // ignore true checkbox chips in setup
+  if(ch.querySelector('input[type="checkbox"]')) return;
+  toggleChip(ch);
+});
 
-  startBtn.addEventListener('click', ()=>{
-    if(startTime) return;
-    startTime=Date.now();
-    startedEl.textContent=new Date(startTime).toLocaleTimeString();
-    timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250);
-    startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false; save();
-  });
+/* ===== Walk-through script quick copy ===== */
+document.getElementById('scriptWalk').addEventListener('click', ()=>{
+  const txt = `We’ll walk through with you, point out any risks, and talk through what’s realistic. Hoses and floors can be slippery while we set up. Pets are welcome to say hi while we prep, then we’ll pop them away once machines are running.`;
+  navigator.clipboard.writeText(txt);
+  alert('Walk-through script copied.');
+});
 
-  splitBtn.addEventListener('click', ()=>{
-    if(!startTime) return;
-    const now=Date.now();
-    const elapsed= now - startTime - splits.reduce((t,s)=>t+s.duration,0);
-    const note=prompt('Room name or note? (optional)')||'';
-    splits.push({duration:elapsed, note});
-    renderSplits(); save();
-  });
+/* ===== Diagnosis → Playbook (single select) ===== */
+let pickFibre=null, pickStain=null;
+const pbPrice = document.getElementById('pbPrice');
+const pbScript = document.getElementById('pbScript');
+const pbFlags = document.getElementById('pbFlags');
+const pbProc = document.getElementById('pbProc');
+const pbChems = document.getElementById('pbChems');
 
-  stopBtn.addEventListener('click', ()=>{
-    if(!startTime) return;
-    clearInterval(timerInt);
-    endedEl.textContent=new Date().toLocaleTimeString();
-    splitBtn.disabled=true; stopBtn.disabled=true; save();
-  });
+const CHEM = {
+  winnerPlus: {name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid', note:'Strong alkaline prespray for heavy soil', sds:'#'},
+  citrusSonisteam: {name:'Citrus Sonisteam Prespray (booster)', note:'Citrus solvent boost for grease/oil', sds:'#'},
+  sonizymePrespray: {name:'Sonizyme (enzyme prespray)', note:'Protein/organic prespray, allow dwell', sds:'#'},
+  sonizymeOdour: {name:'Sonizyme (enzyme odour treatment)', note:'Digest odour sources, long dwell', sds:'#'},
+  fiberinse: {name:'Fiberinse (acidic rinse)', note:'Neutralises alkalinity; anti-browning', sds:'#'},
+  browningRemover: {name:'Sonitron Browning Remover (H₂O₂ oxidiser)', note:'Tannin/coffee, yellowing — test first', sds:'#'},
+  solventGel: {name:'Solvent Gel Spotter', note:'Gum/tar/glue/paint; rinse after use', sds:'#'},
+  reducerSpotter: {name:'Reducer Spotter (sodium bisulfite)', note:'Synthetic dye removal attempt', sds:'#'},
+  neutralSpotter: {name:'pH Neutral Spotter / Zenith Encap Spot & Stain', note:'Safe general spotter', sds:'#'},
+  exotica: {name:'Sampson Exotica Mango & Orange', note:'Post-clean fragrance additive', sds:'#'},
+  oxidisingDeo: {name:'Oxidising Deodoriser', note:'Smoke/mildew odour control', sds:'#'},
+  zenithEncap: {name:'Sonitron Zenith Encapsulating Shampoo', note:'Low-moisture maintenance', sds:'#'},
+  brollyCarpet: {name:'Brolly Carpet Protector Concentrate', note:'Post-clean protector', sds:'#'},
+  brollyFabric: {name:'Brolly Fabric Protector', note:'Upholstery protector', sds:'#'},
+  antiResoil: {name:'Anti-Resoiling Agent', note:'Polymer soil resistance', sds:'#'}
+};
+const POST_ADDONS = ['brollyCarpet','brollyFabric','antiResoil','exotica','oxidisingDeo'];
 
-  /* ===== Service type selection ===== */
-  let serviceType=null;
-  document.querySelectorAll('.svc').forEach(b=> b.addEventListener('click', ()=>{
-    document.querySelectorAll('.svc').forEach(x=>x.classList.remove('ring'));
-    b.classList.add('ring'); serviceType=b.dataset.svc; save();
-  }));
-
-  /* ===== Chemical master list (names + notes + SDS placeholders) ===== */
-  const CHEM = {
-    winnerPlus: {name:'Sampson Winner Plus Carpet Pre‑Spray & Extraction Fluid', note:'Strong alkaline prespray for heavy soil', sds:'#'},
-    citrusSonisteam: {name:'Citrus Sonisteam Prespray (booster)', note:'Citrus solvent boost for grease/oil', sds:'#'},
-    sonizymePrespray: {name:'Sonizyme (enzyme prespray)', note:'Protein/organic prespray, allow dwell', sds:'#'},
-    sonizymeOdour: {name:'Sonizyme (enzyme odour treatment)', note:'Digest odour sources, long dwell', sds:'#'},
-    fiberinse: {name:'Fiberinse (acidic rinse)', note:'Neutralises alkalinity; anti‑browning', sds:'#'},
-    browningRemover: {name:'Sonitron Browning Remover (H₂O₂ oxidiser)', note:'Tannin/coffee, yellowing — test first', sds:'#'},
-    solventGel: {name:'Solvent Gel Spotter', note:'Gum/tar/glue/paint; rinse after use', sds:'#'},
-    reducerSpotter: {name:'Reducer Spotter (sodium bisulfite)', note:'Synthetic dye removal attempt', sds:'#'},
-    neutralSpotter: {name:'pH Neutral Spotter / Zenith Encap Spot & Stain', note:'Safe general spotter', sds:'#'},
-    exotica: {name:'Sampson Exotica Mango & Orange', note:'Post‑clean fragrance additive', sds:'#'},
-    oxidisingDeo: {name:'Oxidising Deodoriser', note:'Smoke/mildew odour control', sds:'#'},
-    zenithEncap: {name:'Sonitron Zenith Encapsulating Shampoo', note:'Low‑moisture maintenance', sds:'#'},
-    brollyCarpet: {name:'Brolly Carpet Protector Concentrate', note:'Post‑clean protector', sds:'#'},
-    brollyFabric: {name:'Brolly Fabric Protector', note:'Upholstery protector', sds:'#'},
-    antiResoil: {name:'Anti‑Resoiling Agent', note:'Polymer soil resistance', sds:'#'}
-  };
-
-  /* ===== Rules (Fibre x Stain) ===== */
-  const RULES = {
-    'Wool':{
-      base:{ flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],
-        proc:['Thorough vacuum','Wool‑safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],
-        chems:['fiberinse','neutralSpotter'] },
-      stain:{
-        'Organic':{ price:'+ Enzyme/odour treatment', script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.', add:['sonizymePrespray','sonizymeOdour'] },
-        'Tannin': { price:'+ Tannin reducer', script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.', add:['browningRemover'] },
-        'Oil':    { price:'+ Solvent pre‑spot', script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.', add:['solventGel'] },
-        'Synthetic Dye': { price:'+ Dye treatment (quote on‑site)', script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.', add:['reducerSpotter'] }
-      }
-    },
-    'Nylon':{
-      base:{ flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],
-        proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],
-        chems:['winnerPlus','fiberinse'] },
-      stain:{
-        'Organic':{ price:'+ Enzyme/deodoriser', script:'We’ll hit the organic source then flush. Nylon handles this well.', add:['sonizymePrespray','sonizymeOdour'] },
-        'Tannin': { price:'+ Tannin reducer', script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.', add:['browningRemover'] },
-        'Oil':    { price:'+ Solvent assist', script:'Solvent or citrus boost first, then rinse out the residue.', add:['citrusSonisteam','solventGel'] },
-        'Synthetic Dye': { price:'+ Dye remover attempt', script:'We can attempt a dye removal. Results vary.', add:['reducerSpotter'] }
-      }
-    },
-    'Polyester':{
-      base:{ flags:['Clings to oils — solvent assist helps'],
-        proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],
-        chems:['winnerPlus','citrusSonisteam','fiberinse'] },
-      stain:{
-        'Organic':{ price:'+ Enzyme boost', script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.', add:['sonizymePrespray'] },
-        'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse. Shadow can linger if old.', add:['browningRemover'] },
-        'Oil':    { price:'+ Solvent assist', script:'Oil bonds to polyester. We’ll break it down before rinsing.', add:['solventGel','citrusSonisteam'] },
-        'Synthetic Dye': { price:'+ Dye attempt', script:'We’ll try a reducer. Synthetic colour often bonds hard.', add:['reducerSpotter'] }
-      }
-    },
-    'Olefin/PP':{
-      base:{ flags:['Heat sensitive — keep temps modest'],
-        proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],
-        chems:['winnerPlus','fiberinse'] },
-      stain:{
-        'Organic':{ price:'+ Enzyme/odour treat', script:'We’ll treat odour then rinse. Temps kept low.', add:['sonizymePrespray','sonizymeOdour'] },
-        'Tannin': { price:'+ Reducer', script:'Reducer then rinse. Careful with heat.', add:['browningRemover'] },
-        'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse. Polypropylene holds oils.', add:['solventGel','citrusSonisteam'] },
-        'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt only if safe. Heat low.', add:['reducerSpotter'] }
-      }
-    },
-    'Cellulosic':{
-      base:{ flags:['Higher browning risk — control moisture/pH','Favour low‑moisture methods'],
-        proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],
-        chems:['fiberinse','browningRemover'] },
-      stain:{
-        'Organic':{ price:'+ Anti‑browning / enzyme', script:'We’ll keep moisture low and manage dry time to avoid browning.', add:['sonizymePrespray'] },
-        'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse. Shadow risk if old.', add:['browningRemover'] },
-        'Oil':    { price:'+ Solvent assist', script:'Solvent then low‑moisture clean.', add:['solventGel'] },
-        'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Limited attempts only due to fibre risk.', add:['reducerSpotter'] }
-      }
-    },
-    'Unknown':{
-      base:{ flags:['Unknown fibre — test first','Signed disclaimer recommended'],
-        proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],
-        chems:['neutralSpotter','fiberinse'] },
-      stain:{
-        'Organic':{ price:'+ Risk load', script:'We’ll run a small test patch first since the fibre is unknown.', add:['sonizymePrespray'] },
-        'Tannin': { price:'+ Risk load', script:'We’ll test a reducer on a hidden spot first.', add:['browningRemover'] },
-        'Oil':    { price:'+ Risk load', script:'We’ll test a solvent on a hidden spot first.', add:['solventGel'] },
-        'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe. No guarantee.', add:['reducerSpotter'] }
-      }
+const RULES = {
+  'Wool':{
+    base:{ flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],
+      proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],
+      chems:['fiberinse','neutralSpotter'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/odour treatment', script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent pre-spot', script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye treatment (quote on-site)', script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.', add:['reducerSpotter'] }
     }
-  };
-  const POST_ADDONS = ['brollyCarpet','brollyFabric','antiResoil','exotica','oxidisingDeo'];
-
-  /* ===== Diagnosis → Playbook bindings ===== */
-  let pickFibre=null, pickStain=null;
-
-  function updatePlaybook(){
-    document.getElementById('pbFibre').textContent = pickFibre || '—';
-    document.getElementById('pbStain').textContent = pickStain || '—';
-
-    const pbPrice = document.getElementById('pbPrice');
-    const pbScript = document.getElementById('pbScript');
-    const pbFlags = document.getElementById('pbFlags');
-    const pbProc = document.getElementById('pbProc');
-    const pbChems = document.getElementById('pbChems');
-    pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML='';
-    pbPrice.textContent='—'; pbScript.value='';
-
-    if(pickFibre && pickStain){
-      const base = RULES[pickFibre].base;
-      const stain = RULES[pickFibre].stain[pickStain];
-
-      pbPrice.textContent = stain.price;
-      pbScript.value = stain.script;
-
-      base.flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
-      base.proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
-
-      const ids = Array.from(new Set([...(base.chems||[]), ...(stain.add||[])]));
-      const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
-      const finalList = [...ids, ...remind];
-
-      finalList.forEach(key=>{
-        const c = CHEM[key]; if(!c) return;
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline';
-        a.textContent = c.name;
-        li.appendChild(a);
-        const t = document.createTextNode(` — ${c.note}`);
-        li.appendChild(t);
-        pbChems.appendChild(li);
-      });
+  },
+  'Nylon':{
+    base:{ flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],
+      proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],
+      chems:['winnerPlus','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/deodoriser', script:'We’ll hit the organic source then flush. Nylon handles this well.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent or citrus boost first, then rinse out the residue.', add:['citrusSonisteam','solventGel'] },
+      'Synthetic Dye': { price:'+ Dye remover attempt', script:'We can attempt a dye removal. Results vary.', add:['reducerSpotter'] }
     }
-    buildReport(); // keep report in sync
+  },
+  'Polyester':{
+    base:{ flags:['Clings to oils — solvent assist helps'],
+      proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],
+      chems:['winnerPlus','citrusSonisteam','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme boost', script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse. Shadow can linger if old.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Oil bonds to polyester. We’ll break it down before rinsing.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'We’ll try a reducer. Synthetic colour often bonds hard.', add:['reducerSpotter'] }
+    }
+  },
+  'Olefin/PP':{
+    base:{ flags:['Heat sensitive — keep temps modest'],
+      proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],
+      chems:['winnerPlus','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Enzyme/odour treat', script:'We’ll treat odour then rinse. Temps kept low.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Reducer', script:'Reducer then rinse. Careful with heat.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse. Polypropylene holds oils.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt only if safe. Heat low.', add:['reducerSpotter'] }
+    }
+  },
+  'Cellulosic':{
+    base:{ flags:['Higher browning risk — control moisture/pH','Favour low-moisture methods'],
+      proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],
+      chems:['fiberinse','browningRemover'] },
+    stain:{
+      'Organic':{ price:'+ Anti-browning / enzyme', script:'We’ll keep moisture low and manage dry time to avoid browning.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse. Shadow risk if old.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent then low-moisture clean.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Limited attempts only due to fibre risk.', add:['reducerSpotter'] }
+    }
+  },
+  'Unknown':{
+    base:{ flags:['Unknown fibre — test first','Signed disclaimer recommended'],
+      proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],
+      chems:['neutralSpotter','fiberinse'] },
+    stain:{
+      'Organic':{ price:'+ Risk load', script:'We’ll run a small test patch first since the fibre is unknown.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Risk load', script:'We’ll test a reducer on a hidden spot first.', add:['browningRemover'] },
+      'Oil':    { price:'+ Risk load', script:'We’ll test a solvent on a hidden spot first.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe. No guarantee.', add:['reducerSpotter'] }
+    }
   }
+};
 
-  document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{
-    document.querySelectorAll('.fibre').forEach(x=> x.classList.remove('ring'));
-    b.classList.add('ring'); pickFibre = b.dataset.fibre; save();
-    updatePlaybook();
-  }));
-  document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{
-    document.querySelectorAll('.stain').forEach(x=> x.classList.remove('ring'));
-    b.classList.add('ring'); pickStain = b.dataset.stain; save();
-    updatePlaybook();
-  }));
+function updatePlaybook(){
+  document.getElementById('pbFibre').textContent = pickFibre || '—';
+  document.getElementById('pbStain').textContent = pickStain || '—';
 
-  document.getElementById('copyScript').addEventListener('click', ()=>{
-    navigator.clipboard.writeText(document.getElementById('pbScript').value || '');
-  });
+  pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML='';
+  pbPrice.textContent='—'; pbScript.value='';
 
-  /* ===== Walk-through helper ===== */
-  document.getElementById('scriptWalk').addEventListener('click', ()=>{
-    const txt = `We’ll walk through with you, point out any risks, and talk through what’s realistic. Hoses and floors can be slippery while we set up. Pets are welcome to say hi while we prep, then we’ll pop them away once machines are running.`;
-    navigator.clipboard.writeText(txt);
-    alert('Walk-through script copied.');
-  });
+  if(pickFibre && pickStain){
+    const base = RULES[pickFibre].base;
+    const stain = RULES[pickFibre].stain[pickStain];
 
-  /* ===== Payment + Review helpers ===== */
-  document.getElementById('takePayment').addEventListener('click', ()=>{
-    const amt = (document.getElementById('amount').value||'').trim();
-    if(!amt || isNaN(Number(amt))) { alert('Enter a numeric amount'); return; }
-    save(); // store amount for the report
-    // Square deep-link scheme (will fallback)
-    const scheme = 'square-commerce-v1://';
-    const fallback = 'https://squareup.com/dashboard';
-    setTimeout(()=>location.href=fallback, 800);
-    location.href = scheme;
-  });
+    pbPrice.textContent = stain.price;
+    pbScript.value = stain.script;
 
-  document.getElementById('sendReview').addEventListener('click', ()=>{
-    const mobile = (document.getElementById('clientMobile').value||'').trim();
-    const body = `Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`;
-    if(mobile){
-      navigator.clipboard.writeText(`To: ${mobile}\n\n${body}`);
-    }else{
-      navigator.clipboard.writeText(body);
-    }
-    alert('Review SMS copied to clipboard.');
-  });
+    base.flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
+    base.proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
 
-  /* ===== Local autosave & load ===== */
-  const KEY='lefties_field_os_v14';
-  const FIELDS = ['addrOk','parkOk','risk','disc','tapOk','powerOk','hoseRun','slipWarn','solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'];
+    const ids = Array.from(new Set([...(base.chems||[]), ...(stain.add||[])]));
+    const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
+    const finalList = [...ids, ...remind];
 
-  function save(){
-    const obj = { ts: Date.now(), serviceType, pickFibre, pickStain, splits, started: startedEl.textContent, ended: endedEl.textContent };
-    FIELDS.forEach(id=>{ const el=document.getElementById(id); if(!el) return; obj[id]= el.type==='checkbox'? !!el.checked : (el.value||''); });
-    // persist photos (if already read)
-    const existing = JSON.parse(localStorage.getItem(KEY)||'{}');
-    obj.beforePhotoData = existing.beforePhotoData || null;
-    obj.afterPhotoData  = existing.afterPhotoData  || null;
-    localStorage.setItem(KEY, JSON.stringify(obj));
-    buildReport();
-  }
-
-  function load(){
-    const raw = localStorage.getItem(KEY); if(!raw) return;
-    const obj = JSON.parse(raw);
-    serviceType = obj.serviceType || null;
-    if(serviceType){
-      const b=[...document.querySelectorAll('.svc')].find(x=>x.dataset.svc===serviceType);
-      b && b.classList.add('ring');
-    }
-    pickFibre = obj.pickFibre || null;
-    pickStain = obj.pickStain || null;
-    if(pickFibre){ const b=[...document.querySelectorAll('.fibre')].find(x=>x.dataset.fibre===pickFibre); b&&b.classList.add('ring'); }
-    if(pickStain){ const b=[...document.querySelectorAll('.stain')].find(x=>x.dataset.stain===pickStain); b&&b.classList.add('ring'); }
-    updatePlaybook();
-
-    splits = obj.splits || []; renderSplits();
-    startedEl.textContent = obj.started || '—';
-    endedEl.textContent   = obj.ended || '—';
-    FIELDS.forEach(id=>{ const el=document.getElementById(id); if(!el) return; if(el.type==='checkbox') el.checked=!!obj[id]; else el.value=obj[id]||''; });
-    buildReport();
-  }
-  window.addEventListener('load', load);
-  setInterval(save, 1500);
-
-  // Persist before/after images as data URLs
-  function fileToDataURL(input, key){
-    input?.addEventListener('change', ()=>{
-      const file = input.files && input.files[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        const data = JSON.parse(localStorage.getItem(KEY)||'{}');
-        data[key] = reader.result;
-        localStorage.setItem(KEY, JSON.stringify(data));
-        buildReport();
-      };
-      reader.readAsDataURL(file);
+    finalList.forEach(key=>{
+      const c = CHEM[key]; if(!c) return;
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline';
+      a.textContent = c.name;
+      li.appendChild(a);
+      li.appendChild(document.createTextNode(` — ${c.note}`));
+      pbChems.appendChild(li);
     });
   }
-  fileToDataURL(document.getElementById('beforePhoto'), 'beforePhotoData');
-  fileToDataURL(document.getElementById('afterPhoto'),  'afterPhotoData');
+  buildReport();
+}
+document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{
+  document.querySelectorAll('.fibre').forEach(x=> x.classList.remove('ring'));
+  b.classList.add('ring'); pickFibre = b.dataset.fibre; updatePlaybook(); saveState({pickFibre});
+}));
+document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{
+  document.querySelectorAll('.stain').forEach(x=> x.classList.remove('ring'));
+  b.classList.add('ring'); pickStain = b.dataset.stain; updatePlaybook(); saveState({pickStain});
+}));
+document.getElementById('copyScript').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(pbScript.value || '');
+});
 
-  // Export & summary
-  document.getElementById('exportJSON').addEventListener('click', ()=>{
-    const data = localStorage.getItem(KEY) || '{}';
-    const blob = new Blob([data], {type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
-    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  });
-  document.getElementById('copySummary').addEventListener('click', ()=>{
-    const data = JSON.parse(localStorage.getItem(KEY)||'{}');
-    const lines = [];
-    lines.push(`Lefties Field OS Summary`);
-    lines.push(`Service: ${data.serviceType||'—'}`);
-    lines.push(`Started: ${data.started||'—'}  Ended: ${data.ended||'—'}`);
-    lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
-    lines.push(`Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
-    lines.push(`Price add‑on: ${document.getElementById('pbPrice').textContent}`);
-    lines.push(`Flags: ${(RULES[pickFibre]?.base.flags||[]).join('; ')}`);
-    lines.push(`Solutions: ${data.solutions||'—'}  Dry passes: ${data.dryPass||'—'}`);
-    if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round(s.duration/60000)} min ${s.note?'- '+s.note:''}`));
-    lines.push(`Notes: ${data.jobNotes||'—'}`);
-    lines.push(`Amount: ${data.amount?('$'+data.amount):'—'}`);
-    navigator.clipboard.writeText(lines.join('\n'));
-    alert('Summary copied.');
-  });
-  document.getElementById('resetAll').addEventListener('click', ()=>{
-    if(!confirm('Clear current job?')) return;
-    localStorage.removeItem(KEY); location.reload();
-  });
-
-  /* ===== Report (prefill & actions) ===== */
-  const previewEl = document.getElementById('reportPreview');
-  const clientEmailEl = document.getElementById('clientEmail');
-
-  function prettyMins(m){ if(isNaN(m)) return '—'; if(m<60) return `${m} min`; const h=Math.floor(m/60), r=m%60; return r?`${h}h ${r}m`:`${h}h`; }
-
-  function collectData(){
-    const data = JSON.parse(localStorage.getItem(KEY)||'{}');
-    return {
-      service: data.serviceType||'—',
-      started: data.started||'—',
-      ended: data.ended||'—',
-      elapsed: document.getElementById('elapsed')?.textContent || '—',
-      fibre: pickFibre||'—',
-      stain: pickStain||'—',
-      flags: (RULES[pickFibre]?.base.flags || []),
-      procedure: (RULES[pickFibre]?.base.proc || []),
-      price: document.getElementById('pbPrice')?.textContent || '—',
-      solutions: data.solutions||'—',
-      dryPass: data.dryPass||'—',
-      splits: (data.splits||[]).map((s,i)=>({label:`Room ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
-      aftercare: !!data.aftercare,
-      notes: data.jobNotes||'—',
-      amount: data.amount||'—',
-      beforePhotoData: data.beforePhotoData||null,
-      afterPhotoData: data.afterPhotoData||null
+/* ===== Photo handlers (camera & library to localStorage as data URLs) ===== */
+function hookPhoto(inputEl, key){
+  inputEl?.addEventListener('change', ()=>{
+    const file = inputEl.files && inputEl.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const st = loadState();
+      st[key] = reader.result;
+      saveState(st);
+      buildReport();
     };
-  }
+    reader.readAsDataURL(file);
+  });
+}
+hookPhoto(document.getElementById('beforePhotoCam'), 'beforePhotoData');
+hookPhoto(document.getElementById('beforePhotoLib'), 'beforePhotoData');
+hookPhoto(document.getElementById('afterPhotoCam'), 'afterPhotoData');
+hookPhoto(document.getElementById('afterPhotoLib'), 'afterPhotoData');
 
-  function clientFacingCopy(d){
-    const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
-    return {
-      title: 'Job Completion Report',
-      intro: `Thanks for having Lefties in today. Here’s a quick summary of what we cleaned and how we cared for your home.`,
-      timing: [
-        `Started: ${d.started}`,
-        `Finished: ${d.ended}`,
-        `Total time on site: ${d.elapsed}`
-      ],
-      diagnosis: [
-        `Service: ${d.service}`,
-        `Primary fibre: ${d.fibre}`,
-        `Main issue treated: ${d.stain}`
-      ],
-      approach: [
-        `Our process: ${d.procedure.join(' → ') || '—'}`,
-        `Solutions used: ${d.solutions}`,
-        `Dry passes for faster drying: ${d.dryPass || '—'}`
-      ],
-      watchouts: d.flags,
-      perRoom: d.splits.length ? d.splits.map(s=> `${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`) : ['—'],
-      outcome: [
-        `Recommended add‑on: ${d.price || '—'}`,
-        care,
-        `Notes: ${d.notes}`
-      ],
-      total: `Amount charged: ${d.amount==='—' ? '—' : `$${d.amount}`}`
-    };
+/* ===== Payment + Review ===== */
+document.getElementById('takePayment').addEventListener('click', ()=>{
+  const amt = (document.getElementById('amount').value||'').trim();
+  if(!amt){ alert('Enter amount'); return; }
+  saveState({amount: amt});
+  // Deep link attempt then fallback
+  const scheme = 'square-commerce-v1://'; const fallback = 'https://squareup.com/dashboard';
+  setTimeout(()=>location.href=fallback, 600); location.href = scheme;
+});
+document.getElementById('sendReview').addEventListener('click', ()=>{
+  const mobile = document.getElementById('clientMobile').value.trim();
+  const body = encodeURIComponent(`Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`);
+  if(mobile){
+    navigator.clipboard.writeText(`To: ${mobile}\n\n${decodeURIComponent(body)}`);
+    alert('Review SMS copied. Paste into Messages.');
+  } else {
+    navigator.clipboard.writeText(decodeURIComponent(body));
+    alert('Review SMS copied to clipboard.');
   }
+});
 
-  function buildReport(){
-    const d = collectData();
-    const c = clientFacingCopy(d);
-    const report =
+/* ===== General fields autosave ===== */
+const FIELDS = ['addrOk','parkOk','risk','disc','tapOk','powerOk','hoseRun','slipWarn','solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'];
+FIELDS.forEach(id=>{
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('input', ()=>{
+    saveState({ [id]: el.type==='checkbox' ? el.checked : el.value });
+    buildReport();
+  });
+  el.addEventListener('change', ()=>{
+    saveState({ [id]: el.type==='checkbox' ? el.checked : el.value });
+    buildReport();
+  });
+});
+
+/* ===== Export & summary ===== */
+document.getElementById('exportJSON').addEventListener('click', ()=>{
+  const data = localStorage.getItem(LS_KEY) || '{}';
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+document.getElementById('copySummary').addEventListener('click', ()=>{
+  const st = loadState();
+  const lines = [];
+  lines.push(`Lefties Field OS Summary`);
+  lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}`);
+  lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
+  lines.push(`Service: ${(st.service||[]).join(', ')||'—'}  Job Type: ${(st.jobType||[]).join(', ')||'—'}`);
+  lines.push(`Fibres: ${(st.fibres||[]).join(', ')||'—'}`);
+  lines.push(`Diagnosis → Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
+  lines.push(`Price add-on: ${document.getElementById('pbPrice').textContent}`);
+  lines.push(`Flags: ${(RULES[pickFibre]?.base.flags||[]).join('; ')}`);
+  lines.push(`Solutions: ${st.solutions||'—'}  Dry passes: ${st.dryPass||'—'}`);
+  if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round((s.duration||0)/60000)} min${s.note?` — ${s.note}`:''}`));
+  lines.push(`Notes: ${st.jobNotes||'—'}`);
+  navigator.clipboard.writeText(lines.join('\n'));
+  alert('Summary copied.');
+});
+document.getElementById('resetAll').addEventListener('click', ()=>{
+  if(!confirm('Clear current job?')) return;
+  localStorage.removeItem(LS_KEY); location.reload();
+});
+
+/* ===== Report build ===== */
+const previewEl = document.getElementById('reportPreview');
+const clientEmailEl = document.getElementById('clientEmail');
+function prettyMins(m){ if(isNaN(m)) return '—'; if(m<60) return `${m} min`; const h=Math.floor(m/60), r=m%60; return r?`${h}h ${r}m`:`${h}h`; }
+
+function collectData(){
+  const st = loadState();
+  return {
+    started: st.started||'—',
+    ended: st.ended||'—',
+    elapsed: document.getElementById('elapsed')?.textContent || '—',
+    id_service: st.service||[],
+    id_jobType: st.jobType||[],
+    id_fibres: st.fibres||[],
+    fibre: pickFibre||'—',
+    stain: pickStain||'—',
+    flags: (RULES[pickFibre]?.base.flags || []),
+    procedure: (RULES[pickFibre]?.base.proc || []),
+    price: document.getElementById('pbPrice')?.textContent || '—',
+    solutions: st.solutions||'—',
+    dryPass: st.dryPass||'—',
+    splits: (st.splits||[]).map((s,i)=>({label:`Room ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
+    aftercare: !!st.aftercare,
+    notes: st.jobNotes||'—',
+    amount: st.amount||'—',
+    beforePhotoData: st.beforePhotoData||null,
+    afterPhotoData: st.afterPhotoData||null
+  };
+}
+function clientFacingCopy(d){
+  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
+  return {
+    title: 'Job Completion Report',
+    intro: `Thanks for having Lefties in today. Here’s a quick summary of what we cleaned and how we cared for your home.`,
+    timing: [
+      `Started: ${d.started}`,
+      `Finished: ${d.ended}`,
+      `Total time on site: ${d.elapsed}`
+    ],
+    idtags: [
+      `Service: ${d.id_service.join(', ')||'—'}`,
+      `Job Type: ${d.id_jobType.join(', ')||'—'}`,
+      `Fibres present: ${d.id_fibres.join(', ')||'—'}`
+    ],
+    diagnosis: [
+      `Primary fibre treated: ${d.fibre}`,
+      `Main issue treated: ${d.stain}`
+    ],
+    approach: [
+      `Our process: ${d.procedure.join(' → ') || '—'}`,
+      `Solutions used: ${d.solutions}`,
+      `Dry passes for faster drying: ${d.dryPass || '—'}`
+    ],
+    watchouts: d.flags,
+    perRoom: d.splits.length ? d.splits.map(s=> `${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`) : ['—'],
+    outcome: [
+      `Recommended add‑on: ${d.price || '—'}`,
+      care,
+      `Notes: ${d.notes}`
+    ],
+    total: `Amount charged: ${d.amount==='—' ? '—' : `$${d.amount}`}`
+  };
+}
+function buildReport(){
+  const d = collectData();
+  const c = clientFacingCopy(d);
+  const report =
 `Lefties Carpet Cleaning — Job Completion Report
 
 Time
 • ${c.timing.join('\n• ')}
+
+Job ID
+• ${c.idtags.join('\n• ')}
 
 What we cleaned
 • ${c.diagnosis.join('\n• ')}
@@ -761,7 +875,7 @@ How we cared for your home
 • ${c.approach.join('\n• ')}
 
 Per‑room detail
-${c.perRoom.map(x=>'• '+x).join('\n')}
+${c.perRoom.map(x=>`• ${x}`).join('\n')}
 
 Outcome & next steps
 • ${c.outcome.join('\n• ')}
@@ -769,116 +883,153 @@ Outcome & next steps
 ${c.total}
 
 If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
-    previewEl.textContent = report;
-    return {text: report, data: d, copy: c};
-  }
+  previewEl.textContent = report;
+  return {text: report, data: d, copy: c};
+}
+document.getElementById('refreshReport').addEventListener('click', ()=> buildReport());
+document.getElementById('copyReport').addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
+document.getElementById('emailReport').addEventListener('click', ()=>{
+  const to = (clientEmailEl.value||'').trim();
+  const subject = encodeURIComponent('Lefties — Job Completion Report');
+  const body = encodeURIComponent(buildReport().text);
+  const href = `mailto:${to}?subject=${subject}&body=${body}`;
+  window.location.href = href;
+});
 
-  document.getElementById('refreshReport').addEventListener('click', ()=> buildReport());
-  document.getElementById('copyReport').addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
+/* ===== Customer view ===== */
+function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+function openCustomerView(){
+  const {data:d, copy:c} = buildReport();
 
-  document.getElementById('emailReport').addEventListener('click', ()=>{
-    const to = (clientEmailEl.value||'').trim();
-    const subject = encodeURIComponent('Lefties — Job Completion Report');
-    const body = encodeURIComponent(buildReport().text);
-    const href = `mailto:${to}?subject=${subject}&body=${body}`;
-    window.location.href = href;
-  });
+  const li = arr => arr.map(x=>`<li>${esc(x)}</li>`).join('');
+  const perRoomLI = c.perRoom.map(x=>`<li>${esc(x)}</li>`).join('');
 
-  // Pretty customer view
-  function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
-  function openCustomerView(){
-    const {data:d, copy:c} = buildReport();
-    const li = arr => arr.map(x=>`<li>${esc(x)}</li>`).join('');
-    const perRoomLI = c.perRoom.map(x=>`<li>${esc(x)}</li>`).join('');
-    const beforeImg = d.beforePhotoData ? `<div class="flex-1"><div class="label mb-1">Before</div><img src="${d.beforePhotoData}" alt="Before" class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
-    const afterImg  = d.afterPhotoData  ? `<div class="flex-1"><div class="label mb-1">After</div><img src="${d.afterPhotoData}"  alt="After"  class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
-    const photosRow = (beforeImg||afterImg) ? `<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">${beforeImg}${afterImg}</div>` : '';
+  const beforeImg = d.beforePhotoData ? `<div class="flex-1"><div class="label mb-1">Before</div><img src="${d.beforePhotoData}" alt="Before" class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
+  const afterImg  = d.afterPhotoData  ? `<div class="flex-1"><div class="label mb-1">After</div><img src="${d.afterPhotoData}"  alt="After"  class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
+  const photosRow = (beforeImg||afterImg) ? `<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">${beforeImg}${afterImg}</div>` : '';
 
-    const win = window.open('', '_blank');
-    if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site to view the report.'); return; }
-
-    win.document.write(`<!DOCTYPE html><html lang="en"><head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Lefties — Job Report</title>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
-      <style>
-        :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --ink:#1b2025; --muted:#3d4754; }
-        body{ margin:0; font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink); background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
-        .wrap{ max-width:860px; margin:32px auto; padding:0 16px; }
-        .card{ background:rgba(255,255,255,.54); border:1px solid rgba(0,0,0,.08); border-radius:18px; backdrop-filter:blur(12px) saturate(120%); box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25); }
-        .pad{ padding:24px; }
-        .header{ display:flex; align-items:center; gap:14px; }
-        .logo{ height:48px; width:auto; }
-        h1{ margin:0; font-size:26px; font-weight:900; }
-        .sub{ color:var(--muted); font-size:13px; }
-        h2{ font-size:18px; margin:18px 0 8px; font-weight:900; }
-        ul{ margin:0; padding-left:18px; }
-        .grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-        @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
-        .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
-        .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
-        @media print{ body{ background:#fff } .card{ box-shadow:none; border:0 } .wrap{ margin:0 auto } }
-      </style>
-    </head><body>
-      <div class="wrap">
-        <div class="card pad">
-          <div class="header">
-            <img src="/core-logo-transparent.png" alt="Lefties" class="logo" />
-            <div>
-              <h1>Job Completion Report</h1>
-              <div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div>
-            </div>
+  const win = window.open('', '_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
+  win.document.write(`<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lefties — Job Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --text:#1b2025; --muted:#3d4754; }
+      html,body{ height:100%; } body{ margin:0; font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text);
+        background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
+      .wrap{ max-width:860px; margin:32px auto; padding:0 16px; }
+      .card{ background:rgba(255,255,255,.54); border:1px solid rgba(0,0,0,.08); border-radius:18px; backdrop-filter:blur(12px) saturate(120%);
+             box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25); }
+      .pad{ padding:24px; }
+      .header{ display:flex; align-items:center; gap:14px; }
+      .logo{ height:48px; width:auto; }
+      h1{ margin:0; font-size:26px; font-weight:900; }
+      .sub{ color:var(--muted); font-size:13px; }
+      h2{ font-size:18px; margin:18px 0 8px; font-weight:900; }
+      ul{ margin:0; padding-left:18px; }
+      .grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+      @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
+      .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
+      .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
+      @media print{ body{ background:#fff; } .card{ box-shadow:none; border:0; } .wrap{ margin:0 auto; } }
+    </style>
+  </head><body>
+    <div class="wrap">
+      <div class="card pad">
+        <div class="header">
+          <img src="/core-logo-transparent.png" alt="Lefties" class="logo" />
+          <div>
+            <h1>Job Completion Report</h1>
+            <div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div>
           </div>
+        </div>
 
-          <div class="section grid">
-            <div>
-              <h2>Time</h2>
-              <ul>${li(c.timing)}</ul>
-            </div>
-            <div>
-              <h2>What we cleaned</h2>
-              <ul>${li(c.diagnosis)}</ul>
-            </div>
+        <div class="section grid">
+          <div>
+            <h2>Time</h2>
+            <ul>${li(c.timing)}</ul>
           </div>
+          <div>
+            <h2>Job ID</h2>
+            <ul>${li([
+              `Service: ${esc(d.id_service.join(', ')||'—')}`,
+              `Job Type: ${esc(d.id_jobType.join(', ')||'—')}`,
+              `Fibres present: ${esc(d.id_fibres.join(', ')||'—')}`,
+            ])}</ul>
+          </div>
+        </div>
 
-          <div class="section">
+        <div class="section grid">
+          <div>
+            <h2>What we cleaned</h2>
+            <ul>${li(c.diagnosis)}</ul>
+          </div>
+          <div>
             <h2>How we cared for your home</h2>
             <ul>${li(c.approach)}</ul>
           </div>
+        </div>
 
-          <div class="section">
-            <h2>Per‑room detail</h2>
-            <ul>${perRoomLI}</ul>
+        <div class="section">
+          <h2>Per‑room detail</h2>
+          <ul>${perRoomLI}</ul>
+        </div>
+
+        ${photosRow}
+
+        <div class="section grid">
+          <div>
+            <h2>Things we kept an eye on</h2>
+            <ul>${li(c.watchouts)}</ul>
           </div>
-
-          ${photosRow}
-
-          <div class="section grid">
-            <div>
-              <h2>Things we kept an eye on</h2>
-              <ul>${li(c.watchouts)}</ul>
-            </div>
-            <div>
-              <h2>Outcome & next steps</h2>
-              <ul>${li(c.outcome)}</ul>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>Total</h2>
-            <ul><li>${esc(c.total)}</li></ul>
+          <div>
+            <h2>Outcome & next steps</h2>
+            <ul>${li(c.outcome)}</ul>
           </div>
         </div>
-        <div class="footer">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
-      </div>
-    </body></html>`);
-    win.document.close(); win.focus();
-  }
-  document.getElementById('openCustomerView').addEventListener('click', openCustomerView);
 
-  // Initial build
+        <div class="section">
+          <h2>Total</h2>
+          <ul><li>${esc(c.total)}</li></ul>
+        </div>
+      </div>
+      <div class="footer">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
+    </div>
+  </body></html>`);
+  win.document.close(); win.focus();
+}
+document.getElementById('openCustomerView').addEventListener('click', openCustomerView);
+
+/* ===== Initial load ===== */
+function load(){
+  const st = loadState();
+  // timer + splits
+  splits = st.splits || []; renderSplits();
+  if(st.started) startedEl.textContent = st.started;
+  if(st.ended) endedEl.textContent = st.ended;
+  if(st.amount) document.getElementById('amount').value = st.amount;
+  if(st.clientMobile) document.getElementById('clientMobile').value = st.clientMobile;
+
+  // general fields
+  FIELDS.forEach(id=>{
+    const el = document.getElementById(id); if(!el) return;
+    const v = st[id];
+    if(el.type==='checkbox') el.checked = !!v; else if(typeof v!=='undefined') el.value = v;
+  });
+
+  // diagnosis
+  if(st.pickFibre){ pickFibre = st.pickFibre; }
+  if(st.pickStain){ pickStain = st.pickStain; }
+  if(pickFibre){ document.querySelector(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
+  if(pickStain){ document.querySelector(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
+  updatePlaybook();
+
+  // id tags
+  hydrateTags();
+
   buildReport();
-  </script>
+}
+load();
+</script>
 </body>
 </html>
