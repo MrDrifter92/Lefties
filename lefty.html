@@ -6,7 +6,7 @@
   <title>Lefties Home Services — LeftiesLite</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- iOS / PWA icons (root). You’ll provide /lefty.png next. -->
+  <!-- iOS / PWA icons -->
   <link rel="apple-touch-icon" href="/lefty.png"> <!-- 180x180 recommended -->
   <link rel="icon" href="/favicon.ico">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,6 +22,7 @@
       --glass:rgba(255,255,255,.45); --glass-b:rgba(0,0,0,.08);
       --ink:#1b2025; --muted:#475569;
     }
+    html,body{height:100%}
     body{
       font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--ink);
@@ -44,18 +45,39 @@
     table.invoice{width:100%;border-collapse:collapse}
     table.invoice th, table.invoice td{padding:.6rem;border-bottom:1px solid rgba(0,0,0,.08);text-align:left}
     .money{text-align:right}
-    /* Print-friendly invoice sheet */
+
+    /* Password modal */
+    .gate{position:fixed;inset:0;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;z-index:1000}
+    .gate-card{max-width:420px;width:92%;}
+
+    /* Keep invoice on one printed page, hide everything else */
+    .sheet{page-break-inside:avoid}
     @media print{
       .no-print{display:none !important}
       body{background:#fff}
-      .sheet{max-width:800px;margin:0 auto;box-shadow:none;border:0}
+      header,.quick, .tools, .shortcuts, .footer{display:none !important}
+      .sheet{max-width:800px;margin:0 auto;border:0;box-shadow:none}
     }
   </style>
 </head>
 <body>
 
+  <!-- Password gate (shows on every load) -->
+  <div id="gate" class="gate">
+    <div class="glass gate-card rounded-2xl p-6">
+      <div class="text-xl font-extrabold mb-1">Enter password</div>
+      <div class="text-sm text-[color:var(--muted)] mb-4">Dashboard is protected. Required every time.</div>
+      <input id="gateInput" type="password" class="w-full mb-3" placeholder="Password" inputmode="numeric" />
+      <div class="flex gap-2">
+        <button class="btn" id="gateGo">Unlock</button>
+      </div>
+      <div id="gateErr" class="text-red-600 text-sm mt-2 hidden">Incorrect password. Try again.</div>
+    </div>
+  </div>
+
   <!-- Header -->
-  <header class="glass sticky top-0 z-40">
+  <header class="glass sticky top-0 z-40 no-print header">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <img src="/lefty.png" alt="Lefties" class="h-10 w-10 object-contain rounded-xl select-none">
@@ -72,22 +94,22 @@
   <main class="max-w-6xl mx-auto px-4 pb-24">
 
     <!-- Quick tiles -->
-    <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mt-5">
-      <a class="glass rounded-xl p-4 no-print" href="https://mail.zoho.com" target="_blank" rel="noopener">
-        <div class="text-xs text-[color:var(--muted)]">Email</div><div class="font-extrabold">Open Zoho Mail</div>
+    <section class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mt-5 no-print quick">
+      <a class="glass rounded-xl p-4" href="https://mail.zoho.com" target="_blank" rel="noopener">
+        <div class="text-xs text-[color:var(--muted)]">Email</div><div class="font-extrabold">📫 Open Zoho Mail</div>
       </a>
-      <button class="glass rounded-xl p-4 no-print" onclick="openSquare()">
-        <div class="text-xs text-[color:var(--muted)]">Payments</div><div class="font-extrabold">Open Square POS</div>
+      <button class="glass rounded-xl p-4" onclick="openSquare()">
+        <div class="text-xs text-[color:var(--muted)]">Payments</div><div class="font-extrabold">💳 Open Square POS</div>
       </button>
-      <a class="glass rounded-xl p-4 no-print" href="https://www.bunnings.com.au/" target="_blank" rel="noopener">
-        <div class="text-xs text-[color:var(--muted)]">Supplies</div><div class="font-extrabold">Bunnings</div>
+      <a class="glass rounded-xl p-4" href="https://www.bunnings.com.au/" target="_blank" rel="noopener">
+        <div class="text-xs text-[color:var(--muted)]">Supplies</div><div class="font-extrabold">🧰 Bunnings</div>
       </a>
-      <a class="glass rounded-xl p-4 no-print" href="https://keep.google.com/" target="_blank" rel="noopener">
-        <div class="text-xs text-[color:var(--muted)]">Notes</div><div class="font-extrabold">Quick Notes</div>
+      <a class="glass rounded-xl p-4" href="https://keep.google.com/" target="_blank" rel="noopener">
+        <div class="text-xs text-[color:var(--muted)]">Notes</div><div class="font-extrabold">📝 Quick Notes</div>
       </a>
     </section>
 
-    <!-- Job / Invoice Editor -->
+    <!-- Invoice Editor -->
     <section class="glass rounded-2xl mt-6 p-5 sheet">
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5">
         <div>
@@ -97,7 +119,7 @@
         <div class="text-sm">
           <div><span class="font-bold">Invoice #</span> <span id="invNo"></span></div>
           <div><span class="font-bold">Date</span> <span id="invDate"></span></div>
-          <div><span class="font-bold">ABN</span> <input id="abn" class="ml-2 w-48" placeholder="e.g. 12 345 678 901"></div>
+          <div><span class="font-bold">ABN</span> <input id="abn" class="ml-2 w-48" placeholder="e.g. 12 345 678 901" inputmode="numeric"></div>
         </div>
       </div>
 
@@ -155,20 +177,21 @@
     </section>
 
     <!-- Tools -->
-    <section class="grid md:grid-cols-2 gap-4 mt-6">
-      <!-- Calculator (fixed) -->
+    <section class="grid md:grid-cols-2 gap-4 mt-6 no-print tools">
+      <!-- Calculator -->
       <div class="glass rounded-2xl p-5">
         <div class="text-lg font-extrabold mb-2">Calculator</div>
-        <input id="calcExpr" class="w-full mb-2" placeholder="e.g. (3*120) + 45 - 10%"/>
+        <input id="calcExpr" class="w-full mb-2" placeholder="e.g. (3 x 120) + 45 - 10%" inputmode="decimal" />
         <div class="flex gap-2">
           <button class="btn" onclick="calc()">=</button>
           <button class="btn secondary" onclick="document.getElementById('calcExpr').value='';document.getElementById('calcResult').textContent=''">Clear</button>
         </div>
         <div id="calcResult" class="mt-3 font-black text-xl"></div>
-        <div class="text-xs text-[color:var(--muted)] mt-1">You can use + − * / ( ) and % (percentage of previous number).</div>
+        <div class="text-xs text-[color:var(--muted)] mt-1">Use + − × or x * / ( ) and % (percentage of previous number).</div>
       </div>
 
-      <div class="glass rounded-2xl p-5">
+      <!-- Shortcuts -->
+      <div class="glass rounded-2xl p-5 shortcuts">
         <div class="text-lg font-extrabold mb-2">Shortcuts</div>
         <div class="grid sm:grid-cols-2 gap-2">
           <a class="btn secondary" href="dashboard.html">Dashboard</a>
@@ -179,11 +202,32 @@
 
   </main>
 
+  <footer class="max-w-6xl mx-auto px-4 text-center text-[color:var(--muted)] py-10 border-t border-black/10 no-print footer">
+    <p>&copy; 2025 Lefties Home Services — Hervey Bay. All rights reserved.</p>
+  </footer>
+
 <script>
+/* ===== Password Gate (always prompts) ===== */
+const PASSWORD = 'LeftiesOnly'; // <-- change this to your secret
+const gate = document.getElementById('gate');
+const input = document.getElementById('gateInput');
+const gateErr = document.getElementById('gateErr');
+document.getElementById('gateGo').addEventListener('click', tryOpen);
+input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryOpen(); });
+function tryOpen(){
+  if (input.value === PASSWORD){
+    gate.style.display='none';
+    input.value='';
+  } else {
+    gateErr.classList.remove('hidden');
+    input.select();
+  }
+}
+
 /* Clock */
 const nowEl=document.getElementById('now');
 const fmt=new Intl.DateTimeFormat('en-AU',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Australia/Brisbane'});
-function tick(){ nowEl.textContent=fmt.format(new Date()); }
+function tick(){ if(nowEl) nowEl.textContent=fmt.format(new Date()); }
 tick(); setInterval(tick,30000);
 
 /* Square opener */
@@ -194,15 +238,14 @@ function openSquare(){
   location.href=scheme;
 }
 
-/* Invoice core */
+/* ===== Invoice core ===== */
 const rowsEl=document.getElementById('rows');
 const subEl=document.getElementById('sub'), gstEl=document.getElementById('gst'), totalEl=document.getElementById('total');
 const inclGST=document.getElementById('inclGST');
 
 function money(n){ return '$' + (Math.round(n*100)/100).toFixed(2); }
-function parseRate(v){ // allow "100" or "100+GST"
-  return Number(String(v).replace(/[^0-9.\-]/g,''))||0;
-}
+function num(v){ return Number(String(v).replace(/[^0-9.\-]/g,''))||0; }
+
 function addRow(item='', qty='1', rate='0'){
   const tr=document.createElement('tr');
   tr.innerHTML=`
@@ -218,8 +261,8 @@ function addRow(item='', qty='1', rate='0'){
 function calcTotals(){
   let subtotal=0;
   Array.from(rowsEl.querySelectorAll('tr')).forEach(tr=>{
-    const qty=parseRate(tr.children[1].querySelector('input').value);
-    const rate=parseRate(tr.children[2].querySelector('input').value);
+    const qty=num(tr.children[1].querySelector('input').value);
+    const rate=num(tr.children[2].querySelector('input').value);
     const amt=qty*rate;
     tr.querySelector('.amount').textContent=money(amt);
     subtotal+=amt;
@@ -323,30 +366,32 @@ ${(document.getElementById('notes').value||'').trim()}
 
 /* Copy plain text */
 function copyPlain(){
-  const sel = window.getSelection();
   const temp = document.createElement('textarea');
-  temp.value = document.body.innerText;
+  const txt = document.querySelector('.sheet').innerText;
+  temp.value = txt;
   document.body.appendChild(temp);
   temp.select(); document.execCommand('copy'); temp.remove();
-  alert('Page text copied. For formatted invoices, use Print → Save as PDF.');
+  alert('Invoice text copied. For formatted invoices, use Print → Save as PDF.');
 }
 
-/* Calculator (supports % as percentage of previous number) */
+/* ===== Calculator (accepts x/× and %) ===== */
 function calc(){
-  const input=document.getElementById('calcExpr').value.trim();
-  if(!input){ document.getElementById('calcResult').textContent=''; return; }
+  const raw=document.getElementById('calcExpr').value.trim();
+  const out=document.getElementById('calcResult');
+  if(!raw){ out.textContent=''; return; }
   try{
-    // turn "10%" into "*0.10" when it follows a number or ) 
-    const expr = input.replace(/(\d+(\.\d+)?)\s*%/g, '($1*0.01)');
-    // very small safe eval: numbers + operators only
-    if(!/^[0-9\.\+\-\*\/\(\)\s\*]+$/.test(expr.replace(/(\*\s*0\.01)/g,''))) throw new Error('Invalid characters');
+    // normalize × or x to *
+    let expr = raw.replace(/×/g,'*').replace(/x/gi,'*');
+    // turn "10%" into "*(10/100)" when it follows a number or )
+    expr = expr.replace(/(\d+(\.\d+)?)\s*%/g,'($1*0.01)');
+    // allow digits, ops, dots, spaces, parentheses, asterisks from % rule
+    const safe = expr.replace(/(\*\s*0\.01)/g,'*0.01');
+    if(!/^[0-9\.\+\-\*\/\(\)\s]+$/.test(safe)) throw new Error('Invalid');
     // eslint-disable-next-line no-new-func
-    const val = Function(`"use strict";return (${expr});`)();
-    if(!isFinite(val)) throw new Error('Invalid calc');
-    document.getElementById('calcResult').textContent = isNaN(val)? '—' : (Math.round(val*100)/100).toString();
-  }catch(e){
-    document.getElementById('calcResult').textContent='Error';
-  }
+    const val = Function(`"use strict";return (${safe});`)();
+    if(!isFinite(val)) throw new Error('Invalid');
+    out.textContent = (Math.round(val*100)/100).toString();
+  }catch(e){ out.textContent='Error'; }
 }
 </script>
 </body>
