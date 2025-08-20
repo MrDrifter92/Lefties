@@ -68,7 +68,12 @@
     <div class="glass gate-card rounded-2xl p-6">
       <div class="text-xl font-extrabold mb-1">Enter password</div>
       <div class="text-sm text-[color:var(--muted)] mb-4">Dashboard is protected. Required every time.</div>
-      <input id="gateInput" type="password" class="w-full mb-3" placeholder="Password" inputmode="numeric" />
+      <input id="gateInput" 
+       type="password" 
+       inputmode="text"
+       autocomplete="current-password"
+       class="..." 
+       placeholder="Password">
       <div class="flex gap-2">
         <button class="btn" id="gateGo">Unlock</button>
       </div>
