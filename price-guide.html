@@ -1,264 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Lefties | Price Guide & Quick Estimator</title>
-  <meta name="robots" content="noindex,nofollow">
-
-  <!-- Brand + Tailwind -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lefties — Price Guide & Estimator</title>
+  <meta name="robots" content="noindex,nofollow" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --ink:#1b2025; --muted:#475569;
-      --glass:rgba(255,255,255,.45); --glass-b:rgba(0,0,0,.08);
-    }
-    body{
-      font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--ink);
-      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%);
-    }
-    .glass{background:var(--glass);border:1px solid var(--glass-b);
-      backdrop-filter:blur(14px) saturate(120%); -webkit-backdrop-filter:blur(14px) saturate(120%);
-      box-shadow:0 12px 24px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.35);
-      border-radius:18px;
-    }
-    .btn{display:inline-flex;align-items:center;justify-content:center;font-weight:900;
-      padding:.7rem 1rem;border-radius:.9rem;color:#fff;
-      background:linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
-      border:1px solid rgba(0,148,255,.35);
-      box-shadow:0 10px 20px rgba(0,113,182,.22), inset 0 1px 1px rgba(255,255,255,.35);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--glass-b)}
-    .badge{ background:#fff; border:1px solid rgba(0,0,0,.08); padding:.15rem .5rem; border-radius:999px; font-weight:900; font-size:.75rem; }
-    .row{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed rgba(0,0,0,.09)}
-    .row:last-child{border-bottom:0}
-    .price{font-weight:900}
-    .h1{font-size:clamp(28px,3.4vw,40px);font-weight:900}
-    .h2{font-size:clamp(18px,2.2vw,22px);font-weight:900}
-    .pill{display:inline-flex;gap:.5rem;align-items:center;padding:.45rem .7rem;border-radius:999px;border:1px solid var(--glass-b);background:#fff}
+    :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --glass:rgba(255,255,255,.45); --glass-b:rgba(0,0,0,.08); --ink:#1b2025; --muted:#475569; }
+    body{ font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink);
+      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
+    .card{ background:rgba(255,255,255,.6); border:1px solid var(--glass-b); border-radius:1rem; backdrop-filter:blur(12px) }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; font-weight:900; padding:.7rem 1rem; border-radius:.8rem; color:#fff;
+      background:linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96)); border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 10px 20px rgba(0,113,182,.22), inset 0 1px 1px rgba(255,255,255,.35); transition:.18s ease }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(0,113,182,.28) }
+    .btn.secondary{ background:transparent; color:var(--ink); border:1px solid var(--glass-b) }
+    input[type="number"]{ background:rgba(255,255,255,.9); border:1px solid var(--glass-b); border-radius:.6rem; padding:.55rem }
+    .list-dot li{ position:relative; padding-left:1rem }
+    .list-dot li::before{ content:"•"; position:absolute; left:0; color:var(--primary); font-weight:900 }
+    @media (max-width:480px){ .grid-2{ grid-template-columns:1fr } }
   </style>
 </head>
 <body>
-
   <!-- Header -->
-  <header class="glass sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+  <header class="card max-w-5xl mx-auto mt-4 px-4 py-3">
+    <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <a href="/dashboard.html" class="flex items-center gap-2">
-          <img src="/core-logo-transparent.png" class="h-10 w-10 object-contain select-none" alt="Lefties">
-          <div class="text-xl md:text-2xl font-extrabold leading-none">Lefties <span class="text-[var(--primary)]">Price Guide</span></div>
-        </a>
-        <span class="badge ml-2">LeftiesLite</span>
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain" />
+        <div class="text-xl md:text-2xl font-extrabold">Lefties <span class="text-[var(--primary)]">Price Guide</span></div>
       </div>
-      <div class="text-right">
-        <div id="now" class="text-sm font-black"></div>
-        <div class="text-xs text-[color:var(--muted)]">Hervey Bay, QLD</div>
-      </div>
+      <a href="/dashboard.html" class="btn secondary">Dashboard</a>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 pb-20">
+  <main class="max-w-5xl mx-auto px-4 pb-24">
     <!-- Intro -->
-    <section class="mt-6 grid lg:grid-cols-3 gap-4">
-      <div class="glass p-5 lg:col-span-2">
-        <div class="h1 mb-2">Simple, honest pricing</div>
-        <p class="text-[color:var(--muted)]">Our <b>$165 call‑out</b> includes either <b>2 standard rooms</b> <em>or</em> <b>one 2‑seater lounge</b>. Everything else is <b>“from”</b> pricing so you can get a feel fast. Got a bigger list? We’re happy to put together a <b>fair bulk package</b> so you save and we still cover our time.</p>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <span class="pill">✅ Includes GST</span>
-          <span class="pill">🧽 Furniture moved where safe</span>
-          <span class="pill">💨 Fast dry focus</span>
+    <section class="card mt-4 p-5">
+      <div class="text-xl font-extrabold">Simple, upfront pricing</div>
+      <p class="text-[color:var(--muted)] text-sm mt-1">
+        This guide is for quick estimating. Exact totals can vary with size/condition.
+        Got lots of items? We’ll bundle a fair <strong>bulk price</strong>.
+      </p>
+    </section>
+
+    <!-- STANDARD list -->
+    <section class="card mt-4 p-5">
+      <div class="text-lg font-extrabold mb-2">Standard Call‑Out</div>
+      <div class="mb-3">
+        <div class="text-2xl font-black">$165</div>
+        <div class="text-[color:var(--muted)] text-sm">
+          Includes either: <strong>2 standard rooms</strong> or <strong>1 × 2‑seater couch</strong>.
         </div>
       </div>
 
-      <!-- Quick Estimator (client-friendly) -->
-      <div class="glass p-5" id="estimator">
-        <div class="h2 mb-2">Quick Estimator</div>
-        <div class="text-sm text-[color:var(--muted)] mb-2">Pick what applies. This is a guide only.</div>
-
-        <!-- Base -->
-        <div class="row"><div>Call‑out (includes either 2 rooms or 2‑seater)</div><div class="price">$165</div></div>
-
-        <!-- Choice of inclusion -->
-        <div class="mt-2 text-sm">
-          <div class="font-bold mb-1">What’s included in the call‑out?</div>
-          <label class="inline-flex items-center gap-2 mr-3">
-            <input type="radio" name="base" value="rooms" checked> 2 rooms included
-          </label>
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="base" value="sofa"> 2‑seater lounge included
-          </label>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <div class="font-bold mb-1">Additionals (from)</div>
+          <ul class="list-dot space-y-1 text-sm">
+            <li>Extra standard room — <strong>from $40</strong></li>
+            <li>Lounge / living — <strong>from $60</strong></li>
+            <li>Hallway — <strong>from $25</strong></li>
+            <li>Staircase (≤12 steps) — <strong>from $60</strong></li>
+            <li>Large open plan — quoted (usually <strong>$80–$120</strong>)</li>
+            <li>Fabric/Carpet protection — <strong>+$15 per item</strong> / <strong>$50 bulk</strong></li>
+          </ul>
         </div>
-
-        <hr class="my-3 border-black/10">
-
-        <!-- Inputs -->
-        <div class="grid grid-cols-2 gap-2">
-          <label class="text-sm">Extra bedrooms (from $40) <input id="q_rooms" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">Lounge / Living (from $60) <input id="q_living" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">Hallways (from $25) <input id="q_halls" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">Staircases (from $60) <input id="q_stairs" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">Open plan (from $80) <input id="q_open" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">3‑seater lounge ($250) <input id="q_3" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">4+ seater (from $300) <input id="q_4" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-          <label class="text-sm">Fabric/Carpet protector (+$15 ea)<input id="q_protect" type="number" min="0" value="0" class="w-full mt-1 p-2 rounded border border-black/10 bg-white"></label>
-        </div>
-        <div class="text-xs text-[color:var(--muted)] mt-1">If you’re protecting lots of items we cap it at a <b>$50 bulk add‑on</b>.</div>
-
-        <!-- Total -->
-        <div class="mt-4 p-3 rounded bg-white/70 border border-black/10 flex items-center justify-between">
-          <div class="font-extrabold">Estimated total</div>
-          <div id="estTotal" class="text-2xl font-black">$165</div>
-        </div>
-        <div class="mt-2 text-xs text-[color:var(--muted)]">Guide only. Final depends on layout, condition and time. Bulk deals available.</div>
-        <div class="mt-3 flex gap-2">
-          <button class="btn secondary" id="resetBtn">Reset</button>
-          <button class="btn" id="copyBtn">Copy summary</button>
+        <div>
+          <div class="font-bold mb-1">Upholstery (in‑home)</div>
+          <ul class="list-dot space-y-1 text-sm">
+            <li>2‑Seater — <strong>included</strong> in call‑out</li>
+            <li>3‑Seater — <strong>$250</strong></li>
+            <li>4+ Seater — <strong>from $300</strong></li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Guide blocks -->
-    <section class="mt-6 grid lg:grid-cols-3 gap-4">
-      <!-- What’s included -->
-      <div class="glass p-5">
-        <div class="h2 mb-2">What the call‑out covers</div>
-        <div class="row"><div>Standard call‑out</div><div class="price">$165</div></div>
-        <ul class="list-disc pl-5 mt-3 text-[color:var(--muted)] text-sm space-y-1">
-          <li>Includes <b>2 standard carpeted rooms</b> <em>or</em> <b>one 2‑seater lounge</b>.</li>
-          <li>Pre‑vac (as needed), prespray, agitation, hot water extraction, dry passes.</li>
-          <li>Furniture moved where safe; blocks/tabs used as needed.</li>
-        </ul>
-      </div>
-
-      <!-- Add‑ons simple -->
-      <div class="glass p-5">
-        <div class="h2 mb-2">Common add‑ons (from)</div>
-        <div class="row"><div>Extra standard bedrooms</div><div class="price">from $40 ea</div></div>
-        <div class="row"><div>Lounge / Living rooms</div><div class="price">from $60</div></div>
-        <div class="row"><div>Hallways</div><div class="price">from $25</div></div>
-        <div class="row"><div>Staircases (≤12 steps)</div><div class="price">from $60</div></div>
-        <div class="row"><div>Large open plan areas</div><div class="price">from $80</div></div>
-        <div class="row"><div>3‑seater lounge</div><div class="price">$250</div></div>
-        <div class="row"><div>4+ seater lounge</div><div class="price">from $300</div></div>
-        <div class="row"><div>Fabric/Carpet protection (Scotchgard)</div><div class="price">+$15 ea / $50 bulk</div></div>
-      </div>
-
-      <!-- Revival Clean -->
-      <div class="glass p-5">
-        <div class="h2 mb-2">Revival Clean (drop‑off)</div>
-        <p class="text-sm text-[color:var(--muted)]">For heavily worn or delicate upholstery, drop the item to Lefties for a deeper, multi‑stage clean and grooming. Turnaround <b>3–5 business days</b>.</p>
-        <ul class="list-disc pl-5 mt-3 text-sm space-y-1 text-[color:var(--muted)]">
-          <li>Ideal for pet wear, set‑in soils, pile restoration.</li>
-          <li>Includes detailed grooming & controlled drying.</li>
-          <li>Quoted individually after inspection.</li>
-        </ul>
-        <div class="mt-3 text-xs text-[color:var(--muted)]">We’ll book this during quieter windows or when you prefer offsite work.</div>
-      </div>
+    <!-- Revival list -->
+    <section class="card mt-4 p-5">
+      <div class="text-lg font-extrabold mb-1">Revival Clean (Drop‑Off 3–5 business days)</div>
+      <p class="text-[color:var(--muted)] text-sm mb-3">
+        Deep clean + restorative grooming at our workshop. Pickup/delivery available (quoted).
+      </p>
+      <ul class="list-dot space-y-1 text-sm">
+        <li>2‑Seater — <strong>$165</strong></li>
+        <li>3‑Seater — <strong>$250</strong></li>
+        <li>4+ Seater — <strong>from $300</strong></li>
+      </ul>
     </section>
 
-    <!-- Footer note -->
-    <section class="glass p-5 mt-6">
-      <div class="h2 mb-1">Bulk pricing</div>
-      <p class="text-sm text-[color:var(--muted)]">Have a bigger list? We’ll bundle items so it’s fair both ways — <b>you save</b>, and we cover the time on site. Ask us for a quick package price.</p>
+    <!-- Estimator -->
+    <section class="card mt-4 p-5">
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div class="text-lg font-extrabold">Quick Estimator</div>
+        <div class="text-xs text-[color:var(--muted)]">“From” values used in totals</div>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <div class="font-bold mb-1">Standard (On‑Site)</div>
+          <div class="grid grid-cols-1 grid-2 gap-3">
+            <label class="text-sm">Extra rooms (beyond 2)
+              <input id="exRooms" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">Lounge / living (count)
+              <input id="lounges" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">Hallways (count)
+              <input id="halls" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">Staircases (≤12 steps)
+              <input id="stairs" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">Protection items
+              <input id="protectItems" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">Protection bulk (0 or 1)
+              <input id="protectBulk" type="number" min="0" max="1" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">3‑Seater lounges
+              <input id="sofa3" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+            <label class="text-sm">4+‑Seater lounges
+              <input id="sofa4" type="number" min="0" value="0" class="w-full" inputmode="numeric">
+            </label>
+          </div>
+        </div>
+        <div class="text-sm text-[color:var(--muted)]">
+          <div class="font-bold mb-1">What’s included in the call‑out</div>
+          <p>Either 2 standard rooms <em>or</em> one 2‑seater lounge already covered in the $165.</p>
+          <p class="mt-3">Open‑plan areas and unusual layouts are quoted onsite. We’ll always price fairly.</p>
+        </div>
+      </div>
+
+      <hr class="my-4 border-black/10">
+
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <div class="text-gray-600 text-sm">Estimated Total</div>
+          <div id="total" class="text-4xl font-black">$165</div>
+          <div id="summaryLine" class="text-xs text-[color:var(--muted)] mt-1">Standard call‑out selected</div>
+        </div>
+        <div class="flex gap-2">
+          <button id="resetBtn" class="btn secondary">Reset</button>
+          <button id="copyBtn" class="btn">Copy Quote</button>
+        </div>
+      </div>
+
+      <div class="mt-3 text-xs text-[color:var(--muted)]">
+        This is a guide only. If you’ve got a list of items, we’re happy to <strong>bundle a bulk price</strong> that’s fair for you and sustainable for us.
+      </div>
     </section>
   </main>
 
-  <footer class="mt-10">
-    <div class="max-w-6xl mx-auto px-4 text-center text-[color:var(--muted)] py-8 border-t border-black/10">
-      <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. All rights reserved.</p>
-    </div>
-  </footer>
-
 <script>
-/* Clock */
-const nowEl = document.getElementById('now');
-const fmt = new Intl.DateTimeFormat('en-AU',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Australia/Brisbane'});
-function tick(){ nowEl.textContent = fmt.format(new Date()); } tick(); setInterval(tick, 30000);
-
-/* Estimator (client-simple, all “from”) */
-const PRICES = {
-  base:165,
-  room_from:40,
-  living_from:60,
-  hall_from:25,
-  stairs_from:60,
-  open_from:80,
-  sofa3:250,
-  sofa4_from:300,
-  protect_each:15,
-  protect_bulk:50,  // cap when many items
+/* Pricing (“from”) */
+const P = {
+  callout:165, extraRoom:40, lounge:60, hallway:25, stairs:60,
+  protectItem:15, protectBulk:50, sofa3:250, sofa4:300
 };
 
-const $ = sel => document.querySelector(sel);
-const fields = ['q_rooms','q_living','q_halls','q_stairs','q_open','q_3','q_4','q_protect'].map(id=>$('#'+id));
+const q=id=>document.getElementById(id);
+['exRooms','lounges','halls','stairs','protectItems','protectBulk','sofa3','sofa4']
+  .forEach(id=> q(id).addEventListener('input', calc));
+
+const totalEl=q('total'), summaryEl=q('summaryLine');
 
 function calc(){
-  const baseChoice = document.querySelector('input[name="base"]:checked')?.value || 'rooms';
-  const qty = Object.fromEntries(fields.map(i=>[i.id, Math.max(0, parseInt(i.value||'0',10))]));
+  let total=P.callout, lines=['Call‑out (includes 2 rooms or 1×2‑seater): $'+P.callout];
+  const ex=+q('exRooms').value||0, lg=+q('lounges').value||0, hl=+q('halls').value||0,
+        st=+q('stairs').value||0, pr=+q('protectItems').value||0, pb=(+q('protectBulk').value||0)?1:0,
+        s3=+q('sofa3').value||0, s4=+q('sofa4').value||0;
 
-  // start with base
-  let total = PRICES.base;
+  if(ex>0){ total+=ex*P.extraRoom; lines.push(`Extra rooms x${ex} — from $${P.extraRoom} ea`); }
+  if(lg>0){ total+=lg*P.lounge;    lines.push(`Lounge/living x${lg} — from $${P.lounge} ea`); }
+  if(hl>0){ total+=hl*P.hallway;   lines.push(`Hallways x${hl} — from $${P.hallway} ea`); }
+  if(st>0){ total+=st*P.stairs;    lines.push(`Staircases x${st} — from $${P.stairs} ea`); }
+  if(pr>0){ total+=pr*P.protectItem; lines.push(`Protection x${pr} — +$${P.protectItem} ea`); }
+  if(pb>0){ total+=P.protectBulk;    lines.push(`Protection bulk — $${P.protectBulk}`); }
+  if(s3>0){ total+=s3*P.sofa3;       lines.push(`3‑seater x${s3} — $${P.sofa3} ea`); }
+  if(s4>0){ total+=s4*P.sofa4;       lines.push(`4+‑seater x${s4} — from $${P.sofa4} ea`); }
 
-  // Included thing (either 2 rooms OR one 2-seater). We’re not charging for 2-seater separately here, so only rooms may be discounted.
-  let extraRooms = qty.q_rooms;
-  if(baseChoice === 'rooms'){
-    // 2 rooms included → discount up to 2 x room_from from extra rooms
-    extraRooms = Math.max(0, extraRooms - 2);
-  }
-  // If base is 2‑seater included, no change to rooms; client can add 3/4+ as extras.
-
-  total += (extraRooms * PRICES.room_from);
-  total += (qty.q_living * PRICES.living_from);
-  total += (qty.q_halls  * PRICES.hall_from);
-  total += (qty.q_stairs * PRICES.stairs_from);
-  total += (qty.q_open   * PRICES.open_from);
-  total += (qty.q_3      * PRICES.sofa3);
-  total += (qty.q_4      * PRICES.sofa4_from);
-
-  // Protector: per item, but cap with bulk
-  if(qty.q_protect > 0){
-    const perItem = qty.q_protect * PRICES.protect_each;
-    total += Math.min(perItem, PRICES.protect_bulk);
-  }
-
-  $('#estTotal').textContent = '$' + (Math.round(total*100)/100).toFixed(0);
-  return { baseChoice, qty, total };
+  totalEl.textContent='$'+Math.round(total);
+  summaryEl.textContent = lines.length>1 ? `Estimate with ${lines.length-1} additionals` : 'Standard call‑out selected';
 }
 
-fields.forEach(i=> i.addEventListener('input', calc));
-document.querySelectorAll('input[name="base"]').forEach(r=> r.addEventListener('change', calc));
-$('#resetBtn').addEventListener('click', ()=>{
-  fields.forEach(i=> i.value = 0);
-  document.querySelector('input[name="base"][value="rooms"]').checked = true;
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  [...document.querySelectorAll('input[type="number"]')].forEach(i=> i.value=0);
   calc();
 });
-$('#copyBtn').addEventListener('click', ()=>{
-  const s = calc();
-  const lines = [];
-  lines.push('Lefties — Quick Estimate (guide only)');
-  lines.push('Base: $' + PRICES.base + ' (' + (s.baseChoice==='rooms'?'includes 2 rooms':'includes 2‑seater') + ')');
-  if(s.qty.q_rooms)  lines.push(`Extra bedrooms: ${s.qty.q_rooms} × from $${PRICES.room_from}`);
-  if(s.qty.q_living) lines.push(`Lounge/Living: ${s.qty.q_living} × from $${PRICES.living_from}`);
-  if(s.qty.q_halls)  lines.push(`Hallways: ${s.qty.q_halls} × from $${PRICES.hall_from}`);
-  if(s.qty.q_stairs) lines.push(`Staircases: ${s.qty.q_stairs} × from $${PRICES.stairs_from}`);
-  if(s.qty.q_open)   lines.push(`Open‑plan: ${s.qty.q_open} × from $${PRICES.open_from}`);
-  if(s.qty.q_3)      lines.push(`3‑seater lounges: ${s.qty.q_3} × $${PRICES.sofa3}`);
-  if(s.qty.q_4)      lines.push(`4+ seater lounges: ${s.qty.q_4} × from $${PRICES.sofa4_from}`);
-  if(s.qty.q_protect){
-    const protectCost = Math.min(s.qty.q_protect*PRICES.protect_each, PRICES.protect_bulk);
-    lines.push(`Fabric/Carpet protection: ${s.qty.q_protect} items (cap at $${PRICES.protect_bulk}) → ~$${protectCost}`);
-  }
-  lines.push('');
-  lines.push('Estimated total (guide): ' + $('#estTotal').textContent);
-  lines.push('Bulk pricing available for larger lists.');
-  navigator.clipboard.writeText(lines.join('\n'));
-  alert('Estimate copied.');
+document.getElementById('copyBtn').addEventListener('click', ()=>{
+  const note='This is a guide. If you have a list of items we can bundle a fair bulk price.';
+  const txt=`Lefties Price Guide\nEstimated Total: ${totalEl.textContent}\n\n${note}\n\nHervey Bay, QLD • leftiesservices.com.au`;
+  navigator.clipboard.writeText(txt).then(()=>alert('Quote copied.'));
 });
 
-// initial calc
 calc();
 </script>
 </body>
