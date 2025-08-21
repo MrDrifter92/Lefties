@@ -1,156 +1,327 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lefties | Pre-Clean Checklist</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0071B6;
-            --light-blue-glow: rgba(0, 140, 255, 0.6);
-            --dark-bg: #0D1117;
-            --mid-dark-bg: #161B22;
-            --light-text: #e5e7eb;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lefties — Pre‑Service Checklist</title>
 
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--light-text);
-        }
+  <!-- Brand font + Tailwind -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        .deep-glass {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 1.5rem;
-            box-shadow: 
-                0 0 25px rgba(0, 140, 255, 0.1),
-                inset 0 2px 2px rgba(255, 255, 255, 0.07),
-                inset 0 -2px 2px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-        }
-        
-        .bubble-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
-        .bubble {
-            position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(0, 140, 255, 0.2));
-            border-radius: 50%;
-            box-shadow: inset 0 3px 5px rgba(255,255,255,0.05), 0 0 20px rgba(0, 140, 255, 0.2);
-            animation: float 20s infinite ease-in-out;
-        }
-        @keyframes float {
-            0% { transform: translateY(10vh) scale(0.8); opacity: 0; }
-            25% { opacity: 0.7; }
-            50% { transform: translateY(-15vh) scale(1.1); }
-            75% { opacity: 0.7; }
-            100% { transform: translateY(-30vh) scale(0.9); opacity: 0; }
-        }
-        .checklist-item svg {
-            color: #34d399; /* A nice green for the checkmark */
-        }
-    </style>
+  <style>
+    :root{
+      --ink:#E6ECF3; --muted:#9BA7B5;
+      --primary:#3BA3FF; 
+      --d1:#0B1220; --d2:#0F172A; --d3:#111827;
+      --glass: rgba(255,255,255,.05); --glass-b: rgba(255,255,255,.12);
+      --accent: rgba(59,163,255,.18);
+    }
+    html,body{height:100%}
+    body{
+      background: radial-gradient(1100px 700px at 10% 0%, #0f1a30 0%, #0b1220 55%, #080f1a 100%);
+      color: var(--ink);
+      font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    .card{background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.03));
+      border:1px solid var(--glass-b); border-radius:1rem; backdrop-filter: blur(14px);
+      box-shadow: 0 10px 18px rgba(0,0,0,.35), inset 0 1px 1px rgba(255,255,255,.06);
+    }
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-weight:900;
+      padding:.7rem 1rem;border-radius:.8rem;color:#071423;background:linear-gradient(145deg,#6bc3ff,#3ba3ff);
+      border:1px solid rgba(99,179,237,.5); box-shadow:0 8px 18px rgba(59,163,255,.25), inset 0 1px 1px rgba(255,255,255,.25);
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:0 12px 22px rgba(59,163,255,.32)}
+    .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--glass-b)}
+    input[type="text"], input[type="email"], input[type="tel"], textarea{
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:.75rem; padding:.65rem;
+      color:var(--ink);
+    }
+    input[type="checkbox"]{
+      width:1.1rem; height:1.1rem; accent-color: var(--primary);
+    }
+    details>summary{cursor:pointer; list-style:none; padding:.6rem .9rem; border-radius:.7rem;
+      background: rgba(59,163,255,.10); border:1px solid rgba(59,163,255,.25);
+    }
+    details[open]>summary{background: rgba(59,163,255,.18)}
+    .pill{display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .7rem; border-radius:999px;
+      background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--muted); font-weight:800; font-size:.8rem;
+    }
+    .prog-wrap{height:10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12)}
+    .prog{height:100%; border-radius:999px; background: linear-gradient(90deg,#6bc3ff,#3ba3ff)}
+    @media print{
+      .no-print{display:none !important}
+      body{background:#fff; color:#111}
+      .card{box-shadow:none; border:1px solid #e5e7eb}
+      details>summary{background:#f4f6f8; border-color:#e5e7eb}
+      input[type="checkbox"]{filter:grayscale(1)}
+    }
+  </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Simple Header for utility page -->
-    <header class="py-4">
-        <div class="container mx-auto px-6 text-center">
-             <a href="index.html"> <!-- Assumes your main page is index.html -->
-                <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-24 w-auto mx-auto">
-            </a>
+  <!-- Header -->
+  <header class="card max-w-3xl mx-auto mt-4 px-4 py-3">
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="/core-logo-transparent.png" alt="Lefties" class="h-10 w-10 object-contain rounded-md">
+        <div>
+          <div class="text-xl md:text-2xl font-extrabold leading-tight">
+            Lefties <span class="text-[var(--primary)]">Pre‑Service Checklist</span>
+          </div>
+          <div class="text-[.8rem] text-[color:var(--muted)] -mt-1">Helps us arrive prepared and protect your space.</div>
         </div>
-    </header>
+      </div>
+      <div class="text-right">
+        <div id="now" class="text-sm font-black"></div>
+        <div class="text-xs text-[color:var(--muted)]">Hervey Bay, QLD</div>
+      </div>
+    </div>
+  </header>
 
-    <main class="relative z-10 py-12 md:py-20">
-        <div class="bubble-container">
-            <div class="bubble" style="width: 250px; height: 250px; top: 10%; left: -100px; animation-duration: 45s;"></div>
-            <div class="bubble" style="width: 150px; height: 150px; bottom: 10%; right: -80px; animation-duration: 35s; animation-delay: 5s;"></div>
+  <main class="max-w-3xl mx-auto px-4 pb-28">
+    <!-- Progress -->
+    <section class="card mt-4 p-4">
+      <div class="flex items-center justify-between">
+        <div class="pill">Progress: <span id="pct">0%</span></div>
+        <div class="flex gap-2 no-print">
+          <button class="btn secondary" id="resetBtn" title="Clear saved answers">Reset</button>
+          <button class="btn secondary" onclick="window.print()">Print / Save PDF</button>
         </div>
+      </div>
+      <div class="prog-wrap mt-3"><div id="prog" class="prog" style="width:0%"></div></div>
+    </section>
 
-        <div class="container mx-auto px-6">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-black text-white">just a few things..
-                 </h1>
-                <p class="mt-2 text-lg text-gray-300 max-w-2xl mx-auto">A quick to-do list before we arrive. Ticking these off helps us get straight to the deep clean and gives you the best possible result.</p>
-            </div>
+    <!-- Contact -->
+    <section class="card mt-4 p-5">
+      <div class="text-lg font-extrabold mb-2">Your Details</div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="text-sm">Name
+          <input id="c_name" type="text" placeholder="Your full name">
+        </label>
+        <label class="text-sm">Phone
+          <input id="c_phone" type="tel" placeholder="04…">
+        </label>
+        <label class="text-sm sm:col-span-2">Address
+          <input id="c_addr" type="text" placeholder="Street, Suburb">
+        </label>
+        <label class="text-sm sm:col-span-2">Email (for confirmation & aftercare)
+          <input id="c_email" type="email" placeholder="you@example.com">
+        </label>
+      </div>
+    </section>
 
-            <div class="mt-12 max-w-3xl mx-auto deep-glass p-8 md:p-12">
-                <div class="space-y-8">
-                    
-                    <!-- Checklist Item 1 -->
-                    <div class="flex items-start space-x-4 checklist-item">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-400">Clear the Decks</h3>
-                            <p class="text-gray-300 mt-1">Please move small items and breakables from the areas we’ll be cleaning. things like pot plants, lamps, rugs, toys, and pet beds.</p>
-                        </div>
-                    </div>
+    <!-- Checklist Sections -->
+    <section class="card mt-4 p-5">
+      <div class="text-lg font-extrabold mb-3">Pre‑Service Checklist</div>
 
-                    <!-- Checklist Item 2 -->
-                    <div class="flex items-start space-x-4 checklist-item">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-400">A Quick Vacuum</h3>
-                            <p class="text-gray-300 mt-1">If you can, give the carpet a quick once-over with your vacuum. It clears the surface fluff so we can get straight to the deep, embedded stuff.</p>
-                        </div>
-                    </div>
+      <div class="space-y-3">
+        <!-- Access & Parking -->
+        <details open>
+          <summary class="font-bold">Access & Parking</summary>
+          <div class="p-3 space-y-2">
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="gate_code"> Gate / building access provided</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="drive_clear"> Driveway or on‑street parking available</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="water_power"> Outdoor tap & power point accessible</label>
+            <label class="text-sm block mt-2">Notes
+              <textarea data-k="access_notes" rows="2" placeholder="Anything we should know about access/parking…"></textarea>
+            </label>
+          </div>
+        </details>
 
-                    <!-- Checklist Item 3 -->
-                    <div class="flex items-start space-x-4 checklist-item">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-400">Plan for Pets & Kids</h3>
-                            <p class="text-gray-300 mt-1">For safety, please keep children and pets in a separate room while we work.Hoses and floors can be slippery. We’ll set up carefully and let you know when it’s safe to walk through. Pets are more than welcome to say hi while we prep, then please pop them away once the machines are running.</p>
-                        </div>
-                    </div>
+        <!-- Space Prep -->
+        <details>
+          <summary class="font-bold">Preparing the Space</summary>
+          <div class="p-3 space-y-2">
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="clutter"> Floors cleared of toys/clutter</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="delicates"> Breakables moved from low tables/shelves</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="curtains"> Curtains lifted or secured where carpets meet</label>
+            <label class="text-sm block mt-2">Rooms / items to focus on
+              <textarea data-k="focus" rows="2" placeholder="e.g., Lounge + Hall, 3‑seater, 2 bedrooms"></textarea>
+            </label>
+          </div>
+        </details>
 
-                    <!-- Checklist Item 4 -->
-                    <div class="flex items-start space-x-4 checklist-item">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-400">Access & Parking</h3>
-                            <p class="text-gray-300 mt-1">We’ll need a working Hot water tap, a power outlet, and a clear parking spot as close to your entry as possible. This makes setup quicker and your clean more efficient..</p>
-                        </div>
-                    </div>
-                     <!-- Checklist Item 5 -->
-                    <div class="flex items-start space-x-4 checklist-item">
-                        <div class="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-blue-400">A Note on Furniture</h3>
-                            <p class="text-gray-300 mt-1">We can work around or carefully move items like lounges and coffee tables. We don’t move very heavy or fragile pieces (pianos, bookcases, antiques). If you’re unsure, just check with us when we arrive.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-12">
-                 <p class="text-gray-400">Thanks for your help! #Adam see you soon.</p>
-            </div>
-        </div>
-    </main>
+        <!-- Pets & Kids -->
+        <details>
+          <summary class="font-bold">Pets & Kids</summary>
+          <div class="p-3 space-y-2">
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="pet_safe"> Pets secured in a comfy area during service</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="kid_safe"> Children supervised away from equipment</label>
+            <label class="text-sm block mt-2">Allergies / sensitivities
+              <textarea data-k="allergy" rows="2" placeholder="Let us know about any concerns. We can use low‑odour options."></textarea>
+            </label>
+          </div>
+        </details>
 
-    <footer class="bg-black py-8 mt-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-sm text-gray-400">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-            <p class="text-xs text-gray-600 mt-1">Hervey Bay, QLD</p>
-        </div>
+        <!-- Stains & Issues -->
+        <details>
+          <summary class="font-bold">Stains / Issues</summary>
+          <div class="p-3 space-y-2">
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="urine"> Possible urine spots</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="rust"> Rust/metal staining or furniture marks</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="mould"> Mould or persistent odour</label>
+            <label class="text-sm block mt-2">Notes
+              <textarea data-k="stain_notes" rows="2" placeholder="Where are the main spots, how old, etc."></textarea>
+            </label>
+          </div>
+        </details>
+
+        <!-- Payment & Comms -->
+        <details>
+          <summary class="font-bold">Payment & Communication</summary>
+          <div class="p-3 space-y-2">
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="pay_card"> I can pay by card or phone on completion</label>
+            <label class="flex items-center gap-3"><input type="checkbox" data-k="sms_updates"> SMS is okay for reminders/arrival updates</label>
+            <label class="text-sm block mt-2">Anything else?
+              <textarea data-k="extra" rows="2" placeholder="Prefered arrival window, parking tips, etc."></textarea>
+            </label>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Acknowledgement -->
+    <section class="card mt-4 p-5">
+      <div class="text-lg font-extrabold mb-2">Acknowledgement</div>
+      <p class="text-[color:var(--muted)] text-sm">I understand some stains/traffic wear may not fully return to original, and drying times vary with weather and airflow.</p>
+      <label class="flex items-center gap-3 mt-3"><input type="checkbox" data-k="agree"> I agree</label>
+
+      <div class="grid sm:grid-cols-2 gap-3 mt-3">
+        <label class="text-sm">Your name (signature)
+          <input id="sig_name" type="text" placeholder="Type full name">
+        </label>
+        <label class="text-sm">Date
+          <input id="sig_date" type="text" placeholder="DD/MM/YYYY">
+        </label>
+      </div>
+
+      <div class="flex gap-2 mt-4 no-print">
+        <button class="btn" id="shareBtn">Email draft</button>
+        <button class="btn secondary" id="copyLinkBtn">Copy page link</button>
+      </div>
+    </section>
+
+    <!-- Footer note -->
+    <footer class="text-center text-[color:var(--muted)] text-xs mt-6">
+      © 2025 Lefties Carpet Cleaning — Hervey Bay • leftiesservices.com.au
     </footer>
+  </main>
 
+<script>
+/* Live clock (Aus/Brisbane) */
+const nowEl=document.getElementById('now');
+const fmt=new Intl.DateTimeFormat('en-AU',{weekday:'long',day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Australia/Brisbane'});
+function tick(){ nowEl.textContent=fmt.format(new Date()); }
+tick(); setInterval(tick,30000);
+
+/* State + progress */
+const KEY='lefties_pre_service_v2';
+const inputs=Array.from(document.querySelectorAll('input[type="checkbox"], input[type="text"], input[type="email"], input[type="tel"], textarea'));
+function save(){
+  const data={};
+  inputs.forEach(el=>{
+    const k = el.dataset.k || el.id;
+    data[k] = (el.type==='checkbox') ? el.checked : el.value;
+  });
+  localStorage.setItem(KEY, JSON.stringify(data));
+  updateProgress();
+}
+function load(){
+  try{
+    const d=JSON.parse(localStorage.getItem(KEY)||'{}');
+    inputs.forEach(el=>{
+      const k = el.dataset.k || el.id;
+      if(k in d){
+        if(el.type==='checkbox') el.checked = !!d[k];
+        else el.value = d[k];
+      }
+    });
+  }catch(e){}
+  updateProgress();
+}
+function updateProgress(){
+  const total = inputs.filter(el=>el.type==='checkbox').length;
+  const done = inputs.filter(el=>el.type==='checkbox' && el.checked).length;
+  const pct = total? Math.round((done/total)*100):0;
+  document.getElementById('pct').textContent = pct+'%';
+  document.getElementById('prog').style.width = pct+'%';
+}
+inputs.forEach(el=> el.addEventListener('input', save));
+load();
+
+/* Reset */
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(!confirm('Clear all saved answers on this device?')) return;
+  localStorage.removeItem(KEY);
+  inputs.forEach(el=>{
+    if(el.type==='checkbox') el.checked=false; else el.value='';
+  });
+  updateProgress();
+});
+
+/* Compose email draft (mailto) */
+document.getElementById('shareBtn').addEventListener('click', ()=>{
+  const d=JSON.parse(localStorage.getItem(KEY)||'{}');
+  const yes = k => d[k] ? '✔' : '—';
+  const lines = [
+    'Lefties Pre‑Service Checklist',
+    '',
+    `Name: ${d.c_name||'-'}`,
+    `Phone: ${d.c_phone||'-'}`,
+    `Address: ${d.c_addr||'-'}`,
+    `Email: ${d.c_email||'-'}`,
+    '',
+    'Access & Parking',
+    `• Gate/Code: ${yes('gate_code')}`,
+    `• Parking: ${yes('drive_clear')}`,
+    `• Water/Power: ${yes('water_power')}`,
+    (d.access_notes?`• Notes: ${d.access_notes}`:''),
+    '',
+    'Preparing the Space',
+    `• Clutter cleared: ${yes('clutter')}`,
+    `• Breakables moved: ${yes('delicates')}`,
+    `• Curtains secured: ${yes('curtains')}`,
+    (d.focus?`• Focus: ${d.focus}`:''),
+    '',
+    'Pets & Kids',
+    `• Pets secured: ${yes('pet_safe')}`,
+    `• Kids supervised: ${yes('kid_safe')}`,
+    (d.allergy?`• Allergies: ${d.allergy}`:''),
+    '',
+    'Stains / Issues',
+    `• Urine spots: ${yes('urine')}`,
+    `• Rust/marks: ${yes('rust')}`,
+    `• Mould/odour: ${yes('mould')}`,
+    (d.stain_notes?`• Notes: ${d.stain_notes}`:''),
+    '',
+    'Payment & Communication',
+    `• Can pay on completion: ${yes('pay_card')}`,
+    `• SMS ok: ${yes('sms_updates')}`,
+    (d.extra?`• Extra: ${d.extra}`:''),
+    '',
+    'Acknowledgement',
+    `• Agreed: ${yes('agree')}`,
+    `• Signature: ${d.sig_name||'-'}  ${d.sig_date||''}`,
+    '',
+    '— Sent from Lefties Pre‑Service Checklist'
+  ].filter(Boolean).join('\n');
+
+  const to = (d.c_email||''); // client email if they filled it
+  const subject = 'Lefties Pre‑Service Checklist';
+  location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines)}`;
+});
+
+/* Copy link */
+document.getElementById('copyLinkBtn').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(location.href);
+    alert('Link copied to clipboard.');
+  }catch(e){
+    prompt('Copy this link:', location.href);
+  }
+});
+</script>
 </body>
 </html>
