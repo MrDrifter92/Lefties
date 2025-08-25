@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lefties | Field OS v1.5 — LeftiesLite</title>
+  <title>Lefties | Field OS v1.6 — LeftiesLite</title>
 
   <!-- Brand font + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
@@ -29,127 +29,37 @@
       background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
       overflow-x:hidden; min-height:100vh;
     }
-
-    /* Frosted tile */
-    .frosted{
-      background:var(--glass);
-      border:1px solid var(--glass-border);
-      border-radius:1rem;
-      backdrop-filter: blur(14px) saturate(120%);
-      -webkit-backdrop-filter: blur(14px) saturate(120%);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
-    }
-
-    /* Buttons */
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
-      background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
-      color:#fff;border:1px solid rgba(0,148,255,.35);
-      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);
-      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
-    }
+    .frosted{background:var(--glass);border:1px solid var(--glass-border);border-radius:1rem;backdrop-filter: blur(14px) saturate(120%);-webkit-backdrop-filter: blur(14px) saturate(120%);box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:800;background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));color:#fff;border:1px solid rgba(0,148,255,.35);box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;}
     .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45); }
-    .btn.secondary{
-      background:transparent;color:var(--text);font-weight:800;
-      border:1px solid var(--glass-border);
-      box-shadow: inset 0 1px 1px rgba(255,255,255,.35);
-    }
-    .btn.ghost{
-      background:rgba(255,255,255,.6); color:var(--text);
-      border:1px solid var(--glass-border);
-    }
-
-    /* Chips */
-    .chip{
-      padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;
-      background:rgba(255,255,255,.35); border:1px solid var(--glass-border);
-      font-weight:800; cursor:pointer; user-select:none;
-    }
-    .chip.on{
-      background:var(--chip-on); border-color:var(--chip-brd-on);
-      box-shadow: 0 0 0 3px var(--ring);
-    }
-
+    .btn.secondary{background:transparent;color:var(--text);font-weight:800;border:1px solid var(--glass-border);box-shadow: inset 0 1px 1px rgba(255,255,255,.35);}
+    .btn.ghost{background:rgba(255,255,255,.6); color:var(--text);border:1px solid var(--glass-border);}
+    .chip{padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.35); border:1px solid var(--glass-border);font-weight:800; cursor:pointer; user-select:none;}
+    .chip.on{background:var(--chip-on); border-color:var(--chip-brd-on); box-shadow: 0 0 0 3px var(--ring);}
     .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
-
     .grid-cards{display:grid;grid-template-columns:1fr;gap:1rem}
     @media (min-width:768px){ .grid-cards{grid-template-columns:repeat(2,1fr)} }
     @media (min-width:1024px){ .grid-cards{grid-template-columns:repeat(3,1fr)} }
-
-    .fixedbar{
-      position:fixed; bottom:12px; left:12px; right:12px; z-index:50;
-      display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;
-    }
-    .pill{
-      flex:1 1 22%; text-align:center; padding:10px; border-radius:12px;
-      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800;
-    }
-
+    .fixedbar{position:fixed; bottom:12px; left:12px; right:12px; z-index:50; display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;}
+    .pill{flex:1 1 22%; text-align:center; padding:10px; border-radius:12px; background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800;}
     .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
     .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
     .label{color:var(--muted);font-size:12px}
-
-    input[type="text"],textarea,select{
-      width:100%;
-      background:rgba(255,255,255,.55);
-      border:1px solid var(--glass-border);
-      border-radius:.75rem; padding:.75rem; color:var(--text); outline:none;
-    }
+    input[type="text"],input[type="time"],textarea,select{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--glass-border);border-radius:.75rem; padding:.75rem; color:var(--text); outline:none;}
     input[type="file"]{color:var(--muted)}
     .tap{min-height:48px}
-
-    /* Header */
     .header-card img{height:44px; width:auto}
-    .logo-circle{
-      width:40px;height:40px;border-radius:9999px;
-      background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));
-      border:1px solid rgba(255,255,255,.35);
-    }
-
-    /* Report preview */
-    .report-area{
-      background: rgba(255,255,255,.65);
-      border:1px dashed rgba(0,0,0,.1);
-      border-radius:.75rem; padding:1rem;
-      white-space:pre-wrap; color:#222;
-    }
-
-    /* Split row */
-    .split-row{
-      display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem;
-      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;
-    }
-    .split-row input[type="text"]{
-      background:rgba(255,255,255,.75);
-    }
-
+    .logo-circle{width:40px;height:40px;border-radius:9999px;background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15));border:1px solid rgba(255,255,255,.35);}
+    .report-area{background: rgba(255,255,255,.65);border:1px dashed rgba(0,0,0,.1);border-radius:.75rem; padding:1rem;white-space:pre-wrap; color:#222;}
+    .split-row{display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem;background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;}
+    .split-row input[type="text"]{background:rgba(255,255,255,.75);}
     /* Report images – responsive + print-safe */
-.report-photos {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: 1fr;
-}
-.report-img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-}
-.report-img.square { aspect-ratio: 1/1; }
-.report-img.wide   { aspect-ratio: 16/9; }
-
-@media (min-width: 640px) {
-  .report-photos { grid-template-columns: repeat(2, 1fr); }
-  .report-photos .wide { grid-column: 1 / -1; }
-}
-
-.report-section { overflow: hidden; }
-@media print {
-  .report-photos { break-inside: avoid; page-break-inside: avoid; }
-  .report-img { max-width: 100%; }
-}
+    .report-photos{display:grid;gap:12px;grid-template-columns:1fr;}
+    .report-img{width:100%;max-width:100%;height:auto;border-radius:12px;object-fit:cover;}
+    .report-img.square{aspect-ratio:1/1;} .report-img.wide{aspect-ratio:16/9;}
+    @media (min-width:640px){ .report-photos{grid-template-columns:repeat(2,1fr);} .report-photos .wide{grid-column:1/-1;} }
+    .report-section{overflow:hidden;}
+    @media print{ .report-photos{ break-inside:avoid; page-break-inside:avoid; } .report-img{max-width:100%;} body{background:#fff;} }
   </style>
 </head>
 <body>
@@ -179,7 +89,7 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <div class="h1">Job timer</div>
-          <div class="label">Tap start in the driveway. Add splits per room and comment.</div>
+          <div class="label">Tap start in the driveway. Add splits per room and comment. You can edit times below.</div>
         </div>
         <div class="flex gap-2">
           <button id="startBtn" class="btn tap">Start</button>
@@ -187,12 +97,27 @@
           <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
         </div>
       </div>
+
       <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
         <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
         <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
         <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
         <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
       </div>
+
+      <!-- NEW: manual edit for start/finish -->
+      <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
+        <label><span class="label">Start time (editable)</span>
+          <input type="time" id="startTimeInput">
+        </label>
+        <label><span class="label">Finish time (editable)</span>
+          <input type="time" id="endTimeInput">
+        </label>
+        <div class="flex items-end gap-2">
+          <button id="applyTimes" class="btn tap w-full">Apply times</button>
+        </div>
+      </div>
+
       <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-2"></ul>
     </section>
 
@@ -251,41 +176,28 @@
       </div>
     </section>
 
-    <!-- Set-up -->
-    <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Set-up</div><span class="label">Tap, power, hoses, drop sheets</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-3">
-        <label class="chip"><input type="checkbox" class="mr-2" id="tapOk" /> Tap access</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="powerOk" /> Power access</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="hoseRun" /> Hoses laid safe</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="slipWarn" /> Slip warning given</label>
-      </div>
-    </section>
-
-    <!-- Diagnosis (single select to drive Playbook) -->
+    <!-- Diagnosis (NOW multi-select) -->
     <section class="frosted p-4" id="Diagnosis">
       <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (drives Playbook)</span>
+        <div class="h2">Diagnosis</div><span class="label">Pick one or many fibres and stains (Playbook unions the guidance)</span>
       </div>
 
-      <div class="mb-2 font-bold">Step 1. Fibre</div>
+      <div class="mb-2 font-bold">Step 1. Fibre (multi‑select)</div>
       <div class="grid md:grid-cols-3 gap-2">
-        <button class="btn secondary tap fibre" data-fibre="Wool">Wool</button>
-        <button class="btn secondary tap fibre" data-fibre="Nylon">Nylon</button>
-        <button class="btn secondary tap fibre" data-fibre="Polyester">Polyester</button>
-        <button class="btn secondary tap fibre" data-fibre="Olefin/PP">Olefin/PP</button>
-        <button class="btn secondary tap fibre" data-fibre="Cellulosic">Cellulosic</button>
-        <button class="btn secondary tap fibre" data-fibre="Unknown">Unknown</button>
+        <div class="chip diag-fibre" data-fibre="Wool">Wool</div>
+        <div class="chip diag-fibre" data-fibre="Nylon">Nylon</div>
+        <div class="chip diag-fibre" data-fibre="Polyester">Polyester</div>
+        <div class="chip diag-fibre" data-fibre="Olefin/PP">Olefin/PP</div>
+        <div class="chip diag-fibre" data-fibre="Cellulosic">Cellulosic</div>
+        <div class="chip diag-fibre" data-fibre="Unknown">Unknown</div>
       </div>
 
-      <div class="mt-4 mb-2 font-bold">Step 2. Stain</div>
+      <div class="mt-4 mb-2 font-bold">Step 2. Stain (multi‑select)</div>
       <div class="grid md:grid-cols-2 gap-2">
-        <button class="btn secondary tap stain" data-stain="Organic">Organic</button>
-        <button class="btn secondary tap stain" data-stain="Tannin">Tannin</button>
-        <button class="btn secondary tap stain" data-stain="Oil">Oil/Grease/Ink</button>
-        <button class="btn secondary tap stain" data-stain="Synthetic Dye">Synthetic Dye</button>
+        <div class="chip diag-stain" data-stain="Organic">Organic</div>
+        <div class="chip diag-stain" data-stain="Tannin">Tannin</div>
+        <div class="chip diag-stain" data-stain="Oil">Oil/Grease/Ink</div>
+        <div class="chip diag-stain" data-stain="Synthetic Dye">Synthetic Dye</div>
       </div>
     </section>
 
@@ -295,17 +207,17 @@
         <div class="h2">The Playbook</div><span class="label">Auto filled from your picks</span>
       </div>
       <div class="grid md:grid-cols-2 gap-3">
-        <div><div class="label">Fibre</div><div id="pbFibre" class="font-bold">—</div></div>
-        <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
+        <div><div class="label">Fibre(s)</div><div id="pbFibre" class="font-bold">—</div></div>
+        <div><div class="label">Stain(s)</div><div id="pbStain" class="font-bold">—</div></div>
       </div>
 
       <div class="mt-3">
-        <div class="label">Suggested Pricing Add-on</div>
+        <div class="label">Suggested Pricing Add‑on(s)</div>
         <div id="pbPrice" class="font-bold">—</div>
       </div>
 
       <div class="mt-3">
-        <div class="label">Client script</div>
+        <div class="label">Client script (summary)</div>
         <textarea id="pbScript" rows="3" readonly></textarea>
         <div class="mt-2 flex gap-2">
           <button id="copyScript" class="btn secondary tap">Copy script</button>
@@ -313,12 +225,12 @@
       </div>
 
       <div class="mt-3">
-        <div class="label">Flags & warnings</div>
+        <div class="label">Flags & warnings (union)</div>
         <ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
       </div>
 
       <div class="mt-3">
-        <div class="label">Standard procedure</div>
+        <div class="label">Standard procedure (combined)</div>
         <ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol>
       </div>
 
@@ -330,24 +242,23 @@
     </section>
 
     <!-- Per-room detail -->
-<section class="report-section">
-  <h3 class="font-extrabold">Per-room detail</h3>
+    <section class="report-section">
+      <h3 class="font-extrabold">Per-room detail</h3>
 
-  <h4 class="mt-2 font-bold">Before</h4>
-  <div class="report-photos">
-    <img src="before-1.jpg" alt="Before 1" class="report-img square" loading="lazy" decoding="async">
-    <img src="before-2.jpg" alt="Before 2" class="report-img square" loading="lazy" decoding="async">
-    <img src="before-wide.jpg" alt="Before wide" class="report-img wide" loading="lazy" decoding="async">
-  </div>
+      <h4 class="mt-2 font-bold">Before</h4>
+      <div class="report-photos">
+        <img src="before-1.jpg" alt="Before 1" class="report-img square" loading="lazy" decoding="async">
+        <img src="before-2.jpg" alt="Before 2" class="report-img square" loading="lazy" decoding="async">
+        <img src="before-wide.jpg" alt="Before wide" class="report-img wide" loading="lazy" decoding="async">
+      </div>
 
-  <h4 class="mt-6 font-bold">After</h4>
-  <div class="report-photos">
-    <img src="after-1.jpg" alt="After 1" class="report-img square" loading="lazy" decoding="async">
-    <img src="after-2.jpg" alt="After 2" class="report-img square" loading="lazy" decoding="async">
-    <img src="after-wide.jpg" alt="After wide" class="report-img wide" loading="lazy" decoding="async">
-  </div>
-</section>
-
+      <h4 class="mt-6 font-bold">After</h4>
+      <div class="report-photos">
+        <img src="after-1.jpg" alt="After 1" class="report-img square" loading="lazy" decoding="async">
+        <img src="after-2.jpg" alt="After 2" class="report-img square" loading="lazy" decoding="async">
+        <img src="after-wide.jpg" alt="After wide" class="report-img wide" loading="lazy" decoding="async">
+      </div>
+    </section>
 
     <!-- Clean -->
     <section class="frosted p-4">
@@ -496,11 +407,28 @@ function saveState(patch){
   return next;
 }
 
-/* ===== Timer & Splits (with editable comments) ===== */
+/* ===== Timer & Splits (with editable comments + manual time override) ===== */
 let startTime=null, timerInt=null, splits=[];
 const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
 const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
 const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
+const startTimeInput = document.getElementById('startTimeInput');
+const endTimeInput   = document.getElementById('endTimeInput');
+const applyTimesBtn  = document.getElementById('applyTimes');
+
+function todayWith(hhmm){
+  if(!hhmm) return null;
+  const [h,m]=hhmm.split(':').map(n=>parseInt(n||'0',10));
+  const d=new Date(); d.setHours(h||0,m||0,0,0); return d;
+}
+function manualElapsedText(){
+  const st = loadState();
+  if(!(st.manualStart && st.manualEnd)) return null;
+  let a = todayWith(st.manualStart), b = todayWith(st.manualEnd);
+  if(!a || !b) return null;
+  if(b < a) b = new Date(b.getTime()+24*3600*1000); // across midnight
+  return fmt(b - a);
+}
 
 function renderSplits(){
   splitsList.innerHTML='';
@@ -548,10 +476,15 @@ function renderSplits(){
 startBtn.addEventListener('click', ()=>{
   if(startTime) return;
   startTime=Date.now();
-  startedEl.textContent=new Date(startTime).toLocaleTimeString();
-  timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250);
+  const ts = new Date(startTime);
+  startedEl.textContent=ts.toLocaleTimeString();
+  startTimeInput.value = ts.toTimeString().slice(0,5);
+  timerInt=setInterval(()=>{
+    const manual = manualElapsedText();
+    elapsedEl.textContent = manual || fmt(Date.now()-startTime);
+  },250);
   startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false;
-  saveState({started: startedEl.textContent});
+  saveState({started: startedEl.textContent, manualStart:startTimeInput.value||null});
 });
 
 splitBtn.addEventListener('click', ()=>{
@@ -567,9 +500,25 @@ splitBtn.addEventListener('click', ()=>{
 stopBtn.addEventListener('click', ()=>{
   if(!startTime) return;
   clearInterval(timerInt);
-  endedEl.textContent = new Date().toLocaleTimeString();
+  const ts = new Date();
+  endedEl.textContent = ts.toLocaleTimeString();
+  endTimeInput.value = ts.toTimeString().slice(0,5);
   splitBtn.disabled=true; stopBtn.disabled=true;
-  saveState({ended: endedEl.textContent});
+  saveState({ended: endedEl.textContent, manualEnd:endTimeInput.value||null});
+  const manual = manualElapsedText();
+  if(manual) elapsedEl.textContent = manual;
+  buildReport();
+});
+
+/* Apply manual times */
+applyTimesBtn.addEventListener('click', ()=>{
+  const s = (startTimeInput.value||'').trim();
+  const e = (endTimeInput.value||'').trim();
+  saveState({manualStart:s || null, manualEnd:e || null});
+  if(s) startedEl.textContent = todayWith(s).toLocaleTimeString();
+  if(e) endedEl.textContent   = todayWith(e).toLocaleTimeString();
+  const manual = manualElapsedText();
+  if(manual) elapsedEl.textContent = manual;
   buildReport();
 });
 
@@ -612,8 +561,8 @@ document.getElementById('scriptWalk').addEventListener('click', ()=>{
   alert('Walk-through script copied.');
 });
 
-/* ===== Diagnosis → Playbook (single select) ===== */
-let pickFibre=null, pickStain=null;
+/* ===== Diagnosis → Playbook (NOW multi-select) ===== */
+let pickFibres=new Set(), pickStains=new Set();
 const pbPrice = document.getElementById('pbPrice');
 const pbScript = document.getElementById('pbScript');
 const pbFlags = document.getElementById('pbFlags');
@@ -645,10 +594,10 @@ const RULES = {
       proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],
       chems:['fiberinse','neutralSpotter'] },
     stain:{
-      'Organic':{ price:'+ Enzyme/odour treatment', script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent pre-spot', script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Dye treatment (quote on-site)', script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Enzyme/odour treatment', script:'Organic treated gently; neutral rinse; airflow set to prevent wicking.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Tannin reduced and rinsed. Shadow may remain on old spills.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent pre-spot', script:'Solvent step first, then neutral rinse.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye treatment (quote on-site)', script:'Attempt reduction; no guarantee.', add:['reducerSpotter'] }
     }
   },
   'Nylon':{
@@ -656,10 +605,10 @@ const RULES = {
       proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],
       chems:['winnerPlus','fiberinse'] },
     stain:{
-      'Organic':{ price:'+ Enzyme/deodoriser', script:'We’ll hit the organic source then flush. Nylon handles this well.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Tannin reducer', script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent or citrus boost first, then rinse out the residue.', add:['citrusSonisteam','solventGel'] },
-      'Synthetic Dye': { price:'+ Dye remover attempt', script:'We can attempt a dye removal. Results vary.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Enzyme/deodoriser', script:'Treat organic source then flush; nylon tolerates well.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reduce tannin then rinse.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Citrus/solvent boost then rinse.', add:['citrusSonisteam','solventGel'] },
+      'Synthetic Dye': { price:'+ Dye remover attempt', script:'Attempt only; results vary.', add:['reducerSpotter'] }
     }
   },
   'Polyester':{
@@ -667,10 +616,10 @@ const RULES = {
       proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],
       chems:['winnerPlus','citrusSonisteam','fiberinse'] },
     stain:{
-      'Organic':{ price:'+ Enzyme boost', script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse. Shadow can linger if old.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Oil bonds to polyester. We’ll break it down before rinsing.', add:['solventGel','citrusSonisteam'] },
-      'Synthetic Dye': { price:'+ Dye attempt', script:'We’ll try a reducer. Synthetic colour often bonds hard.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Enzyme boost', script:'Enzyme then rinse; polyester holds oils.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Break oil bond then rinse.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'Reducer attempt only.', add:['reducerSpotter'] }
     }
   },
   'Olefin/PP':{
@@ -678,10 +627,10 @@ const RULES = {
       proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],
       chems:['winnerPlus','fiberinse'] },
     stain:{
-      'Organic':{ price:'+ Enzyme/odour treat', script:'We’ll treat odour then rinse. Temps kept low.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Reducer', script:'Reducer then rinse. Careful with heat.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse. Polypropylene holds oils.', add:['solventGel','citrusSonisteam'] },
-      'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt only if safe. Heat low.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Enzyme/odour treat', script:'Odour treat then rinse; temps low.', add:['sonizymePrespray','sonizymeOdour'] },
+      'Tannin': { price:'+ Reducer', script:'Reducer then rinse.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse.', add:['solventGel','citrusSonisteam'] },
+      'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt if safe; heat low.', add:['reducerSpotter'] }
     }
   },
   'Cellulosic':{
@@ -689,10 +638,10 @@ const RULES = {
       proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],
       chems:['fiberinse','browningRemover'] },
     stain:{
-      'Organic':{ price:'+ Anti-browning / enzyme', script:'We’ll keep moisture low and manage dry time to avoid browning.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse. Shadow risk if old.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent then low-moisture clean.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Limited attempts only due to fibre risk.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Anti-browning / enzyme', script:'Keep moisture low; manage dry time.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse.', add:['browningRemover'] },
+      'Oil':    { price:'+ Solvent assist', script:'Solvent then low‑moisture clean.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Only if safe, limited.', add:['reducerSpotter'] }
     }
   },
   'Unknown':{
@@ -700,59 +649,74 @@ const RULES = {
       proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],
       chems:['neutralSpotter','fiberinse'] },
     stain:{
-      'Organic':{ price:'+ Risk load', script:'We’ll run a small test patch first since the fibre is unknown.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Risk load', script:'We’ll test a reducer on a hidden spot first.', add:['browningRemover'] },
-      'Oil':    { price:'+ Risk load', script:'We’ll test a solvent on a hidden spot first.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe. No guarantee.', add:['reducerSpotter'] }
+      'Organic':{ price:'+ Risk load', script:'Small test patch first.', add:['sonizymePrespray'] },
+      'Tannin': { price:'+ Risk load', script:'Test reducer on hidden spot.', add:['browningRemover'] },
+      'Oil':    { price:'+ Risk load', script:'Test solvent in hidden spot.', add:['solventGel'] },
+      'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe.', add:['reducerSpotter'] }
     }
   }
 };
 
+/* Toggle multi-picks */
+function togglePick(set, el, cls){
+  const v = el.dataset[cls];
+  if(set.has(v)){ set.delete(v); el.classList.remove('on'); }
+  else{ set.add(v); el.classList.add('on'); }
+  saveState({pickFibres:[...pickFibres], pickStains:[...pickStains]});
+  updatePlaybook();
+}
+document.querySelectorAll('.diag-fibre').forEach(el=> el.addEventListener('click', ()=>togglePick(pickFibres, el, 'fibre')));
+document.querySelectorAll('.diag-stain').forEach(el=> el.addEventListener('click', ()=>togglePick(pickStains, el, 'stain')));
+document.getElementById('copyScript').addEventListener('click', ()=>{ navigator.clipboard.writeText(pbScript.value||''); });
+
+function uniq(arr){ return [...new Set(arr.filter(Boolean))]; }
 function updatePlaybook(){
-  document.getElementById('pbFibre').textContent = pickFibre || '—';
-  document.getElementById('pbStain').textContent = pickStain || '—';
+  const fibres=[...pickFibres], stains=[...pickStains];
+  document.getElementById('pbFibre').textContent = fibres.length? fibres.join(', ') : '—';
+  document.getElementById('pbStain').textContent = stains.length? stains.join(', ') : '—';
 
   pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML='';
   pbPrice.textContent='—'; pbScript.value='';
 
-  if(pickFibre && pickStain){
-    const base = RULES[pickFibre].base;
-    const stain = RULES[pickFibre].stain[pickStain];
+  if(!fibres.length || !stains.length){ buildReport(); return; }
 
-    pbPrice.textContent = stain.price;
-    pbScript.value = stain.script;
+  let prices=[], scripts=[], flags=[], procs=[], chems=[];
 
-    base.flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
-    base.proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
-
-    const ids = Array.from(new Set([...(base.chems||[]), ...(stain.add||[])]));
-    const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
-    const finalList = [...ids, ...remind];
-
-    finalList.forEach(key=>{
-      const c = CHEM[key]; if(!c) return;
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline';
-      a.textContent = c.name;
-      li.appendChild(a);
-      li.appendChild(document.createTextNode(` — ${c.note}`));
-      pbChems.appendChild(li);
+  fibres.forEach(f=>{
+    const base = RULES[f].base;
+    flags = flags.concat(base.flags||[]);
+    procs = procs.concat(base.proc||[]);
+    chems = chems.concat(base.chems||[]);
+    stains.forEach(s=>{
+      const rr = RULES[f].stain[s];
+      if(rr){ prices.push(rr.price); scripts.push(rr.script); chems=chems.concat(rr.add||[]); }
     });
-  }
+  });
+
+  prices = uniq(prices);
+  scripts = uniq(scripts);
+  flags   = uniq(flags);
+  procs   = uniq(procs);
+  chems   = uniq(chems.concat(POST_ADDONS.slice(0,2))); // gentle reminder add‑ons
+
+  pbPrice.textContent = prices.join(' / ') || '—';
+  pbScript.value = scripts.join('  |  ');
+
+  flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
+  procs.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
+  chems.forEach(key=>{
+    const c = CHEM[key]; if(!c) return;
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline';
+    a.textContent = c.name;
+    li.appendChild(a);
+    li.appendChild(document.createTextNode(` — ${c.note}`));
+    pbChems.appendChild(li);
+  });
+
   buildReport();
 }
-document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{
-  document.querySelectorAll('.fibre').forEach(x=> x.classList.remove('ring'));
-  b.classList.add('ring'); pickFibre = b.dataset.fibre; updatePlaybook(); saveState({pickFibre});
-}));
-document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{
-  document.querySelectorAll('.stain').forEach(x=> x.classList.remove('ring'));
-  b.classList.add('ring'); pickStain = b.dataset.stain; updatePlaybook(); saveState({pickStain});
-}));
-document.getElementById('copyScript').addEventListener('click', ()=>{
-  navigator.clipboard.writeText(pbScript.value || '');
-});
 
 /* ===== Photo handlers (camera & library to localStorage as data URLs) ===== */
 function hookPhoto(inputEl, key){
@@ -779,7 +743,6 @@ document.getElementById('takePayment').addEventListener('click', ()=>{
   const amt = (document.getElementById('amount').value||'').trim();
   if(!amt){ alert('Enter amount'); return; }
   saveState({amount: amt});
-  // Deep link attempt then fallback
   const scheme = 'square-commerce-v1://'; const fallback = 'https://squareup.com/dashboard';
   setTimeout(()=>location.href=fallback, 600); location.href = scheme;
 });
@@ -823,12 +786,13 @@ document.getElementById('copySummary').addEventListener('click', ()=>{
   const lines = [];
   lines.push(`Lefties Field OS Summary`);
   lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}`);
-  lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
+  const manual = manualElapsedText();
+  lines.push(`Elapsed: ${manual || document.getElementById('elapsed').textContent}`);
   lines.push(`Service: ${(st.service||[]).join(', ')||'—'}  Job Type: ${(st.jobType||[]).join(', ')||'—'}`);
   lines.push(`Fibres: ${(st.fibres||[]).join(', ')||'—'}`);
-  lines.push(`Diagnosis → Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
-  lines.push(`Price add-on: ${document.getElementById('pbPrice').textContent}`);
-  lines.push(`Flags: ${(RULES[pickFibre]?.base.flags||[]).join('; ')}`);
+  lines.push(`Diagnosis → Fibre(s): ${[...pickFibres].join(', ')||'—'}  Stain(s): ${[...pickStains].join(', ')||'—'}`);
+  lines.push(`Price add‑on(s): ${document.getElementById('pbPrice').textContent}`);
+  // Flags from first selected fibre set union already in UI; no need to recompute here
   lines.push(`Solutions: ${st.solutions||'—'}  Dry passes: ${st.dryPass||'—'}`);
   if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round((s.duration||0)/60000)} min${s.note?` — ${s.note}`:''}`));
   lines.push(`Notes: ${st.jobNotes||'—'}`);
@@ -850,14 +814,14 @@ function collectData(){
   return {
     started: st.started||'—',
     ended: st.ended||'—',
-    elapsed: document.getElementById('elapsed')?.textContent || '—',
+    elapsed: manualElapsedText() || document.getElementById('elapsed')?.textContent || '—',
     id_service: st.service||[],
     id_jobType: st.jobType||[],
     id_fibres: st.fibres||[],
-    fibre: pickFibre||'—',
-    stain: pickStain||'—',
-    flags: (RULES[pickFibre]?.base.flags || []),
-    procedure: (RULES[pickFibre]?.base.proc || []),
+    fibres: [...pickFibres],
+    stains:  [...pickStains],
+    flags: Array.from(new Set((()=>{ let out=[]; [...pickFibres].forEach(f=> out=out.concat(RULES[f]?.base.flags||[])); return out; })())),
+    procedure: Array.from(new Set((()=>{ let out=[]; [...pickFibres].forEach(f=> out=out.concat(RULES[f]?.base.proc||[])); return out; })())),
     price: document.getElementById('pbPrice')?.textContent || '—',
     solutions: st.solutions||'—',
     dryPass: st.dryPass||'—',
@@ -885,8 +849,8 @@ function clientFacingCopy(d){
       `Fibres present: ${d.id_fibres.join(', ')||'—'}`
     ],
     diagnosis: [
-      `Primary fibre treated: ${d.fibre}`,
-      `Main issue treated: ${d.stain}`
+      `Primary fibre(s) treated: ${d.fibres.join(', ')||'—'}`,
+      `Main issue(s) treated: ${d.stains.join(', ')||'—'}`
     ],
     approach: [
       `Our process: ${d.procedure.join(' → ') || '—'}`,
@@ -896,7 +860,7 @@ function clientFacingCopy(d){
     watchouts: d.flags,
     perRoom: d.splits.length ? d.splits.map(s=> `${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`) : ['—'],
     outcome: [
-      `Recommended add‑on: ${d.price || '—'}`,
+      `Recommended add‑on(s): ${d.price || '—'}`,
       care,
       `Notes: ${d.notes}`
     ],
@@ -943,18 +907,15 @@ document.getElementById('emailReport').addEventListener('click', ()=>{
   window.location.href = href;
 });
 
-/* ===== Customer view ===== */
+/* ===== Customer view (uses responsive images; print-safe) ===== */
 function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
 function openCustomerView(){
   const {data:d, copy:c} = buildReport();
-
   const li = arr => arr.map(x=>`<li>${esc(x)}</li>`).join('');
   const perRoomLI = c.perRoom.map(x=>`<li>${esc(x)}</li>`).join('');
-
   const beforeImg = d.beforePhotoData ? `<div class="flex-1"><div class="label mb-1">Before</div><img src="${d.beforePhotoData}" alt="Before" class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
   const afterImg  = d.afterPhotoData  ? `<div class="flex-1"><div class="label mb-1">After</div><img src="${d.afterPhotoData}"  alt="After"  class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
   const photosRow = (beforeImg||afterImg) ? `<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">${beforeImg}${afterImg}</div>` : '';
-
   const win = window.open('', '_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
   win.document.write(`<!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -978,6 +939,7 @@ function openCustomerView(){
       @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
       .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
       .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
+      img{ max-width:100%; height:auto; }
       @media print{ body{ background:#fff; } .card{ box-shadow:none; border:0; } .wrap{ margin:0 auto; } }
     </style>
   </head><body>
@@ -999,9 +961,9 @@ function openCustomerView(){
           <div>
             <h2>Job ID</h2>
             <ul>${li([
-              `Service: ${esc(d.id_service.join(', ')||'—')}`,
-              `Job Type: ${esc(d.id_jobType.join(', ')||'—')}`,
-              `Fibres present: ${esc(d.id_fibres.join(', ')||'—')}`,
+              \`Service: ${esc(d.id_service.join(', ')||'—')}\`,
+              \`Job Type: ${esc(d.id_jobType.join(', ')||'—')}\`,
+              \`Fibres present: ${esc(d.id_fibres.join(', ')||'—')}\`,
             ])}</ul>
           </div>
         </div>
@@ -1009,11 +971,18 @@ function openCustomerView(){
         <div class="section grid">
           <div>
             <h2>What we cleaned</h2>
-            <ul>${li(c.diagnosis)}</ul>
+            <ul>${li([
+              \`Primary fibre(s) treated: ${esc(d.fibres.join(', ')||'—')}\`,
+              \`Main issue(s) treated: ${esc(d.stains.join(', ')||'—')}\`
+            ])}</ul>
           </div>
           <div>
             <h2>How we cared for your home</h2>
-            <ul>${li(c.approach)}</ul>
+            <ul>${li([
+              \`Our process: ${esc(d.procedure.join(' → ')||'—')}\`,
+              \`Solutions used: ${esc(d.solutions)}\`,
+              \`Dry passes for faster drying: ${esc(d.dryPass||'—')}\`
+            ])}</ul>
           </div>
         </div>
 
@@ -1054,6 +1023,8 @@ function load(){
   splits = st.splits || []; renderSplits();
   if(st.started) startedEl.textContent = st.started;
   if(st.ended) endedEl.textContent = st.ended;
+  if(st.manualStart){ startTimeInput.value = st.manualStart; }
+  if(st.manualEnd){ endTimeInput.value = st.manualEnd; const m=manualElapsedText(); if(m) elapsedEl.textContent=m; }
   if(st.amount) document.getElementById('amount').value = st.amount;
   if(st.clientMobile) document.getElementById('clientMobile').value = st.clientMobile;
 
@@ -1064,11 +1035,9 @@ function load(){
     if(el.type==='checkbox') el.checked = !!v; else if(typeof v!=='undefined') el.value = v;
   });
 
-  // diagnosis
-  if(st.pickFibre){ pickFibre = st.pickFibre; }
-  if(st.pickStain){ pickStain = st.pickStain; }
-  if(pickFibre){ document.querySelector(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
-  if(pickStain){ document.querySelector(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
+  // diagnosis (multi)
+  (st.pickFibres||[]).forEach(f=>{ pickFibres.add(f); document.querySelector(\`.diag-fibre[data-fibre="${f}"]\`)?.classList.add('on'); });
+  (st.pickStains||[]).forEach(s=>{ pickStains.add(s); document.querySelector(\`.diag-stain[data-stain="${s}"]\`)?.classList.add('on'); });
   updatePlaybook();
 
   // id tags
