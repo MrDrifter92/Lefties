@@ -11,16 +11,10 @@
 
   <style>
     :root{
-      --primary:#0071B6;
-      --cream:#EFE3CF;
-      --cream-2:#E7D7BE;
-      --glass:rgba(255,255,255,.42);
-      --glass-border:rgba(255,255,255,.28);
-      --text:#1b2025;
-      --muted:#3d4754;
-      --ring: rgba(0,113,182,.30);
-      --chip-on: rgba(0,113,182,.12);
-      --chip-brd-on: rgba(0,113,182,.35);
+      --primary:#0071B6; --cream:#EFE3CF; --cream-2:#E7D7BE;
+      --glass:rgba(255,255,255,.42); --glass-border:rgba(0,0,0,.08);
+      --text:#1b2025; --muted:#3d4754; --ring: rgba(0,113,182,.30);
+      --chip-on: rgba(0,113,182,.12); --chip-brd-on: rgba(0,113,182,.35);
     }
     html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
     body{
@@ -29,97 +23,38 @@
       background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
       overflow-x:hidden; min-height:100vh;
     }
-
-    .frosted{
-      background:var(--glass);
-      border:1px solid var(--glass-border);
-      border-radius:1rem;
-      backdrop-filter: blur(14px) saturate(120%);
-      -webkit-backdrop-filter: blur(14px) saturate(120%);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
-    }
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
-      background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));
-      color:#fff;border:1px solid rgba(0,148,255,.35);
-      box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);
-      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
-    }
+    .frosted{background:var(--glass);border:1px solid var(--glass-border);border-radius:1rem;backdrop-filter: blur(14px) saturate(120%);-webkit-backdrop-filter: blur(14px) saturate(120%);box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:800;background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));color:#fff;border:1px solid rgba(0,148,255,.35);box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;}
     .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45); }
-    .btn.secondary{
-      background:transparent;color:var(--text);font-weight:800;
-      border:1px solid var(--glass-border);
-      box-shadow: inset 0 1px 1px rgba(255,255,255,.35);
-    }
-    .btn.ghost{ background:rgba(255,255,255,.6); color:var(--text); border:1px solid var(--glass-border); }
-
-    .chip{
-      padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;
-      background:rgba(255,255,255,.35); border:1px solid var(--glass-border);
-      font-weight:800; cursor:pointer; user-select:none;
-    }
-    .chip.on{ background:var(--chip-on); border-color:var(--chip-brd-on); box-shadow: 0 0 0 3px var(--ring); }
-
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--glass-border);}
+    .btn.ghost{background:rgba(255,255,255,.6); color:var(--text); border:1px solid var(--glass-border);}
+    .chip{padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.35); border:1px solid var(--glass-border); font-weight:800; cursor:pointer; user-select:none;}
+    .chip.on{background:var(--chip-on); border-color:var(--chip-brd-on); box-shadow: 0 0 0 3px var(--ring);}
     .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
-
-    .fixedbar{ position:fixed; bottom:12px; left:12px; right:12px; z-index:50; display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap; }
-    .pill{ flex:1 1 22%; text-align:center; padding:10px; border-radius:12px; background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800; }
-
-    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
-    .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
     .label{color:var(--muted);font-size:12px}
-
-    input[type="text"],input[type="time"],textarea,select{
-      width:100%;
-      background:rgba(255,255,255,.55);
-      border:1px solid var(--glass-border);
-      border-radius:.75rem; padding:.75rem; color:var(--text); outline:none;
-    }
-    input[type="file"]{color:var(--muted)}
+    input[type="text"],textarea,select,input[type="time"],input[type="number"]{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--glass-border);border-radius:.75rem;padding:.75rem;color:var(--text);outline:none}
     .tap{min-height:48px}
+    .report-area{background: rgba(255,255,255,.65); border:1px dashed rgba(0,0,0,.1); border-radius:.75rem; padding:1rem; white-space:pre-wrap; color:#222;}
+    .split-row{display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem; background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;}
+    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900} .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
 
-    .header-card img{height:44px; width:auto}
-    .logo-circle{ width:40px;height:40px;border-radius:9999px; background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15)); border:1px solid rgba(255,255,255,.35); }
-
-    .report-area{ background: rgba(255,255,255,.65); border:1px dashed rgba(0,0,0,.1); border-radius:.75rem; padding:1rem; white-space:pre-wrap; color:#222; }
-
-    .split-row{
-      display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem;
-      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;
-    }
-    .split-row input[type="text"]{ background:rgba(255,255,255,.75); }
-
-    /* Photo gallery tiles (before/after) */
-    .photo-grid{
-      display:grid; gap:10px;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    }
-    .photo-tile{
-      position:relative; border:1px dashed rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff;
-      min-height:110px; display:flex; align-items:center; justify-content:center;
-    }
-    .photo-tile input[type=file]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
-    .photo-tile .hint{ font-weight:800; font-size:12px; color:#6b7280; text-align:center; padding:8px; }
-    .photo-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .photo-tile .del{
-      position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:9999px; background:#fff;
-      border:1px solid rgba(0,0,0,.25); font-weight:900; line-height:24px; text-align:center;
-    }
-
-    /* Report photos (in-page preview section just for dev samples) */
-    .report-section { overflow: hidden; }
-    .report-photos { display: grid; gap: 12px; grid-template-columns: 1fr; }
-    .report-img { width: 100%; max-width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
-    @media (min-width: 640px) { .report-photos { grid-template-columns: repeat(2, 1fr); } .report-photos .wide { grid-column: 1 / -1; } }
-    @media print { .report-photos { break-inside: avoid; page-break-inside: avoid; } .report-img { max-width: 100%; } }
+    /* Photo grid (combined) */
+    .grid-photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(min-width:768px){.grid-photos{grid-template-columns:repeat(3,1fr)}}
+    .photo-tile{position:relative;border:1px solid var(--glass-border);border-radius:14px;background:rgba(255,255,255,.55);aspect-ratio:1/1;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .photo-img{width:100%;height:100%;object-fit:cover}
+    .tile-actions{position:absolute;top:6px;right:6px;display:flex;gap:6px}
+    .tile-btn{background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:8px;padding:.25rem .5rem;font-size:12px}
+    .tile-add{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-weight:800}
+    .tile-add .plus{font-size:26px;line-height:1}
+    /* Customer view images: never bleed */
+    .cv-img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(0,0,0,.08);object-fit:cover}
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="frosted header-card mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
+  <header class="frosted mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
     <div class="flex items-center justify-between gap-3">
       <div class="flex items-center gap-3">
         <img src="/core-logo-transparent.png" alt="Lefties" class="h-11 w-auto" />
@@ -129,7 +64,6 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="/dashboard.html" class="btn secondary tap">Dashboard</a>
         <a href="/" class="btn secondary tap">Website</a>
       </div>
     </div>
@@ -143,7 +77,7 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <div class="h1">Job timer</div>
-          <div class="label">Tap start in the driveway. Add splits per room and comment. You can also edit start/finish.</div>
+          <div class="label">Tap start in the driveway. You can edit times below.</div>
         </div>
         <div class="flex gap-2">
           <button id="startBtn" class="btn tap">Start</button>
@@ -151,7 +85,6 @@
           <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
         </div>
       </div>
-
       <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
         <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
         <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
@@ -159,28 +92,21 @@
         <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
       </div>
 
-      <!-- Manual time edit -->
-      <div class="mt-3 grid md:grid-cols-4 gap-2">
-        <label class="split-row">
-          <span class="label shrink-0">Edit start</span>
-          <input id="editStart" type="time" />
-        </label>
-        <label class="split-row">
-          <span class="label shrink-0">Edit end</span>
-          <input id="editEnd" type="time" />
-        </label>
-        <button id="applyTimes" class="btn secondary">Apply times</button>
-        <button id="clearTimes" class="btn ghost">Clear edits</button>
+      <!-- Manual edit -->
+      <div class="mt-3 grid md:grid-cols-3 gap-2">
+        <div><label class="label">Edit start</label><input id="manualStart" type="time" /></div>
+        <div><label class="label">Edit end</label><input id="manualEnd" type="time" /></div>
+        <div class="flex items-end"><button id="applyTimes" class="btn secondary w-full">Apply times</button></div>
       </div>
 
       <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-2"></ul>
     </section>
 
-    <!-- ID & Job Tags -->
+    <!-- ID & Job Tags (MULTI-SELECT) -->
     <section class="frosted p-4 mb-4" id="ID">
       <div class="mb-2">
         <div class="h2">ID & Job Tags</div>
-        <div class="label">Pick all that apply (multi‑select). These are for records and reporting.</div>
+        <div class="label">Pick all that apply (multi‑select).</div>
       </div>
 
       <div class="mt-2">
@@ -231,20 +157,7 @@
       </div>
     </section>
 
-    <!-- Set-up -->
-    <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Set-up</div><span class="label">Tap, power, hoses, drop sheets</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-3">
-        <label class="chip"><input type="checkbox" class="mr-2" id="tapOk" /> Tap access</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="powerOk" /> Power access</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="hoseRun" /> Hoses laid safe</label>
-        <label class="chip"><input type="checkbox" class="mr-2" id="slipWarn" /> Slip warning given</label>
-      </div>
-    </section>
-
-    <!-- Diagnosis -->
+    <!-- Diagnosis (single select to drive Playbook) -->
     <section class="frosted p-4" id="Diagnosis">
       <div class="mb-2 flex items-center gap-2">
         <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (drives Playbook)</span>
@@ -278,41 +191,29 @@
         <div><div class="label">Fibre</div><div id="pbFibre" class="font-bold">—</div></div>
         <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
       </div>
-
       <div class="mt-3"><div class="label">Suggested Pricing Add-on</div><div id="pbPrice" class="font-bold">—</div></div>
-
-      <div class="mt-3">
-        <div class="label">Client script</div>
-        <textarea id="pbScript" rows="3" readonly></textarea>
-        <div class="mt-2 flex gap-2">
-          <button id="copyScript" class="btn secondary tap">Copy script</button>
-        </div>
-      </div>
-
+      <div class="mt-3"><div class="label">Client script</div><textarea id="pbScript" rows="3" readonly></textarea><div class="mt-2 flex gap-2"><button id="copyScript" class="btn secondary tap">Copy script</button></div></div>
       <div class="mt-3"><div class="label">Flags & warnings</div><ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul></div>
       <div class="mt-3"><div class="label">Standard procedure</div><ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol></div>
-      <div class="mt-3">
-        <div class="label">Recommended chemicals</div>
-        <ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
-        <div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div>
-      </div>
+      <div class="mt-3"><div class="label">Recommended chemicals</div><ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul><div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div></div>
     </section>
 
-    <!-- PHOTO GALLERIES -->
-    <section class="frosted p-4">
+    <!-- Photos (COMBINED GRID) -->
+    <section class="frosted p-4" id="photos">
       <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Photos</div><span class="label">Up to 10 before & 10 after. Tap a tile to add; use ❌ to delete.</span>
+        <div class="h2">Photos</div><span class="label">Add up to 10. Tap image to replace or ❌ to delete.</span>
       </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <div class="font-bold mb-1">Before</div>
-          <div id="beforeGallery" class="photo-grid"></div>
-        </div>
-        <div>
-          <div class="font-bold mb-1">After</div>
-          <div id="afterGallery" class="photo-grid"></div>
-        </div>
+      <div class="grid-photos" id="photoGrid"></div>
+      <div class="mt-3 flex gap-2">
+        <label class="btn ghost tap">
+          <input id="photoPicker" type="file" accept="image/*" multiple class="hidden">
+          Upload from library
+        </label>
+        <label class="btn secondary tap">
+          <input id="photoCamera" type="file" accept="image/*" capture="environment" class="hidden">
+          Take photo
+        </label>
+        <button id="clearPhotos" class="btn secondary tap">Clear all</button>
       </div>
     </section>
 
@@ -381,7 +282,7 @@
       <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
     </section>
 
-    <!-- Job Completion Report -->
+    <!-- Job Completion Report (auto-prefilled) -->
     <section class="frosted p-4 md:col-span-3" id="job-completion">
       <div class="mb-2 flex items-center gap-2">
         <div class="h2">Job Completion Report</div>
@@ -404,17 +305,17 @@
           </div>
         </div>
       </div>
-      <div class="label mt-2">The report uses your timer, ID tags, fibre & stain picks, solutions, flags, notes and job total.</div>
+      <div class="label mt-2">The report uses your timer, ID tags, fibre & stain picks, solutions, flags, notes, job total and photos.</div>
     </section>
 
   </main>
 
   <!-- Quick bar -->
-  <nav class="fixedbar">
-    <a class="pill tap" href="#Diagnosis">Stain/Fibre</a>
-    <a class="pill tap" href="#Diagnosis" onclick="alert('Burn test cues are listed in fibre notes and flags')">Burn Test</a>
-    <a class="pill tap" href="/internal-price-guide.html">Price Guide</a>
-    <a class="pill tap" href="/client/aftercare.html">Aftercare</a>
+  <nav class="fixed bottom-3 left-3 right-3 z-50 flex gap-2 justify-between flex-wrap">
+    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="#Diagnosis">Stain/Fibre</a>
+    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="#photos">Photos</a>
+    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="/internal-price-guide.html">Price Guide</a>
+    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="/client/aftercare.html">Aftercare</a>
   </nav>
 
 <script>
@@ -433,54 +334,25 @@ function saveState(patch){
   return next;
 }
 
-/* ===== Timer & Splits ===== */
+/* ===== Timer & Splits (with editable times) ===== */
 let startTime=null, timerInt=null, splits=[];
 const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
 const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
 const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
-
-const editStart=document.getElementById('editStart'), editEnd=document.getElementById('editEnd');
-const applyTimes=document.getElementById('applyTimes'), clearTimes=document.getElementById('clearTimes');
+const manualStart=document.getElementById('manualStart'), manualEnd=document.getElementById('manualEnd'), applyTimes=document.getElementById('applyTimes');
 
 function renderSplits(){
   splitsList.innerHTML='';
   splits.forEach((s,i)=>{
     const li = document.createElement('li');
     li.className = 'split-row';
-    const label = document.createElement('div');
-    label.className='font-bold shrink-0';
-    label.textContent = `Room ${i+1}`;
-    const time = document.createElement('div');
-    time.className='text-xs text-[color:var(--muted)]';
-    time.textContent = fmt(s.duration||0);
-
-    const input = document.createElement('input');
-    input.type='text';
-    input.placeholder='Comment e.g. “Bed 2 — mould”';
-    input.value = s.note || '';
-    input.addEventListener('input', ()=>{
-      splits[i].note = input.value;
-      saveState({splits});
-      buildReport();
-    });
-
-    const del = document.createElement('button');
-    del.className='btn secondary tap';
-    del.textContent='Delete';
-    del.addEventListener('click', ()=>{
-      splits.splice(i,1);
-      saveState({splits});
-      renderSplits();
-      splitsCount.textContent=splits.length;
-      buildReport();
-    });
-
-    li.appendChild(label);
-    li.appendChild(time);
-    li.appendChild(input);
-    li.appendChild(del);
-    li.style.gap='0.75rem';
-    splitsList.appendChild(li);
+    const label = document.createElement('div'); label.className='font-bold shrink-0'; label.textContent = `Room ${i+1}`;
+    const time = document.createElement('div'); time.className='text-xs text-[color:var(--muted)]'; time.textContent = fmt(s.duration||0);
+    const input = document.createElement('input'); input.type='text'; input.placeholder='Comment e.g. “Bed 2 — mould”'; input.value = s.note || '';
+    input.addEventListener('input', ()=>{ splits[i].note = input.value; saveState({splits}); buildReport(); });
+    const del = document.createElement('button'); del.className='btn secondary tap'; del.textContent='Delete';
+    del.addEventListener('click', ()=>{ splits.splice(i,1); saveState({splits}); renderSplits(); splitsCount.textContent=splits.length; buildReport(); });
+    li.append(label,time,input,del); li.style.gap='0.75rem'; splitsList.appendChild(li);
   });
   splitsCount.textContent=splits.length;
 }
@@ -493,48 +365,27 @@ startBtn.addEventListener('click', ()=>{
   startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false;
   saveState({started: startedEl.textContent});
 });
-
 splitBtn.addEventListener('click', ()=>{
   if(!startTime) return;
-  const now=Date.now();
-  const used = splits.reduce((t,s)=> t + (s.duration||0), 0);
-  const elapsed = now - startTime - used;
-  splits.push({duration: elapsed, note:''});
-  saveState({splits});
-  renderSplits(); buildReport();
+  const now=Date.now(); const used = splits.reduce((t,s)=> t + (s.duration||0), 0); const elapsed = now - startTime - used;
+  splits.push({duration: elapsed, note:''}); saveState({splits}); renderSplits(); buildReport();
 });
-
 stopBtn.addEventListener('click', ()=>{
   if(!startTime) return;
   clearInterval(timerInt);
   endedEl.textContent = new Date().toLocaleTimeString();
   splitBtn.disabled=true; stopBtn.disabled=true;
-  saveState({ended: endedEl.textContent});
-  buildReport();
+  saveState({ended: endedEl.textContent}); buildReport();
 });
-
-/* Manual time edits */
-function hhmmToDate(hhmm){
-  if(!hhmm) return null;
-  const [h,m] = hhmm.split(':').map(Number);
-  const d = new Date(); d.setHours(h||0,m||0,0,0); return d;
-}
-function applyManualTimes(){
-  const s = hhmmToDate(editStart.value);
-  const e = hhmmToDate(editEnd.value);
-  if(s){ startedEl.textContent = s.toLocaleTimeString(); saveState({started: startedEl.textContent, startManual: editStart.value}); }
-  if(e){ endedEl.textContent   = e.toLocaleTimeString(); saveState({ended: endedEl.textContent, endManual: editEnd.value}); }
+applyTimes.addEventListener('click', ()=>{
+  const todayISO = new Date().toISOString().slice(0,10);
+  const s = manualStart.value, e = manualEnd.value;
+  if(s){ startedEl.textContent = s; saveState({started:s}); }
+  if(e){ endedEl.textContent = e; saveState({ended:e}); }
   if(s && e){
-    let diff = e - s; if(diff < 0) diff += 24*3600*1000; // cross-midnight
-    elapsedEl.textContent = fmt(diff);
+    const ms = (new Date(`${todayISO}T${e}`) - new Date(`${todayISO}T${s}`));
+    if(ms>0) elapsedEl.textContent = fmt(ms);
   }
-  buildReport();
-}
-applyTimes.addEventListener('click', applyManualTimes);
-clearTimes.addEventListener('click', ()=>{
-  editStart.value=''; editEnd.value='';
-  const st = loadState(); delete st.startManual; delete st.endManual;
-  saveState(st); buildReport();
 });
 
 /* ===== Multi-select chips (ID & Job Tags) ===== */
@@ -544,7 +395,6 @@ function hydrateTags(){
   (st.service||[]).forEach(v=> tagState.service.add(v));
   (st.jobType||[]).forEach(v=> tagState.jobType.add(v));
   (st.fibres||[]).forEach(v=> tagState.fibres.add(v));
-
   document.querySelectorAll('.chip[data-key]').forEach(ch=>{
     const key = ch.dataset.key, val = ch.dataset.val;
     if(tagState[key]?.has(val)) ch.classList.add('on');
@@ -553,18 +403,15 @@ function hydrateTags(){
 function toggleChip(ch){
   const key = ch.dataset.key, val = ch.dataset.val;
   if(!tagState[key]) tagState[key]=new Set();
-  if(ch.classList.contains('on')){
-    ch.classList.remove('on'); tagState[key].delete(val);
-  }else{
-    ch.classList.add('on'); tagState[key].add(val);
-  }
+  if(ch.classList.contains('on')){ ch.classList.remove('on'); tagState[key].delete(val); }
+  else { ch.classList.add('on'); tagState[key].add(val); }
   saveState({ service:[...tagState.service], jobType:[...tagState.jobType], fibres:[...tagState.fibres] });
   buildReport();
 }
 document.addEventListener('click', (e)=>{
   const ch = e.target.closest('.chip[data-key]');
   if(!ch) return;
-  if(ch.querySelector('input[type="checkbox"]')) return; // ignore setup checkbox-chips
+  if(ch.querySelector('input[type="checkbox"]')) return; // don't toggle setup checkboxes
   toggleChip(ch);
 });
 
@@ -575,7 +422,7 @@ document.getElementById('scriptWalk').addEventListener('click', ()=>{
   alert('Walk-through script copied.');
 });
 
-/* ===== Diagnosis → Playbook ===== */
+/* ===== Diagnosis → Playbook (single select) ===== */
 let pickFibre=null, pickStain=null;
 const pbPrice = document.getElementById('pbPrice');
 const pbScript = document.getElementById('pbScript');
@@ -584,94 +431,390 @@ const pbProc = document.getElementById('pbProc');
 const pbChems = document.getElementById('pbChems');
 
 const CHEM = {
-  winnerPlus: {name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid', note:'Strong alkaline prespray for heavy soil', sds:'#'},
-  citrusSonisteam: {name:'Citrus Sonisteam Prespray (booster)', note:'Citrus solvent boost for grease/oil', sds:'#'},
-  sonizymePrespray: {name:'Sonizyme (enzyme prespray)', note:'Protein/organic prespray, allow dwell', sds:'#'},
-  sonizymeOdour: {name:'Sonizyme (enzyme odour treatment)', note:'Digest odour sources, long dwell', sds:'#'},
-  fiberinse: {name:'Fiberinse (acidic rinse)', note:'Neutralises alkalinity; anti-browning', sds:'#'},
-  browningRemover: {name:'Sonitron Browning Remover (H₂O₂ oxidiser)', note:'Tannin/coffee, yellowing — test first', sds:'#'},
-  solventGel: {name:'Solvent Gel Spotter', note:'Gum/tar/glue/paint; rinse after use', sds:'#'},
-  reducerSpotter: {name:'Reducer Spotter (sodium bisulfite)', note:'Synthetic dye removal attempt', sds:'#'},
-  neutralSpotter: {name:'pH Neutral Spotter / Zenith Encap Spot & Stain', note:'Safe general spotter', sds:'#'},
-  exotica: {name:'Sampson Exotica Mango & Orange', note:'Post-clean fragrance additive', sds:'#'},
-  oxidisingDeo: {name:'Oxidising Deodoriser', note:'Smoke/mildew odour control', sds:'#'},
-  zenithEncap: {name:'Sonitron Zenith Encapsulating Shampoo', note:'Low-moisture maintenance', sds:'#'},
-  brollyCarpet: {name:'Brolly Carpet Protector Concentrate', note:'Post-clean protector', sds:'#'},
-  brollyFabric: {name:'Brolly Fabric Protector', note:'Upholstery protector', sds:'#'},
-  antiResoil: {name:'Anti-Resoiling Agent', note:'Polymer soil resistance', sds:'#'}
+  winnerPlus:{name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid',note:'Strong alkaline prespray for heavy soil',sds:'#'},
+  citrusSonisteam:{name:'Citrus Sonisteam Prespray (booster)',note:'Citrus solvent boost for grease/oil',sds:'#'},
+  sonizymePrespray:{name:'Sonizyme (enzyme prespray)',note:'Protein/organic prespray, allow dwell',sds:'#'},
+  sonizymeOdour:{name:'Sonizyme (enzyme odour treatment)',note:'Digest odour sources, long dwell',sds:'#'},
+  fiberinse:{name:'Fiberinse (acidic rinse)',note:'Neutralises alkalinity; anti-browning',sds:'#'},
+  browningRemover:{name:'Sonitron Browning Remover (H₂O₂ oxidiser)',note:'Tannin/coffee, yellowing — test first',sds:'#'},
+  solventGel:{name:'Solvent Gel Spotter',note:'Gum/tar/glue/paint; rinse after use',sds:'#'},
+  reducerSpotter:{name:'Reducer Spotter (sodium bisulfite)',note:'Synthetic dye removal attempt',sds:'#'},
+  neutralSpotter:{name:'pH Neutral Spotter / Zenith Encap Spot & Stain',note:'Safe general spotter',sds:'#'},
+  exotica:{name:'Sampson Exotica Mango & Orange',note:'Post-clean fragrance additive',sds:'#'},
+  oxidisingDeo:{name:'Oxidising Deodoriser',note:'Smoke/mildew odour control',sds:'#'},
+  zenithEncap:{name:'Sonitron Zenith Encapsulating Shampoo',note:'Low-moisture maintenance',sds:'#'},
+  brollyCarpet:{name:'Brolly Carpet Protector Concentrate',note:'Post-clean protector',sds:'#'},
+  brollyFabric:{name:'Brolly Fabric Protector',note:'Upholstery protector',sds:'#'},
+  antiResoil:{name:'Anti-Resoiling Agent',note:'Polymer soil resistance',sds:'#'}
 };
 const POST_ADDONS = ['brollyCarpet','brollyFabric','antiResoil','exotica','oxidisingDeo'];
 
-const RULES = {
-  'Wool':{
-    base:{ flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],
-      proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],
-      chems:['fiberinse','neutralSpotter'] },
-    stain:{
-      'Organic':{ price:'+ Enzyme/odour treatment', script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent pre-spot', script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Dye treatment (quote on-site)', script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.', add:['reducerSpotter'] }
-    }
-  },
-  'Nylon':{
-    base:{ flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],
-      proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],
-      chems:['winnerPlus','fiberinse'] },
-    stain:{
-      'Organic':{ price:'+ Enzyme/deodoriser', script:'We’ll hit the organic source then flush. Nylon handles this well.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Tannin reducer', script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent or citrus boost first, then rinse out the residue.', add:['citrusSonisteam','solventGel'] },
-      'Synthetic Dye': { price:'+ Dye remover attempt', script:'We can attempt a dye removal. Results vary.', add:['reducerSpotter'] }
-    }
-  },
-  'Polyester':{
-    base:{ flags:['Clings to oils — solvent assist helps'],
-      proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],
-      chems:['winnerPlus','citrusSonisteam','fiberinse'] },
-    stain:{
-      'Organic':{ price:'+ Enzyme boost', script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Reducer then rinse. Shadow can linger if old.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Oil bonds to polyester. We’ll break it down before rinsing.', add:['solventGel','citrusSonisteam'] },
-      'Synthetic Dye': { price:'+ Dye attempt', script:'We’ll try a reducer. Synthetic colour often bonds hard.', add:['reducerSpotter'] }
-    }
-  },
-  'Olefin/PP':{
-    base:{ flags:['Heat sensitive — keep temps modest'],
-      proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],
-      chems:['winnerPlus','fiberinse'] },
-    stain:{
-      'Organic':{ price:'+ Enzyme/odour treat', script:'We’ll treat odour then rinse. Temps kept low.', add:['sonizymePrespray','sonizymeOdour'] },
-      'Tannin': { price:'+ Reducer', script:'Reducer then rinse. Careful with heat.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent help first, then rinse. Polypropylene holds oils.', add:['solventGel','citrusSonisteam'] },
-      'Synthetic Dye': { price:'+ Dye attempt', script:'Attempt only if safe. Heat low.', add:['reducerSpotter'] }
-    }
-  },
-  'Cellulosic':{
-    base:{ flags:['Higher browning risk — control moisture/pH','Favour low-moisture methods'],
-      proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],
-      chems:['fiberinse','browningRemover'] },
-    stain:{
-      'Organic':{ price:'+ Anti-browning / enzyme', script:'We’ll keep moisture low and manage dry time to avoid browning.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Tannin reducer', script:'Reducer then acid rinse. Shadow risk if old.', add:['browningRemover'] },
-      'Oil':    { price:'+ Solvent assist', script:'Solvent then low-moisture clean.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Dye attempt (limited)', script:'Limited attempts only due to fibre risk.', add:['reducerSpotter'] }
-    }
-  },
-  'Unknown':{
-    base:{ flags:['Unknown fibre — test first','Signed disclaimer recommended'],
-      proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],
-      chems:['neutralSpotter','fiberinse'] },
-    stain:{
-      'Organic':{ price:'+ Risk load', script:'We’ll run a small test patch first since the fibre is unknown.', add:['sonizymePrespray'] },
-      'Tannin': { price:'+ Risk load', script:'We’ll test a reducer on a hidden spot first.', add:['browningRemover'] },
-      'Oil':    { price:'+ Risk load', script:'We’ll test a solvent on a hidden spot first.', add:['solventGel'] },
-      'Synthetic Dye': { price:'+ Risk load', script:'Attempt only if safe. No guarantee.', add:['reducerSpotter'] }
-    }
-  }
-};
+const RULES = {/* (same rules as previous message; omitted for brevity in logic) */};
+RULES['Wool']={base:{flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],chems:['fiberinse','neutralSpotter']},stain:{'Organic':{price:'+ Enzyme/odour treatment',script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Tannin reducer',script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.',add:['browningRemover']},'Oil':{price:'+ Solvent pre-spot',script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.',add:['solventGel']},'Synthetic Dye':{price:'+ Dye treatment (quote on-site)',script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.',add:['reducerSpotter']}}};
+RULES['Nylon']={base:{flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],chems:['winnerPlus','fiberinse']},stain:{'Organic':{price:'+ Enzyme/deodoriser',script:'We’ll hit the organic source then flush. Nylon handles this well.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Tannin reducer',script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent or citrus boost first, then rinse out the residue.',add:['citrusSonisteam','solventGel']},'Synthetic Dye':{price:'+ Dye remover attempt',script:'We can attempt a dye removal. Results vary.',add:['reducerSpotter']}}};
+RULES['Polyester']={base:{flags:['Clings to oils — solvent assist helps'],proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],chems:['winnerPlus','citrusSonisteam','fiberinse']},stain:{'Organic':{price:'+ Enzyme boost',script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.',add:['sonizymePrespray']},'Tannin':{price:'+ Tannin reducer',script:'Reducer then rinse. Shadow can linger if old.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Oil bonds to polyester. We’ll break it down before rinsing.',add:['solventGel','citrusSonisteam']},'Synthetic Dye':{price:'+ Dye attempt',script:'We’ll try a reducer. Synthetic colour often bonds hard.',add:['reducerSpotter']}}};
+RULES['Olefin/PP']={base:{flags:['Heat sensitive — keep temps modest'],proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],chems:['winnerPlus','fiberinse']},stain:{'Organic':{price:'+ Enzyme/odour treat',script:'We’ll treat odour then rinse. Temps kept low.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Reducer',script:'Reducer then rinse. Careful with heat.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent help first, then rinse. Polypropylene holds oils.',add:['solventGel','citrusSonisteam']},'Synthetic Dye':{price:'+ Dye attempt',script:'Attempt only if safe. Heat low.',add:['reducerSpotter']}}};
+RULES['Cellulosic']={base:{flags:['Higher browning risk — control moisture/pH','Favour low-moisture methods'],proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],chems:['fiberinse','browningRemover']},stain:{'Organic':{price:'+ Anti-browning / enzyme',script:'We’ll keep moisture low and manage dry time to avoid browning.',add:['sonizymePrespray']},'Tannin':{price:'+ Tannin reducer',script:'Reducer then acid rinse. Shadow risk if old.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent then low-moisture clean.',add:['solventGel']},'Synthetic Dye':{price:'+ Dye attempt (limited)',script:'Limited attempts only due to fibre risk.',add:['reducerSpotter']}}};
+RULES['Unknown']={base:{flags:['Unknown fibre — test first','Signed disclaimer recommended'],proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],chems:['neutralSpotter','fiberinse']},stain:{'Organic':{price:'+ Risk load',script:'We’ll run a small test patch first since the fibre is unknown.',add:['sonizymePrespray']},'Tannin':{price:'+ Risk load',script:'We’ll test a reducer on a hidden spot first.',add:['browningRemover']},'Oil':{price:'+ Risk load',script:'We’ll test a solvent on a hidden spot first.',add:['solventGel']},'Synthetic Dye':{price:'+ Risk load',script:'Attempt only if safe. No guarantee.',add:['reducerSpotter']}}};
 
 function updatePlaybook(){
   document.getElementById('pbFibre').textContent = pickFibre || '—';
-  document.getElementById('pb
+  document.getElementById('pbStain').textContent = pickStain || '—';
+  pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML=''; pbPrice.textContent='—'; pbScript.value='';
+  if(pickFibre && pickStain){
+    const base = RULES[pickFibre].base; const stain = RULES[pickFibre].stain[pickStain];
+    pbPrice.textContent = stain.price; pbScript.value = stain.script;
+    base.flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
+    base.proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
+    const ids = Array.from(new Set([...(base.chems||[]), ...(stain.add||[])]));
+    const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
+    [...ids, ...remind].forEach(key=>{
+      const c = CHEM[key]; if(!c) return; const li = document.createElement('li');
+      const a = document.createElement('a'); a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline'; a.textContent = c.name;
+      li.appendChild(a); li.appendChild(document.createTextNode(` — ${c.note}`)); pbChems.appendChild(li);
+    });
+  }
+  buildReport();
+}
+document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.fibre').forEach(x=> x.classList.remove('ring')); b.classList.add('ring'); pickFibre = b.dataset.fibre; updatePlaybook(); saveState({pickFibre}); }));
+document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.stain').forEach(x=> x.classList.remove('ring')); b.classList.add('ring'); pickStain = b.dataset.stain; updatePlaybook(); saveState({pickStain}); }));
+document.getElementById('copyScript').addEventListener('click', ()=>{ navigator.clipboard.writeText(pbScript.value || ''); });
 
+/* ===== Photos (combined grid) ===== */
+const MAX_PHOTOS = 10;
+const photoGrid = document.getElementById('photoGrid');
+const photoPicker = document.getElementById('photoPicker');
+const photoCamera = document.getElementById('photoCamera');
+const clearPhotosBtn = document.getElementById('clearPhotos');
+
+function getPhotos(){ const st = loadState(); return Array.isArray(st.photos)? st.photos : []; }
+function setPhotos(arr){ saveState({photos: arr}); renderPhotoGrid(); buildReport(); }
+
+function renderPhotoGrid(){
+  const photos = getPhotos();
+  photoGrid.innerHTML = '';
+  // existing photos
+  photos.forEach((src, idx)=>{
+    const tile = document.createElement('div'); tile.className='photo-tile';
+    const img = document.createElement('img'); img.src = src; img.alt = `Photo ${idx+1}`; img.className='photo-img';
+    tile.appendChild(img);
+    const actions = document.createElement('div'); actions.className='tile-actions';
+    const btnReplace = document.createElement('button'); btnReplace.textContent='Replace'; btnReplace.className='tile-btn';
+    const btnDel = document.createElement('button'); btnDel.textContent='❌'; btnDel.className='tile-btn';
+    actions.append(btnReplace, btnDel); tile.appendChild(actions); photoGrid.appendChild(tile);
+    // Replace
+    btnReplace.addEventListener('click', ()=>{
+      const input = document.createElement('input'); input.type='file'; input.accept='image/*'; input.capture='environment';
+      input.addEventListener('change', ()=>{ const f=input.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const p = getPhotos(); p[idx]=r.result; setPhotos(p); }; r.readAsDataURL(f); input.value=''; });
+      input.click();
+    });
+    // Delete
+    btnDel.addEventListener('click', ()=>{ const p=getPhotos(); p.splice(idx,1); setPhotos(p); });
+  });
+  // empty slots
+  const empty = Math.max(0, MAX_PHOTOS - photos.length);
+  for(let i=0;i<empty;i++){
+    const tile = document.createElement('div'); tile.className='photo-tile';
+    const add = document.createElement('div'); add.className='tile-add';
+    add.innerHTML = `<div class="plus">＋</div><div>Add photo</div>`;
+    tile.appendChild(add); photoGrid.appendChild(tile);
+    tile.addEventListener('click', ()=>{
+      const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+      input.addEventListener('change', ()=>{
+        const files = Array.from(input.files||[]);
+        if(!files.length) return;
+        const p = getPhotos();
+        const take = Math.min(MAX_PHOTOS - p.length, files.length);
+        let done=0;
+        for(let j=0;j<take;j++){
+          const r=new FileReader();
+          r.onload=()=>{ p.push(r.result); done++; if(done===take){ setPhotos(p); } };
+          r.readAsDataURL(files[j]);
+        }
+        input.value='';
+      });
+      input.click();
+    });
+  }
+}
+// library multi
+photoPicker.addEventListener('change', ()=>{
+  const files = Array.from(photoPicker.files||[]);
+  if(!files.length) return; const p = getPhotos(); const roomLeft = MAX_PHOTOS - p.length; const take = Math.min(roomLeft, files.length);
+  let done=0; for(let i=0;i<take;i++){ const r=new FileReader(); r.onload=()=>{ p.push(r.result); done++; if(done===take){ setPhotos(p); } }; r.readAsDataURL(files[i]); }
+  photoPicker.value=''; // allow re-pick same file on iOS
+});
+// camera single
+photoCamera.addEventListener('change', ()=>{
+  const f = photoCamera.files && photoCamera.files[0]; if(!f) return;
+  const r=new FileReader(); r.onload=()=>{ const p=getPhotos(); if(p.length<MAX_PHOTOS){ p.push(r.result); setPhotos(p);} }; r.readAsDataURL(f);
+  photoCamera.value='';
+});
+clearPhotosBtn.addEventListener('click', ()=>{ if(confirm('Remove all photos?')) setPhotos([]); });
+
+/* ===== Payment + Review ===== */
+document.getElementById('takePayment').addEventListener('click', ()=>{
+  const amt = (document.getElementById('amount').value||'').trim();
+  if(!amt){ alert('Enter amount'); return; }
+  saveState({amount: amt});
+  const scheme = 'square-commerce-v1://'; const fallback = 'https://squareup.com/dashboard';
+  setTimeout(()=>location.href=fallback, 600); location.href = scheme;
+});
+document.getElementById('sendReview').addEventListener('click', ()=>{
+  const mobile = document.getElementById('clientMobile').value.trim();
+  const body = encodeURIComponent(`Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`);
+  if(mobile){
+    navigator.clipboard.writeText(`To: ${mobile}\n\n${decodeURIComponent(body)}`);
+    alert('Review SMS copied. Paste into Messages.');
+  } else {
+    navigator.clipboard.writeText(decodeURIComponent(body));
+    alert('Review SMS copied to clipboard.');
+  }
+});
+
+/* ===== General fields autosave ===== */
+const FIELDS = ['addrOk','parkOk','risk','disc','groomed','airflow','aftercare','solutions','dryPass','jobNotes','amount','clientMobile'];
+FIELDS.forEach(id=>{
+  const el = document.getElementById(id);
+  if(!el) return;
+  const handler = ()=>{ saveState({ [id]: el.type==='checkbox' ? el.checked : el.value }); buildReport(); };
+  el.addEventListener('input', handler); el.addEventListener('change', handler);
+});
+
+/* ===== Export & summary ===== */
+document.getElementById('exportJSON').addEventListener('click', ()=>{
+  const data = localStorage.getItem(LS_KEY) || '{}';
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+document.getElementById('copySummary').addEventListener('click', ()=>{
+  const st = loadState();
+  const lines = [];
+  lines.push(`Lefties Field OS Summary`);
+  lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}`);
+  lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
+  lines.push(`Service: ${(st.service||[]).join(', ')||'—'}  Job Type: ${(st.jobType||[]).join(', ')||'—'}`);
+  lines.push(`Fibres: ${(st.fibres||[]).join(', ')||'—'}`);
+  lines.push(`Diagnosis → Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
+  lines.push(`Price add-on: ${document.getElementById('pbPrice').textContent}`);
+  lines.push(`Solutions: ${st.solutions||'—'}  Dry passes: ${st.dryPass||'—'}`);
+  if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round((s.duration||0)/60000)} min${s.note?` — ${s.note}`:''}`));
+  lines.push(`Notes: ${st.jobNotes||'—'}`);
+  navigator.clipboard.writeText(lines.join('\n'));
+  alert('Summary copied.');
+});
+document.getElementById('resetAll').addEventListener('click', ()=>{
+  if(!confirm('Clear current job?')) return;
+  localStorage.removeItem(LS_KEY); location.reload();
+});
+
+/* ===== Report build ===== */
+const previewEl = document.getElementById('reportPreview');
+const clientEmailEl = document.getElementById('clientEmail');
+function collectData(){
+  const st = loadState();
+  return {
+    started: st.started||'—',
+    ended: st.ended||'—',
+    elapsed: document.getElementById('elapsed')?.textContent || '—',
+    id_service: st.service||[],
+    id_jobType: st.jobType||[],
+    id_fibres: st.fibres||[],
+    fibre: pickFibre||'—',
+    stain: pickStain||'—',
+    flags: (RULES[pickFibre]?.base.flags || []),
+    procedure: (RULES[pickFibre]?.base.proc || []),
+    price: document.getElementById('pbPrice')?.textContent || '—',
+    solutions: st.solutions||'—',
+    dryPass: st.dryPass||'—',
+    splits: (st.splits||[]).map((s,i)=>({label:`Room ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
+    aftercare: !!st.aftercare,
+    notes: st.jobNotes||'—',
+    amount: st.amount||'—',
+    photos: Array.isArray(st.photos)? st.photos : []
+  };
+}
+function buildReport(){
+  const d = collectData();
+  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
+  const report =
+`Lefties Carpet Cleaning — Job Completion Report
+
+Time
+• Started: ${d.started}
+• Finished: ${d.ended}
+• Total time on site: ${d.elapsed}
+
+Job ID
+• Service: ${d.id_service.join(', ')||'—'}
+• Job Type: ${d.id_jobType.join(', ')||'—'}
+• Fibres present: ${d.id_fibres.join(', ')||'—'}
+
+What we cleaned
+• Primary fibre treated: ${d.fibre}
+• Main issue treated: ${d.stain}
+
+How we cared for your home
+• Our process: ${d.procedure.join(' → ') || '—'}
+• Solutions used: ${d.solutions}
+• Dry passes for faster drying: ${d.dryPass || '—'}
+
+Per‑room detail
+${d.splits.length ? d.splits.map(s=>`• ${s.label}: ${s.minutes} min${s.note?` — ${s.note}`:''}`).join('\n') : '• —'}
+
+Outcome & next steps
+• Recommended add‑on: ${d.price || '—'}
+• ${care}
+• Notes: ${d.notes}
+
+Total
+• ${d.amount==='—' ? '—' : `$${d.amount}`}
+
+If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
+  previewEl.textContent = report;
+  return {text: report, data: d};
+}
+document.getElementById('refreshReport').addEventListener('click', ()=> buildReport());
+document.getElementById('copyReport').addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
+document.getElementById('emailReport').addEventListener('click', ()=>{
+  const to = (clientEmailEl.value||'').trim();
+  const subject = encodeURIComponent('Lefties — Job Completion Report');
+  const body = encodeURIComponent(buildReport().text);
+  const href = `mailto:${to}?subject=${subject}&body=${body}`;
+  window.location.href = href;
+});
+
+/* ===== Customer view (no bleed, responsive grid) ===== */
+function openCustomerView(){
+  const {data:d} = buildReport();
+  const win = window.open('', '_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
+  const imgGrid = d.photos.length ? `
+    <div class="section">
+      <h2>Photos</h2>
+      <div class="cv-grid">
+        ${d.photos.map(src=>`<img class="cv-img" src="${src}" alt="Photo">`).join('')}
+      </div>
+    </div>` : '';
+  win.document.write(`<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lefties — Job Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --text:#1b2025; --muted:#3d4754; }
+      html,body{ height:100%; } body{ margin:0; font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text);
+        background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
+      .wrap{ max-width:860px; margin:32px auto; padding:0 16px; }
+      .card{ background:rgba(255,255,255,.54); border:1px solid rgba(0,0,0,.08); border-radius:18px; backdrop-filter:blur(12px) saturate(120%); box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25); }
+      .pad{ padding:24px; }
+      .header{ display:flex; align-items:center; gap:14px; }
+      .logo{ height:48px; width:auto; }
+      h1{ margin:0; font-size:26px; font-weight:900; }
+      .sub{ color:var(--muted); font-size:13px; }
+      h2{ font-size:18px; margin:18px 0 8px; font-weight:900; }
+      ul{ margin:0; padding-left:18px; }
+      .grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+      @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
+      .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
+      .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
+      .cv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+      @media(min-width:768px){ .cv-grid{ grid-template-columns:repeat(3,1fr);} }
+      img{ max-width:100%; height:auto; display:block; border-radius:12px; border:1px solid rgba(0,0,0,.08); object-fit:cover }
+      @media print{ body{ background:#fff; } .card{ box-shadow:none; border:0; } .wrap{ margin:0 auto; } }
+    </style>
+  </head><body>
+    <div class="wrap">
+      <div class="card pad">
+        <div class="header">
+          <img src="/core-logo-transparent.png" alt="Lefties" class="logo" />
+          <div>
+            <h1>Job Completion Report</h1>
+            <div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div>
+          </div>
+        </div>
+
+        <div class="section grid">
+          <div>
+            <h2>Time</h2>
+            <ul>
+              <li>Started: ${d.started}</li>
+              <li>Finished: ${d.ended}</li>
+              <li>Total time on site: ${d.elapsed}</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Job ID</h2>
+            <ul>
+              <li>Service: ${(d.id_service||[]).join(', ')||'—'}</li>
+              <li>Job Type: ${(d.id_jobType||[]).join(', ')||'—'}</li>
+              <li>Fibres present: ${(d.id_fibres||[]).join(', ')||'—'}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section grid">
+          <div>
+            <h2>What we cleaned</h2>
+            <ul>
+              <li>Primary fibre treated: ${d.fibre}</li>
+              <li>Main issue treated: ${d.stain}</li>
+            </ul>
+          </div>
+          <div>
+            <h2>How we cared for your home</h2>
+            <ul>
+              <li>Our process: ${d.procedure.join(' → ') || '—'}</li>
+              <li>Solutions used: ${d.solutions}</li>
+              <li>Dry passes for faster drying: ${d.dryPass || '—'}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Per‑room detail</h2>
+          <ul>${(d.splits||[]).length ? d.splits.map(s=>`<li>${s.label}: ${s.minutes} min${s.note?` — ${s.note}`:''}</li>`).join('') : '<li>—</li>'}</ul>
+        </div>
+
+        ${imgGrid}
+
+        <div class="section">
+          <h2>Outcome & next steps</h2>
+          <ul>
+            <li>Recommended add‑on: ${d.price || '—'}</li>
+            <li>${d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.'}</li>
+            <li>Notes: ${d.notes}</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2>Total</h2>
+          <ul><li>${d.amount==='—' ? '—' : `$${d.amount}`}</li></ul>
+        </div>
+      </div>
+      <div class="footer">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
+    </div>
+  </body></html>`);
+  win.document.close(); win.focus();
+}
+document.getElementById('openCustomerView').addEventListener('click', openCustomerView);
+
+/* ===== Initial load ===== */
+function load(){
+  const st = loadState();
+  splits = st.splits || []; renderSplits();
+  if(st.started) startedEl.textContent = st.started;
+  if(st.ended) endedEl.textContent = st.ended;
+  if(st.amount) document.getElementById('amount').value = st.amount;
+  if(st.clientMobile) document.getElementById('clientMobile').value = st.clientMobile;
+  FIELDS.forEach(id=>{ const el=document.getElementById(id); if(!el) return; const v=st[id]; if(el.type==='checkbox') el.checked=!!v; else if(typeof v!=='undefined') el.value=v; });
+  if(st.pickFibre){ pickFibre = st.pickFibre; document.querySelector(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
+  if(st.pickStain){ pickStain = st.pickStain; document.querySelector(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
+  hydrateTags();
+  renderPhotoGrid();
+  buildReport();
+}
+load();
+</script>
+</body>
+</html>
