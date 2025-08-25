@@ -38,6 +38,7 @@
       -webkit-backdrop-filter: blur(14px) saturate(120%);
       box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);
     }
+
     .btn{
       display:inline-flex;align-items:center;justify-content:center;
       padding:.75rem 1rem;border-radius:.75rem;font-weight:800;
@@ -52,35 +53,19 @@
       border:1px solid var(--glass-border);
       box-shadow: inset 0 1px 1px rgba(255,255,255,.35);
     }
-    .btn.ghost{
-      background:rgba(255,255,255,.6); color:var(--text);
-      border:1px solid var(--glass-border);
-    }
+    .btn.ghost{ background:rgba(255,255,255,.6); color:var(--text); border:1px solid var(--glass-border); }
 
     .chip{
       padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;
       background:rgba(255,255,255,.35); border:1px solid var(--glass-border);
       font-weight:800; cursor:pointer; user-select:none;
     }
-    .chip.on{
-      background:var(--chip-on); border-color:var(--chip-brd-on);
-      box-shadow: 0 0 0 3px var(--ring);
-    }
+    .chip.on{ background:var(--chip-on); border-color:var(--chip-brd-on); box-shadow: 0 0 0 3px var(--ring); }
 
     .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
 
-    .grid-cards{display:grid;grid-template-columns:1fr;gap:1rem}
-    @media (min-width:768px){ .grid-cards{grid-template-columns:repeat(2,1fr)} }
-    @media (min-width:1024px){ .grid-cards{grid-template-columns:repeat(3,1fr)} }
-
-    .fixedbar{
-      position:fixed; bottom:12px; left:12px; right:12px; z-index:50;
-      display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;
-    }
-    .pill{
-      flex:1 1 22%; text-align:center; padding:10px; border-radius:12px;
-      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800;
-    }
+    .fixedbar{ position:fixed; bottom:12px; left:12px; right:12px; z-index:50; display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap; }
+    .pill{ flex:1 1 22%; text-align:center; padding:10px; border-radius:12px; background:rgba(255,255,255,.5); border:1px solid var(--glass-border); font-weight:800; }
 
     .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
     .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
@@ -96,26 +81,39 @@
     .tap{min-height:48px}
 
     .header-card img{height:44px; width:auto}
+    .logo-circle{ width:40px;height:40px;border-radius:9999px; background: radial-gradient(70% 70% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, rgba(0,113,182,.35) 75%, rgba(255,255,255,.15)); border:1px solid rgba(255,255,255,.35); }
 
-    /* Report preview */
-    .report-area{
-      background: rgba(255,255,255,.65);
-      border:1px dashed rgba(0,0,0,.1);
-      border-radius:.75rem; padding:1rem;
-      white-space:pre-wrap; color:#222;
+    .report-area{ background: rgba(255,255,255,.65); border:1px dashed rgba(0,0,0,.1); border-radius:.75rem; padding:1rem; white-space:pre-wrap; color:#222; }
+
+    .split-row{
+      display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem;
+      background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;
+    }
+    .split-row input[type="text"]{ background:rgba(255,255,255,.75); }
+
+    /* Photo gallery tiles (before/after) */
+    .photo-grid{
+      display:grid; gap:10px;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    }
+    .photo-tile{
+      position:relative; border:1px dashed rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff;
+      min-height:110px; display:flex; align-items:center; justify-content:center;
+    }
+    .photo-tile input[type=file]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+    .photo-tile .hint{ font-weight:800; font-size:12px; color:#6b7280; text-align:center; padding:8px; }
+    .photo-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .photo-tile .del{
+      position:absolute; top:6px; right:6px; width:26px; height:26px; border-radius:9999px; background:#fff;
+      border:1px solid rgba(0,0,0,.25); font-weight:900; line-height:24px; text-align:center;
     }
 
-    /* Report images – responsive + print-safe */
-    .report-photos { display:grid; gap:12px; grid-template-columns:1fr; }
-    .report-img { width:100%; max-width:100%; height:auto; border-radius:12px; object-fit:cover; }
-    .report-img.square { aspect-ratio:1/1; }
-    .report-img.wide   { aspect-ratio:16/9; }
-    @media (min-width:640px){ .report-photos { grid-template-columns:repeat(2,1fr);} .report-photos .wide{ grid-column:1 / -1; } }
-    .report-section { overflow:hidden; }
-    @media print{ .report-photos { break-inside:avoid; page-break-inside:avoid; } .report-img{ max-width:100%; } }
-
-    /* Tiny thumb area in the form */
-    .thumb { width:100%; max-width:280px; border-radius:12px; border:1px solid rgba(0,0,0,.1); background:#fff; }
+    /* Report photos (in-page preview section just for dev samples) */
+    .report-section { overflow: hidden; }
+    .report-photos { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    .report-img { width: 100%; max-width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
+    @media (min-width: 640px) { .report-photos { grid-template-columns: repeat(2, 1fr); } .report-photos .wide { grid-column: 1 / -1; } }
+    @media print { .report-photos { break-inside: avoid; page-break-inside: avoid; } .report-img { max-width: 100%; } }
   </style>
 </head>
 <body>
@@ -145,7 +143,7 @@
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <div class="h1">Job timer</div>
-          <div class="label">Tap start in the driveway. Add splits per room and comment. You can edit start/finish times.</div>
+          <div class="label">Tap start in the driveway. Add splits per room and comment. You can also edit start/finish.</div>
         </div>
         <div class="flex gap-2">
           <button id="startBtn" class="btn tap">Start</button>
@@ -154,30 +152,31 @@
         </div>
       </div>
 
-      <div class="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2">
-        <div class="chip"><span class="label mr-2">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
+      <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
+        <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
+        <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
+      </div>
 
-        <div class="chip">
-          <div class="w-full">
-            <div class="label">Started (editable)</div>
-            <input id="startedTime" type="time">
-          </div>
-        </div>
-
-        <div class="chip">
-          <div class="w-full">
-            <div class="label">Ended (editable)</div>
-            <input id="endedTime" type="time">
-          </div>
-        </div>
-
-        <div class="chip"><span class="label mr-2">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
+      <!-- Manual time edit -->
+      <div class="mt-3 grid md:grid-cols-4 gap-2">
+        <label class="split-row">
+          <span class="label shrink-0">Edit start</span>
+          <input id="editStart" type="time" />
+        </label>
+        <label class="split-row">
+          <span class="label shrink-0">Edit end</span>
+          <input id="editEnd" type="time" />
+        </label>
+        <button id="applyTimes" class="btn secondary">Apply times</button>
+        <button id="clearTimes" class="btn ghost">Clear edits</button>
       </div>
 
       <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-2"></ul>
     </section>
 
-    <!-- ID & Job Tags (MULTI-SELECT) -->
+    <!-- ID & Job Tags -->
     <section class="frosted p-4 mb-4" id="ID">
       <div class="mb-2">
         <div class="h2">ID & Job Tags</div>
@@ -245,7 +244,7 @@
       </div>
     </section>
 
-    <!-- Diagnosis (single select to drive Playbook) -->
+    <!-- Diagnosis -->
     <section class="frosted p-4" id="Diagnosis">
       <div class="mb-2 flex items-center gap-2">
         <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (drives Playbook)</span>
@@ -280,10 +279,7 @@
         <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
       </div>
 
-      <div class="mt-3">
-        <div class="label">Suggested Pricing Add-on</div>
-        <div id="pbPrice" class="font-bold">—</div>
-      </div>
+      <div class="mt-3"><div class="label">Suggested Pricing Add-on</div><div id="pbPrice" class="font-bold">—</div></div>
 
       <div class="mt-3">
         <div class="label">Client script</div>
@@ -293,16 +289,8 @@
         </div>
       </div>
 
-      <div class="mt-3">
-        <div class="label">Flags & warnings</div>
-        <ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
-      </div>
-
-      <div class="mt-3">
-        <div class="label">Standard procedure</div>
-        <ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol>
-      </div>
-
+      <div class="mt-3"><div class="label">Flags & warnings</div><ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul></div>
+      <div class="mt-3"><div class="label">Standard procedure</div><ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol></div>
       <div class="mt-3">
         <div class="label">Recommended chemicals</div>
         <ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul>
@@ -310,40 +298,20 @@
       </div>
     </section>
 
-    <!-- Per-room detail (visuals for report thumbnails in-page) -->
+    <!-- PHOTO GALLERIES -->
     <section class="frosted p-4">
       <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Photos (quick preview)</div><span class="label">Shows what the client view will render</span>
+        <div class="h2">Photos</div><span class="label">Up to 10 before & 10 after. Tap a tile to add; use ❌ to delete.</span>
       </div>
+
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <div class="label mb-1">Before photo</div>
-          <div class="flex gap-2 flex-wrap mb-2">
-            <label class="btn ghost tap">
-              <input id="beforePhotoCam" type="file" accept="image/*" capture="environment" class="hidden">
-              Take photo
-            </label>
-            <label class="btn secondary tap">
-              <input id="beforePhotoLib" type="file" accept="image/*" class="hidden">
-              Choose from library
-            </label>
-          </div>
-          <img id="beforeThumb" class="thumb hidden" alt="Before preview">
+          <div class="font-bold mb-1">Before</div>
+          <div id="beforeGallery" class="photo-grid"></div>
         </div>
-
         <div>
-          <div class="label mb-1">After photo</div>
-          <div class="flex gap-2 flex-wrap mb-2">
-            <label class="btn ghost tap">
-              <input id="afterPhotoCam" type="file" accept="image/*" capture="environment" class="hidden">
-              Take photo
-            </label>
-            <label class="btn secondary tap">
-              <input id="afterPhotoLib" type="file" accept="image/*" class="hidden">
-              Choose from library
-            </label>
-          </div>
-          <img id="afterThumb" class="thumb hidden" alt="After preview">
+          <div class="font-bold mb-1">After</div>
+          <div id="afterGallery" class="photo-grid"></div>
         </div>
       </div>
     </section>
@@ -395,7 +363,7 @@
         <div class="h2">Job Log</div><span class="label">Autosaves locally</span>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-3 mt-3">
+      <div class="grid md:grid-cols-2 gap-3 mt-1">
         <div>
           <label class="label">Job notes</label>
           <textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea>
@@ -413,7 +381,7 @@
       <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
     </section>
 
-    <!-- Job Completion Report (auto-prefilled) -->
+    <!-- Job Completion Report -->
     <section class="frosted p-4 md:col-span-3" id="job-completion">
       <div class="mb-2 flex items-center gap-2">
         <div class="h2">Job Completion Report</div>
@@ -445,25 +413,19 @@
   <nav class="fixedbar">
     <a class="pill tap" href="#Diagnosis">Stain/Fibre</a>
     <a class="pill tap" href="#Diagnosis" onclick="alert('Burn test cues are listed in fibre notes and flags')">Burn Test</a>
-    <a class="pill tap" href="/price-guide.html">Price Guide</a>
+    <a class="pill tap" href="/internal-price-guide.html">Price Guide</a>
     <a class="pill tap" href="/client/aftercare.html">Aftercare</a>
   </nav>
 
 <script>
-(()=>{ try{
-/* ===== Utilities ===== */
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
-const safeJSON = (s, fb={}) => { try{return JSON.parse(s)}catch{return fb} };
-
 /* ===== Clock ===== */
-const clockEl = $('#clock');
-function tickClock(){ if(clockEl) clockEl.textContent = new Date().toLocaleString(); }
+const clockEl = document.getElementById('clock');
+function tickClock(){ clockEl.textContent = new Date().toLocaleString(); }
 setInterval(tickClock, 1000); tickClock();
 
 /* ===== Local storage helpers ===== */
 const LS_KEY = 'lefties_field_os';
-function loadState(){ return safeJSON(localStorage.getItem(LS_KEY)||'{}', {}); }
+function loadState(){ try{ return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }catch{ return {}; } }
 function saveState(patch){
   const cur = loadState();
   const next = {...cur, ...patch, ts: Date.now()};
@@ -471,14 +433,16 @@ function saveState(patch){
   return next;
 }
 
-/* ===== Timer & Splits (with editable times) ===== */
+/* ===== Timer & Splits ===== */
 let startTime=null, timerInt=null, splits=[];
 const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
-const startBtn=$('#startBtn'), splitBtn=$('#splitBtn'), stopBtn=$('#stopBtn');
-const elapsedEl=$('#elapsed'), startedTime=$('#startedTime'), endedTime=$('#endedTime'), splitsList=$('#splitsList'), splitsCount=$('#splitsCount');
+const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
+const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
+
+const editStart=document.getElementById('editStart'), editEnd=document.getElementById('editEnd');
+const applyTimes=document.getElementById('applyTimes'), clearTimes=document.getElementById('clearTimes');
 
 function renderSplits(){
-  if(!splitsList) return;
   splitsList.innerHTML='';
   splits.forEach((s,i)=>{
     const li = document.createElement('li');
@@ -511,24 +475,26 @@ function renderSplits(){
       buildReport();
     });
 
-    li.append(label,time,input,del);
+    li.appendChild(label);
+    li.appendChild(time);
+    li.appendChild(input);
+    li.appendChild(del);
     li.style.gap='0.75rem';
     splitsList.appendChild(li);
   });
-  if(splitsCount) splitsCount.textContent=splits.length;
+  splitsCount.textContent=splits.length;
 }
-function hhmm(date){ const d = date instanceof Date ? date : new Date(); return d.toTimeString().slice(0,5); }
 
-startBtn?.addEventListener('click', ()=>{
+startBtn.addEventListener('click', ()=>{
   if(startTime) return;
   startTime=Date.now();
-  if(startedTime && !startedTime.value) startedTime.value = hhmm(new Date(startTime));
-  timerInt=setInterval(()=>{ if(elapsedEl) elapsedEl.textContent=fmt(Date.now()-startTime); },250);
+  startedEl.textContent=new Date(startTime).toLocaleTimeString();
+  timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250);
   startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false;
-  saveState({startedRaw: startTime, started: startedTime?.value || ''});
+  saveState({started: startedEl.textContent});
 });
 
-splitBtn?.addEventListener('click', ()=>{
+splitBtn.addEventListener('click', ()=>{
   if(!startTime) return;
   const now=Date.now();
   const used = splits.reduce((t,s)=> t + (s.duration||0), 0);
@@ -538,17 +504,38 @@ splitBtn?.addEventListener('click', ()=>{
   renderSplits(); buildReport();
 });
 
-stopBtn?.addEventListener('click', ()=>{
+stopBtn.addEventListener('click', ()=>{
   if(!startTime) return;
   clearInterval(timerInt);
-  if(endedTime) endedTime.value = hhmm(new Date());
+  endedEl.textContent = new Date().toLocaleTimeString();
   splitBtn.disabled=true; stopBtn.disabled=true;
-  saveState({ended: endedTime?.value || ''});
+  saveState({ended: endedEl.textContent});
   buildReport();
 });
 
-startedTime?.addEventListener('change', ()=> saveState({started: startedTime.value}));
-endedTime?.addEventListener('change',   ()=> saveState({ended: endedTime.value}));
+/* Manual time edits */
+function hhmmToDate(hhmm){
+  if(!hhmm) return null;
+  const [h,m] = hhmm.split(':').map(Number);
+  const d = new Date(); d.setHours(h||0,m||0,0,0); return d;
+}
+function applyManualTimes(){
+  const s = hhmmToDate(editStart.value);
+  const e = hhmmToDate(editEnd.value);
+  if(s){ startedEl.textContent = s.toLocaleTimeString(); saveState({started: startedEl.textContent, startManual: editStart.value}); }
+  if(e){ endedEl.textContent   = e.toLocaleTimeString(); saveState({ended: endedEl.textContent, endManual: editEnd.value}); }
+  if(s && e){
+    let diff = e - s; if(diff < 0) diff += 24*3600*1000; // cross-midnight
+    elapsedEl.textContent = fmt(diff);
+  }
+  buildReport();
+}
+applyTimes.addEventListener('click', applyManualTimes);
+clearTimes.addEventListener('click', ()=>{
+  editStart.value=''; editEnd.value='';
+  const st = loadState(); delete st.startManual; delete st.endManual;
+  saveState(st); buildReport();
+});
 
 /* ===== Multi-select chips (ID & Job Tags) ===== */
 const tagState = { service:new Set(), jobType:new Set(), fibres:new Set() };
@@ -558,7 +545,7 @@ function hydrateTags(){
   (st.jobType||[]).forEach(v=> tagState.jobType.add(v));
   (st.fibres||[]).forEach(v=> tagState.fibres.add(v));
 
-  $$('.chip[data-key]').forEach(ch=>{
+  document.querySelectorAll('.chip[data-key]').forEach(ch=>{
     const key = ch.dataset.key, val = ch.dataset.val;
     if(tagState[key]?.has(val)) ch.classList.add('on');
   });
@@ -577,25 +564,24 @@ function toggleChip(ch){
 document.addEventListener('click', (e)=>{
   const ch = e.target.closest('.chip[data-key]');
   if(!ch) return;
-  if(ch.querySelector('input[type="checkbox"]')) return; // ignore real checkbox chips
+  if(ch.querySelector('input[type="checkbox"]')) return; // ignore setup checkbox-chips
   toggleChip(ch);
 });
 
 /* ===== Walk-through script quick copy ===== */
-$('#scriptWalk')?.addEventListener('click', ()=>{
+document.getElementById('scriptWalk').addEventListener('click', ()=>{
   const txt = `We’ll walk through with you, point out any risks, and talk through what’s realistic. Hoses and floors can be slippery while we set up. Pets are welcome to say hi while we prep, then we’ll pop them away once machines are running.`;
   navigator.clipboard.writeText(txt);
   alert('Walk-through script copied.');
 });
 
-/* ===== Diagnosis → Playbook (single select) ===== */
+/* ===== Diagnosis → Playbook ===== */
 let pickFibre=null, pickStain=null;
-const pbPrice = $('#pbPrice');
-const pbScript = $('#pbScript');
-const pbFlags = $('#pbFlags');
-const pbProc  = $('#pbProc');
-const pbChems = $('#pbChems');
-const out = (el, text) => { if(el) el.textContent = text; };
+const pbPrice = document.getElementById('pbPrice');
+const pbScript = document.getElementById('pbScript');
+const pbFlags = document.getElementById('pbFlags');
+const pbProc = document.getElementById('pbProc');
+const pbChems = document.getElementById('pbChems');
 
 const CHEM = {
   winnerPlus: {name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid', note:'Strong alkaline prespray for heavy soil', sds:'#'},
@@ -686,391 +672,6 @@ const RULES = {
 };
 
 function updatePlaybook(){
-  out($('#pbFibre'), pickFibre || '—');
-  out($('#pbStain'), pickStain || '—');
+  document.getElementById('pbFibre').textContent = pickFibre || '—';
+  document.getElementById('pb
 
-  if(pbFlags) pbFlags.innerHTML='';
-  if(pbProc)  pbProc.innerHTML='';
-  if(pbChems) pbChems.innerHTML='';
-  if(pbPrice) pbPrice.textContent='—';
-  if(pbScript) pbScript.value='';
-
-  if(pickFibre && pickStain && RULES[pickFibre]){
-    const base = RULES[pickFibre].base;
-    const stain = RULES[pickFibre].stain[pickStain];
-
-    if(pbPrice) pbPrice.textContent = stain?.price || '—';
-    if(pbScript) pbScript.value = stain?.script || '';
-
-    (base.flags||[]).forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags?.appendChild(li); });
-    (base.proc||[]).forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc?.appendChild(li); });
-
-    const ids = Array.from(new Set([...(base.chems||[]), ...((stain&&stain.add)||[])]));
-    const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
-    const finalList = [...ids, ...remind];
-
-    finalList.forEach(key=>{
-      const c = CHEM[key]; if(!c) return;
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline';
-      a.textContent = c.name;
-      li.appendChild(a);
-      li.appendChild(document.createTextNode(` — ${c.note}`));
-      pbChems?.appendChild(li);
-    });
-  }
-  buildReport();
-}
-$$('.fibre').forEach(b=> b.addEventListener('click', ()=>{
-  $$('.fibre').forEach(x=> x.classList.remove('ring'));
-  b.classList.add('ring'); pickFibre = b.dataset.fibre; saveState({pickFibre}); updatePlaybook();
-}));
-$$('.stain').forEach(b=> b.addEventListener('click', ()=>{
-  $$('.stain').forEach(x=> x.classList.remove('ring'));
-  b.classList.add('ring'); pickStain = b.dataset.stain; saveState({pickStain}); updatePlaybook();
-}));
-$('#copyScript')?.addEventListener('click', ()=> navigator.clipboard.writeText(pbScript?.value || '') );
-
-/* ===== Photo handlers (camera & library → localStorage + inline thumbs) ===== */
-const beforeThumb = $('#beforeThumb'), afterThumb = $('#afterThumb');
-
-function showThumb(imgEl, data){
-  if(!imgEl) return;
-  if(data){ imgEl.src = data; imgEl.classList.remove('hidden'); }
-  else { imgEl.src=''; imgEl.classList.add('hidden'); }
-}
-
-// iOS Safari sometimes fires 'input' but not 'change' — listen to both
-function hookPhoto(inputEl, key, thumbEl){
-  if(!inputEl) return;
-  const handler = ()=>{
-    const f = inputEl.files && inputEl.files[0];
-    if(!f) return;
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      const st = loadState(); st[key] = reader.result;
-      saveState(st); showThumb(thumbEl, reader.result); buildReport();
-    };
-    reader.readAsDataURL(f);
-  };
-  inputEl.addEventListener('change', handler);
-  inputEl.addEventListener('input', handler);
-}
-hookPhoto($('#beforePhotoCam'), 'beforePhotoData', beforeThumb);
-hookPhoto($('#beforePhotoLib'), 'beforePhotoData', beforeThumb);
-hookPhoto($('#afterPhotoCam'),  'afterPhotoData', afterThumb);
-hookPhoto($('#afterPhotoLib'),  'afterPhotoData', afterThumb);
-
-/* ===== Payment + Review ===== */
-$('#takePayment')?.addEventListener('click', ()=>{
-  const amt = ($('#amount')?.value||'').trim();
-  if(!amt){ alert('Enter amount'); return; }
-  saveState({amount: amt});
-  const scheme = 'square-commerce-v1://'; const fallback = 'https://squareup.com/dashboard';
-  setTimeout(()=>location.href=fallback, 600); location.href = scheme;
-});
-$('#sendReview')?.addEventListener('click', ()=>{
-  const mobile = $('#clientMobile')?.value.trim();
-  const body = encodeURIComponent(`Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`);
-  if(mobile){
-    navigator.clipboard.writeText(`To: ${mobile}\n\n${decodeURIComponent(body)}`);
-    alert('Review SMS copied. Paste into Messages.');
-  } else {
-    navigator.clipboard.writeText(decodeURIComponent(body));
-    alert('Review SMS copied to clipboard.');
-  }
-});
-
-/* ===== General fields autosave ===== */
-const FIELDS = ['addrOk','parkOk','risk','disc','tapOk','powerOk','hoseRun','slipWarn','solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'];
-FIELDS.forEach(id=>{
-  const el = document.getElementById(id);
-  if(!el) return;
-  const write = ()=> saveState({ [id]: el.type==='checkbox' ? el.checked : el.value });
-  el.addEventListener('input', ()=>{ write(); buildReport(); });
-  el.addEventListener('change', ()=>{ write(); buildReport(); });
-});
-
-/* ===== Export & summary ===== */
-$('#exportJSON')?.addEventListener('click', ()=>{
-  const data = localStorage.getItem(LS_KEY) || '{}';
-  const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
-  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-});
-$('#copySummary')?.addEventListener('click', ()=>{
-  const st = loadState();
-  const lines = [];
-  lines.push(`Lefties Field OS Summary`);
-  lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}`);
-  lines.push(`Elapsed: ${$('#elapsed')?.textContent||'—'}`);
-  lines.push(`Service: ${(st.service||[]).join(', ')||'—'}  Job Type: ${(st.jobType||[]).join(', ')||'—'}`);
-  lines.push(`Fibres: ${(st.fibres||[]).join(', ')||'—'}`);
-  lines.push(`Diagnosis → Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
-  lines.push(`Price add-on: ${$('#pbPrice')?.textContent||'—'}`);
-  lines.push(`Solutions: ${st.solutions||'—'}  Dry passes: ${st.dryPass||'—'}`);
-  if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round((s.duration||0)/60000)} min${s.note?` — ${s.note}`:''}`));
-  lines.push(`Notes: ${st.jobNotes||'—'}`);
-  navigator.clipboard.writeText(lines.join('\n'));
-  alert('Summary copied.');
-});
-$('#resetAll')?.addEventListener('click', ()=>{
-  if(!confirm('Clear current job?')) return;
-  localStorage.removeItem(LS_KEY); location.reload();
-});
-
-/* ===== Report build ===== */
-const previewEl = $('#reportPreview');
-const clientEmailEl = $('#clientEmail');
-const prettyMins = m => (isNaN(m)?'—':(m<60?`${m} min`:(Math.floor(m/60)+(m%60?`h ${m%60}m`:'h'))));
-
-function collectData(){
-  const st = loadState();
-  const splitsLS = Array.isArray(st.splits)? st.splits : [];
-  return {
-    started: st.started||'—',
-    ended: st.ended||'—',
-    elapsed: $('#elapsed')?.textContent || '—',
-    id_service: st.service||[],
-    id_jobType: st.jobType||[],
-    id_fibres: st.fibres||[],
-    fibre: pickFibre||'—',
-    stain: pickStain||'—',
-    flags: (RULES[pickFibre]?.base.flags || []),
-    procedure: (RULES[pickFibre]?.base.proc || []),
-    price: $('#pbPrice')?.textContent || '—',
-    solutions: st.solutions||'—',
-    dryPass: st.dryPass||'—',
-    splits: splitsLS.map((s,i)=>({label:`Room ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
-    aftercare: !!st.aftercare,
-    notes: st.jobNotes||'—',
-    amount: st.amount||'—',
-    beforePhotoData: st.beforePhotoData||null,
-    afterPhotoData: st.afterPhotoData||null
-  };
-}
-function clientFacingCopy(d){
-  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
-  return {
-    title: 'Job Completion Report',
-    intro: `Thanks for having Lefties in today. Here’s a quick summary of what we cleaned and how we cared for your home.`,
-    timing: [
-      `Started: ${d.started}`,
-      `Finished: ${d.ended}`,
-      `Total time on site: ${d.elapsed}`
-    ],
-    idtags: [
-      `Service: ${d.id_service.join(', ')||'—'}`,
-      `Job Type: ${d.id_jobType.join(', ')||'—'}`,
-      `Fibres present: ${d.id_fibres.join(', ')||'—'}`
-    ],
-    diagnosis: [
-      `Primary fibre treated: ${d.fibre}`,
-      `Main issue treated: ${d.stain}`
-    ],
-    approach: [
-      `Our process: ${d.procedure.join(' → ') || '—'}`,
-      `Solutions used: ${d.solutions}`,
-      `Dry passes for faster drying: ${d.dryPass || '—'}`
-    ],
-    watchouts: d.flags,
-    perRoom: d.splits.length ? d.splits.map(s=> `${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`) : ['—'],
-    outcome: [
-      `Recommended add‑on: ${d.price || '—'}`,
-      care,
-      `Notes: ${d.notes}`
-    ],
-    total: `Amount charged: ${d.amount==='—' ? '—' : `$${d.amount}`}`
-  };
-}
-function buildReport(){
-  const d = collectData();
-  const c = clientFacingCopy(d);
-  const report =
-`Lefties Carpet Cleaning — Job Completion Report
-
-Time
-• ${c.timing.join('\n• ')}
-
-Job ID
-• ${c.idtags.join('\n• ')}
-
-What we cleaned
-• ${c.diagnosis.join('\n• ')}
-
-How we cared for your home
-• ${c.approach.join('\n• ')}
-
-Per‑room detail
-${c.perRoom.map(x=>`• ${x}`).join('\n')}
-
-Outcome & next steps
-• ${c.outcome.join('\n• ')}
-
-${c.total}
-
-If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
-  if(previewEl) previewEl.textContent = report;
-  // keep thumbs synced if present
-  const st = loadState();
-  showThumb(beforeThumb, st.beforePhotoData||null);
-  showThumb(afterThumb,  st.afterPhotoData||null);
-  return {text: report, data: d, copy: c};
-}
-$('#refreshReport')?.addEventListener('click', ()=> buildReport());
-$('#copyReport')?.addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
-$('#emailReport')?.addEventListener('click', ()=>{
-  const to = (clientEmailEl?.value||'').trim();
-  const subject = encodeURIComponent('Lefties — Job Completion Report');
-  const body = encodeURIComponent(buildReport().text);
-  const href = `mailto:${to}?subject=${subject}&body=${body}`;
-  window.location.href = href;
-});
-
-/* ===== Customer view (opens in new tab) ===== */
-function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
-function openCustomerView(){
-  const {data:d, copy:c} = buildReport();
-
-  const li = arr => arr.map(x=>`<li>${esc(x)}</li>`).join('');
-  const perRoomLI = c.perRoom.map(x=>`<li>${esc(x)}</li>`).join('');
-
-  const beforeImg = d.beforePhotoData ? `<div class="flex-1"><div class="label mb-1">Before</div><img src="${d.beforePhotoData}" alt="Before" class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
-  const afterImg  = d.afterPhotoData  ? `<div class="flex-1"><div class="label mb-1">After</div><img src="${d.afterPhotoData}"  alt="After"  class="w-full h-auto rounded-lg border border-black/10"></div>` : '';
-  const photosRow = (beforeImg||afterImg) ? `<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">${beforeImg}${afterImg}</div>` : '';
-
-  const win = window.open('', '_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
-  win.document.write(`<!DOCTYPE html><html lang="en"><head>
-    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lefties — Job Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
-    <style>
-      :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --text:#1b2025; --muted:#3d4754; }
-      html,body{ height:100%; } body{ margin:0; font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text);
-        background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
-      .wrap{ max-width:860px; margin:32px auto; padding:0 16px; }
-      .card{ background:rgba(255,255,255,.54); border:1px solid rgba(0,0,0,.08); border-radius:18px; backdrop-filter:blur(12px) saturate(120%);
-             box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25); }
-      .pad{ padding:24px; }
-      .header{ display:flex; align-items:center; gap:14px; }
-      .logo{ height:48px; width:auto; }
-      h1{ margin:0; font-size:26px; font-weight:900; }
-      .sub{ color:var(--muted); font-size:13px; }
-      h2{ font-size:18px; margin:18px 0 8px; font-weight:900; }
-      ul{ margin:0; padding-left:18px; }
-      .grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-      @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
-      .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
-      .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
-      @media print{ body{ background:#fff; } .card{ box-shadow:none; border:0; } .wrap{ margin:0 auto; } }
-    </style>
-  </head><body>
-    <div class="wrap">
-      <div class="card pad">
-        <div class="header">
-          <img src="/core-logo-transparent.png" alt="Lefties" class="logo" />
-          <div>
-            <h1>Job Completion Report</h1>
-            <div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div>
-          </div>
-        </div>
-
-        <div class="section grid">
-          <div>
-            <h2>Time</h2>
-            <ul>${li(c.timing)}</ul>
-          </div>
-          <div>
-            <h2>Job ID</h2>
-            <ul>${li([
-              `Service: ${esc(d.id_service.join(', ')||'—')}`,
-              `Job Type: ${esc(d.id_jobType.join(', ')||'—')}`,
-              `Fibres present: ${esc(d.id_fibres.join(', ')||'—')}`,
-            ])}</ul>
-          </div>
-        </div>
-
-        <div class="section grid">
-          <div>
-            <h2>What we cleaned</h2>
-            <ul>${li(c.diagnosis)}</ul>
-          </div>
-          <div>
-            <h2>How we cared for your home</h2>
-            <ul>${li(c.approach)}</ul>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Per‑room detail</h2>
-          <ul>${c.perRoom.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
-        </div>
-
-        ${photosRow}
-
-        <div class="section grid">
-          <div>
-            <h2>Things we kept an eye on</h2>
-            <ul>${li(c.watchouts)}</ul>
-          </div>
-          <div>
-            <h2>Outcome & next steps</h2>
-            <ul>${li(c.outcome)}</ul>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Total</h2>
-          <ul><li>${esc(c.total)}</li></ul>
-        </div>
-      </div>
-      <div class="footer">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
-    </div>
-  </body></html>`);
-  win.document.close(); win.focus();
-}
-$('#openCustomerView')?.addEventListener('click', openCustomerView);
-
-/* ===== Initial load ===== */
-function load(){
-  const st = loadState();
-  splits = Array.isArray(st.splits) ? st.splits : []; renderSplits();
-
-  if(st.started){ startedTime && (startedTime.value = st.started); }
-  if(st.ended){ endedTime && (endedTime.value = st.ended); }
-  if(st.amount) $('#amount') && ($('#amount').value = st.amount);
-  if(st.clientMobile) $('#clientMobile') && ($('#clientMobile').value = st.clientMobile);
-
-  // general fields
-  const FIELDS = ['addrOk','parkOk','risk','disc','tapOk','powerOk','hoseRun','slipWarn','solutions','dryPass','groomed','airflow','aftercare','jobNotes'];
-  FIELDS.forEach(id=>{
-    const el = document.getElementById(id); if(!el) return;
-    const v = st[id];
-    if(el.type==='checkbox') el.checked = !!v; else if(typeof v!=='undefined') el.value = v;
-  });
-
-  // diagnosis
-  if(st.pickFibre){ pickFibre = st.pickFibre; }
-  if(st.pickStain){ pickStain = st.pickStain; }
-  if(pickFibre){ $(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
-  if(pickStain){ $(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
-  updatePlaybook();
-
-  // id tags
-  hydrateTags();
-
-  // thumbs if images already saved
-  showThumb(beforeThumb, st.beforePhotoData||null);
-  showThumb(afterThumb,  st.afterPhotoData||null);
-
-  buildReport();
-}
-load();
-
-} catch(err){ console.error('FieldOS init error:', err); alert('Field OS load error. Refresh the page.'); }
-})();
-</script>
-</body>
-</html>
