@@ -14,7 +14,6 @@
       --primary:#0071B6; --cream:#EFE3CF; --cream-2:#E7D7BE;
       --glass:rgba(255,255,255,.42); --glass-border:rgba(0,0,0,.08);
       --text:#1b2025; --muted:#3d4754; --ring: rgba(0,113,182,.30);
-      --chip-on: rgba(0,113,182,.12); --chip-brd-on: rgba(0,113,182,.35);
     }
     html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
     body{
@@ -23,36 +22,40 @@
       background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
       overflow-x:hidden; min-height:100vh;
     }
-    .frosted{background:var(--glass);border:1px solid var(--glass-border);border-radius:1rem;backdrop-filter: blur(14px) saturate(120%);-webkit-backdrop-filter: blur(14px) saturate(120%);box-shadow: 0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25);}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:.75rem;font-weight:800;background: linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));color:#fff;border:1px solid rgba(0,148,255,.35);box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;}
-    .btn:hover{ transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.45); }
-    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--glass-border);}
-    .btn.ghost{background:rgba(255,255,255,.6); color:var(--text); border:1px solid var(--glass-border);}
-    .chip{padding:.6rem .75rem;border-radius:.75rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.35); border:1px solid var(--glass-border); font-weight:800; cursor:pointer; user-select:none;}
-    .chip.on{background:var(--chip-on); border-color:var(--chip-brd-on); box-shadow: 0 0 0 3px var(--ring);}
-    .ring{box-shadow:0 0 0 3px var(--ring) !important; border-radius:.75rem;}
+    .frosted{background:rgba(255,255,255,.54);border:1px solid var(--glass-border);border-radius:1rem;backdrop-filter:blur(12px) saturate(120%);box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.7rem 1rem;border-radius:.75rem;font-weight:800;background:linear-gradient(145deg, rgba(0,148,255,.92), rgba(0,113,182,.96));color:#fff;border:1px solid rgba(0,148,255,.35);box-shadow:0 10px 20px rgba(0,113,182,.26), inset 0 1px 1px rgba(255,255,255,.35);transition:transform .18s ease, box-shadow .18s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(0,113,182,.32)}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--glass-border)}
+    .btn.ghost{background:rgba(255,255,255,.6);color:var(--text);border:1px solid var(--glass-border)}
+    .chip{padding:.55rem .7rem;border-radius:.7rem;display:inline-flex;gap:.5rem;align-items:center;background:rgba(255,255,255,.5);border:1px solid var(--glass-border);font-weight:800;cursor:pointer;user-select:none}
+    .ring{box-shadow:0 0 0 3px var(--ring);border-radius:.75rem}
     .label{color:var(--muted);font-size:12px}
-    input[type="text"],textarea,select,input[type="time"],input[type="number"]{width:100%;background:rgba(255,255,255,.55);border:1px solid var(--glass-border);border-radius:.75rem;padding:.75rem;color:var(--text);outline:none}
-    .tap{min-height:48px}
-    .report-area{background: rgba(255,255,255,.65); border:1px dashed rgba(0,0,0,.1); border-radius:.75rem; padding:1rem; white-space:pre-wrap; color:#222;}
-    .split-row{display:flex; gap:.5rem; align-items:center; padding:.5rem .6rem; background:rgba(255,255,255,.5); border:1px solid var(--glass-border); border-radius:.6rem;}
-    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900} .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
+    input[type="text"],input[type="time"],textarea,select{width:100%;background:rgba(255,255,255,.7);border:1px solid var(--glass-border);border-radius:.75rem;padding:.65rem .75rem;color:var(--text);outline:none}
+    .h1{font-size:clamp(24px,3.2vw,36px);font-weight:900}
+    .h2{font-size:clamp(18px,2.4vw,22px);font-weight:800}
+    /* Report preview area */
+    .report-area{background:rgba(255,255,255,.7);border:1px dashed rgba(0,0,0,.12);border-radius:.75rem;padding:1rem;white-space:pre-wrap;color:#222;overflow:hidden}
 
-    /* Photo grid (combined) */
-    .grid-photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media(min-width:768px){.grid-photos{grid-template-columns:repeat(3,1fr)}}
-    .photo-tile{position:relative;border:1px solid var(--glass-border);border-radius:14px;background:rgba(255,255,255,.55);aspect-ratio:1/1;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .photo-img{width:100%;height:100%;object-fit:cover}
-    .tile-actions{position:absolute;top:6px;right:6px;display:flex;gap:6px}
-    .tile-btn{background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:8px;padding:.25rem .5rem;font-size:12px}
-    .tile-add{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-weight:800}
-    .tile-add .plus{font-size:26px;line-height:1}
-    /* Customer view images: never bleed */
-    .cv-img{width:100%;height:auto;border-radius:12px;border:1px solid rgba(0,0,0,.08);object-fit:cover}
+    /* Photo grid (10 tiles) */
+    .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:640px){.photo-grid{grid-template-columns:repeat(4,1fr)}}
+    .tile{position:relative;background:rgba(255,255,255,.7);border:1px solid var(--glass-border);border-radius:14px;min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .tile img{max-width:100%;height:auto;display:block}
+    .tile .add{font-weight:900;color:#1f2937;opacity:.75}
+    .tile .controls{position:absolute;top:6px;right:6px;display:flex;gap:6px}
+    .tile .iconbtn{background:rgba(255,255,255,.85);border:1px solid var(--glass-border);border-radius:10px;padding:6px 8px;font-weight:900}
+    .tile .replace{left:6px;right:auto}
+    .tile .replace,.tile .delete{cursor:pointer}
+    .hidden-input{display:none}
+
+    /* Customer view / print safety */
+    .cust-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:640px){.cust-grid{grid-template-columns:repeat(2,1fr)}}
+    .cust-grid img{width:100%;max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(0,0,0,.1)}
+    @media print { .cust-grid{break-inside:avoid;page-break-inside:avoid} }
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header class="frosted mx-auto mt-3 mb-4 max-w-5xl px-4 py-3">
     <div class="flex items-center justify-between gap-3">
@@ -64,72 +67,67 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="/" class="btn secondary tap">Website</a>
+        <a href="/" class="btn secondary">Website</a>
       </div>
     </div>
   </header>
 
-  <!-- Main -->
-  <main class="mx-auto max-w-5xl px-4 pb-28">
+  <main class="mx-auto max-w-5xl px-4 pb-24">
 
     <!-- Job timer -->
-    <section class="frosted p-4 mb-4" id="Timer">
+    <section class="frosted p-4 mb-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <div class="h1">Job timer</div>
           <div class="label">Tap start in the driveway. You can edit times below.</div>
         </div>
         <div class="flex gap-2">
-          <button id="startBtn" class="btn tap">Start</button>
-          <button id="splitBtn" class="btn secondary tap" disabled>Split room</button>
-          <button id="stopBtn" class="btn ghost tap" disabled>Stop</button>
+          <button id="startBtn" class="btn">Start</button>
+          <button id="splitBtn" class="btn secondary" disabled>Split room</button>
+          <button id="stopBtn" class="btn ghost" disabled>Stop</button>
         </div>
       </div>
+
       <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
-        <div class="chip"><span class="label">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
-        <div class="chip"><span class="label">Started</span><span id="started" class="font-bold">—</span></div>
-        <div class="chip"><span class="label">Ended</span><span id="ended" class="font-bold">—</span></div>
-        <div class="chip"><span class="label">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
+        <div class="chip"><span class="label mr-2">Elapsed</span><span id="elapsed" class="font-bold">00:00:00</span></div>
+        <div class="chip"><span class="label mr-2">Started</span><span id="started" class="font-bold">—</span></div>
+        <div class="chip"><span class="label mr-2">Ended</span><span id="ended" class="font-bold">—</span></div>
+        <div class="chip"><span class="label mr-2">Splits</span><span id="splitsCount" class="font-bold">0</span></div>
       </div>
 
-      <!-- Manual edit -->
-      <div class="mt-3 grid md:grid-cols-3 gap-2">
-        <div><label class="label">Edit start</label><input id="manualStart" type="time" /></div>
-        <div><label class="label">Edit end</label><input id="manualEnd" type="time" /></div>
+      <!-- Editable times -->
+      <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div><label class="label">Edit start</label><input id="editStart" type="time"></div>
+        <div><label class="label">Edit finish</label><input id="editEnd" type="time"></div>
         <div class="flex items-end"><button id="applyTimes" class="btn secondary w-full">Apply times</button></div>
+        <div class="flex items-end"><button id="clearTimes" class="btn ghost w-full">Clear edits</button></div>
       </div>
 
       <ul id="splitsList" class="mt-3 text-sm text-[color:var(--muted)] space-y-2"></ul>
     </section>
 
-    <!-- ID & Job Tags (MULTI-SELECT) -->
-    <section class="frosted p-4 mb-4" id="ID">
-      <div class="mb-2">
-        <div class="h2">ID & Job Tags</div>
-        <div class="label">Pick all that apply (multi‑select).</div>
-      </div>
-
+    <!-- ID & Job Tags -->
+    <section class="frosted p-4 mb-4">
+      <div class="mb-2"><div class="h2">ID & Job Tags</div><div class="label">Multi‑select</div></div>
       <div class="mt-2">
         <div class="label mb-1">Service Type</div>
-        <div class="flex flex-wrap gap-2" id="svcChips">
+        <div id="svcChips" class="flex flex-wrap gap-2">
           <div class="chip" data-key="service" data-val="Carpet">Carpet</div>
           <div class="chip" data-key="service" data-val="Upholstery">Upholstery</div>
           <div class="chip" data-key="service" data-val="General Clean">General Clean</div>
           <div class="chip" data-key="service" data-val="Tile & Grout">Tile & Grout</div>
         </div>
       </div>
-
       <div class="mt-3">
         <div class="label mb-1">Job Type</div>
-        <div class="flex flex-wrap gap-2" id="jobTypeChips">
+        <div id="jobTypeChips" class="flex flex-wrap gap-2">
           <div class="chip" data-key="jobType" data-val="Residential">Residential</div>
           <div class="chip" data-key="jobType" data-val="Commercial">Commercial</div>
         </div>
       </div>
-
       <div class="mt-3">
         <div class="label mb-1">Fibres Present</div>
-        <div class="flex flex-wrap gap-2" id="fibreChips">
+        <div id="fibreChips" class="flex flex-wrap gap-2">
           <div class="chip" data-key="fibres" data-val="Wool">Wool</div>
           <div class="chip" data-key="fibres" data-val="Nylon">Nylon</div>
           <div class="chip" data-key="fibres" data-val="Polyester">Polyester</div>
@@ -140,88 +138,54 @@
       </div>
     </section>
 
-    <!-- Walk-through -->
+    <!-- Diagnosis (single select drives Playbook) -->
     <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Walk-through</div><span class="label">Pre-service checklist, risks, disclaimers</span>
-      </div>
-      <div class="grid md:grid-cols-2 gap-3">
-        <div><label class="label">Address confirmed</label><select id="addrOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
-        <div><label class="label">Parking set</label><select id="parkOk"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
-        <div><label class="label">Risks noted</label><select id="risk"><option value="">Select</option><option>Trip hazards</option><option>Pet present</option><option>Delicate fibre</option><option>Water access</option></select></div>
-        <div><label class="label">Disclaimers shown</label><select id="disc"><option value="">Select</option><option>Unknown fibre</option><option>Pre-treated stains</option><option>Bleach damage</option><option>Pet urine</option><option>General limits</option></select></div>
-      </div>
-      <div class="mt-3 flex gap-2">
-        <a href="/client-pre-service-checklist.html" class="btn secondary tap">Open checklist</a>
-        <button id="scriptWalk" class="btn ghost tap">Client script</button>
-      </div>
-    </section>
-
-    <!-- Diagnosis (single select to drive Playbook) -->
-    <section class="frosted p-4" id="Diagnosis">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Diagnosis</div><span class="label">Fibre and stain ID (drives Playbook)</span>
-      </div>
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Diagnosis</div><span class="label">Drives the Playbook</span></div>
 
       <div class="mb-2 font-bold">Step 1. Fibre</div>
       <div class="grid md:grid-cols-3 gap-2">
-        <button class="btn secondary tap fibre" data-fibre="Wool">Wool</button>
-        <button class="btn secondary tap fibre" data-fibre="Nylon">Nylon</button>
-        <button class="btn secondary tap fibre" data-fibre="Polyester">Polyester</button>
-        <button class="btn secondary tap fibre" data-fibre="Olefin/PP">Olefin/PP</button>
-        <button class="btn secondary tap fibre" data-fibre="Cellulosic">Cellulosic</button>
-        <button class="btn secondary tap fibre" data-fibre="Unknown">Unknown</button>
+        <button class="btn secondary fibre" data-fibre="Wool">Wool</button>
+        <button class="btn secondary fibre" data-fibre="Nylon">Nylon</button>
+        <button class="btn secondary fibre" data-fibre="Polyester">Polyester</button>
+        <button class="btn secondary fibre" data-fibre="Olefin/PP">Olefin/PP</button>
+        <button class="btn secondary fibre" data-fibre="Cellulosic">Cellulosic</button>
+        <button class="btn secondary fibre" data-fibre="Unknown">Unknown</button>
       </div>
 
       <div class="mt-4 mb-2 font-bold">Step 2. Stain</div>
       <div class="grid md:grid-cols-2 gap-2">
-        <button class="btn secondary tap stain" data-stain="Organic">Organic</button>
-        <button class="btn secondary tap stain" data-stain="Tannin">Tannin</button>
-        <button class="btn secondary tap stain" data-stain="Oil">Oil/Grease/Ink</button>
-        <button class="btn secondary tap stain" data-stain="Synthetic Dye">Synthetic Dye</button>
+        <button class="btn secondary stain" data-stain="Organic">Organic</button>
+        <button class="btn secondary stain" data-stain="Tannin">Tannin</button>
+        <button class="btn secondary stain" data-stain="Oil">Oil/Grease/Ink</button>
+        <button class="btn secondary stain" data-stain="Synthetic Dye">Synthetic Dye</button>
       </div>
     </section>
 
-    <!-- Playbook -->
+    <!-- Playbook summary -->
     <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">The Playbook</div><span class="label">Auto filled from your picks</span>
-      </div>
+      <div class="mb-2 flex items-center gap-2"><div class="h2">The Playbook</div><span class="label">Auto‑filled from picks</span></div>
       <div class="grid md:grid-cols-2 gap-3">
         <div><div class="label">Fibre</div><div id="pbFibre" class="font-bold">—</div></div>
         <div><div class="label">Stain</div><div id="pbStain" class="font-bold">—</div></div>
       </div>
-      <div class="mt-3"><div class="label">Suggested Pricing Add-on</div><div id="pbPrice" class="font-bold">—</div></div>
-      <div class="mt-3"><div class="label">Client script</div><textarea id="pbScript" rows="3" readonly></textarea><div class="mt-2 flex gap-2"><button id="copyScript" class="btn secondary tap">Copy script</button></div></div>
+      <div class="mt-3"><div class="label">Suggested Pricing Add‑on</div><div id="pbPrice" class="font-bold">—</div></div>
+      <div class="mt-3"><div class="label">Client script</div><textarea id="pbScript" rows="3" readonly></textarea><div class="mt-2"><button id="copyScript" class="btn secondary">Copy script</button></div></div>
       <div class="mt-3"><div class="label">Flags & warnings</div><ul id="pbFlags" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul></div>
       <div class="mt-3"><div class="label">Standard procedure</div><ol id="pbProc" class="list-decimal pl-5 text-[color:var(--muted)] space-y-1"></ol></div>
       <div class="mt-3"><div class="label">Recommended chemicals</div><ul id="pbChems" class="list-disc pl-5 text-[color:var(--muted)] space-y-1"></ul><div class="mt-2 text-sm text-[color:var(--muted)]">SDS links open in a new tab.</div></div>
     </section>
 
-    <!-- Photos (COMBINED GRID) -->
-    <section class="frosted p-4" id="photos">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Photos</div><span class="label">Add up to 10. Tap image to replace or ❌ to delete.</span>
-      </div>
-      <div class="grid-photos" id="photoGrid"></div>
-      <div class="mt-3 flex gap-2">
-        <label class="btn ghost tap">
-          <input id="photoPicker" type="file" accept="image/*" multiple class="hidden">
-          Upload from library
-        </label>
-        <label class="btn secondary tap">
-          <input id="photoCamera" type="file" accept="image/*" capture="environment" class="hidden">
-          Take photo
-        </label>
-        <button id="clearPhotos" class="btn secondary tap">Clear all</button>
-      </div>
+    <!-- Photos (10 slots) -->
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Photos</div><span class="label">Add up to 10. Tap image to replace or <span class="font-bold">✖</span> to delete.</span></div>
+      <div id="photoGrid" class="photo-grid"></div>
+      <!-- one shared file input (works for Camera & Library on iOS & Chrome) -->
+      <input id="hiddenFile" type="file" accept="image/*" class="hidden-input">
     </section>
 
     <!-- Clean -->
     <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Clean</div><span class="label">Record solutions and passes</span>
-      </div>
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Clean</div><span class="label">Record solutions and passes</span></div>
       <div class="grid md:grid-cols-2 gap-3">
         <div><label class="label">Solutions used</label><input id="solutions" type="text" placeholder="Prespray, rinse, spotter…"></div>
         <div><label class="label">Dry passes tick-off</label><select id="dryPass"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
@@ -230,591 +194,420 @@
 
     <!-- Wrap-down -->
     <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Wrap-down</div><span class="label">Groom, airflow, aftercare</span>
-      </div>
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Wrap‑down</div><span class="label">Groom, airflow, aftercare</span></div>
       <div class="grid md:grid-cols-2 gap-3">
         <label class="chip"><input type="checkbox" class="mr-2" id="groomed" /> Groomed fibres</label>
         <label class="chip"><input type="checkbox" class="mr-2" id="airflow" /> Airflow set</label>
         <label class="chip"><input type="checkbox" class="mr-2" id="aftercare" /> Aftercare given</label>
-        <a id="openAftercare" href="/client/aftercare.html" class="btn secondary tap">Open aftercare</a>
+        <a id="openAftercare" href="/client/aftercare.html" class="btn secondary">Open aftercare</a>
       </div>
     </section>
 
     <!-- Payment + Review -->
     <section class="frosted p-4">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Payment + Review</div><span class="label">Square + review SMS</span>
-      </div>
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Payment + Review</div><span class="label">Square + review SMS</span></div>
       <div class="grid md:grid-cols-2 gap-3">
-        <div class="flex gap-2">
-          <input id="amount" type="text" inputmode="decimal" placeholder="Amount e.g. 220">
-          <button id="takePayment" class="btn tap">Take payment</button>
-        </div>
-        <div class="flex gap-2">
-          <input id="clientMobile" type="text" inputmode="tel" placeholder="Client mobile">
-          <button id="sendReview" class="btn secondary tap">Copy review SMS</button>
-        </div>
+        <div class="flex gap-2"><input id="amount" type="text" inputmode="decimal" placeholder="Amount e.g. 220"><button id="takePayment" class="btn">Take payment</button></div>
+        <div class="flex gap-2"><input id="clientMobile" type="text" inputmode="tel" placeholder="Client mobile"><button id="sendReview" class="btn secondary">Copy review SMS</button></div>
       </div>
     </section>
 
     <!-- Job Log -->
-    <section class="frosted p-4 md:col-span-3">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Job Log</div><span class="label">Autosaves locally</span>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-3 mt-1">
-        <div>
-          <label class="label">Job notes</label>
-          <textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea>
-        </div>
+    <section class="frosted p-4">
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Job Log</div><span class="label">Autosaves locally</span></div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div><label class="label">Job notes</label><textarea id="jobNotes" rows="4" placeholder="Room order, issues, client asks…"></textarea></div>
         <div>
           <div class="label mb-1">Quick actions</div>
           <div class="flex gap-2 flex-wrap">
-            <button id="exportJSON" class="btn tap">Export JSON</button>
-            <button id="copySummary" class="btn secondary tap">Copy summary</button>
-            <button id="resetAll" class="btn ghost tap">Start over</button>
+            <button id="exportJSON" class="btn">Export JSON</button>
+            <button id="copySummary" class="btn secondary">Copy summary</button>
+            <button id="resetAll" class="btn ghost">Start over</button>
           </div>
         </div>
       </div>
-
       <div class="label mt-2">Data saves to your device while this page is open. For a permanent record, export or copy the summary.</div>
     </section>
 
-    <!-- Job Completion Report (auto-prefilled) -->
-    <section class="frosted p-4 md:col-span-3" id="job-completion">
-      <div class="mb-2 flex items-center gap-2">
-        <div class="h2">Job Completion Report</div>
-        <span class="label">Prefilled from Field OS entries — copy/email/open customer view</span>
-      </div>
-
+    <!-- Job Completion Report -->
+    <section class="frosted p-4" id="job-completion">
+      <div class="mb-2 flex items-center gap-2"><div class="h2">Job Completion Report</div><span class="label">Copy/email/open customer view</span></div>
       <div class="flex flex-col md:flex-row gap-4">
-        <div class="flex-1">
-          <div class="label mb-1">Report preview</div>
-          <div id="reportPreview" class="report-area text-sm"></div>
-        </div>
+        <div class="flex-1"><div class="label mb-1">Report preview</div><div id="reportPreview" class="report-area text-sm"></div></div>
         <div class="w-full md:w-64">
           <div class="label mb-1">Client email (optional)</div>
           <input id="clientEmail" type="text" placeholder="name@example.com">
           <div class="mt-3 flex flex-col gap-2">
-            <button id="refreshReport" class="btn tap">Refresh from data</button>
-            <button id="copyReport" class="btn secondary tap">Copy report text</button>
-            <button id="emailReport" class="btn ghost tap">Open email draft</button>
-            <button id="openCustomerView" class="btn secondary tap">Open customer view</button>
+            <button id="refreshReport" class="btn">Refresh from data</button>
+            <button id="copyReport" class="btn secondary">Copy report text</button>
+            <button id="emailReport" class="btn ghost">Open email draft</button>
+            <button id="openCustomerView" class="btn secondary">Open customer view</button>
           </div>
         </div>
       </div>
-      <div class="label mt-2">The report uses your timer, ID tags, fibre & stain picks, solutions, flags, notes, job total and photos.</div>
+      <div class="label mt-2">Photos are included only where a tile has an image.</div>
     </section>
 
+    <!-- Quick bar -->
+    <nav class="fixed bottom-3 left-3 right-3 z-50 flex gap-2 flex-wrap">
+      <a class="flex-1 text-center px-3 py-2 rounded-xl bg-[rgba(255,255,255,.5)] border border-[rgba(0,0,0,.08)] font-bold" href="#job-completion">Report</a>
+      <a class="flex-1 text-center px-3 py-2 rounded-xl bg-[rgba(255,255,255,.5)] border border-[rgba(0,0,0,.08)] font-bold" href="#Diagnosis">Stain/Fibre</a>
+      <a class="flex-1 text-center px-3 py-2 rounded-xl bg-[rgba(255,255,255,.5)] border border-[rgba(0,0,0,.08)] font-bold" href="/internal-price-guide.html">Price Guide</a>
+      <a class="flex-1 text-center px-3 py-2 rounded-xl bg-[rgba(255,255,255,.5)] border border-[rgba(0,0,0,.08)] font-bold" href="/client/aftercare.html">Aftercare</a>
+    </nav>
   </main>
 
-  <!-- Quick bar -->
-  <nav class="fixed bottom-3 left-3 right-3 z-50 flex gap-2 justify-between flex-wrap">
-    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="#Diagnosis">Stain/Fibre</a>
-    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="#photos">Photos</a>
-    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="/internal-price-guide.html">Price Guide</a>
-    <a class="flex-1 text-center p-2 rounded-xl bg-white/60 border border-[color:var(--glass-border)] font-extrabold tap" href="/client/aftercare.html">Aftercare</a>
-  </nav>
-
 <script>
-/* ===== Clock ===== */
-const clockEl = document.getElementById('clock');
-function tickClock(){ clockEl.textContent = new Date().toLocaleString(); }
-setInterval(tickClock, 1000); tickClock();
-
-/* ===== Local storage helpers ===== */
+/* ===== Utilities & local storage ===== */
 const LS_KEY = 'lefties_field_os';
-function loadState(){ try{ return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }catch{ return {}; } }
-function saveState(patch){
-  const cur = loadState();
-  const next = {...cur, ...patch, ts: Date.now()};
-  localStorage.setItem(LS_KEY, JSON.stringify(next));
-  return next;
-}
+const loadState = () => { try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch { return {}; } };
+const saveState = (patch) => { const cur = loadState(); const next = {...cur, ...patch, ts: Date.now()}; localStorage.setItem(LS_KEY, JSON.stringify(next)); return next; };
+const fmt = (ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
 
-/* ===== Timer & Splits (with editable times) ===== */
+/* ===== Clock ===== */
+const clockEl = document.getElementById('clock'); const tickClock = ()=> clockEl.textContent = new Date().toLocaleString(); setInterval(tickClock, 1000); tickClock();
+
+/* ===== Timer with editable times ===== */
 let startTime=null, timerInt=null, splits=[];
-const fmt=(ms)=>{const s=Math.floor(ms/1000);const hh=String(Math.floor(s/3600)).padStart(2,'0');const mm=String(Math.floor((s%3600)/60)).padStart(2,'0');const ss=String(s%60).padStart(2,'0');return `${hh}:${mm}:${ss}`;};
-const startBtn=document.getElementById('startBtn'), splitBtn=document.getElementById('splitBtn'), stopBtn=document.getElementById('stopBtn');
-const elapsedEl=document.getElementById('elapsed'), startedEl=document.getElementById('started'), endedEl=document.getElementById('ended'), splitsList=document.getElementById('splitsList'), splitsCount=document.getElementById('splitsCount');
-const manualStart=document.getElementById('manualStart'), manualEnd=document.getElementById('manualEnd'), applyTimes=document.getElementById('applyTimes');
+const startBtn = document.getElementById('startBtn'), splitBtn = document.getElementById('splitBtn'), stopBtn = document.getElementById('stopBtn');
+const elapsedEl = document.getElementById('elapsed'), startedEl = document.getElementById('started'), endedEl = document.getElementById('ended'), splitsList = document.getElementById('splitsList'), splitsCount = document.getElementById('splitsCount');
+const editStart = document.getElementById('editStart'), editEnd = document.getElementById('editEnd');
 
 function renderSplits(){
   splitsList.innerHTML='';
   splits.forEach((s,i)=>{
-    const li = document.createElement('li');
-    li.className = 'split-row';
-    const label = document.createElement('div'); label.className='font-bold shrink-0'; label.textContent = `Room ${i+1}`;
-    const time = document.createElement('div'); time.className='text-xs text-[color:var(--muted)]'; time.textContent = fmt(s.duration||0);
-    const input = document.createElement('input'); input.type='text'; input.placeholder='Comment e.g. “Bed 2 — mould”'; input.value = s.note || '';
-    input.addEventListener('input', ()=>{ splits[i].note = input.value; saveState({splits}); buildReport(); });
-    const del = document.createElement('button'); del.className='btn secondary tap'; del.textContent='Delete';
-    del.addEventListener('click', ()=>{ splits.splice(i,1); saveState({splits}); renderSplits(); splitsCount.textContent=splits.length; buildReport(); });
-    li.append(label,time,input,del); li.style.gap='0.75rem'; splitsList.appendChild(li);
+    const li = document.createElement('li'); li.className='flex items-center gap-2 bg-[rgba(255,255,255,.55)] border border-[rgba(0,0,0,.08)] rounded-md px-2 py-1';
+    li.innerHTML = `<strong>Room ${i+1}</strong><span class="text-xs text-[color:#6b7280]">${fmt(s.duration||0)}</span>`;
+    const note = document.createElement('input'); note.className='flex-1 bg-white/80 border border-[rgba(0,0,0,.08)] rounded px-2 py-1'; note.placeholder='Comment (optional)'; note.value=s.note||'';
+    note.addEventListener('input', ()=>{ splits[i].note = note.value; saveState({splits}); buildReport(); });
+    const del = document.createElement('button'); del.className='btn secondary'; del.textContent='Delete';
+    del.onclick = ()=>{ splits.splice(i,1); saveState({splits}); renderSplits(); splitsCount.textContent=splits.length; buildReport(); };
+    li.appendChild(note); li.appendChild(del); splitsList.appendChild(li);
   });
-  splitsCount.textContent=splits.length;
+  splitsCount.textContent = splits.length;
 }
-
-startBtn.addEventListener('click', ()=>{
+function updateElapsedTicker(){ elapsedEl.textContent = fmt(Date.now()-startTime); }
+startBtn.onclick = ()=>{
   if(startTime) return;
-  startTime=Date.now();
-  startedEl.textContent=new Date(startTime).toLocaleTimeString();
-  timerInt=setInterval(()=>{ elapsedEl.textContent=fmt(Date.now()-startTime); },250);
+  startTime = Date.now(); startedEl.textContent = new Date(startTime).toLocaleTimeString();
+  timerInt = setInterval(updateElapsedTicker, 250);
   startBtn.disabled=true; splitBtn.disabled=false; stopBtn.disabled=false;
   saveState({started: startedEl.textContent});
-});
-splitBtn.addEventListener('click', ()=>{
+};
+splitBtn.onclick = ()=>{
   if(!startTime) return;
-  const now=Date.now(); const used = splits.reduce((t,s)=> t + (s.duration||0), 0); const elapsed = now - startTime - used;
-  splits.push({duration: elapsed, note:''}); saveState({splits}); renderSplits(); buildReport();
-});
-stopBtn.addEventListener('click', ()=>{
+  const now = Date.now();
+  const used = splits.reduce((t,s)=>t+(s.duration||0),0);
+  const elapsed = now - startTime - used;
+  splits.push({duration: elapsed, note:''}); saveState({splits});
+  renderSplits(); buildReport();
+};
+stopBtn.onclick = ()=>{
   if(!startTime) return;
-  clearInterval(timerInt);
-  endedEl.textContent = new Date().toLocaleTimeString();
-  splitBtn.disabled=true; stopBtn.disabled=true;
+  clearInterval(timerInt); timerInt=null;
+  endedEl.textContent = new Date().toLocaleTimeString(); splitBtn.disabled=true; stopBtn.disabled=true;
   saveState({ended: endedEl.textContent}); buildReport();
-});
-applyTimes.addEventListener('click', ()=>{
-  const todayISO = new Date().toISOString().slice(0,10);
-  const s = manualStart.value, e = manualEnd.value;
-  if(s){ startedEl.textContent = s; saveState({started:s}); }
-  if(e){ endedEl.textContent = e; saveState({ended:e}); }
-  if(s && e){
-    const ms = (new Date(`${todayISO}T${e}`) - new Date(`${todayISO}T${s}`));
-    if(ms>0) elapsedEl.textContent = fmt(ms);
-  }
-});
+};
 
-/* ===== Multi-select chips (ID & Job Tags) ===== */
+/* Manual edit of times */
+document.getElementById('applyTimes').onclick = ()=>{
+  const st = editStart.value, en = editEnd.value;
+  if(st) startedEl.textContent = st;
+  if(en) endedEl.textContent = en;
+  // compute elapsed if both present (assume same day)
+  if(st && en){
+    const [sh,sm] = st.split(':').map(Number); const [eh,em] = en.split(':').map(Number);
+    let mins = (eh*60+em) - (sh*60+sm); if(mins<0) mins += 24*60;
+    elapsedEl.textContent = fmt(mins*60*1000);
+  }
+  saveState({started: startedEl.textContent, ended: endedEl.textContent});
+  buildReport();
+};
+document.getElementById('clearTimes').onclick = ()=>{ editStart.value=''; editEnd.value=''; };
+
+/* ===== Chips (ID tags) ===== */
 const tagState = { service:new Set(), jobType:new Set(), fibres:new Set() };
 function hydrateTags(){
   const st = loadState();
-  (st.service||[]).forEach(v=> tagState.service.add(v));
-  (st.jobType||[]).forEach(v=> tagState.jobType.add(v));
-  (st.fibres||[]).forEach(v=> tagState.fibres.add(v));
+  (st.service||[]).forEach(v=>tagState.service.add(v));
+  (st.jobType||[]).forEach(v=>tagState.jobType.add(v));
+  (st.fibres||[]).forEach(v=>tagState.fibres.add(v));
   document.querySelectorAll('.chip[data-key]').forEach(ch=>{
-    const key = ch.dataset.key, val = ch.dataset.val;
-    if(tagState[key]?.has(val)) ch.classList.add('on');
+    const key=ch.dataset.key,val=ch.dataset.val; if(tagState[key]?.has(val)) ch.classList.add('ring');
   });
 }
-function toggleChip(ch){
-  const key = ch.dataset.key, val = ch.dataset.val;
-  if(!tagState[key]) tagState[key]=new Set();
-  if(ch.classList.contains('on')){ ch.classList.remove('on'); tagState[key].delete(val); }
-  else { ch.classList.add('on'); tagState[key].add(val); }
-  saveState({ service:[...tagState.service], jobType:[...tagState.jobType], fibres:[...tagState.fibres] });
-  buildReport();
-}
-document.addEventListener('click', (e)=>{
-  const ch = e.target.closest('.chip[data-key]');
-  if(!ch) return;
-  if(ch.querySelector('input[type="checkbox"]')) return; // don't toggle setup checkboxes
-  toggleChip(ch);
-});
-
-/* ===== Walk-through script quick copy ===== */
-document.getElementById('scriptWalk').addEventListener('click', ()=>{
-  const txt = `We’ll walk through with you, point out any risks, and talk through what’s realistic. Hoses and floors can be slippery while we set up. Pets are welcome to say hi while we prep, then we’ll pop them away once machines are running.`;
-  navigator.clipboard.writeText(txt);
-  alert('Walk-through script copied.');
+document.addEventListener('click',(e)=>{
+  const ch = e.target.closest('.chip[data-key]'); if(!ch) return;
+  if(ch.querySelector('input[type="checkbox"]')) return; // ignore setup checkboxes styled as chips
+  const key=ch.dataset.key,val=ch.dataset.val; if(!tagState[key]) tagState[key]=new Set();
+  if(ch.classList.contains('ring')){ ch.classList.remove('ring'); tagState[key].delete(val); }
+  else { ch.classList.add('ring'); tagState[key].add(val); }
+  saveState({ service:[...tagState.service], jobType:[...tagState.jobType], fibres:[...tagState.fibres] }); buildReport();
 });
 
 /* ===== Diagnosis → Playbook (single select) ===== */
 let pickFibre=null, pickStain=null;
-const pbPrice = document.getElementById('pbPrice');
-const pbScript = document.getElementById('pbScript');
-const pbFlags = document.getElementById('pbFlags');
-const pbProc = document.getElementById('pbProc');
-const pbChems = document.getElementById('pbChems');
-
-const CHEM = {
-  winnerPlus:{name:'Sampson Winner Plus Carpet Pre-Spray & Extraction Fluid',note:'Strong alkaline prespray for heavy soil',sds:'#'},
-  citrusSonisteam:{name:'Citrus Sonisteam Prespray (booster)',note:'Citrus solvent boost for grease/oil',sds:'#'},
-  sonizymePrespray:{name:'Sonizyme (enzyme prespray)',note:'Protein/organic prespray, allow dwell',sds:'#'},
-  sonizymeOdour:{name:'Sonizyme (enzyme odour treatment)',note:'Digest odour sources, long dwell',sds:'#'},
-  fiberinse:{name:'Fiberinse (acidic rinse)',note:'Neutralises alkalinity; anti-browning',sds:'#'},
-  browningRemover:{name:'Sonitron Browning Remover (H₂O₂ oxidiser)',note:'Tannin/coffee, yellowing — test first',sds:'#'},
-  solventGel:{name:'Solvent Gel Spotter',note:'Gum/tar/glue/paint; rinse after use',sds:'#'},
-  reducerSpotter:{name:'Reducer Spotter (sodium bisulfite)',note:'Synthetic dye removal attempt',sds:'#'},
-  neutralSpotter:{name:'pH Neutral Spotter / Zenith Encap Spot & Stain',note:'Safe general spotter',sds:'#'},
-  exotica:{name:'Sampson Exotica Mango & Orange',note:'Post-clean fragrance additive',sds:'#'},
-  oxidisingDeo:{name:'Oxidising Deodoriser',note:'Smoke/mildew odour control',sds:'#'},
-  zenithEncap:{name:'Sonitron Zenith Encapsulating Shampoo',note:'Low-moisture maintenance',sds:'#'},
-  brollyCarpet:{name:'Brolly Carpet Protector Concentrate',note:'Post-clean protector',sds:'#'},
-  brollyFabric:{name:'Brolly Fabric Protector',note:'Upholstery protector',sds:'#'},
-  antiResoil:{name:'Anti-Resoiling Agent',note:'Polymer soil resistance',sds:'#'}
+const pbPrice = document.getElementById('pbPrice'), pbScript=document.getElementById('pbScript'), pbFlags=document.getElementById('pbFlags'), pbProc=document.getElementById('pbProc'), pbChems=document.getElementById('pbChems');
+const RULES = {
+  'Wool':{base:{flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],proc:['Thorough vacuum','Wool‑safe prespray','Gentle agitation','Neutral rinse','Groom and set airflow'],chems:['Fiber Rinse']},stain:{'Organic':{price:'+ Enzyme/odour treatment',script:'We’ll treat the source and keep rinse neutral for wool.'},'Tannin':{price:'+ Tannin reducer',script:'Tannin can leave a shadow on wool. We’ll reduce and rinse.'},'Oil':{price:'+ Solvent pre‑spot',script:'Solvent step first, then a neutral rinse.'},'Synthetic Dye':{price:'+ Dye treatment (attempt only)',script:'We can attempt a reducer; no guarantees on set dyes.'}}},
+  'Nylon':{base:{flags:['Watch bright colours/acid dye sites','Rinse thoroughly'],proc:['Vacuum','Alkaline prespray','Agitate','Rinse extract','Groom and dry']},stain:{'Organic':{price:'+ Enzyme/deodoriser',script:'We’ll enzyme treat then flush.'},'Tannin':{price:'+ Tannin reducer',script:'Reducer then rinse.'},'Oil':{price:'+ Solvent/citrus assist',script:'Break oils first, then rinse.'},'Synthetic Dye':{price:'+ Dye remover attempt',script:'Attempt only; results vary.'}}},
+  'Polyester':{base:{flags:['Holds oils — solvent assist helps'],proc:['Vacuum','Solvent assist on oils','Prespray','Rinse','Groom and dry']},stain:{'Organic':{price:'+ Enzyme boost',script:'Enzyme then rinse.'},'Tannin':{price:'+ Tannin reducer',script:'Reducer then rinse.'},'Oil':{price:'+ Solvent assist',script:'Solvent/citrus assist first.'},'Synthetic Dye':{price:'+ Dye attempt',script:'Attempt reducer, often bonded.'}}},
+  'Olefin/PP':{base:{flags:['Heat sensitive — keep temps modest'],proc:['Vacuum','Low‑heat prespray','Gentle rinse','Groom','Rapid dry']},stain:{'Organic':{price:'+ Enzyme/odour treat',script:'Treat odour, keep temps low.'},'Tannin':{price:'+ Reducer',script:'Reducer then rinse.'},'Oil':{price:'+ Solvent assist',script:'Solvent help first.'},'Synthetic Dye':{price:'+ Dye attempt',script:'Attempt if safe.'}}},
+  'Cellulosic':{base:{flags:['Higher browning risk — control moisture/pH','Favour low‑moisture methods'],proc:['Vacuum','Low‑moisture clean','Acid rinse','Quick dry with airflow']},stain:{'Organic':{price:'+ Anti‑browning / enzyme',script:'Keep moisture low and dry quickly.'},'Tannin':{price:'+ Tannin reducer',script:'Reducer then acid rinse.'},'Oil':{price:'+ Solvent assist',script:'Solvent then low‑moisture clean.'},'Synthetic Dye':{price:'+ Limited dye attempt',script:'Limited attempts only due to fibre risk.'}}},
+  'Unknown':{base:{flags:['Unknown fibre — test first','Signed disclaimer recommended'],proc:['Colourfast test','Hidden patch test','Low‑moisture trial','Reassess before full clean']},stain:{'Organic':{price:'+ Risk load',script:'Small test patch first.'},'Tannin':{price:'+ Risk load',script:'Test reducer on hidden spot.'},'Oil':{price:'+ Risk load',script:'Test solvent on hidden spot.'},'Synthetic Dye':{price:'+ Risk load',script:'Attempt only if safe.'}}}
 };
-const POST_ADDONS = ['brollyCarpet','brollyFabric','antiResoil','exotica','oxidisingDeo'];
-
-const RULES = {/* (same rules as previous message; omitted for brevity in logic) */};
-RULES['Wool']={base:{flags:['Colourfastness checked','Neutral rinse to protect fibre','Avoid high heat/strong alkali'],proc:['Thorough vacuum','Wool-safe prespray (enzyme if needed)','Gentle agitation','Neutral rinse','Groom and set airflow'],chems:['fiberinse','neutralSpotter']},stain:{'Organic':{price:'+ Enzyme/odour treatment',script:'We’ll treat the organic source gently and rinse neutral so the wool stays safe. Older spots can wick, so we’ll set airflow.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Tannin reducer',script:'Tannin can leave a shadow on wool. We’ll reduce and rinse. No promises on old coffee set in the pile.',add:['browningRemover']},'Oil':{price:'+ Solvent pre-spot',script:'Oil needs a solvent step first, then a neutral rinse. We’ll keep it gentle for the fibre.',add:['solventGel']},'Synthetic Dye':{price:'+ Dye treatment (quote on-site)',script:'Synthetic colour can be permanent. We can attempt reduction, but no guarantee.',add:['reducerSpotter']}}};
-RULES['Nylon']={base:{flags:['Watch bright colours/acid dye sites','Rinse thoroughly to reduce residue'],proc:['Vacuum','Alkaline prespray on soil','Agitate','Rinse extract','Groom and dry'],chems:['winnerPlus','fiberinse']},stain:{'Organic':{price:'+ Enzyme/deodoriser',script:'We’ll hit the organic source then flush. Nylon handles this well.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Tannin reducer',script:'We’ll reduce the tannin and rinse. Light shadow may remain on older spills.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent or citrus boost first, then rinse out the residue.',add:['citrusSonisteam','solventGel']},'Synthetic Dye':{price:'+ Dye remover attempt',script:'We can attempt a dye removal. Results vary.',add:['reducerSpotter']}}};
-RULES['Polyester']={base:{flags:['Clings to oils — solvent assist helps'],proc:['Vacuum','Solvent/citrus assist on oils','Prespray','Rinse','Groom and dry'],chems:['winnerPlus','citrusSonisteam','fiberinse']},stain:{'Organic':{price:'+ Enzyme boost',script:'We’ll enzyme treat then rinse. Polyester is tough but holds oils.',add:['sonizymePrespray']},'Tannin':{price:'+ Tannin reducer',script:'Reducer then rinse. Shadow can linger if old.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Oil bonds to polyester. We’ll break it down before rinsing.',add:['solventGel','citrusSonisteam']},'Synthetic Dye':{price:'+ Dye attempt',script:'We’ll try a reducer. Synthetic colour often bonds hard.',add:['reducerSpotter']}}};
-RULES['Olefin/PP']={base:{flags:['Heat sensitive — keep temps modest'],proc:['Vacuum','Low heat prespray','Gentle rinse','Groom','Rapid dry'],chems:['winnerPlus','fiberinse']},stain:{'Organic':{price:'+ Enzyme/odour treat',script:'We’ll treat odour then rinse. Temps kept low.',add:['sonizymePrespray','sonizymeOdour']},'Tannin':{price:'+ Reducer',script:'Reducer then rinse. Careful with heat.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent help first, then rinse. Polypropylene holds oils.',add:['solventGel','citrusSonisteam']},'Synthetic Dye':{price:'+ Dye attempt',script:'Attempt only if safe. Heat low.',add:['reducerSpotter']}}};
-RULES['Cellulosic']={base:{flags:['Higher browning risk — control moisture/pH','Favour low-moisture methods'],proc:['Vacuum','Low moisture clean','Acid rinse','Quick dry with airflow'],chems:['fiberinse','browningRemover']},stain:{'Organic':{price:'+ Anti-browning / enzyme',script:'We’ll keep moisture low and manage dry time to avoid browning.',add:['sonizymePrespray']},'Tannin':{price:'+ Tannin reducer',script:'Reducer then acid rinse. Shadow risk if old.',add:['browningRemover']},'Oil':{price:'+ Solvent assist',script:'Solvent then low-moisture clean.',add:['solventGel']},'Synthetic Dye':{price:'+ Dye attempt (limited)',script:'Limited attempts only due to fibre risk.',add:['reducerSpotter']}}};
-RULES['Unknown']={base:{flags:['Unknown fibre — test first','Signed disclaimer recommended'],proc:['Colourfast test','Hidden patch test','Low moisture trial','Reassess before full clean'],chems:['neutralSpotter','fiberinse']},stain:{'Organic':{price:'+ Risk load',script:'We’ll run a small test patch first since the fibre is unknown.',add:['sonizymePrespray']},'Tannin':{price:'+ Risk load',script:'We’ll test a reducer on a hidden spot first.',add:['browningRemover']},'Oil':{price:'+ Risk load',script:'We’ll test a solvent on a hidden spot first.',add:['solventGel']},'Synthetic Dye':{price:'+ Risk load',script:'Attempt only if safe. No guarantee.',add:['reducerSpotter']}}};
-
 function updatePlaybook(){
   document.getElementById('pbFibre').textContent = pickFibre || '—';
   document.getElementById('pbStain').textContent = pickStain || '—';
   pbFlags.innerHTML=''; pbProc.innerHTML=''; pbChems.innerHTML=''; pbPrice.textContent='—'; pbScript.value='';
   if(pickFibre && pickStain){
-    const base = RULES[pickFibre].base; const stain = RULES[pickFibre].stain[pickStain];
+    const base = RULES[pickFibre].base, stain = RULES[pickFibre].stain[pickStain];
     pbPrice.textContent = stain.price; pbScript.value = stain.script;
     base.flags.forEach(f=>{ const li=document.createElement('li'); li.textContent=f; pbFlags.appendChild(li); });
     base.proc.forEach(p=>{ const li=document.createElement('li'); li.textContent=p; pbProc.appendChild(li); });
-    const ids = Array.from(new Set([...(base.chems||[]), ...(stain.add||[])]));
-    const remind = POST_ADDONS.filter(k => !ids.includes(k)).slice(0,2);
-    [...ids, ...remind].forEach(key=>{
-      const c = CHEM[key]; if(!c) return; const li = document.createElement('li');
-      const a = document.createElement('a'); a.href = c.sds || '#'; a.target='_blank'; a.rel='noopener'; a.className='underline'; a.textContent = c.name;
-      li.appendChild(a); li.appendChild(document.createTextNode(` — ${c.note}`)); pbChems.appendChild(li);
-    });
+    ['See SDS with your supplier'].forEach(t=>{ const li=document.createElement('li'); li.textContent=t; pbChems.appendChild(li); });
   }
   buildReport();
 }
-document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.fibre').forEach(x=> x.classList.remove('ring')); b.classList.add('ring'); pickFibre = b.dataset.fibre; updatePlaybook(); saveState({pickFibre}); }));
-document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.stain').forEach(x=> x.classList.remove('ring')); b.classList.add('ring'); pickStain = b.dataset.stain; updatePlaybook(); saveState({pickStain}); }));
-document.getElementById('copyScript').addEventListener('click', ()=>{ navigator.clipboard.writeText(pbScript.value || ''); });
+document.querySelectorAll('.fibre').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.fibre').forEach(x=>x.classList.remove('ring')); b.classList.add('ring'); pickFibre=b.dataset.fibre; saveState({pickFibre}); updatePlaybook(); }));
+document.querySelectorAll('.stain').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.stain').forEach(x=>x.classList.remove('ring')); b.classList.add('ring'); pickStain=b.dataset.stain; saveState({pickStain}); updatePlaybook(); }));
+document.getElementById('copyScript').onclick = ()=> navigator.clipboard.writeText(pbScript.value||'');
 
-/* ===== Photos (combined grid) ===== */
-const MAX_PHOTOS = 10;
+/* ===== Photo grid (10 slots, replace/delete) ===== */
 const photoGrid = document.getElementById('photoGrid');
-const photoPicker = document.getElementById('photoPicker');
-const photoCamera = document.getElementById('photoCamera');
-const clearPhotosBtn = document.getElementById('clearPhotos');
+const hiddenFile = document.getElementById('hiddenFile');
+let photoIndexTarget = null; // which tile is being added/replaced
 
 function getPhotos(){ const st = loadState(); return Array.isArray(st.photos)? st.photos : []; }
-function setPhotos(arr){ saveState({photos: arr}); renderPhotoGrid(); buildReport(); }
+function setPhotos(arr){ saveState({photos:arr}); }
 
-function renderPhotoGrid(){
+function renderPhotos(){
   const photos = getPhotos();
-  photoGrid.innerHTML = '';
-  // existing photos
-  photos.forEach((src, idx)=>{
-    const tile = document.createElement('div'); tile.className='photo-tile';
-    const img = document.createElement('img'); img.src = src; img.alt = `Photo ${idx+1}`; img.className='photo-img';
-    tile.appendChild(img);
-    const actions = document.createElement('div'); actions.className='tile-actions';
-    const btnReplace = document.createElement('button'); btnReplace.textContent='Replace'; btnReplace.className='tile-btn';
-    const btnDel = document.createElement('button'); btnDel.textContent='❌'; btnDel.className='tile-btn';
-    actions.append(btnReplace, btnDel); tile.appendChild(actions); photoGrid.appendChild(tile);
-    // Replace
-    btnReplace.addEventListener('click', ()=>{
-      const input = document.createElement('input'); input.type='file'; input.accept='image/*'; input.capture='environment';
-      input.addEventListener('change', ()=>{ const f=input.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const p = getPhotos(); p[idx]=r.result; setPhotos(p); }; r.readAsDataURL(f); input.value=''; });
-      input.click();
-    });
-    // Delete
-    btnDel.addEventListener('click', ()=>{ const p=getPhotos(); p.splice(idx,1); setPhotos(p); });
-  });
-  // empty slots
-  const empty = Math.max(0, MAX_PHOTOS - photos.length);
-  for(let i=0;i<empty;i++){
-    const tile = document.createElement('div'); tile.className='photo-tile';
-    const add = document.createElement('div'); add.className='tile-add';
-    add.innerHTML = `<div class="plus">＋</div><div>Add photo</div>`;
-    tile.appendChild(add); photoGrid.appendChild(tile);
-    tile.addEventListener('click', ()=>{
-      const input = document.createElement('input'); input.type='file'; input.accept='image/*';
-      input.addEventListener('change', ()=>{
-        const files = Array.from(input.files||[]);
-        if(!files.length) return;
-        const p = getPhotos();
-        const take = Math.min(MAX_PHOTOS - p.length, files.length);
-        let done=0;
-        for(let j=0;j<take;j++){
-          const r=new FileReader();
-          r.onload=()=>{ p.push(r.result); done++; if(done===take){ setPhotos(p); } };
-          r.readAsDataURL(files[j]);
-        }
-        input.value='';
-      });
-      input.click();
-    });
+  photoGrid.innerHTML='';
+  for(let i=0;i<10;i++){
+    const has = !!photos[i];
+    const tile = document.createElement('div'); tile.className='tile';
+    if(has){
+      const img = document.createElement('img'); img.src = photos[i]; img.alt = `Photo ${i+1}`;
+      img.onclick = ()=> { photoIndexTarget = i; hiddenFile.value=''; hiddenFile.click(); }; // replace
+      const ctrl = document.createElement('div'); ctrl.className='controls';
+      const del = document.createElement('button'); del.className='iconbtn delete'; del.textContent='✖';
+      del.onclick = ()=>{ const p = getPhotos(); p[i]=null; setPhotos(p); renderPhotos(); buildReport(); };
+      ctrl.appendChild(del);
+      tile.appendChild(img); tile.appendChild(ctrl);
+    } else {
+      tile.innerHTML = `<div class="add text-lg">＋<div class="mt-1 text-sm font-bold">Add photo</div></div>`;
+      tile.onclick = ()=>{ photoIndexTarget = i; hiddenFile.value=''; hiddenFile.click(); };
+    }
+    photoGrid.appendChild(tile);
   }
 }
-// library multi
-photoPicker.addEventListener('change', ()=>{
-  const files = Array.from(photoPicker.files||[]);
-  if(!files.length) return; const p = getPhotos(); const roomLeft = MAX_PHOTOS - p.length; const take = Math.min(roomLeft, files.length);
-  let done=0; for(let i=0;i<take;i++){ const r=new FileReader(); r.onload=()=>{ p.push(r.result); done++; if(done===take){ setPhotos(p); } }; r.readAsDataURL(files[i]); }
-  photoPicker.value=''; // allow re-pick same file on iOS
+
+/* iOS/Chrome friendly image read + HEIC→JPEG fallback */
+function fileToDataURLJPEG(file, done){
+  try{
+    const reader = new FileReader();
+    reader.onload = () => {
+      const url = reader.result;
+      // try to normalise via canvas (helps with HEIC/large EXIF)
+      const img = new Image();
+      img.onload = ()=>{
+        try{
+          const canvas = document.createElement('canvas');
+          const MAX = 2000; // cap large images for report weight
+          let {width:w,height:h} = img;
+          if(Math.max(w,h)>MAX){ const s = MAX/Math.max(w,h); w=Math.round(w*s); h=Math.round(h*s); }
+          canvas.width=w; canvas.height=h;
+          const ctx = canvas.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+          const jpeg = canvas.toDataURL('image/jpeg', 0.9);
+          done(jpeg);
+        }catch(e){ done(url); }
+      };
+      img.onerror = ()=> done(url);
+      img.src = url;
+    };
+    reader.onerror = ()=> done(null);
+    reader.readAsDataURL(file);
+  }catch(e){ done(null); }
+}
+
+hiddenFile.addEventListener('change', ()=>{
+  const file = (hiddenFile.files && hiddenFile.files[0]) || null;
+  if(!file || photoIndexTarget===null) return;
+  fileToDataURLJPEG(file, (dataURL)=>{
+    if(!dataURL){ alert('Could not read image. Try another photo.'); return; }
+    const photos = getPhotos();
+    photos[photoIndexTarget] = dataURL;
+    setPhotos(photos); renderPhotos(); buildReport();
+    photoIndexTarget=null; hiddenFile.value='';
+  });
 });
-// camera single
-photoCamera.addEventListener('change', ()=>{
-  const f = photoCamera.files && photoCamera.files[0]; if(!f) return;
-  const r=new FileReader(); r.onload=()=>{ const p=getPhotos(); if(p.length<MAX_PHOTOS){ p.push(r.result); setPhotos(p);} }; r.readAsDataURL(f);
-  photoCamera.value='';
-});
-clearPhotosBtn.addEventListener('click', ()=>{ if(confirm('Remove all photos?')) setPhotos([]); });
 
 /* ===== Payment + Review ===== */
-document.getElementById('takePayment').addEventListener('click', ()=>{
-  const amt = (document.getElementById('amount').value||'').trim();
-  if(!amt){ alert('Enter amount'); return; }
-  saveState({amount: amt});
-  const scheme = 'square-commerce-v1://'; const fallback = 'https://squareup.com/dashboard';
-  setTimeout(()=>location.href=fallback, 600); location.href = scheme;
-});
-document.getElementById('sendReview').addEventListener('click', ()=>{
+document.getElementById('takePayment').onclick = ()=>{
+  const amt = (document.getElementById('amount').value||'').trim(); if(!amt){alert('Enter amount');return;}
+  saveState({amount:amt});
+  const scheme = 'square-commerce-v1://'; const dash='https://squareup.com/dashboard'; setTimeout(()=>location.href=dash,600); location.href=scheme;
+};
+document.getElementById('sendReview').onclick = ()=>{
   const mobile = document.getElementById('clientMobile').value.trim();
-  const body = encodeURIComponent(`Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`);
-  if(mobile){
-    navigator.clipboard.writeText(`To: ${mobile}\n\n${decodeURIComponent(body)}`);
-    alert('Review SMS copied. Paste into Messages.');
-  } else {
-    navigator.clipboard.writeText(decodeURIComponent(body));
-    alert('Review SMS copied to clipboard.');
-  }
-});
+  const body = `Thanks for having Lefties in today. If we earned it, a quick review helps locals find us: leftiesservices.com.au  Appreciate you.`;
+  navigator.clipboard.writeText(mobile?`To: ${mobile}\n\n${body}`:body); alert('Review SMS copied. Paste into Messages.');
+};
 
 /* ===== General fields autosave ===== */
-const FIELDS = ['addrOk','parkOk','risk','disc','groomed','airflow','aftercare','solutions','dryPass','jobNotes','amount','clientMobile'];
-FIELDS.forEach(id=>{
-  const el = document.getElementById(id);
-  if(!el) return;
-  const handler = ()=>{ saveState({ [id]: el.type==='checkbox' ? el.checked : el.value }); buildReport(); };
+['solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'].forEach(id=>{
+  const el=document.getElementById(id); if(!el) return;
+  const handler=()=>{ saveState({[id]: el.type==='checkbox'? el.checked : el.value}); buildReport(); };
   el.addEventListener('input', handler); el.addEventListener('change', handler);
 });
 
 /* ===== Export & summary ===== */
-document.getElementById('exportJSON').addEventListener('click', ()=>{
+document.getElementById('exportJSON').onclick = ()=>{
   const data = localStorage.getItem(LS_KEY) || '{}';
   const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`;
-  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-});
-document.getElementById('copySummary').addEventListener('click', ()=>{
-  const st = loadState();
-  const lines = [];
+  const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Lefties_Job_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.json`; a.click(); URL.revokeObjectURL(url);
+};
+document.getElementById('copySummary').onclick = ()=>{
+  const st = loadState(); const lines=[];
   lines.push(`Lefties Field OS Summary`);
-  lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}`);
-  lines.push(`Elapsed: ${document.getElementById('elapsed').textContent}`);
+  lines.push(`Started: ${st.started||'—'}  Ended: ${st.ended||'—'}  Elapsed: ${document.getElementById('elapsed').textContent}`);
   lines.push(`Service: ${(st.service||[]).join(', ')||'—'}  Job Type: ${(st.jobType||[]).join(', ')||'—'}`);
   lines.push(`Fibres: ${(st.fibres||[]).join(', ')||'—'}`);
   lines.push(`Diagnosis → Fibre: ${pickFibre||'—'}  Stain: ${pickStain||'—'}`);
-  lines.push(`Price add-on: ${document.getElementById('pbPrice').textContent}`);
   lines.push(`Solutions: ${st.solutions||'—'}  Dry passes: ${st.dryPass||'—'}`);
   if(Array.isArray(splits)) splits.forEach((s,i)=> lines.push(`Room ${i+1}: ${Math.round((s.duration||0)/60000)} min${s.note?` — ${s.note}`:''}`));
-  lines.push(`Notes: ${st.jobNotes||'—'}`);
-  navigator.clipboard.writeText(lines.join('\n'));
-  alert('Summary copied.');
-});
-document.getElementById('resetAll').addEventListener('click', ()=>{
-  if(!confirm('Clear current job?')) return;
-  localStorage.removeItem(LS_KEY); location.reload();
-});
+  lines.push(`Notes: ${st.jobNotes||'—'}`); lines.push(`Amount: ${st.amount||'—'}`);
+  navigator.clipboard.writeText(lines.join('\n')); alert('Summary copied.');
+};
+document.getElementById('resetAll').onclick = ()=>{ if(confirm('Clear current job?')){ localStorage.removeItem(LS_KEY); location.reload(); } };
 
-/* ===== Report build ===== */
-const previewEl = document.getElementById('reportPreview');
-const clientEmailEl = document.getElementById('clientEmail');
+/* ===== Report build & Customer view ===== */
+const previewEl = document.getElementById('reportPreview'), clientEmailEl=document.getElementById('clientEmail');
+const prettyMins=(m)=> isNaN(m)?'—': (m<60?`${m} min`:`${Math.floor(m/60)}h${m%60?` ${m%60}m`:''}`);
 function collectData(){
-  const st = loadState();
+  const st=loadState();
   return {
-    started: st.started||'—',
-    ended: st.ended||'—',
-    elapsed: document.getElementById('elapsed')?.textContent || '—',
-    id_service: st.service||[],
-    id_jobType: st.jobType||[],
-    id_fibres: st.fibres||[],
-    fibre: pickFibre||'—',
-    stain: pickStain||'—',
-    flags: (RULES[pickFibre]?.base.flags || []),
-    procedure: (RULES[pickFibre]?.base.proc || []),
-    price: document.getElementById('pbPrice')?.textContent || '—',
-    solutions: st.solutions||'—',
-    dryPass: st.dryPass||'—',
-    splits: (st.splits||[]).map((s,i)=>({label:`Room ${i+1}`, minutes: Math.round((s.duration||0)/60000), note:s.note||''})),
-    aftercare: !!st.aftercare,
-    notes: st.jobNotes||'—',
-    amount: st.amount||'—',
-    photos: Array.isArray(st.photos)? st.photos : []
+    started: st.started||'—', ended: st.ended||'—', elapsed: document.getElementById('elapsed').textContent || '—',
+    id_service: st.service||[], id_jobType: st.jobType||[], id_fibres: st.fibres||[],
+    fibre: pickFibre||'—', stain: pickStain||'—',
+    flags: (pickFibre? (RULES[pickFibre]?.base.flags||[]) : []),
+    procedure: (pickFibre? (RULES[pickFibre]?.base.proc||[]) : []),
+    price: document.getElementById('pbPrice').textContent || '—',
+    solutions: st.solutions||'—', dryPass: st.dryPass||'—',
+    splits: (st.splits||[]).map((s,i)=>({label:`Room ${i+1}`,minutes:Math.round((s.duration||0)/60000),note:s.note||''})),
+    aftercare: !!st.aftercare, notes: st.jobNotes||'—', amount: st.amount||'—',
+    photos: (st.photos||[]).filter(Boolean)
+  };
+}
+function clientCopy(d){
+  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
+  return {
+    timing:[`Started: ${d.started}`,`Finished: ${d.ended}`,`Total time on site: ${d.elapsed}`],
+    idtags:[`Service: ${d.id_service.join(', ')||'—'}`,`Job Type: ${d.id_jobType.join(', ')||'—'}`,`Fibres present: ${d.id_fibres.join(', ')||'—'}`],
+    diagnosis:[`Primary fibre treated: ${d.fibre}`,`Main issue treated: ${d.stain}`],
+    approach:[`Our process: ${d.procedure.join(' → ')||'—'}`,`Solutions used: ${d.solutions}`,`Dry passes for faster drying: ${d.dryPass||'—'}`],
+    watchouts:d.flags, perRoom:d.splits.length? d.splits.map(s=>`${s.label}: ${prettyMins(s.minutes)}${s.note?` — ${s.note}`:''}`):['—'],
+    outcome:[`Recommended add‑on: ${d.price||'—'}`,care,`Notes: ${d.notes}`], total:`Amount charged: ${d.amount==='—'?'—':`$${d.amount}`}`
   };
 }
 function buildReport(){
-  const d = collectData();
-  const care = d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.';
-  const report =
-`Lefties Carpet Cleaning — Job Completion Report
+  const d=collectData(), c=clientCopy(d);
+  const rpt = `Lefties Carpet Cleaning — Job Completion Report
 
 Time
-• Started: ${d.started}
-• Finished: ${d.ended}
-• Total time on site: ${d.elapsed}
+• ${c.timing.join('\n• ')}
 
 Job ID
-• Service: ${d.id_service.join(', ')||'—'}
-• Job Type: ${d.id_jobType.join(', ')||'—'}
-• Fibres present: ${d.id_fibres.join(', ')||'—'}
+• ${c.idtags.join('\n• ')}
 
 What we cleaned
-• Primary fibre treated: ${d.fibre}
-• Main issue treated: ${d.stain}
+• ${c.diagnosis.join('\n• ')}
 
 How we cared for your home
-• Our process: ${d.procedure.join(' → ') || '—'}
-• Solutions used: ${d.solutions}
-• Dry passes for faster drying: ${d.dryPass || '—'}
+• ${c.approach.join('\n• ')}
 
 Per‑room detail
-${d.splits.length ? d.splits.map(s=>`• ${s.label}: ${s.minutes} min${s.note?` — ${s.note}`:''}`).join('\n') : '• —'}
+${c.perRoom.map(x=>'• '+x).join('\n')}
 
 Outcome & next steps
-• Recommended add‑on: ${d.price || '—'}
-• ${care}
-• Notes: ${d.notes}
+• ${c.outcome.join('\n• ')}
 
-Total
-• ${d.amount==='—' ? '—' : `$${d.amount}`}
+${c.total}
 
 If we earned it, a quick review helps locals find us: leftiesservices.com.au`;
-  previewEl.textContent = report;
-  return {text: report, data: d};
+  previewEl.textContent = rpt; return {text:rpt,data:d,copy:c};
 }
-document.getElementById('refreshReport').addEventListener('click', ()=> buildReport());
-document.getElementById('copyReport').addEventListener('click', ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); });
-document.getElementById('emailReport').addEventListener('click', ()=>{
-  const to = (clientEmailEl.value||'').trim();
-  const subject = encodeURIComponent('Lefties — Job Completion Report');
-  const body = encodeURIComponent(buildReport().text);
-  const href = `mailto:${to}?subject=${subject}&body=${body}`;
-  window.location.href = href;
-});
-
-/* ===== Customer view (no bleed, responsive grid) ===== */
-function openCustomerView(){
-  const {data:d} = buildReport();
-  const win = window.open('', '_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
-  const imgGrid = d.photos.length ? `
-    <div class="section">
-      <h2>Photos</h2>
-      <div class="cv-grid">
-        ${d.photos.map(src=>`<img class="cv-img" src="${src}" alt="Photo">`).join('')}
-      </div>
-    </div>` : '';
-  win.document.write(`<!DOCTYPE html><html lang="en"><head>
-    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+document.getElementById('refreshReport').onclick = ()=> buildReport();
+document.getElementById('copyReport').onclick = ()=>{ navigator.clipboard.writeText(buildReport().text); alert('Report copied.'); };
+document.getElementById('emailReport').onclick = ()=>{
+  const to=(clientEmailEl.value||'').trim(); const subject=encodeURIComponent('Lefties — Job Completion Report'); const body=encodeURIComponent(buildReport().text);
+  location.href=`mailto:${to}?subject=${subject}&body=${body}`;
+};
+function esc(s){ return (s||'').toString().replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
+document.getElementById('openCustomerView').onclick = ()=>{
+  const {data:d,copy:c} = buildReport();
+  const li = a => a.map(x=>`<li>${esc(x)}</li>`).join('');
+  const photos = (d.photos||[]).map(src=> `<img src="${src}" alt="Photo" loading="lazy" decoding="async">`).join('');
+  const win = window.open('','_blank'); if(!win){ alert('Pop‑up blocked — allow pop‑ups for this site.'); return; }
+  win.document.write(`<!doctype html><html><head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Lefties — Job Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-      :root{ --primary:#0071B6; --cream:#EFE3CF; --cream2:#E7D7BE; --text:#1b2025; --muted:#3d4754; }
-      html,body{ height:100%; } body{ margin:0; font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--text);
-        background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%); }
-      .wrap{ max-width:860px; margin:32px auto; padding:0 16px; }
-      .card{ background:rgba(255,255,255,.54); border:1px solid rgba(0,0,0,.08); border-radius:18px; backdrop-filter:blur(12px) saturate(120%); box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25); }
-      .pad{ padding:24px; }
-      .header{ display:flex; align-items:center; gap:14px; }
-      .logo{ height:48px; width:auto; }
-      h1{ margin:0; font-size:26px; font-weight:900; }
-      .sub{ color:var(--muted); font-size:13px; }
-      h2{ font-size:18px; margin:18px 0 8px; font-weight:900; }
-      ul{ margin:0; padding-left:18px; }
-      .grid{ display:grid; grid-template-columns:1fr; gap:14px; }
-      @media(min-width:768px){ .grid{ grid-template-columns:repeat(2,1fr);} }
-      .section{ border-top:1px solid rgba(0,0,0,.08); padding-top:14px; margin-top:14px; }
-      .footer{ text-align:center; color:var(--muted); font-size:12px; margin:20px 0 8px; }
-      .cv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-      @media(min-width:768px){ .cv-grid{ grid-template-columns:repeat(3,1fr);} }
-      img{ max-width:100%; height:auto; display:block; border-radius:12px; border:1px solid rgba(0,0,0,.08); object-fit:cover }
-      @media print{ body{ background:#fff; } .card{ box-shadow:none; border:0; } .wrap{ margin:0 auto; } }
+      :root{--primary:#0071B6;--cream:#EFE3CF;--cream2:#E7D7BE;--text:#1b2025;--muted:#3d4754}
+      body{margin:0;font-family:Nunito,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream2) 100%)}
+      .wrap{max-width:860px;margin:28px auto;padding:0 16px}
+      .card{background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.08);border-radius:18px;backdrop-filter:blur(12px) saturate(120%);box-shadow:0 14px 30px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.25)}
+      .pad{padding:24px}
+      h1{margin:0;font-size:26px;font-weight:900}
+      .sub{color:var(--muted);font-size:13px}
+      h2{font-size:18px;margin:18px 0 8px;font-weight:900}
+      ul{margin:0;padding-left:18px}
+      .grid{display:grid;grid-template-columns:1fr;gap:14px}
+      @media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
+      .section{border-top:1px solid rgba(0,0,0,.08);padding-top:14px;margin-top:14px}
+      .cust-grid{display:grid;grid-template-columns:1fr;gap:12px}
+      @media(min-width:640px){.cust-grid{grid-template-columns:repeat(2,1fr)}}
+      .cust-grid img{width:100%;max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(0,0,0,.1)}
+      @media print{body{background:#fff}.card{box-shadow:none;border:0}}
     </style>
   </head><body>
     <div class="wrap">
       <div class="card pad">
-        <div class="header">
-          <img src="/core-logo-transparent.png" alt="Lefties" class="logo" />
-          <div>
-            <h1>Job Completion Report</h1>
-            <div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div>
-          </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="/core-logo-transparent.png" style="height:46px;width:auto" alt="Lefties">
+          <div><h1>Job Completion Report</h1><div class="sub">${new Date().toLocaleString()} • Hervey Bay, QLD</div></div>
         </div>
-
-        <div class="section grid">
-          <div>
-            <h2>Time</h2>
-            <ul>
-              <li>Started: ${d.started}</li>
-              <li>Finished: ${d.ended}</li>
-              <li>Total time on site: ${d.elapsed}</li>
-            </ul>
-          </div>
-          <div>
-            <h2>Job ID</h2>
-            <ul>
-              <li>Service: ${(d.id_service||[]).join(', ')||'—'}</li>
-              <li>Job Type: ${(d.id_jobType||[]).join(', ')||'—'}</li>
-              <li>Fibres present: ${(d.id_fibres||[]).join(', ')||'—'}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section grid">
-          <div>
-            <h2>What we cleaned</h2>
-            <ul>
-              <li>Primary fibre treated: ${d.fibre}</li>
-              <li>Main issue treated: ${d.stain}</li>
-            </ul>
-          </div>
-          <div>
-            <h2>How we cared for your home</h2>
-            <ul>
-              <li>Our process: ${d.procedure.join(' → ') || '—'}</li>
-              <li>Solutions used: ${d.solutions}</li>
-              <li>Dry passes for faster drying: ${d.dryPass || '—'}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>Per‑room detail</h2>
-          <ul>${(d.splits||[]).length ? d.splits.map(s=>`<li>${s.label}: ${s.minutes} min${s.note?` — ${s.note}`:''}</li>`).join('') : '<li>—</li>'}</ul>
-        </div>
-
-        ${imgGrid}
-
-        <div class="section">
-          <h2>Outcome & next steps</h2>
-          <ul>
-            <li>Recommended add‑on: ${d.price || '—'}</li>
-            <li>${d.aftercare ? 'We left you with simple aftercare steps and airflow to help things dry quickly.' : 'We can provide simple aftercare steps if you’d like — just ask.'}</li>
-            <li>Notes: ${d.notes}</li>
-          </ul>
-        </div>
-
-        <div class="section">
-          <h2>Total</h2>
-          <ul><li>${d.amount==='—' ? '—' : `$${d.amount}`}</li></ul>
-        </div>
+        <div class="section grid"><div><h2>Time</h2><ul>${li(c.timing)}</ul></div><div><h2>Job ID</h2><ul>${li(c.idtags)}</ul></div></div>
+        <div class="section grid"><div><h2>What we cleaned</h2><ul>${li(c.diagnosis)}</ul></div><div><h2>How we cared for your home</h2><ul>${li(c.approach)}</ul></div></div>
+        <div class="section"><h2>Per‑room detail</h2><ul>${li(c.perRoom)}</ul></div>
+        ${d.photos.length? `<div class="section"><h2>Photos</h2><div class="cust-grid">${photos}</div></div>` : ''}
+        <div class="section grid"><div><h2>Things we kept an eye on</h2><ul>${li(c.watchouts)}</ul></div><div><h2>Outcome & next steps</h2><ul>${li(c.outcome)}</ul></div></div>
+        <div class="section"><h2>Total</h2><ul><li>${esc(c.total)}</li></ul></div>
       </div>
-      <div class="footer">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
+      <div style="text-align:center;color:#6b7280;font-size:12px;margin:18px 0 8px">Thanks for choosing Lefties. If we earned it, a quick review helps locals find us: leftiesservices.com.au</div>
     </div>
   </body></html>`);
   win.document.close(); win.focus();
-}
-document.getElementById('openCustomerView').addEventListener('click', openCustomerView);
+};
 
 /* ===== Initial load ===== */
-function load(){
+(function init(){
   const st = loadState();
   splits = st.splits || []; renderSplits();
   if(st.started) startedEl.textContent = st.started;
   if(st.ended) endedEl.textContent = st.ended;
-  if(st.amount) document.getElementById('amount').value = st.amount;
-  if(st.clientMobile) document.getElementById('clientMobile').value = st.clientMobile;
-  FIELDS.forEach(id=>{ const el=document.getElementById(id); if(!el) return; const v=st[id]; if(el.type==='checkbox') el.checked=!!v; else if(typeof v!=='undefined') el.value=v; });
-  if(st.pickFibre){ pickFibre = st.pickFibre; document.querySelector(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
-  if(st.pickStain){ pickStain = st.pickStain; document.querySelector(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
+  ['solutions','dryPass','groomed','airflow','aftercare','jobNotes','amount','clientMobile'].forEach(id=>{
+    const el=document.getElementById(id); const v=st[id];
+    if(el) el.type==='checkbox' ? el.checked=!!v : (typeof v!=='undefined' && (el.value=v));
+  });
+  if(st.pickFibre){ pickFibre=st.pickFibre; document.querySelector(`.fibre[data-fibre="${pickFibre}"]`)?.classList.add('ring'); }
+  if(st.pickStain){ pickStain=st.pickStain; document.querySelector(`.stain[data-stain="${pickStain}"]`)?.classList.add('ring'); }
   hydrateTags();
-  renderPhotoGrid();
+  renderPhotos();
   buildReport();
-}
-load();
+})();
 </script>
 </body>
 </html>
