@@ -1,134 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lefties Carpet Cleaning | Hervey Bay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
 
-  <!-- FAVICON -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- PWA (safe if missing) -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0071B6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <!-- Tailwind -->
+  <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
 
   <style>
-    body {
-      background: #efe3cf;
+    :root{
+      --primary:#0071B6;
+      --cream:#EFE3CF;          /* deeper cream so the frost reads clearly */
+      --glass-fill:rgba(255,255,255,.42);
+      --glass-border:rgba(255,255,255,.28);
+      --text:#1b2025;
+      --muted:#3d4754;
+    }
+    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    body{
+      font-family:'Nunito',sans-serif;
+      color:var(--text);
+      background:radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, #e7d7be 100%);
+      overflow-x:hidden;
     }
 
-    .frosted {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(18px) saturate(1.2);
-      -webkit-backdrop-filter: blur(18px) saturate(1.2);
-      border-radius: 28px;
+    /* ===== Full-page background video (no tint) ===== */
+    .page-video-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;}
+    .page-video{width:100%;height:100%;object-fit:cover;}
+
+    /* ===== Frosted glass card used site-wide ===== */
+    .frosted{
+      background:var(--glass-fill);
+      border:1px solid var(--glass-border);
+      border-radius:1.25rem;
+      backdrop-filter:blur(14px) saturate(120%);
+      -webkit-backdrop-filter:blur(14px) saturate(120%);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.16),
+        inset 0 1px 1px rgba(255,255,255,.25);
     }
 
-    .btn-glass {
-      background: linear-gradient(135deg, #0071b6, #3aa9ff);
-      color: white;
-      border-radius: 999px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    .hero-accent{
+      color:var(--primary);
+      font-weight:900;
+      letter-spacing:.25px;
+      text-shadow:
+        0 0 6px rgba(0,113,182,.35),
+        0 0 14px rgba(0,140,255,.28);
     }
 
-    .hero-accent {
-      color: #0071b6;
+    .btn-glass{
+      background:linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95));
+      color:#fff;font-weight:800;border-radius:9999px;
+      border:1px solid rgba(0,148,255,.35);
+      box-shadow:0 12px 26px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.35);
+      transition:transform .2s ease, box-shadow .2s ease;
     }
+    .btn-glass:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,113,182,.38), inset 0 1px 1px rgba(255,255,255,.45);}
 
-    .link-muted {
-      color: #4b5563;
+    .container{max-width:1100px;}
+
+    /* ===== Mobile menu overlay ===== */
+    .mobile-menu-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.65);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      z-index:90;transform:translateX(100%);
+      transition:transform .45s cubic-bezier(.86,0,.07,1);
     }
+    .mobile-menu-overlay[data-state="open"]{transform:translateX(0);}
+    .hamburger-icon{display:flex;flex-direction:column;justify-content:space-between;width:2rem;height:1.5rem}
+    .hamburger-icon span{height:2px;width:100%;background:#111;border-radius:9999px;transition:all .3s}
+    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg)}
+    .hamburger-icon.open span:nth-child(2){opacity:0}
+    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg)}
+    .link-muted{color:var(--muted)}
   </style>
 </head>
-
 <body class="antialiased">
 
-  <!-- ===== NAV ===== -->
-  <header class="fixed top-4 left-0 right-0 z-50">
-    <div class="container mx-auto px-4">
-      <div class="frosted flex items-center justify-between px-6 py-4">
-        
-        <img src="core-logo-transparent.png"
-             alt="Lefties Logo"
-             class="h-10 md:h-12 select-none" />
+  <!-- ===== FULL-PAGE BACKGROUND VIDEO ===== -->
+  <div class="page-video-wrap" aria-hidden="true">
+    <!-- Use your repo file: homepage-video.mp4 (plays under the whole site) -->
+    <video class="page-video" autoplay muted loop playsinline>
+      <source src="Dog-video.mp4" type="video/mp4">
+    </video>
+  </div>
 
-        <button class="md:hidden">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <line x1="3" y1="6" x2="21" y2="6" stroke="black" stroke-width="2"/>
-            <line x1="3" y1="12" x2="21" y2="12" stroke="black" stroke-width="2"/>
-            <line x1="3" y1="18" x2="21" y2="18" stroke="black" stroke-width="2"/>
-          </svg>
+  <!-- ===== HEADER ===== -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <header class="sticky top-0 z-40">
+    <nav class="container mx-auto px-4 py-3">
+      <div class="frosted px-4 md:px-6 py-3 flex items-center justify-between">
+        <!-- exact file name as in your repo -->
+        <a href="#home" class="flex items-center gap-3">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto select-none"/>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-6 font-extrabold text-[15px]">
+          <a href="services.html" class="hover:text-[color:var(--primary)]">Services</a>
+          <a href="commercial.html" class="hover:text-[color:var(--primary)]">Commercial</a>
+          <a href="contact-us.html" class="hover:text-[color:var(--primary)]">Contact Us</a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-4">
+          <!-- Socials back -->
+          <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="opacity-80 hover:opacity-100">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="opacity-80 hover:opacity-100">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106 13a5.5 5.5 0 006-5.5zm6.5-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0z"/></svg>
+          </a>
+          <a href="#quote" class="btn-glass px-5 py-2.5 text-sm">Get a Quote</a>
+        </div>
+
+        <!-- Mobile trigger -->
+        <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+          <div class="hamburger-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
         </button>
-
-        <nav class="hidden md:flex gap-8 text-sm font-medium">
-          <a href="#services">Services</a>
-          <a href="#commercial">Commercial</a>
-          <a href="#contact">Contact</a>
-        </nav>
       </div>
-    </div>
+    </nav>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <main class="pt-32 md:pt-40">
-    <section class="container mx-auto px-4">
-      <div class="frosted px-6 md:px-12 py-8 md:py-12 text-center">
+  <!-- ===== MOBILE MENU ===== -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true">
+    <div class="p-8 text-center mt-24 flex flex-col h-full">
+      <div class="space-y-8 font-bold text-3xl">
+        <a href="services.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Services</a>
+        <a href="commercial.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Commercial</a>
+        <a href="about-us.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">About Us</a>
+        <a href="contact-us.html" class="block text-white/90 hover:text-white" onclick="closeMenu()">Contact Us</a>
+      </div>
+      <div class="mt-10">
+        <a href="#quote" class="btn-glass px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
+      </div>
+      <div class="mt-auto pb-8 flex justify-center gap-8">
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" aria-label="Facebook" class="text-white/80 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M22 12a10 10 0 10-11.563 9.874v-6.987H7.898V12h2.539V9.797c0-2.506 1.491-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.247 0-1.64.773-1.64 1.574V12h2.773l-.443 2.887h-2.33v6.987A10.002 10.002 0 0022 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/Lefties.Services" target="_blank" rel="noopener" aria-label="Instagram" class="text-white/80 hover:text-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M12 2C8.74 2 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.784.305-1.455.718-2.126 1.388C1.343 2.69 1.03 3.36.725 4.14c-.305.784-.507 1.65-.568 2.913C.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.262.263 2.132.568 2.913.305.784.718 1.455 1.388 2.126.67.67 1.342.983 2.126 1.288.784.305 1.65.507 2.913.568C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.262-.06 2.132-.263 2.913-.568.784-.305 1.455-.718 2.126-1.388.67-.67.983-1.342 1.288-2.126.305-.784.507-1.65.568-2.913C23.985 15.667 24 15.26 24 12s-.015-3.667-.072-4.947c-.06-1.262-.263-2.132-.568-2.913-.305-.784-.718-1.455-1.388-2.126C21.31 1.343 20.64 1.03 19.86.725c-.784-.305-1.65-.507-2.913-.568C15.667.015 15.26 0 12 0zm0 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 
-        <!-- BIG LOGO -->
-        <img src="core-logo-transparent.png"
-             alt="Lefties Carpet Cleaning Logo"
-             class="
-               block
-               w-[100vw]
-               max-w-none
-               scale-[1.25]
-               sm:scale-100
-               md:w-[640px]
-               lg:w-[720px]
-               xl:w-[800px]
-               mx-auto
-               mb-6
-               select-none
-             " />
-
-        <h1 class="text-[52px] md:text-[78px] font-black leading-tight">
+  <main>
+    <!-- ===== HERO (logo + Hervey Bay) ===== -->
+    <section id="home" class="container mx-auto px-4 pt-8 md:pt-12">
+      <div class="frosted px-5 md:px-10 py-8 md:py-10 text-center">
+        <!-- exact logo above headline -->
+        <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Logo"
+  class="
+    block
+    w-[100vw]
+    max-w-none
+    scale-[1.15]
+    sm:scale-100
+    md:w-[640px]
+    lg:w-[720px]
+    xl:w-[800px]
+    mx-auto
+    mb-10
+    select-none
+  "
+/>
+        <h1 class="text-[52px] md:text-[74px] leading-tight font-black">
           <span class="hero-accent">Hervey Bay</span>
         </h1>
-
         <p class="mt-4 text-lg md:text-xl link-muted max-w-3xl mx-auto">
           We get the deep-down dirt, stains, and stories out of carpets, rugs, and lounges across Hervey Bay.
         </p>
-
         <div class="mt-8">
-          <a href="#contact" class="btn-glass inline-block px-10 py-4 text-lg">
-            Book With Us Today
-          </a>
+          <a href="#quote" class="btn-glass inline-block px-8 py-4 text-lg">Book With Us Today</a>
         </div>
-
       </div>
     </section>
 
-    <!-- ===== VALUE BLOCK ===== -->
-    <section class="container mx-auto px-4 mt-20">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          Not Just Clean. <span class="hero-accent">Revived.</span>
-        </h2>
-
-        <p class="text-lg link-muted">
-          Lefties is a local Hervey Bay business. We show up when we say we will,
-          treat your home with respect, and focus on real results not shortcuts.
+    <!-- ===== WHY US ===== -->
+    <section class="container mx-auto px-4 mt-8 md:mt-10">
+      <div class="frosted px-6 md:px-10 py-8 md:py-10 text-center">
+        <h2 class="text-3xl md:text-4xl font-black mb-2">Not Just Clean. <span class="hero-accent">Revived.</span></h2>
+        <p class="text-lg md:text-xl link-muted max-w-3xl mx-auto">
+          Lefties isn't a big, faceless franchise. We're a local Hervey Bay business, and we're obsessed with the results we deliver.
+          We show up when we say we will, treat your home with respect, and stand behind the quality of our clean.
         </p>
+      </div>
+    </section>
+
+    <!-- ===== Trust tiles (frosted) ===== -->
+    <section class="container mx-auto px-4 mt-10 md:mt-12">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="frosted p-6">
+          <h3 class="text-xl md:text-2xl font-extrabold text-[color:var(--primary)]">Honest Quotes</h3>
+          <p class="mt-2 link-muted">The price we say is the price you pay. If we find something unexpected, we talk to you first.</p>
+        </div>
+        <div class="frosted p-6">
+          <h3 class="text-xl md:text-2xl font-extrabold text-[color:var(--primary)]">The Job Done Right</h3>
+          <p class="mt-2 link-muted">We don’t cut corners. The right gear and methods for a proper, deep clean.</p>
+        </div>
+        <div class="frosted p-6">
+          <h3 class="text-xl md:text-2xl font-extrabold text-[color:var(--primary)]">Local. Zero BS.</h3>
+          <p class="mt-2 link-muted">Your local Hervey Bay crew. On time, respectful, straight-up advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Gallery preview tiles (kept simple, frosted frames) ===== -->
+    <section id="gallery" class="container mx-auto px-4 mt-12 md:mt-16">
+      <div class="text-center mb-6">
+        <h2 class="text-3xl md:text-4xl font-black">The Proof is in the Details</h2>
+        <p class="link-muted mt-2">A few recent wins.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="frosted overflow-hidden"><img src="before-after.png" alt="Before & after upholstery" class="w-full h-auto"></div>
+        <div class="frosted overflow-hidden"><img src="before-after-2.png" alt="Before & after carpet" class="w-full h-auto"></div>
+        <div class="frosted overflow-hidden"><img src="before-after-3.png" alt="Before & after rug" class="w-full h-auto"></div>
+        <div class="frosted overflow-hidden"><img src="before-after-4.png" alt="Before & after stain removal" class="w-full h-auto"></div>
+      </div>
+    </section>
+
+    <!-- ===== Tips ===== -->
+    <section class="container mx-auto px-4 mt-12 md:mt-16">
+      <h2 class="text-3xl md:text-4xl font-black text-center mb-8">Tips & Tricks of the Trade</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <article class="frosted p-6">
+          <h3 class="text-xl font-extrabold text-[color:var(--primary)] mb-1">Mistake #1: Scrubbing Stains</h3>
+          <p class="link-muted">Scrubbing pushes the stain deeper and can damage fibres. Blot gently with a clean, white cloth.</p>
+        </article>
+        <article class="frosted p-6">
+          <h3 class="text-xl font-extrabold text-[color:var(--primary)] mb-1">Mistake #2: Supermarket Sprays</h3>
+          <p class="link-muted">Many contain bleaching agents or sticky detergents that attract dirt and make the problem worse.</p>
+        </article>
+        <article class="frosted p-6">
+          <h3 class="text-xl font-extrabold text-[color:var(--primary)] mb-1">Mistake #3: Waiting Too Long</h3>
+          <p class="link-muted">The longer it sits, the harder it is to remove. Coffee and pet urine can permanently dye fibres.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section id="quote" class="container mx-auto px-4 mt-12 md:mt-16 mb-16">
+      <div class="frosted px-6 md:px-10 py-8 md:py-10 text-center">
+        <h2 class="text-3xl md:text-4xl font-black">Ready to Book Your Clean?</h2>
+        <p class="mt-3 text-lg md:text-xl link-muted max-w-3xl mx-auto">
+          Message us with a photo of the job for a quick, honest quote, or give us a call to chat.
+        </p>
+        <div class="mt-6">
+          <a href="tel:0417220012" class="btn-glass inline-block px-8 py-4 text-lg">Call 0417 220 012</a>
+        </div>
+        <p class="mt-3 font-semibold text-[color:var(--primary)]">Servicing Hervey Bay & Brisbane</p>
       </div>
     </section>
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="mt-32 py-10 text-center text-sm link-muted">
-    © Lefties Carpet Cleaning • Hervey Bay
+  <footer class="py-10">
+    <div class="container mx-auto px-4 text-center">
+      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 mx-auto mb-3 opacity-70">
+      <p class="text-sm link-muted">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
+    </div>
   </footer>
 
+  <!-- ===== JS ===== -->
+  <script>
+    // Service worker (safe if missing)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(()=>{});
+      });
+    }
+
+    // Mobile menu
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('mobile-menu-button');
+      const burger = document.getElementById('hamburger-icon');
+      const overlay = document.getElementById('mobile-menu-overlay');
+
+      function openMenu(){
+        overlay.setAttribute('data-state','open');
+        overlay.setAttribute('aria-hidden','false');
+        burger.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+        document.body.style.overflow='hidden';
+      }
+      function closeMenu(){
+        overlay.setAttribute('data-state','closed');
+        overlay.setAttribute('aria-hidden','true');
+        burger.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.body.style.overflow='';
+      }
+      window.closeMenu = closeMenu;
+      btn?.addEventListener('click', ()=> {
+        const isOpen = overlay.getAttribute('data-state')==='open';
+        isOpen ? closeMenu() : openMenu();
+      });
+    });
+  </script>
 </body>
 </html>
