@@ -14,7 +14,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&family=Lexend+Deca:wght@300;600;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Lexend+Deca:wght@300;600;800&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
@@ -39,11 +39,19 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, .nav-brand {
+    h2, .nav-brand {
       font-family: 'Lexend Deca', sans-serif;
     }
 
-    /* ===== Fixed Background Video with Soft Overlay ===== */
+    /* Refined Heading Style for Hervey Bay - Smaller & More Elegant */
+    .hero-title {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Fixed Background Video */
     .page-video-wrap {
       position: fixed;
       top: 0;
@@ -68,7 +76,7 @@
       object-fit: cover;
     }
 
-    /* ===== Coastal Glassmorphism ===== */
+    /* Coastal Glassmorphism */
     .frosted {
       background: var(--glass-fill);
       border: 1px solid var(--glass-border);
@@ -82,8 +90,6 @@
 
     .hero-accent {
       color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
       position: relative;
       display: inline-block;
     }
@@ -91,12 +97,12 @@
     .hero-accent::after {
       content: '';
       position: absolute;
-      bottom: -4px;
-      left: 10%;
-      width: 80%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      border-radius: 2px;
+      bottom: -2px;
+      left: 25%;
+      width: 50%;
+      height: 1px;
+      background: var(--primary);
+      opacity: 0.5;
     }
 
     .btn-glass {
@@ -117,25 +123,26 @@
     /* Floating Animation for Logo */
     @keyframes float {
       0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-15px); }
       100% { transform: translateY(0px); }
     }
     .float-logo {
       animation: float 6s ease-in-out infinite;
     }
 
-    /* Mobile Menu */
+    /* Mobile Menu Overlay */
     .mobile-menu-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, #0088d4 0%, #004e7d 100%);
+      background: rgba(0, 113, 182, 0.98);
       z-index: 100;
       transform: translateX(100%);
-      transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      backdrop-filter: blur(10px);
     }
 
     .mobile-menu-overlay[data-state="open"] {
@@ -143,9 +150,15 @@
     }
 
     .hamburger-icon span {
-      height: 2px;
+      height: 3px;
       background: var(--text);
-      transition: .3s;
+      transition: all 0.3s ease;
+      border-radius: 3px;
+    }
+
+    /* To prevent phone number wrapping */
+    .no-wrap {
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -159,60 +172,87 @@
 
   <header class="sticky top-0 z-50 w-full px-4 pt-4">
     <nav class="container mx-auto">
-      <div class="frosted px-5 md:px-10 py-3 flex items-center justify-between">
+      <div class="frosted px-6 md:px-10 py-4 flex items-center justify-between">
         <a href="#home" class="flex items-center group">
-          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto transition-transform group-hover:scale-105"/>
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-16 w-auto transition-transform group-hover:scale-105"/>
         </a>
 
-        <div class="hidden md:flex items-center gap-10 font-bold text-xs tracking-widest text-gray-800">
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-6 font-bold text-xs tracking-widest text-gray-800">
           <a href="services.html" class="hover:text-[var(--primary)] transition-colors">SERVICES</a>
           <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
           <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
-          <a href="#quote" class="btn-glass px-8 py-3">GET QUOTE</a>
+          
+          <div class="flex items-center gap-4 border-l border-gray-300 pl-6">
+            <!-- Facebook Link -->
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="hover:text-[var(--primary)] transition-colors" title="Follow us on Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+            <!-- TikTok Link -->
+            <a href="#" target="_blank" class="hover:text-[var(--primary)] transition-colors" title="Follow us on TikTok">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
+            </a>
+          </div>
+          <a href="#quote" class="btn-glass px-8 py-3 ml-2">GET QUOTE</a>
         </div>
 
-        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110]">
-          <div class="hamburger-icon space-y-1.5" id="hamburger-icon">
-            <span class="block w-6"></span>
-            <span class="block w-4 ml-auto"></span>
-            <span class="block w-6"></span>
+        <!-- Mobile Toggle -->
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110] focus:outline-none">
+          <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon">
+            <span class="block w-8"></span>
+            <span class="block w-5"></span>
+            <span class="block w-8"></span>
           </div>
         </button>
       </div>
     </nav>
   </header>
 
+  <!-- Mobile Menu Overlay -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay" data-state="closed">
-    <div class="flex flex-col gap-10 text-center">
-      <a href="services.html" class="text-4xl font-black text-white" onclick="closeMenu()">Services</a>
-      <a href="commercial.html" class="text-4xl font-black text-white" onclick="closeMenu()">Commercial</a>
-      <a href="contact-us.html" class="text-4xl font-black text-white" onclick="closeMenu()">Contact</a>
+    <div class="flex flex-col gap-8 text-center">
+      <a href="services.html" class="text-4xl font-extrabold text-white hover:text-[var(--accent)]" onclick="closeMenu()">Services</a>
+      <a href="commercial.html" class="text-4xl font-extrabold text-white hover:text-[var(--accent)]" onclick="closeMenu()">Commercial</a>
+      <a href="contact-us.html" class="text-4xl font-extrabold text-white hover:text-[var(--accent)]" onclick="closeMenu()">Contact</a>
+      
+      <div class="flex items-center justify-center gap-6 pt-4">
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-white hover:text-[var(--accent)]" onclick="closeMenu()">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+        <a href="#" target="_blank" class="text-white hover:text-[var(--accent)]" onclick="closeMenu()">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
+        </a>
+      </div>
+
       <div class="pt-6">
-        <a href="#quote" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
+        <a href="#quote" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-xl" onclick="closeMenu()">Get a Quote</a>
+      </div>
+      <div class="pt-4">
+        <a href="tel:0417220012" class="text-white/80 font-bold text-lg no-wrap">0417 220 012</a>
       </div>
     </div>
   </div>
 
   <main class="relative z-10">
-    <!-- Hero -->
-    <section id="home" class="container mx-auto px-4 pt-8 md:pt-16">
-      <div class="frosted p-10 md:p-20 text-center">
-        <div class="flex justify-center mb-10 md:mb-14">
+    <!-- Hero Section -->
+    <section id="home" class="container mx-auto px-4 pt-6 md:pt-12">
+      <div class="frosted p-8 md:p-20 text-center">
+        <div class="flex justify-center mb-6 md:mb-10">
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning" 
-               class="w-full max-w-[340px] md:max-w-[650px] h-auto float-logo pointer-events-none" />
+               class="w-full max-w-[400px] md:max-w-[700px] h-auto float-logo pointer-events-none" />
         </div>
         
-        <h1 class="text-4xl md:text-8xl font-black leading-none mb-6">
+        <h1 class="hero-title text-3xl md:text-6xl mb-8">
           <span class="hero-accent">Hervey Bay</span>
         </h1>
         
-        <p class="text-xl md:text-2xl text-gray-800 max-w-2xl mx-auto font-medium leading-relaxed opacity-90">
+        <p class="text-xl md:text-2xl text-gray-800 max-w-2xl mx-auto font-medium leading-relaxed opacity-90 mb-12">
           Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. Professional steam cleaning that brings the "new home" feel back to your space.
         </p>
         
-        <div class="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-          <a href="#quote" class="btn-glass px-12 py-5 text-xl">Book Your Clean</a>
-          <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-12 py-5 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg">
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <a href="#quote" class="btn-glass px-12 py-5 text-xl w-full sm:w-auto">Book Your Clean</a>
+          <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-12 py-5 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg no-wrap w-full sm:w-auto text-center">
             Call 0417 220 012
           </a>
         </div>
@@ -276,13 +316,59 @@
       </div>
     </section>
 
+    <!-- Reviews Section -->
+    <section class="container mx-auto px-4 py-20">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-black tracking-tight">What Locals Are Saying</h2>
+        <div class="w-20 h-1 bg-[var(--accent)] mx-auto mt-4 rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Andy M -->
+        <div class="frosted p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex text-yellow-400 mb-4 text-xl">★★★★★</div>
+            <p class="text-gray-800 italic mb-6 leading-relaxed">
+              "Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. We still get him in every six months at my workplace too. Highly recommend!!"
+            </p>
+          </div>
+          <div class="font-bold text-[var(--primary)] uppercase tracking-wider">— Andy M.</div>
+        </div>
+        <!-- Wendy B -->
+        <div class="frosted p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex text-yellow-400 mb-4 text-xl">★★★★★</div>
+            <p class="text-gray-800 italic mb-6 leading-relaxed">
+              "I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."
+            </p>
+          </div>
+          <div class="font-bold text-[var(--primary)] uppercase tracking-wider">— Wendy B.</div>
+        </div>
+        <!-- Amy K -->
+        <div class="frosted p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex text-yellow-400 mb-4 text-xl">★★★★★</div>
+            <p class="text-gray-800 italic mb-6 leading-relaxed">
+              "Great job and well priced! Highly recommend for couch cleaning."
+            </p>
+          </div>
+          <div class="font-bold text-[var(--primary)] uppercase tracking-wider">— Amy K.</div>
+        </div>
+      </div>
+      <div class="text-center mt-10">
+        <a href="https://www.facebook.com/leftiesservices/reviews/?id=61565898132855&sk=reviews" target="_blank" class="text-[var(--primary)] font-extrabold hover:underline flex items-center justify-center gap-2">
+          Read all 5-star reviews on Facebook 
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+    </section>
+
     <!-- Footer Quote -->
     <section id="quote" class="container mx-auto px-4 py-24 mb-16">
-      <div class="frosted p-12 md:p-20 text-center relative overflow-hidden">
+      <div class="frosted p-10 md:p-20 text-center relative overflow-hidden">
         <div class="relative z-10">
           <h2 class="text-4xl md:text-6xl font-black mb-6">Ready to Breathe Easy?</h2>
           <p class="text-xl mb-10 text-gray-800 font-medium">Get an instant estimate. Just text a photo to our local crew.</p>
-          <a href="tel:0417220012" class="btn-glass px-16 py-6 text-2xl inline-block">
+          <a href="tel:0417220012" class="btn-glass px-16 py-6 text-2xl inline-block no-wrap">
             0417 220 012
           </a>
         </div>
@@ -290,7 +376,7 @@
     </section>
   </main>
 
-  <footer class="pb-20 text-center opacity-40 text-sm font-bold tracking-widest uppercase">
+  <footer class="pb-20 text-center opacity-40 text-xs font-bold tracking-widest uppercase">
     <p>&copy; 2025 Lefties Carpet Cleaning &bull; Hervey Bay &bull; Fraser Coast</p>
   </footer>
 
@@ -302,16 +388,18 @@
     function openMenu() {
       overlay.setAttribute('data-state', 'open');
       document.body.style.overflow = 'hidden';
-      burger.children[0].style.transform = 'translateY(8px) rotate(45deg)';
+      // Icon Animation to X
+      burger.children[0].style.transform = 'translateY(9px) rotate(45deg)';
       burger.children[0].style.background = 'white';
       burger.children[1].style.opacity = '0';
-      burger.children[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      burger.children[2].style.transform = 'translateY(-9px) rotate(-45deg)';
       burger.children[2].style.background = 'white';
     }
 
     function closeMenu() {
       overlay.setAttribute('data-state', 'closed');
       document.body.style.overflow = '';
+      // Icon Animation back to Hamburger
       burger.children[0].style.transform = 'none';
       burger.children[0].style.background = 'var(--text)';
       burger.children[1].style.opacity = '1';
@@ -319,11 +407,12 @@
       burger.children[2].style.background = 'var(--text)';
     }
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
       const isOpen = overlay.getAttribute('data-state') === 'open';
       isOpen ? closeMenu() : openMenu();
     });
 
+    // Handle video play on touch
     document.addEventListener('touchstart', function() {
       const video = document.querySelector('.page-video');
       if (video && video.paused) video.play();
