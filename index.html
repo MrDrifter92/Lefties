@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
 
-  <!-- PWA -->
+  <!-- Favicons -->
+  <!-- Standard Browser Tab Icon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <!-- Apple Home Screen Icon (The high-res square logo) -->
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <!-- PWA & Mobile Meta -->
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0071B6">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +28,7 @@
       --primary: #0071B6;
       --accent: #00D2FF;
       --cream: #F4EBD9;
-      --glass-fill: rgba(255, 255, 255, 0.7);
+      --glass-fill: rgba(255, 255, 255, 0.75);
       --glass-border: rgba(255, 255, 255, 0.4);
       --text: #1a1e23;
     }
@@ -43,7 +50,6 @@
       font-family: 'Lexend Deca', sans-serif;
     }
 
-    /* Refined Heading Style for Hervey Bay */
     .hero-title {
       font-family: 'Nunito', sans-serif;
       font-weight: 300;
@@ -51,7 +57,6 @@
       text-transform: uppercase;
     }
 
-    /* Fixed Background Video */
     .page-video-wrap {
       position: fixed;
       top: 0;
@@ -76,7 +81,6 @@
       object-fit: cover;
     }
 
-    /* Coastal Glassmorphism */
     .frosted {
       background: var(--glass-fill);
       border: 1px solid var(--glass-border);
@@ -92,7 +96,6 @@
       display: inline-block;
     }
 
-    /* Glow Effect for Line */
     .hero-accent::after {
       content: '';
       position: absolute;
@@ -101,8 +104,8 @@
       width: 60%;
       height: 2px;
       background: var(--accent);
-      box-shadow: 0 0 12px 1px var(--accent);
-      opacity: 0.8;
+      box-shadow: 0 0 15px 2px var(--accent);
+      opacity: 0.9;
       border-radius: 10px;
     }
 
@@ -114,7 +117,9 @@
       border-radius: 9999px;
       box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.4);
       transition: all 0.3s ease;
-      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-glass:hover {
@@ -122,17 +127,24 @@
       box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.5);
     }
 
-    /* Floating Animation for Logo */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
+    @keyframes heroFloat {
+      0% { 
+        transform: translateY(0px) scale(1); 
+        filter: drop-shadow(0 0 0px rgba(0, 210, 255, 0));
+      }
+      50% { 
+        transform: translateY(-15px) scale(1.02); 
+        filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.2));
+      }
+      100% { 
+        transform: translateY(0px) scale(1); 
+        filter: drop-shadow(0 0 0px rgba(0, 210, 255, 0));
+      }
     }
-    .float-logo {
-      animation: float 5s ease-in-out infinite;
+    .float-logo-enhanced {
+      animation: heroFloat 6s ease-in-out infinite;
     }
 
-    /* Mobile Menu Overlay */
     .mobile-menu-overlay {
       position: fixed;
       inset: 0;
@@ -161,13 +173,6 @@
     .no-wrap {
       white-space: nowrap;
     }
-
-    /* Mobile Logo Sizing */
-    @media (max-width: 768px) {
-      .mobile-logo {
-        height: 60px !important;
-      }
-    }
   </style>
 </head>
 <body class="antialiased">
@@ -179,10 +184,10 @@
   </div>
 
   <header class="sticky top-0 z-50 w-full px-4 pt-3">
-    <nav class="max-w-6xl mx-auto">
-      <div class="frosted px-5 md:px-8 py-3 flex items-center justify-between">
+    <nav class="max-w-5xl mx-auto">
+      <div class="frosted px-4 md:px-8 py-3 flex items-center justify-between">
         <a href="#home" class="flex items-center group">
-          <img src="core-logo-transparent.png" alt="Lefties Logo" class="mobile-logo h-14 md:h-16 w-auto transition-transform group-hover:scale-105"/>
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 md:h-20 w-auto transition-transform group-hover:scale-105"/>
         </a>
 
         <!-- Desktop Nav -->
@@ -192,10 +197,10 @@
           <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
           
           <div class="flex items-center gap-4 border-l border-gray-300 pl-6">
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="hover:text-[var(--primary)] transition-colors">
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="hover:text-[var(--primary)] transition-colors" title="Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
             </a>
-            <a href="#" target="_blank" class="hover:text-[var(--primary)] transition-colors">
+            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="hover:text-[var(--primary)] transition-colors" title="TikTok">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
             </a>
           </div>
@@ -203,7 +208,7 @@
         </div>
 
         <!-- Mobile Toggle -->
-        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110] focus:outline-none">
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110] focus:outline-none" aria-label="Toggle Menu">
           <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon">
             <span class="block w-8"></span>
             <span class="block w-5"></span>
@@ -216,38 +221,35 @@
 
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay" data-state="closed">
-    <div class="flex flex-col gap-6 text-center">
+    <div class="flex flex-col gap-8 text-center px-6">
       <a href="services.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Services</a>
       <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
       <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
       
-      <div class="flex items-center justify-center gap-6 pt-2">
+      <div class="flex items-center justify-center gap-8 py-4">
         <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-white">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+          <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
         </a>
-        <a href="#" target="_blank" class="text-white">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
+        <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-white">
+          <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
         </a>
       </div>
 
       <div class="pt-4">
-        <a href="#quote" class="bg-white text-[var(--primary)] px-10 py-4 rounded-full font-black text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
+        <a href="#quote" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg" onclick="closeMenu()">Get a Quote</a>
       </div>
-      <div class="pt-2">
-        <a href="tel:0417220012" class="text-white/80 font-bold text-lg">0417 220 012</a>
-      </div>
-      <!-- Close button for better accessibility -->
-      <button class="mt-8 text-white/50 text-sm font-bold tracking-widest uppercase" onclick="closeMenu()">Close Menu</button>
+      
+      <button class="mt-4 text-white/60 text-sm font-bold tracking-widest uppercase hover:text-white" onclick="closeMenu()">[ Tap to Close ]</button>
     </div>
   </div>
 
-  <main class="max-w-6xl mx-auto px-4 relative z-10">
+  <main class="max-w-5xl mx-auto px-4 relative z-10">
     <!-- Hero Section -->
-    <section id="home" class="pt-6 md:pt-10">
-      <div class="frosted p-6 md:p-14 text-center">
-        <div class="flex justify-center mb-6 md:mb-8">
+    <section id="home" class="pt-4 md:pt-12">
+      <div class="frosted p-6 md:p-16 text-center">
+        <div class="flex justify-center mb-8 md:mb-12">
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning" 
-               class="w-full max-w-[320px] md:max-w-[550px] h-auto float-logo pointer-events-none" />
+               class="w-full max-w-md md:max-w-4xl h-auto float-logo-enhanced pointer-events-none" />
         </div>
         
         <h1 class="hero-title text-2xl md:text-5xl mb-6">
@@ -260,34 +262,34 @@
         
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
           <a href="#quote" class="btn-glass px-10 py-4 text-lg w-full sm:w-auto">Book Your Clean</a>
-          <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center no-wrap">
-            0417 220 012
+          <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center">
+            <span class="no-wrap">0417 220 012</span>
           </a>
         </div>
       </div>
     </section>
 
     <!-- Services Grid -->
-    <section class="py-12 grid md:grid-cols-3 gap-6">
-      <div class="frosted p-8 group transition-all">
-        <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-7 h-7 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <section class="py-10 grid md:grid-cols-3 gap-6">
+      <div class="frosted p-8 group">
+        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
+          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
         </div>
         <h3 class="text-xl font-black mb-2 text-gray-900">Residential</h3>
         <p class="text-gray-700 text-sm leading-relaxed">Expert upholstery revival and carpet steam cleaning to remove allergens and stubborn stains from your home.</p>
       </div>
       
-      <div class="frosted p-8 group transition-all">
-        <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-7 h-7 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+      <div class="frosted p-8 group">
+        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
+          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
         </div>
         <h3 class="text-xl font-black mb-2 text-gray-900">Commercial</h3>
         <p class="text-gray-700 text-sm leading-relaxed">High-traffic fabric and carpet solutions for offices and retail. Fast drying times to minimize business disruption.</p>
       </div>
 
-      <div class="frosted p-8 group transition-all">
-        <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-7 h-7 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div class="frosted p-8 group">
+        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
+          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
         </div>
         <h3 class="text-xl font-black mb-2 text-gray-900">End of Lease</h3>
         <p class="text-gray-700 text-sm leading-relaxed">Complete upholstery and carpet revival to ensure your bond is returned. Real estate standard guaranteed.</p>
@@ -296,27 +298,27 @@
 
     <!-- Visual Proof -->
     <section class="py-8">
-      <div class="text-center mb-10">
+      <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight">The Proof is in the Revival</h2>
         <div class="w-16 h-1 bg-[var(--accent)] mx-auto mt-3 rounded-full"></div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="frosted p-2 overflow-hidden">
+        <div class="frosted p-2">
           <div class="rounded-xl overflow-hidden aspect-square">
             <img src="before-after.png" class="w-full h-full object-cover" alt="Revival 1">
           </div>
         </div>
-        <div class="frosted p-2 overflow-hidden">
+        <div class="frosted p-2">
           <div class="rounded-xl overflow-hidden aspect-square">
             <img src="before-after-2.png" class="w-full h-full object-cover" alt="Revival 2">
           </div>
         </div>
-        <div class="frosted p-2 overflow-hidden">
+        <div class="frosted p-2">
           <div class="rounded-xl overflow-hidden aspect-square">
             <img src="before-after-3.png" class="w-full h-full object-cover" alt="Revival 3">
           </div>
         </div>
-        <div class="frosted p-2 overflow-hidden">
+        <div class="frosted p-2">
           <div class="rounded-xl overflow-hidden aspect-square">
             <img src="before-after-4.png" class="w-full h-full object-cover" alt="Revival 4">
           </div>
@@ -325,39 +327,30 @@
     </section>
 
     <!-- Reviews Section -->
-    <section class="py-16">
+    <section class="py-12">
       <div class="text-center mb-10">
         <h2 class="text-3xl font-black tracking-tight">What Locals Are Saying</h2>
         <div class="w-16 h-1 bg-[var(--accent)] mx-auto mt-3 rounded-full"></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Andy M -->
         <div class="frosted p-6 flex flex-col justify-between">
           <div>
-            <div class="flex text-yellow-400 mb-3 text-lg">★★★★★</div>
-            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">
-              "Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. We still get him in every six months at my workplace too. Highly recommend!!"
-            </p>
+            <div class="flex text-yellow-500 mb-3 text-lg">★★★★★</div>
+            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">"Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. We still get him in every six months at my workplace too. Highly recommend!!"</p>
           </div>
           <div class="font-bold text-[var(--primary)] text-xs uppercase tracking-wider">— Andy M.</div>
         </div>
-        <!-- Wendy B -->
         <div class="frosted p-6 flex flex-col justify-between">
           <div>
-            <div class="flex text-yellow-400 mb-3 text-lg">★★★★★</div>
-            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">
-              "I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."
-            </p>
+            <div class="flex text-yellow-500 mb-3 text-lg">★★★★★</div>
+            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">"I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."</p>
           </div>
           <div class="font-bold text-[var(--primary)] text-xs uppercase tracking-wider">— Wendy B.</div>
         </div>
-        <!-- Amy K -->
         <div class="frosted p-6 flex flex-col justify-between">
           <div>
-            <div class="flex text-yellow-400 mb-3 text-lg">★★★★★</div>
-            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">
-              "Great job and well priced! Highly recommend for couch cleaning."
-            </p>
+            <div class="flex text-yellow-500 mb-3 text-lg">★★★★★</div>
+            <p class="text-gray-800 text-sm italic mb-4 leading-relaxed">"Great job and well priced! Highly recommend for couch cleaning."</p>
           </div>
           <div class="font-bold text-[var(--primary)] text-xs uppercase tracking-wider">— Amy K.</div>
         </div>
@@ -371,13 +364,13 @@
     </section>
 
     <!-- Footer Quote -->
-    <section id="quote" class="py-16 mb-10">
-      <div class="frosted p-8 md:p-14 text-center">
+    <section id="quote" class="py-12 mb-8">
+      <div class="frosted p-8 md:p-12 text-center overflow-hidden">
         <h2 class="text-3xl md:text-5xl font-black mb-4">Ready to Breathe Easy?</h2>
-        <p class="text-lg mb-8 text-gray-800 font-medium">Get an instant estimate. Just text a photo to our local crew.</p>
-        <div class="flex justify-center">
-          <a href="tel:0417220012" class="btn-glass px-12 py-5 text-xl flex items-center justify-center gap-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+        <p class="text-lg mb-8 text-gray-800 font-medium px-4">Get an instant estimate. Just text a photo to our local crew.</p>
+        <div class="flex justify-center px-4">
+          <a href="tel:0417220012" class="btn-glass px-8 md:px-12 py-5 text-lg md:text-xl w-full max-w-sm flex items-center justify-center gap-3">
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
             <span class="no-wrap">0417 220 012</span>
           </a>
         </div>
@@ -426,3 +419,4 @@
   </script>
 </body>
 </html>
+
