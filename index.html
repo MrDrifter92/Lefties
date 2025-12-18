@@ -71,27 +71,29 @@
       object-fit: cover;
     }
 
+    /* Stronger glass separation (still on-brand, just less "polite") */
     .frosted {
-      background: var(--glass-fill);
-      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.55);
       border-radius: 1.5rem;
       backdrop-filter: blur(12px) saturate(160%);
       -webkit-backdrop-filter: blur(12px) saturate(160%);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      box-shadow:
+        0 10px 30px -10px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.55);
       transition: transform 0.3s ease;
     }
 
     /* Enhanced Hero Typography */
     .hero-location {
       font-family: 'Lexend Deca', sans-serif;
-      font-weight: 100; /* Thin as requested */
-      letter-spacing: 0.25em;
+      font-weight: 200;        /* was 100 */
+      letter-spacing: 0.18em;  /* was 0.25em */
       text-transform: uppercase;
-      color: var(--primary);
+      color: rgba(0,113,182,0.95);
       position: relative;
       display: inline-block;
-      /* Modern Glow Effect */
-      text-shadow: 0 0 15px rgba(0, 210, 255, 0.3), 0 0 30px rgba(0, 210, 255, 0.1);
+      text-shadow: 0 0 14px rgba(0, 210, 255, 0.22), 0 0 26px rgba(0, 210, 255, 0.10);
     }
 
     .hero-location::after {
@@ -165,14 +167,21 @@
     .star-gold {
       color: #FFD700;
     }
+
+    /* iPhone bottom safe-area padding so Safari doesn’t sit on your CTA */
+    .safe-bottom {
+      padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    }
   </style>
 </head>
+
 <body class="antialiased">
 
   <div class="page-video-wrap">
     <video class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
-      <source src="Dog-video.mov" type="video/quicktime">
+      <!-- Prefer MP4 first for broader support -->
       <source src="Dog-video.mp4" type="video/mp4">
+      <source src="Dog-video.mov" type="video/quicktime">
     </video>
   </div>
 
@@ -184,14 +193,19 @@
             <!-- Increased Logo Size -->
             <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 md:h-20 w-auto transition-transform group-hover:scale-105"/>
           </a>
-          
+
           <div class="flex items-center gap-3 border-l border-gray-300 pl-4">
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="Facebook" rel="noopener">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+              </svg>
             </a>
-            <!-- TikTok Icon Added Back -->
-            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="TikTok">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0h88a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/></svg>
+
+            <!-- TikTok Icon -->
+            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="TikTok" rel="noopener">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512">
+                <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0h88a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -225,26 +239,36 @@
     </div>
   </div>
 
-  <main class="max-w-5xl mx-auto px-4 relative z-10">
+  <main class="max-w-5xl mx-auto px-4 relative z-10 safe-bottom">
     <!-- Hero -->
     <section id="home" class="pt-4 md:pt-10">
       <div class="frosted p-6 md:p-14 text-center">
         <div class="flex justify-center mb-10">
-          <!-- Bigger Logo for Hero -->
+          <!-- Hero logo sized + controlled (no more full-width ballooning) -->
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning"
-     class="w-full max-w-none h-auto float-logo-enhanced pointer-events-none" />
+               class="w-full max-w-[420px] md:max-w-[520px] h-auto float-logo-enhanced pointer-events-none" />
         </div>
-        <h1 class="mb-12">
+
+        <h1 class="mb-10">
           <span class="hero-location text-xl md:text-3xl">Hervey Bay</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-800 max-w-xl mx-auto font-medium leading-relaxed opacity-90 mb-10">
-          Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. Professional steam cleaning that brings the "new home" feel back to your space.
+
+        <!-- Human hook first, SEO reassurance second -->
+        <p class="text-lg md:text-xl text-gray-800 max-w-xl mx-auto font-semibold leading-relaxed mb-6">
+          We revive lounges, chairs, and carpets across Hervey Bay and the Fraser Coast, deep steam cleaning that actually resets the fabric and brings back that “new home” feel.
         </p>
+        <p class="text-sm md:text-base text-gray-700 max-w-xl mx-auto font-medium opacity-90 mb-10">
+          Upholstery deep cleaning • fabric revival • carpet cleaning
+        </p>
+
         <div class="flex flex-col items-center gap-6">
           <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
             <a href="tel:0417220012" class="btn-glass px-10 py-4 text-lg w-full sm:w-auto">Book Your Clean</a>
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener"
+               class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+              </svg>
               See Our Work
             </a>
           </div>
@@ -259,10 +283,26 @@
         <div class="w-16 h-1 bg-[var(--accent)] mx-auto mt-3 rounded-full"></div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after.png" class="w-full h-full object-cover" alt="Revival 1"></div></div>
-        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-2.png" class="w-full h-full object-cover" alt="Revival 2"></div></div>
-        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-3.png" class="w-full h-full object-cover" alt="Revival 3"></div></div>
-        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-4.png" class="w-full h-full object-cover" alt="Revival 4"></div></div>
+        <div class="frosted p-2">
+          <div class="rounded-xl overflow-hidden aspect-square">
+            <img src="before-after.png" class="w-full h-full object-cover" alt="Revival 1">
+          </div>
+        </div>
+        <div class="frosted p-2">
+          <div class="rounded-xl overflow-hidden aspect-square">
+            <img src="before-after-2.png" class="w-full h-full object-cover" alt="Revival 2">
+          </div>
+        </div>
+        <div class="frosted p-2">
+          <div class="rounded-xl overflow-hidden aspect-square">
+            <img src="before-after-3.png" class="w-full h-full object-cover" alt="Revival 3">
+          </div>
+        </div>
+        <div class="frosted p-2">
+          <div class="rounded-xl overflow-hidden aspect-square">
+            <img src="before-after-4.png" class="w-full h-full object-cover" alt="Revival 4">
+          </div>
+        </div>
       </div>
     </section>
 
@@ -312,7 +352,7 @@
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.380-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           </div>
           <p class="text-gray-800 italic font-medium mb-6 flex-grow">"Great job and well priced! Highly recommend for couch cleaning."</p>
@@ -328,7 +368,8 @@
     <section class="py-12">
       <div class="frosted p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl">
-          <img src="Adam.png" alt="Adam from Lefties" class="w-full h-auto block" onerror="this.parentElement.innerHTML='<div class=\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\'>Adam.png</div>'"/>
+          <img src="Adam.png" alt="Adam from Lefties" class="w-full h-auto block"
+               onerror="this.parentElement.innerHTML='<div class=\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\'>Adam.png</div>'"/>
         </div>
         <div class="w-full md:w-1/2 text-center md:text-left">
           <h2 class="text-3xl md:text-4xl font-black mb-4">Meet Adam</h2>
@@ -341,7 +382,7 @@
     </section>
 
     <!-- Footer CTA -->
-    <section id="quote" class="py-12 mb-8">
+    <section id="quote" class="py-12 mb-16">
       <div class="frosted p-8 md:p-12 text-center overflow-hidden">
         <h2 class="text-3xl md:text-5xl font-black mb-4">Ready to Breathe Easy?</h2>
         <p class="text-lg mb-8 text-gray-800 font-medium px-4">Get an instant estimate. Reach out to Adam today.</p>
@@ -395,4 +436,3 @@
   </script>
 </body>
 </html>
-
