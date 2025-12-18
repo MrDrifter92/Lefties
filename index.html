@@ -85,6 +85,7 @@
       backdrop-filter: blur(12px) saturate(160%);
       -webkit-backdrop-filter: blur(12px) saturate(160%);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
     }
 
     .hero-accent {
@@ -163,22 +164,8 @@
       white-space: nowrap;
     }
 
-    .social-quick-btn {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: white;
-      color: var(--primary);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-    }
-    .social-quick-btn:hover {
-      transform: scale(1.1);
-      background: var(--primary);
-      color: white;
+    .star-gold {
+      color: #FFD700;
     }
   </style>
 </head>
@@ -186,7 +173,6 @@
 
   <div class="page-video-wrap">
     <video class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
-      <!-- Sources for the background video -->
       <source src="Dog-video.mov" type="video/quicktime">
       <source src="Dog-video.mp4" type="video/mp4">
     </video>
@@ -204,21 +190,16 @@
             <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
             </a>
-            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="TikTok">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
-            </a>
           </div>
         </div>
 
-        <!-- Desktop Nav -->
         <div class="hidden md:flex items-center gap-6 font-bold text-xs tracking-widest text-gray-800">
           <a href="services.html" class="hover:text-[var(--primary)] transition-colors">SERVICES</a>
           <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
           <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
-          <a href="#quote" class="btn-glass px-6 py-2.5 ml-2">GET QUOTE</a>
+          <a href="tel:0417220012" class="btn-glass px-6 py-2.5 ml-2">CALL NOW</a>
         </div>
 
-        <!-- Mobile Toggle -->
         <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110] focus:outline-none" aria-label="Toggle Menu">
           <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon">
             <span class="block w-8"></span>
@@ -230,21 +211,14 @@
     </nav>
   </header>
 
-  <!-- Mobile Overlay -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay" data-state="closed">
     <div class="flex flex-col gap-8 text-center px-6">
       <a href="services.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Services</a>
       <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
       <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
-      <div class="flex items-center justify-center gap-8 py-4">
-        <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-white">
-          <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-        </a>
-      </div>
       <div class="pt-4">
-        <a href="#quote" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg" onclick="closeMenu()">Get a Quote</a>
+        <a href="tel:0417220012" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg" onclick="closeMenu()">Call Adam</a>
       </div>
-      <button class="mt-4 text-white/60 text-sm font-bold tracking-widest uppercase hover:text-white" onclick="closeMenu()">[ Tap to Close ]</button>
     </div>
   </div>
 
@@ -264,42 +238,13 @@
         </p>
         <div class="flex flex-col items-center gap-6">
           <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
-            <a href="#quote" class="btn-glass px-10 py-4 text-lg w-full sm:w-auto">Book Your Clean</a>
-            <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center">
-              <span class="no-wrap">0417 220 012</span>
-            </a>
-          </div>
-          <div class="flex gap-4 items-center">
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="social-quick-btn" title="Facebook">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            <a href="tel:0417220012" class="btn-glass px-10 py-4 text-lg w-full sm:w-auto">Book Your Clean</a>
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+              See Our Work
             </a>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section class="py-10 grid md:grid-cols-3 gap-6">
-      <div class="frosted p-8 group">
-        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        </div>
-        <h3 class="text-xl font-black mb-2 text-gray-900">Residential</h3>
-        <p class="text-gray-700 text-sm leading-relaxed">Expert upholstery revival and carpet steam cleaning to remove allergens and stubborn stains.</p>
-      </div>
-      <div class="frosted p-8 group">
-        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-        </div>
-        <h3 class="text-xl font-black mb-2 text-gray-900">Commercial</h3>
-        <p class="text-gray-700 text-sm leading-relaxed">High-traffic fabric and carpet solutions for offices and retail with fast drying times.</p>
-      </div>
-      <div class="frosted p-8 group">
-        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-          <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-        </div>
-        <h3 class="text-xl font-black mb-2 text-gray-900">End of Lease</h3>
-        <p class="text-gray-700 text-sm leading-relaxed">Complete upholstery and carpet revival to ensure your bond is returned. Real estate standard.</p>
       </div>
     </section>
 
@@ -317,11 +262,59 @@
       </div>
     </section>
 
+    <!-- Real Facebook Reviews Section -->
+    <section class="py-12">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight">What Our Customers Say</h2>
+        <div class="flex items-center justify-center gap-1 mt-2 mb-2">
+          <span class="text-sm font-bold mr-2">5.0</span>
+          <svg class="w-5 h-5 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-5 h-5 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <div class="w-16 h-1 bg-[var(--accent)] mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="frosted p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-800 italic font-medium mb-6">"Very pleased with the job. Very friendly and show up on time. He knows what needs to be done. Thank you!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center text-white font-black">T</div>
+            <span class="font-bold text-sm">Tracy M.</span>
+          </div>
+        </div>
+
+        <div class="frosted p-8">
+          <div class="flex gap-1 mb-4">
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <p class="text-gray-800 italic font-medium mb-6">"They did a nice job to our sofa and carpet. Friendly and replies promptly. Highly recommend!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center text-white font-black">G</div>
+            <span class="font-bold text-sm">Gen-zel L.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Meet Adam Section -->
     <section class="py-12">
       <div class="frosted p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl">
-          <img src="Adam.png" alt="Adam from Lefties Carpet Cleaning" class="w-full h-auto block" onerror="this.parentElement.innerHTML='<div class=\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\'>Adam.png</div>'"/>
+          <img src="Adam.png" alt="Adam from Lefties" class="w-full h-auto block" onerror="this.parentElement.innerHTML='<div class=\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\'>Adam.png</div>'"/>
         </div>
         <div class="w-full md:w-1/2 text-center md:text-left">
           <h2 class="text-3xl md:text-4xl font-black mb-4">Meet Adam</h2>
@@ -329,14 +322,6 @@
           <p class="text-lg text-gray-800 font-medium leading-relaxed mb-6">
             The face behind the revival. With years of experience serving Hervey Bay and the Fraser Coast, Adam is dedicated to providing a professional, friendly, and thorough service every time.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <div class="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full border border-white/40">
-              <span class="text-sm font-bold text-gray-700">Fully Licensed</span>
-            </div>
-            <div class="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full border border-white/40">
-              <span class="text-sm font-bold text-gray-700">Local Expert</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -345,10 +330,10 @@
     <section id="quote" class="py-12 mb-8">
       <div class="frosted p-8 md:p-12 text-center overflow-hidden">
         <h2 class="text-3xl md:text-5xl font-black mb-4">Ready to Breathe Easy?</h2>
-        <p class="text-lg mb-8 text-gray-800 font-medium px-4">Get an instant estimate. Just text a photo to our local crew.</p>
+        <p class="text-lg mb-8 text-gray-800 font-medium px-4">Get an instant estimate. Reach out to Adam today.</p>
         <div class="flex justify-center px-4">
           <a href="tel:0417220012" class="btn-glass px-8 md:px-12 py-5 text-lg md:text-xl w-full max-w-sm flex items-center justify-center gap-3">
-            <span class="no-wrap">0417 220 012</span>
+            <span class="no-wrap">Call 0417 220 012</span>
           </a>
         </div>
       </div>
@@ -389,7 +374,6 @@
       isOpen ? closeMenu() : openMenu();
     });
 
-    // Mobile play trigger
     document.addEventListener('touchstart', function() {
       const video = document.querySelector('.page-video');
       if (video && video.paused) video.play();
