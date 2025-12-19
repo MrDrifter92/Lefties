@@ -46,7 +46,7 @@
       font-family: 'Montserrat', sans-serif; 
     }
 
-    /* Video Fix */
+    /* Video Container Fixes */
     .page-video-wrap {
       position: fixed;
       inset: 0;
@@ -75,6 +75,7 @@
       height: auto;
       transform: translate(-50%, -50%);
       object-fit: cover;
+      background-color: transparent;
     }
 
     .frosted {
@@ -152,9 +153,9 @@
 <body class="antialiased">
 
   <div class="page-video-wrap">
-    <video class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
-      <source src="Dog-video.mp4" type="video/mp4">
+    <video id="bgVideo" class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
       <source src="Dog-video.mov" type="video/quicktime">
+      <source src="Dog-video.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -306,6 +307,7 @@
     const btn = document.getElementById('mobile-menu-button');
     const burger = document.getElementById('hamburger-icon');
     const overlay = document.getElementById('mobile-menu-overlay');
+    const video = document.getElementById('bgVideo');
 
     function openMenu() {
       overlay.setAttribute('data-state', 'open');
@@ -332,14 +334,27 @@
       overlay.getAttribute('data-state') === 'open' ? closeMenu() : openMenu();
     });
 
-    window.addEventListener('load', () => {
-      const video = document.querySelector('.page-video');
+    const attemptPlay = () => {
       if (video) {
-        video.play().catch(() => {
-          document.addEventListener('touchstart', () => video.play(), { once: true });
-        });
+        // Try playing
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay was prevented, set up fallback
+            const startVideo = () => {
+              video.play();
+              document.removeEventListener('click', startVideo);
+              document.removeEventListener('touchstart', startVideo);
+            };
+            document.addEventListener('click', startVideo);
+            document.addEventListener('touchstart', startVideo);
+          });
+        }
       }
-    });
+    };
+
+    window.addEventListener('load', attemptPlay);
+    document.addEventListener('DOMContentLoaded', attemptPlay);
   </script>
 </body>
 </html>
