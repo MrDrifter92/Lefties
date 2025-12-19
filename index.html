@@ -71,7 +71,7 @@
       object-fit: cover;
     }
 
-    /* Stronger glass separation (still on-brand, just less "polite") */
+    /* Stronger glass separation */
     .frosted {
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid rgba(255, 255, 255, 0.55);
@@ -84,28 +84,28 @@
       transition: transform 0.3s ease;
     }
 
-    /* Enhanced Hero Typography */
-    .hero-location {
-      font-family: 'Lexend Deca', sans-serif;
-      font-weight: 200;        /* was 100 */
-      letter-spacing: 0.18em;  /* was 0.25em */
-      text-transform: uppercase;
-      color: rgba(0,113,182,0.95);
-      position: relative;
-      display: inline-block;
+    /* HERO LOCATION: bigger + tighter spacing */
+    .hero-location{
+      font-family:'Lexend Deca',sans-serif;
+      font-weight:300;
+      letter-spacing:0.10em;
+      text-transform:uppercase;
+      color:rgba(0,113,182,0.98);
+      position:relative;
+      display:inline-block;
       text-shadow: 0 0 14px rgba(0, 210, 255, 0.22), 0 0 26px rgba(0, 210, 255, 0.10);
     }
 
-    .hero-location::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 15%;
-      width: 70%;
-      height: 1px;
+    .hero-location::after{
+      content:'';
+      position:absolute;
+      bottom:-10px;
+      left:15%;
+      width:70%;
+      height:1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       box-shadow: 0 5px 15px var(--accent);
-      opacity: 0.6;
+      opacity:0.6;
     }
 
     .btn-glass {
@@ -160,13 +160,8 @@
       border-radius: 3px;
     }
 
-    .no-wrap {
-      white-space: nowrap;
-    }
-
-    .star-gold {
-      color: #FFD700;
-    }
+    .no-wrap { white-space: nowrap; }
+    .star-gold { color: #FFD700; }
 
     /* iPhone bottom safe-area padding so Safari doesn’t sit on your CTA */
     .safe-bottom {
@@ -179,7 +174,6 @@
 
   <div class="page-video-wrap">
     <video class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
-      <!-- Prefer MP4 first for broader support -->
       <source src="Dog-video.mp4" type="video/mp4">
       <source src="Dog-video.mov" type="video/quicktime">
     </video>
@@ -190,19 +184,19 @@
       <div class="frosted px-4 md:px-8 py-2 flex items-center justify-between">
         <div class="flex items-center gap-4">
           <a href="#home" class="flex items-center group">
-            <!-- Increased Logo Size -->
             <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 md:h-20 w-auto transition-transform group-hover:scale-105"/>
           </a>
 
           <div class="flex items-center gap-3 border-l border-gray-300 pl-4">
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="Facebook" rel="noopener">
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener"
+               class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
               </svg>
             </a>
 
-            <!-- TikTok Icon -->
-            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="TikTok" rel="noopener">
+            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" rel="noopener"
+               class="text-gray-700 hover:text-[var(--primary)] transition-colors" title="TikTok">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512">
                 <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0h88a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/>
               </svg>
@@ -228,13 +222,21 @@
     </nav>
   </header>
 
+  <!-- MOBILE MENU OVERLAY -->
   <div id="mobile-menu-overlay" class="mobile-menu-overlay" data-state="closed">
+    <!-- Close button (so you’re not trapped like a Sim in a pool with no ladder) -->
+    <button type="button" aria-label="Close menu" onclick="closeMenu()"
+      class="absolute top-6 right-6 text-white/90 hover:text-white text-5xl font-black leading-none">
+      ×
+    </button>
+
     <div class="flex flex-col gap-8 text-center px-6">
       <a href="services.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Services</a>
       <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
       <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
       <div class="pt-4">
-        <a href="tel:0417220012" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg" onclick="closeMenu()">Call Adam</a>
+        <a href="tel:0417220012" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg"
+           onclick="closeMenu()">Call Adam</a>
       </div>
     </div>
   </div>
@@ -244,16 +246,14 @@
     <section id="home" class="pt-4 md:pt-10">
       <div class="frosted p-6 md:p-14 text-center">
         <div class="flex justify-center mb-10">
-          <!-- Hero logo sized + controlled (no more full-width ballooning) -->
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning"
                class="w-full max-w-[420px] md:max-w-[520px] h-auto float-logo-enhanced pointer-events-none" />
         </div>
 
-        <h1 class="mb-10">
-          <span class="hero-location text-xl md:text-3xl">Hervey Bay</span>
+        <h1 class="mb-8">
+          <span class="hero-location text-2xl md:text-4xl">Hervey Bay</span>
         </h1>
 
-        <!-- Human hook first, SEO reassurance second -->
         <p class="text-lg md:text-xl text-gray-800 max-w-xl mx-auto font-semibold leading-relaxed mb-6">
           We revive lounges, chairs, and carpets across Hervey Bay and the Fraser Coast, deep steam cleaning that actually resets the fabric and brings back that “new home” feel.
         </p>
@@ -283,26 +283,10 @@
         <div class="w-16 h-1 bg-[var(--accent)] mx-auto mt-3 rounded-full"></div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="frosted p-2">
-          <div class="rounded-xl overflow-hidden aspect-square">
-            <img src="before-after.png" class="w-full h-full object-cover" alt="Revival 1">
-          </div>
-        </div>
-        <div class="frosted p-2">
-          <div class="rounded-xl overflow-hidden aspect-square">
-            <img src="before-after-2.png" class="w-full h-full object-cover" alt="Revival 2">
-          </div>
-        </div>
-        <div class="frosted p-2">
-          <div class="rounded-xl overflow-hidden aspect-square">
-            <img src="before-after-3.png" class="w-full h-full object-cover" alt="Revival 3">
-          </div>
-        </div>
-        <div class="frosted p-2">
-          <div class="rounded-xl overflow-hidden aspect-square">
-            <img src="before-after-4.png" class="w-full h-full object-cover" alt="Revival 4">
-          </div>
-        </div>
+        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after.png" class="w-full h-full object-cover" alt="Revival 1"></div></div>
+        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-2.png" class="w-full h-full object-cover" alt="Revival 2"></div></div>
+        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-3.png" class="w-full h-full object-cover" alt="Revival 3"></div></div>
+        <div class="frosted p-2"><div class="rounded-xl overflow-hidden aspect-square"><img src="before-after-4.png" class="w-full h-full object-cover" alt="Revival 4"></div></div>
       </div>
     </section>
 
@@ -314,7 +298,6 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Andy M Review -->
         <div class="frosted p-8 flex flex-col h-full">
           <div class="flex gap-1 mb-4">
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -330,14 +313,13 @@
           </div>
         </div>
 
-        <!-- Wendy B Review -->
         <div class="frosted p-8 flex flex-col h-full">
           <div class="flex gap-1 mb-4">
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07-3.292c.3-.921-.755-1.688-1.54-1.118l-2.8 2.034a1 1 0 00-1.175 0l-2.8-2.034c-.784-.57-1.838.197-1.539 1.118l1.07 3.292a1 1 0 00-.364 1.118L2.98 8.72c-.783.57-.38 1.81.588 1.81h3.461a1 1 0 00.951.69l1.07 3.292z"/></svg>
           </div>
           <p class="text-gray-800 italic font-medium mb-6 flex-grow">"I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."</p>
           <div class="flex items-center gap-3 mt-auto">
@@ -346,13 +328,12 @@
           </div>
         </div>
 
-        <!-- Amy K Review -->
         <div class="frosted p-8 flex flex-col h-full">
           <div class="flex gap-1 mb-4">
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.380-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
             <svg class="w-4 h-4 star-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           </div>
           <p class="text-gray-800 italic font-medium mb-6 flex-grow">"Great job and well priced! Highly recommend for couch cleaning."</p>
@@ -369,7 +350,7 @@
       <div class="frosted p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-2xl">
           <img src="Adam.png" alt="Adam from Lefties" class="w-full h-auto block"
-               onerror="this.parentElement.innerHTML='<div class=\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\'>Adam.png</div>'"/>
+               onerror="this.parentElement.innerHTML='<div class=\\'bg-gray-200 aspect-video flex items-center justify-center text-gray-400 font-bold\\'>Adam.png</div>'"/>
         </div>
         <div class="w-full md:w-1/2 text-center md:text-left">
           <h2 class="text-3xl md:text-4xl font-black mb-4">Meet Adam</h2>
@@ -424,11 +405,25 @@
       burger.children[2].style.background = 'var(--text)';
     }
 
+    // expose for inline onclick
+    window.closeMenu = closeMenu;
+
     btn.addEventListener('click', () => {
       const isOpen = overlay.getAttribute('data-state') === 'open';
       isOpen ? closeMenu() : openMenu();
     });
 
+    // tap outside closes menu
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeMenu();
+    });
+
+    // ESC closes menu (desktop)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.getAttribute('data-state') === 'open') closeMenu();
+    });
+
+    // iOS autoplay nudge
     document.addEventListener('touchstart', function() {
       const video = document.querySelector('.page-video');
       if (video && video.paused) video.play();
