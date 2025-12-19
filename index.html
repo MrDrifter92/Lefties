@@ -25,7 +25,7 @@
       --primary-dark: #005a92;
       --accent: #00D2FF;
       --cream: #F4EBD9;
-      --glass-fill: rgba(255, 255, 255, 0.75);
+      --glass-fill: rgba(255, 255, 255, 0.82);
       --glass-border: rgba(255, 255, 255, 0.4);
       --text: #1a1e23;
     }
@@ -47,38 +47,13 @@
       font-family: 'Lexend Deca', sans-serif;
     }
 
-    /* Animation for the Shine */
     @keyframes shine {
       to {
         background-position: 200% center;
       }
     }
 
-    /* Subtle slow shine for the Script Headline */
-    .fraser-script {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.6em;
-      line-height: 1.4; /* Prevents cutting off top/bottom of script */
-      display: inline-block;
-      white-space: nowrap; /* Forces one line on mobile */
-      background: linear-gradient(
-        to right, 
-        #005a92 0%, 
-        #00D2FF 30%, 
-        #ffffff 50%, 
-        #00D2FF 70%, 
-        #005a92 100%
-      );
-      background-size: 200% auto;
-      animation: shine 12s linear infinite; /* Greatly slowed down */
-      -webkit-background-clip: text;
-      text-fill-color: transparent;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
-      padding: 10px 15px; /* Added padding to prevent edge clipping */
-    }
-
-    /* Button Style - Solid by default, Shiny on Hover */
+    /* Button Style */
     .btn-glass {
       color: #fff;
       font-weight: 800;
@@ -145,7 +120,7 @@
 
     @keyframes heroFloat {
       0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 0px rgba(0, 210, 255, 0)); }
-      50% { transform: translateY(-15px) scale(1.02); filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.2)); }
+      50% { transform: translateY(-10px) scale(1.01); filter: drop-shadow(0 10px 15px rgba(0, 210, 255, 0.1)); }
       100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 0px rgba(0, 210, 255, 0)); }
     }
     .float-logo-enhanced {
@@ -174,10 +149,8 @@
 
   <div class="page-video-wrap">
     <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
-      <!-- Better compatibility: prioritize MP4 (if available) or ensure MOV is H264 encoded -->
-      <source src="Dog-video.mp4" type="video/mp4">
-      <source src="Dog-video.mov" type="video/quicktime">
       <source src="Dog-video.mov" type="video/mp4">
+      <source src="Dog-video.mov" type="video/quicktime">
     </video>
   </div>
 
@@ -236,24 +209,23 @@
       <div class="pt-4">
         <a href="#quote" class="bg-white text-[var(--primary)] px-12 py-5 rounded-full font-black text-xl inline-block shadow-lg" onclick="closeMenu()">Get a Quote</a>
       </div>
-      
-      <button class="mt-4 text-white/60 text-sm font-bold tracking-widest uppercase hover:text-white" onclick="closeMenu()">[ Tap to Close ]</button>
     </div>
   </div>
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
     <!-- Hero Section -->
     <section id="home" class="pt-4 md:pt-12">
-      <div class="frosted p-6 md:p-16 text-center">
-        <div class="flex justify-center mb-6 md:mb-12">
-          <!-- Logo made larger on mobile (w-full max-w-[280px]) -->
+      <div class="frosted p-6 md:p-12 text-center">
+        <div class="flex justify-center mb-6 md:mb-10">
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning" 
-               class="w-full max-w-[280px] md:max-w-4xl h-auto float-logo-enhanced pointer-events-none" />
+               class="w-full max-w-[280px] md:max-w-md h-auto float-logo-enhanced pointer-events-none" />
         </div>
         
-        <div class="mb-4">
-          <!-- Text size slightly adjusted and whitespace handled for single line -->
-          <span class="fraser-script text-5xl md:text-8xl">Hervey Bay</span>
+        <!-- Replaced text with 16:9 Image -->
+        <div class="mb-8 flex justify-center">
+          <div class="w-full max-w-4xl aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50 bg-white/10">
+            <img src="image.png" alt="Hervey Bay Services" class="w-full h-full object-cover float-logo-enhanced" />
+          </div>
         </div>
         
         <p class="text-lg md:text-xl text-gray-800 max-w-xl mx-auto font-medium leading-relaxed opacity-90 mb-10">
@@ -265,6 +237,27 @@
           <a href="tel:0417220012" class="bg-white/40 backdrop-blur-md border border-white/40 px-10 py-4 rounded-full font-extrabold hover:bg-white/60 transition-all text-lg w-full sm:w-auto text-center">
             <span class="no-wrap">0417 220 012</span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet Adam Section -->
+    <section class="py-12">
+      <div class="frosted p-8 md:p-12 overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <div class="w-full max-w-[280px] md:w-72 md:h-72 flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-3 opacity-10"></div>
+            <img src="Adam.png" alt="Adam - Owner of Lefties" class="w-full h-full object-cover rounded-3xl relative z-10 shadow-2xl border-4 border-white" />
+          </div>
+          <div class="text-center md:text-left flex-1">
+            <h2 class="text-4xl font-black mb-4 text-[var(--primary)]">Meet Adam</h2>
+            <p class="text-xl text-gray-800 leading-relaxed font-semibold mb-6">
+              Owner of Lefties
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed font-medium">
+              With a focus on precision and care, I lead the team here at Lefties to ensure your home gets the premium treatment it deserves. From stubborn stains to general fabric revival, we pride ourselves on a "Standard of Clean" that stands out on the Fraser Coast.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -293,28 +286,6 @@
         </div>
         <h3 class="text-xl font-black mb-2 text-gray-900">End of Lease</h3>
         <p class="text-gray-700 text-sm leading-relaxed">Complete upholstery and carpet revival to ensure your bond is returned. Real estate standard guaranteed.</p>
-      </div>
-    </section>
-
-    <!-- Meet Adam Section -->
-    <section class="py-12">
-      <div class="frosted p-8 md:p-12">
-        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
-            <div class="absolute inset-0 bg-[var(--accent)] rounded-2xl rotate-3 opacity-20"></div>
-            <img src="Adam.png" alt="Adam - Owner of Lefties" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-xl border-4 border-white" />
-          </div>
-          <div class="text-center md:text-left">
-            <h2 class="text-3xl md:text-4xl font-black mb-4 text-[var(--primary)]">Meet Adam</h2>
-            <p class="text-lg text-gray-800 leading-relaxed mb-6 font-medium">
-              As the owner of Lefties, I've spent years perfecting the art of the revival. We don't just clean carpets; we restore the comfort and hygiene of your home. When you book with Lefties, you're getting a local service that treats your furniture and floors like our own.
-            </p>
-            <div class="inline-flex items-center gap-3 text-sm font-black text-[var(--primary-dark)] tracking-widest uppercase">
-              <span class="w-8 h-px bg-[var(--primary-dark)]"></span>
-              The Lefties Standard
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
