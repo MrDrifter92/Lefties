@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <!-- PWA & Mobile Meta -->
+  <meta name="theme-color" content="#0071B6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Tailwind + Font -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary: #0071B6;
+      --accent: #00D2FF;
+      --cream: #F4EBD9;
+      --glass-fill: rgba(255, 255, 255, 0.82);
+      --text: #2d3436;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .nav-brand { 
+      font-family: 'Montserrat', sans-serif; 
+    }
+
+    /* Video Fix */
+    .page-video-wrap {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .page-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(244, 235, 217, 0.1), rgba(244, 235, 217, 0.3));
+      z-index: -1;
+    }
+
+    .page-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    .frosted {
+      background: var(--glass-fill);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 1.25rem;
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-location {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--primary) 20%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      line-height: 1.1;
+    }
+
+    .location-underline {
+      height: 3px;
+      width: 80px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 0.75rem auto 0;
+      border-radius: 999px;
+    }
+
+    .btn-glass {
+      background: linear-gradient(135deg, var(--primary) 0%, #005a92 100%);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 9999px;
+      box-shadow: 0 8px 20px -5px rgba(0, 113, 182, 0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-glass:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.4);
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-logo {
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed; inset: 0; background: rgba(0, 113, 182, 0.98);
+      z-index: 100; transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .mobile-menu-overlay[data-state="open"] { transform: translateX(0); }
+
+    .hamburger-icon span {
+      height: 2px; background: var(--text);
+      transition: all 0.3s ease; border-radius: 2px;
+    }
+
+    .star-gold { color: #f1c40f; }
+    .safe-bottom { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <div class="page-video-wrap">
+    <video class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
+      <source src="Dog-video.mp4" type="video/mp4">
+      <source src="Dog-video.mov" type="video/quicktime">
+    </video>
+  </div>
+
+  <header class="sticky top-0 z-50 w-full px-4 pt-3">
+    <nav class="max-w-5xl mx-auto">
+      <div class="frosted px-4 md:px-8 py-2 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="flex items-center group">
+            <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-14 md:h-16 w-auto transition-transform group-hover:scale-105"/>
+          </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-8 font-bold text-[11px] tracking-[0.15em] text-gray-700">
+          <a href="services.html" class="hover:text-[var(--primary)] transition-colors">SERVICES</a>
+          <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
+          <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
+          <a href="tel:0417220012" class="btn-glass px-6 py-2.5 ml-2">CALL LEFTIES</a>
+        </div>
+
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110]">
+          <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon">
+            <span class="block w-7"></span>
+            <span class="block w-5"></span>
+            <span class="block w-7"></span>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" data-state="closed">
+    <button type="button" onclick="closeMenu()" class="absolute top-6 right-6 text-white text-5xl font-light">×</button>
+    <div class="flex flex-col gap-8 text-center px-6">
+      <a href="services.html" class="text-3xl font-bold text-white" onclick="closeMenu()">Services</a>
+      <a href="commercial.html" class="text-3xl font-bold text-white" onclick="closeMenu()">Commercial</a>
+      <a href="contact-us.html" class="text-3xl font-bold text-white" onclick="closeMenu()">Contact</a>
+      <a href="tel:0417220012" class="bg-white text-[var(--primary)] px-10 py-4 rounded-full font-bold text-xl shadow-xl" onclick="closeMenu()">Call Lefties</a>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 relative z-10 safe-bottom">
+    <section class="pt-6 md:pt-10">
+      <div class="frosted p-8 md:p-14 text-center">
+        <div class="flex justify-center mb-10">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="w-full max-w-[400px] md:max-w-[480px] h-auto float-logo" />
+        </div>
+        <div class="mb-8">
+          <h1 class="hero-location text-4xl md:text-7xl">Hervey Bay</h1>
+          <div class="location-underline"></div>
+        </div>
+        <p class="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto font-semibold mb-10">
+          Professional steam cleaning for carpets, upholstery, and fabric revival.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="tel:0417220012" class="btn-glass px-10 py-4 text-lg w-full sm:w-auto">Book Your Clean</a>
+          <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="bg-white/50 backdrop-blur-md border border-white/80 px-10 py-4 rounded-full font-bold hover:bg-white/80 transition-all text-lg w-full sm:w-auto">View Results</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Proof Section -->
+    <section class="py-10">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold tracking-tight uppercase text-gray-800">The Proof is in the Revival</h2>
+        <div class="w-12 h-0.5 bg-[var(--accent)] mx-auto mt-2 rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="frosted p-1.5"><div class="rounded-lg overflow-hidden aspect-square"><img src="before-after.png" class="w-full h-full object-cover" alt="Result 1" onerror="this.src='https://via.placeholder.com/400?text=Result+1'"></div></div>
+        <div class="frosted p-1.5"><div class="rounded-lg overflow-hidden aspect-square"><img src="before-after-2.png" class="w-full h-full object-cover" alt="Result 2" onerror="this.src='https://via.placeholder.com/400?text=Result+2'"></div></div>
+        <div class="frosted p-1.5"><div class="rounded-lg overflow-hidden aspect-square"><img src="before-after-3.png" class="w-full h-full object-cover" alt="Result 3" onerror="this.src='https://via.placeholder.com/400?text=Result+3'"></div></div>
+        <div class="frosted p-1.5"><div class="rounded-lg overflow-hidden aspect-square"><img src="before-after-4.png" class="w-full h-full object-cover" alt="Result 4" onerror="this.src='https://via.placeholder.com/400?text=Result+4'"></div></div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-10">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold tracking-tight uppercase text-gray-800">Genuine Local Reviews</h2>
+        <div class="w-12 h-0.5 bg-[var(--accent)] mx-auto mt-2 rounded-full"></div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="frosted p-6 flex flex-col h-full">
+          <div class="flex gap-1 mb-3">
+            <span class="star-gold">★★★★★</span>
+          </div>
+          <p class="text-gray-700 italic font-medium mb-6 flex-grow">"Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Highly recommend!!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center text-white font-bold text-sm">A</div>
+            <span class="font-bold text-sm text-gray-600">Andy M.</span>
+          </div>
+        </div>
+        <div class="frosted p-6 flex flex-col h-full">
+          <div class="flex gap-1 mb-3">
+            <span class="star-gold">★★★★★</span>
+          </div>
+          <p class="text-gray-700 italic font-medium mb-6 flex-grow">"I have used Lefties for all my carpet cleaning needs over many years. Adam is great to work with."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center text-white font-bold text-sm">W</div>
+            <span class="font-bold text-sm text-gray-600">Wendy B.</span>
+          </div>
+        </div>
+        <div class="frosted p-6 flex flex-col h-full">
+          <div class="flex gap-1 mb-3">
+            <span class="star-gold">★★★★★</span>
+          </div>
+          <p class="text-gray-700 italic font-medium mb-6 flex-grow">"Great job and well priced! Highly recommend for couch cleaning."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center text-white font-bold text-sm">A</div>
+            <span class="font-bold text-sm text-gray-600">Amy K.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet Adam Section -->
+    <section class="py-10">
+      <div class="frosted p-6 md:p-10 flex flex-col md:flex-row items-center gap-8">
+        <div class="w-full md:w-5/12 rounded-2xl overflow-hidden shadow-lg">
+          <img src="Adam.png" alt="Adam" class="w-full h-auto" onerror="this.src='https://via.placeholder.com/600x700?text=Adam'"/>
+        </div>
+        <div class="w-full md:w-7/12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800 uppercase">MEET ADAM</h2>
+          <p class="text-lg text-gray-700 font-medium leading-relaxed">
+            The owner-operator behind the revival. Adam brings professional expertise directly to your door, ensuring every lounge and carpet gets the attention it needs to look like new again.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="quote" class="py-10 mb-10">
+      <div class="frosted p-8 md:p-14 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-800 uppercase">Ready to Breathe Easy?</h2>
+        <p class="text-lg mb-8 text-gray-600 font-semibold">Contact Lefties for a local estimate.</p>
+        <div class="flex justify-center">
+          <a href="tel:0417220012" class="btn-glass px-10 py-5 text-xl w-full max-w-sm">
+            0417 220 012
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-10 text-center opacity-50 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-700">
+    <p>&copy; 2025 Lefties Carpet Cleaning &bull; Fraser Coast</p>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mobile-menu-button');
+    const burger = document.getElementById('hamburger-icon');
+    const overlay = document.getElementById('mobile-menu-overlay');
+
+    function openMenu() {
+      overlay.setAttribute('data-state', 'open');
+      document.body.style.overflow = 'hidden';
+      burger.children[0].style.transform = 'translateY(8px) rotate(45deg)';
+      burger.children[0].style.background = 'white';
+      burger.children[1].style.opacity = '0';
+      burger.children[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      burger.children[2].style.background = 'white';
+    }
+
+    function closeMenu() {
+      overlay.setAttribute('data-state', 'closed');
+      document.body.style.overflow = '';
+      burger.children[0].style.transform = 'none';
+      burger.children[0].style.background = 'var(--text)';
+      burger.children[1].style.opacity = '1';
+      burger.children[2].style.transform = 'none';
+      burger.children[2].style.background = 'var(--text)';
+    }
+
+    window.closeMenu = closeMenu;
+    btn.addEventListener('click', () => {
+      overlay.getAttribute('data-state') === 'open' ? closeMenu() : openMenu();
+    });
+
+    window.addEventListener('load', () => {
+      const video = document.querySelector('.page-video');
+      if (video) {
+        video.play().catch(() => {
+          document.addEventListener('touchstart', () => video.play(), { once: true });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
