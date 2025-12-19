@@ -153,9 +153,19 @@
 <body class="antialiased">
 
   <div class="page-video-wrap">
-    <video id="bgVideo" class="page-video" autoplay muted loop playsinline poster="poster-placeholder.jpg">
+    <!-- Note: Added src directly to tag and cross-browser flags -->
+    <video 
+      id="bgVideo" 
+      class="page-video" 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      preload="auto"
+      src="Dog-video.mov">
       <source src="Dog-video.mov" type="video/quicktime">
       <source src="Dog-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
   </div>
 
@@ -334,27 +344,43 @@
       overlay.getAttribute('data-state') === 'open' ? closeMenu() : openMenu();
     });
 
-    const attemptPlay = () => {
-      if (video) {
-        // Try playing
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Autoplay was prevented, set up fallback
-            const startVideo = () => {
-              video.play();
-              document.removeEventListener('click', startVideo);
-              document.removeEventListener('touchstart', startVideo);
-            };
-            document.addEventListener('click', startVideo);
-            document.addEventListener('touchstart', startVideo);
-          });
-        }
-      }
-    };
+    /**
+     * Desktop Video Playback Logic
+     * Handles browser autoplay policies and source loading
+     */
+    function forceVideoPlay() {
+      if (!video) return;
 
-    window.addEventListener('load', attemptPlay);
-    document.addEventListener('DOMContentLoaded', attemptPlay);
+      // Ensure it's muted (required for autoplay on desktop/mobile)
+      video.muted = true;
+      video.setAttribute('muted', '');
+
+      const playAttempt = video.play();
+
+      if (playAttempt !== undefined) {
+        playAttempt.catch((error) => {
+          console.warn("Autoplay blocked. Waiting for user interaction to start video.", error);
+          
+          // Fallback: Play on first user click/tap anywhere on the page
+          const handleFirstClick = () => {
+            video.play();
+            document.removeEventListener('click', handleFirstClick);
+            document.removeEventListener('touchstart', handleFirstClick);
+          };
+          document.addEventListener('click', handleFirstClick);
+          document.addEventListener('touchstart', handleFirstClick);
+        });
+      }
+    }
+
+    // Run on load and whenever visibility changes (tab switch)
+    window.addEventListener('load', forceVideoPlay);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') forceVideoPlay();
+    });
+    
+    // Safety check for slow networks
+    setTimeout(forceVideoPlay, 1000);
   </script>
 </body>
 </html>
