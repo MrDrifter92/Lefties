@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Hello Brittany, I want to play a game</title>
+  <meta name="theme-color" content="#0071B6" />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <style>
+    :root{
+      --bg1:#EFE3CF;
+      --bg2:#f6efe4;
+      --glass: rgba(255,255,255,.55);
+      --stroke: rgba(0,0,0,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.12);
+      --blue:#0071B6;
+      --ink:#102026;
+      --muted: rgba(16,32,38,.65);
+      --pink:#D7AFFF;
+      --ok:#1f9d55;
+      --bad:#d64545;
+      --warn:#ffb020;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 20% 20%, #ffffff 0%, transparent 60%),
+                  radial-gradient(1200px 900px at 80% 30%, rgba(215,175,255,.35) 0%, transparent 65%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* floating bubbles */
+    .bubbles{
+      position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.6;
+      filter: blur(.2px);
+    }
+    .bubble{
+      position:absolute;
+      width: clamp(70px, 10vw, 140px);
+      aspect-ratio:1/1;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 70% 70%, rgba(215,175,255,.35), rgba(255,255,255,0) 55%),
+        rgba(255,255,255,.25);
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+      border: 1px solid rgba(255,255,255,.55);
+      animation: floaty linear infinite;
+      mix-blend-mode: soft-light;
+    }
+    @keyframes floaty{
+      from{ transform: translateY(110vh) translateX(var(--x)) scale(var(--s)); }
+      to{ transform: translateY(-30vh) translateX(calc(var(--x) + 60px)) scale(var(--s)); }
+    }
+
+    .static{
+      position: fixed;
+      inset:0;
+      z-index: 2;
+      pointer-events:none;
+      opacity: 0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0, rgba(255,255,255,.05) 1px, transparent 1px, transparent 3px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: overlay;
+      transition: opacity .25s ease;
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin: 28px auto 60px;
+      padding: 0 16px;
+    }
+
+    header{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      margin-bottom: 16px;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+      padding:12px 14px;
+      border-radius: var(--radius);
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px) saturate(140%);
+      min-width: 260px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:99px;
+      background: var(--blue);
+      box-shadow: 0 0 0 6px rgba(0,113,182,.12);
+      flex: 0 0 auto;
+    }
+    .title h1{
+      font-size:15px; margin:0; letter-spacing:.2px;
+      line-height:1.15;
+    }
+    .title p{
+      margin:2px 0 0; font-size:12.5px; color:var(--muted);
+    }
+
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+
+    button, .btn, input, select, textarea{ font: inherit; }
+    .btn{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(14px) saturate(140%);
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor:pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      transition: transform .08s ease, box-shadow .08s ease, background .2s ease;
+      color: var(--ink);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0,0,0,.10); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .btn.primary{
+      background: rgba(0,113,182,.12);
+      border-color: rgba(0,113,182,.20);
+    }
+    .btn.danger{
+      background: rgba(214,69,69,.10);
+      border-color: rgba(214,69,69,.18);
+    }
+    .btn.weird{
+      background: rgba(215,175,255,.22);
+      border-color: rgba(215,175,255,.35);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .9fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+      .brand{ width:100%; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px) saturate(140%);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .card .hd h2{
+      font-size:14px; margin:0; letter-spacing:.2px;
+    }
+    .card .hd small{ color:var(--muted); }
+    .card .bd{ padding: 14px 16px; }
+
+    .muted{ color: var(--muted); }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .row > *{ flex: 0 0 auto; }
+
+    .field{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+      color: var(--ink);
+      outline: none;
+    }
+    .field:focus{ border-color: rgba(0,113,182,.28); box-shadow: 0 0 0 4px rgba(0,113,182,.10); }
+    textarea.field{ min-height: 220px; resize: vertical; line-height:1.35; }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.55);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .pill b{ color: var(--ink); font-weight: 700; }
+
+    .sep{ height:1px; background: rgba(0,0,0,.07); margin: 12px 0; }
+
+    /* game UI */
+    .gameArea{ display:grid; gap:10px; }
+    .status{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.55);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .status strong{ color: var(--ink); }
+
+    .bigButton{
+      width: 100%;
+      padding: 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      cursor:pointer;
+      box-shadow: 0 12px 28px rgba(0,0,0,.10);
+      transition: transform .08s ease, box-shadow .08s ease;
+      font-weight: 700;
+    }
+    .bigButton:hover{ transform: translateY(-1px); box-shadow: 0 16px 34px rgba(0,0,0,.12); }
+    .bigButton:active{ transform: translateY(0px) scale(.99); }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    .cell{
+      aspect-ratio: 1/1;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      cursor:pointer;
+      font-size: 28px;
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      user-select:none;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      transition: transform .08s ease;
+    }
+    .cell:hover{ transform: translateY(-1px); }
+    .cell:active{ transform: translateY(0px) scale(.99); }
+
+    .tiny{ font-size: 12px; color: var(--muted); line-height:1.35; }
+
+    /* ===== EERIE MODE (SAFE SPOOKY, NOT JIGSAW) ===== */
+    body.eerie{
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(255,255,255,.35) 0%, transparent 60%),
+        radial-gradient(1200px 900px at 80% 30%, rgba(0,113,182,.25) 0%, transparent 65%),
+        linear-gradient(135deg, #0b1114, #0e1a20);
+      color: rgba(255,255,255,.88);
+    }
+    body.eerie .card,
+    body.eerie .brand,
+    body.eerie .btn{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    body.eerie .field{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.88);
+    }
+    body.eerie .status,
+    body.eerie .pill{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.14);
+      color: rgba(255,255,255,.68);
+    }
+    body.eerie .status strong{ color: rgba(255,255,255,.92); }
+    body.eerie .muted{ color: rgba(255,255,255,.65); }
+    body.eerie .btn.primary{
+      background: rgba(215,175,255,.18);
+      border-color: rgba(215,175,255,.28);
+      color: rgba(255,255,255,.88);
+    }
+    body.eerie .btn.danger{
+      background: rgba(214,69,69,.16);
+      border-color: rgba(214,69,69,.24);
+      color: rgba(255,255,255,.88);
+    }
+    body.eerie .btn.weird{
+      background: rgba(0,113,182,.18);
+      border-color: rgba(0,113,182,.28);
+      color: rgba(255,255,255,.88);
+    }
+    body.eerie .static{ opacity: .28; }
+    .glitch{ position: relative; display:inline-block; letter-spacing:.8px; }
+    body.eerie .glitch::before,
+    body.eerie .glitch::after{
+      content: attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      opacity:.55;
+      mix-blend-mode: screen;
+      pointer-events:none;
+    }
+    body.eerie .glitch::before{
+      transform: translate(1px,0);
+      filter: blur(.2px);
+      color: rgba(215,175,255,.75);
+    }
+    body.eerie .glitch::after{
+      transform: translate(-1px,0);
+      filter: blur(.2px);
+      color: rgba(0,113,182,.85);
+    }
+    @keyframes flicker { 0%, 100% { opacity: .88; } 50% { opacity: 1; } }
+    body.eerie .card .hd h2{ animation: flicker 3.6s infinite; }
+
+    /* gate overlay */
+    .gate{
+      position: fixed;
+      inset:0;
+      z-index: 5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(14px) saturate(140%);
+    }
+    .gateBox{
+      max-width: 520px;
+      width: 100%;
+      border-radius: 22px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.35);
+      box-shadow: 0 30px 90px rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    body.eerie .gateBox{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.14);
+    }
+    .gateHd{
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .gateHd b{ letter-spacing:.2px; }
+    .gateBd{ padding: 16px 18px; display:grid; gap:12px; }
+    .gateErr{
+      display:none;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(214,69,69,.12);
+      border: 1px solid rgba(214,69,69,.18);
+      color: rgba(214,69,69,.95);
+      font-size: 13px;
+    }
+    body.eerie .gateErr{
+      background: rgba(214,69,69,.16);
+      border-color: rgba(214,69,69,.24);
+      color: rgba(255,220,220,.95);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bubbles" aria-hidden="true" id="bubbles"></div>
+  <div class="static" aria-hidden="true"></div>
+
+  <!-- PASSCODE GATE (client-side only) -->
+  <div class="gate" id="gate">
+    <div class="gateBox">
+      <div class="gateHd">
+        <b>Private page</b>
+        <span class="pill"><b>Tip:</b> don’t put this link on socials</span>
+      </div>
+      <div class="gateBd">
+        <div class="tiny">
+          This is a basic gate, not a bank vault. If someone finds the file and inspects source, they can still get in.
+          That’s the internet for you.
+        </div>
+        <label class="tiny" for="pass">Passcode</label>
+        <input class="field" id="pass" type="password" autocomplete="current-password" placeholder="Type passcode…" />
+        <div class="row">
+          <button class="btn primary" id="unlockBtn">🔓 Unlock</button>
+          <button class="btn weird" id="gateEerieBtn">👻 Eerie Mode</button>
+        </div>
+        <div class="gateErr" id="gateErr">Nah. Wrong passcode. Try again.</div>
+        <div class="tiny muted">
+          Default passcode is <b>slappy</b>. Change it in the code (search for <b>PASSCODE</b>).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" id="app" style="visibility:hidden">
+    <header>
+      <div class="brand">
+        <div class="dot"></div>
+        <div class="title">
+          <h1 class="glitch" data-text="Hello Brittany, I want to play a game">Hello Brittany, I want to play a game</h1>
+          <p class="muted">Relax. It’s just notes, games, and nonsense.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn weird" id="eerieBtn">👻 Eerie Mode</button>
+        <button class="btn" id="exportAllBtn">📦 Export stuff</button>
+        <button class="btn danger" id="wipeAllBtn">🧨 Wipe device data</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT COLUMN -->
+      <div class="card">
+        <div class="hd">
+          <h2>WELCOME:</h2>
+          <small id="welcomeLine">Two-person chaos page</small>
+        </div>
+        <div class="bd">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <div style="flex:1 1 420px; min-width:260px;">
+              <p class="muted" style="margin:0 0 10px;">
+                <span class="glitch" data-text="Hey Brittany…">Hey Brittany…</span> you’re in.
+                Pick something weird. No threats, no drama, just vibes and buttons.
+              </p>
+              <div class="row">
+                <span class="pill"><b>Status:</b> <span id="statusPill">Loaded</span></span>
+                <span class="pill"><b>Eerie:</b> <span id="eerieState">Off</span></span>
+                <span class="pill"><b>Local save:</b> <span id="saveState">On</span></span>
+              </div>
+            </div>
+
+            <div style="flex:1 1 260px; min-width:260px;">
+              <div class="status">
+                <strong>Instant prompt:</strong><br/>
+                Tap “Prophecy” and copy-paste it to each other. Judge harshly.
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <button class="btn primary" id="prophecyBtn">🔮 Prophecy</button>
+                <button class="btn" id="copyProphecyBtn">📋 Copy</button>
+              </div>
+              <div class="status" id="prophecyBox" style="margin-top:10px;">
+                <strong>Prophecy:</strong> Nothing yet. Press the button. Humans love buttons.
+              </div>
+            </div>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="card" style="box-shadow:none; border-radius:16px;">
+            <div class="hd">
+              <h2>NOTEPAD:</h2>
+              <small>Autosaves on this device</small>
+            </div>
+            <div class="bd">
+              <textarea class="field" id="note" placeholder="Write whatever. Future-you can deal with it."></textarea>
+              <div class="row" style="margin-top:10px;">
+                <button class="btn primary" id="saveNoteBtn">💾 Save</button>
+                <button class="btn" id="exportNoteBtn">⬇️ Export note</button>
+                <button class="btn danger" id="resetNoteBtn">♻️ Reset note</button>
+              </div>
+              <div class="tiny muted" style="margin-top:10px;">
+                Note is stored in your browser’s local storage. If you wipe device data or switch browsers, it’s gone. Like most good intentions.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="card">
+        <div class="hd">
+          <h2>GAMES:</h2>
+          <small>Low stakes, high ego</small>
+        </div>
+        <div class="bd">
+          <!-- Slap Reflex -->
+          <div class="card" style="box-shadow:none; border-radius:16px; margin-bottom:12px;">
+            <div class="hd">
+              <h2>Slap Reflex</h2>
+              <small>Tap only when it says SLAP</small>
+            </div>
+            <div class="bd gameArea">
+              <div class="status" id="slapStatus"><strong>How it works:</strong> Press Start. Wait. When the button says SLAP, tap fast.</div>
+              <button class="bigButton" id="slapBtn" disabled>Start</button>
+              <div class="row">
+                <button class="btn primary" id="slapStartBtn">▶️ Start</button>
+                <button class="btn" id="slapResetBtn">🔁 Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RPS -->
+          <div class="card" style="box-shadow:none; border-radius:16px; margin-bottom:12px;">
+            <div class="hd">
+              <h2>Rock Paper Scissors</h2>
+              <small>Settle disputes responsibly</small>
+            </div>
+            <div class="bd gameArea">
+              <div class="row">
+                <button class="btn" data-rps="rock">🪨 Rock</button>
+                <button class="btn" data-rps="paper">📄 Paper</button>
+                <button class="btn" data-rps="scissors">✂️ Scissors</button>
+              </div>
+              <div class="status" id="rpsStatus"><strong>Result:</strong> Waiting for your questionable decision.</div>
+            </div>
+          </div>
+
+          <!-- Guess -->
+          <div class="card" style="box-shadow:none; border-radius:16px;">
+            <div class="hd">
+              <h2>Number Guess</h2>
+              <small>1–100</small>
+            </div>
+            <div class="bd gameArea">
+              <input class="field" id="guessInput" inputmode="numeric" placeholder="Type a number…" />
+              <div class="row">
+                <button class="btn primary" id="guessBtn">🎯 Guess</button>
+                <button class="btn" id="guessNewBtn">🆕 New number</button>
+              </div>
+              <div class="status" id="guessStatus"><strong>Status:</strong> I’ve picked a number. Your move.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div style="height:16px;"></div>
+
+    <div class="grid">
+      <!-- Tic Tac Toe -->
+      <div class="card">
+        <div class="hd">
+          <h2>GAMES:</h2>
+          <small>Tic-Tac-Toe</small>
+        </div>
+        <div class="bd">
+          <div class="status" id="tttStatus"><strong>Turn:</strong> X (you)</div>
+          <div class="grid3" id="tttGrid" style="margin-top:10px;"></div>
+          <div class="row" style="margin-top:10px;">
+            <button class="btn primary" id="tttResetBtn">🔁 Reset</button>
+            <span class="tiny muted">X vs O on the same device. Don’t overthink it.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Oddities -->
+      <div class="card">
+        <div class="hd">
+          <h2>ODDITIES:</h2>
+          <small>harmless buttons for fragile humans</small>
+        </div>
+        <div class="bd">
+          <div class="status" id="oddStatus"><strong>Tip:</strong> Press the “Do Not Press” button. It does nothing important. Like most warnings.</div>
+
+          <div class="row" style="margin-top:10px;">
+            <button class="btn weird" id="doNotPressBtn">🚫 Do Not Press</button>
+            <button class="btn" id="shuffleBubblesBtn">🫧 Shuffle bubbles</button>
+            <button class="btn" id="oneLinerBtn">🗯️ One-liner</button>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="status" id="oneLinerBox"><strong>One-liner:</strong> None yet. Press the button.</div>
+
+          <div class="sep"></div>
+
+          <div class="tiny muted">
+            If you want this to be actually private, this needs server-side protection.
+            This page is “hidden”, not “secure”. Big difference, unfortunately.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:18px;"></div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>FOUR HEADINGS DONE:</h2>
+        <small>WELCOME / NOTEPAD / GAMES / ODDITIES</small>
+      </div>
+      <div class="bd">
+        <div class="tiny muted">
+          If “four HDL” meant something else, that’s on your keyboard, not me.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    // Change this passcode to whatever you and Brittany want.
+    const PASSCODE = "slappy";
+
+    const STORAGE = {
+      unlocked: "slappy_unlocked",
+      eerie: "slappy_eerie_mode",
+      note: "slappy_note",
+      prophecy: "slappy_prophecy",
+      oneLiner: "slappy_one_liner"
+    };
+
+    // ===== helpers =====
+    const $ = (id) => document.getElementById(id);
+
+    function beep(freq=440, ms=120){
+      try{
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.value = freq;
+        g.gain.value = 0.02;
+        o.connect(g); g.connect(ctx.destination);
+        o.start();
+        setTimeout(() => { o.stop(); ctx.close(); }, ms);
+      }catch(e){}
+    }
+
+    function setEerie(on){
+      document.body.classList.toggle('eerie', on);
+      localStorage.setItem(STORAGE.eerie, on ? "1" : "0");
+      $("eerieState").textContent = on ? "On" : "Off";
+      beep(on ? 220 : 440, 120);
+    }
+
+    // ===== bubbles =====
+    function makeBubbles(){
+      const wrap = $("bubbles");
+      wrap.innerHTML = "";
+      const count = 14;
+      for(let i=0;i<count;i++){
+        const b = document.createElement("div");
+        b.className = "bubble";
+        const x = Math.floor(Math.random()*100) + "vw";
+        const s = (Math.random()*0.9 + 0.55).toFixed(2);
+        const dur = Math.floor(Math.random()*14 + 14);
+        const left = Math.floor(Math.random()*100);
+        b.style.left = left + "vw";
+        b.style.setProperty("--x", x);
+        b.style.setProperty("--s", s);
+        b.style.animationDuration = dur + "s";
+        b.style.animationDelay = (-Math.random()*dur) + "s";
+        wrap.appendChild(b);
+      }
+    }
+
+    // ===== gate =====
+    function showApp(){
+      $("gate").style.display = "none";
+      $("app").style.visibility = "visible";
+      localStorage.setItem(STORAGE.unlocked, "1");
+    }
+    function lockApp(){
+      localStorage.removeItem(STORAGE.unlocked);
+      $("gate").style.display = "flex";
+      $("app").style.visibility = "hidden";
+    }
+
+    function tryUnlock(){
+      const val = $("pass").value || "";
+      if(val.trim() === PASSCODE){
+        $("gateErr").style.display = "none";
+        showApp();
+        beep(520, 90);
+      }else{
+        $("gateErr").style.display = "block";
+        beep(140, 140);
+      }
+    }
+
+    // ===== prophecy + one-liners =====
+    const prophecies = [
+      "You will accidentally fix something by making it worse first. Classic.",
+      "A text you’re overthinking will be received with ‘lol’ and nothing else.",
+      "Tonight’s vibe: chaotic good, but in trackies.",
+      "You’ll find a missing thing the second you stop looking. Annoying law of the universe.",
+      "Someone will ask what you’re doing. Answer: ‘important nonsense.’",
+      "Your next good idea will arrive mid-shower, uninvited.",
+      "You’ll avoid a problem by becoming a different person for 12 minutes.",
+      "A snack will solve a mood that a conversation couldn’t."
+    ];
+    const oneLiners = [
+      "This page is private. Like your browser history should be.",
+      "Welcome back. Try not to press the one that says ‘don’t’.",
+      "Congrats, you unlocked… mild nonsense.",
+      "Buttons were a mistake and we’re pressing them anyway.",
+      "If you’re Brittany, blink twice. If not, leave.",
+      "Eerie Mode is just regular mode with better lighting.",
+      "We’re not spiralling. We’re exploring.",
+      "This is a safe space for chaos and typos.",
+      "Reset is an act of optimism.",
+      "Nothing important happens here. That’s the point."
+    ];
+
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    // ===== notepad =====
+    function loadNote(){
+      const v = localStorage.getItem(STORAGE.note) || "";
+      $("note").value = v;
+    }
+    function saveNote(){
+      localStorage.setItem(STORAGE.note, $("note").value || "");
+      $("statusPill").textContent = "Saved";
+      setTimeout(()=> $("statusPill").textContent = "Loaded", 700);
+      beep(600, 70);
+    }
+    function exportText(filename, text){
+      const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // ===== Slap Reflex =====
+    let slapTimer = null;
+    let slapStart = 0;
+    let slapArmed = false;
+
+    function slapReset(){
+      clearTimeout(slapTimer);
+      slapTimer = null;
+      slapArmed = false;
+      $("slapBtn").disabled = true;
+      $("slapBtn").textContent = "Start";
+      $("slapStatus").innerHTML = "<strong>How it works:</strong> Press Start. Wait. When the button says SLAP, tap fast.";
+    }
+
+    function slapStartGame(){
+      slapReset();
+      $("slapStatus").innerHTML = "<strong>Waiting…</strong> Don’t tap early. (You will. But don’t.)";
+      const wait = Math.floor(Math.random()*2500) + 1200;
+      slapTimer = setTimeout(()=>{
+        slapArmed = true;
+        slapStart = performance.now();
+        $("slapBtn").disabled = false;
+        $("slapBtn").textContent = "SLAP";
+        beep(880, 80);
+      }, wait);
+      $("slapBtn").disabled = false;
+      $("slapBtn").textContent = "…";
+    }
+
+    // ===== RPS =====
+    const rpsMap = { rock:"🪨 Rock", paper:"📄 Paper", scissors:"✂️ Scissors" };
+    function rpsPlay(user){
+      const choices = ["rock","paper","scissors"];
+      const cpu = choices[Math.floor(Math.random()*3)];
+      let result = "Draw.";
+      if(user !== cpu){
+        const win = (user==="rock" && cpu==="scissors") || (user==="paper" && cpu==="rock") || (user==="scissors" && cpu==="paper");
+        result = win ? "You win." : "You lose.";
+      }
+      $("rpsStatus").innerHTML = `<strong>Result:</strong> You: ${rpsMap[user]} | Me: ${rpsMap[cpu]} → <strong>${result}</strong>`;
+      beep(result.includes("win") ? 740 : result.includes("lose") ? 180 : 420, 90);
+    }
+
+    // ===== Guess =====
+    let secret = 0;
+    let tries = 0;
+    function newSecret(){
+      secret = Math.floor(Math.random()*100) + 1;
+      tries = 0;
+      $("guessStatus").innerHTML = "<strong>Status:</strong> I’ve picked a number. Your move.";
+      $("guessInput").value = "";
+      beep(500, 70);
+    }
+    function doGuess(){
+      const n = parseInt(($("guessInput").value || "").trim(), 10);
+      if(!Number.isFinite(n) || n < 1 || n > 100){
+        $("guessStatus").innerHTML = "<strong>Status:</strong> Pick a number from 1–100, champ.";
+        beep(160, 120);
+        return;
+      }
+      tries++;
+      if(n === secret){
+        $("guessStatus").innerHTML = `<strong>Status:</strong> Nailed it. ${secret}. Tries: <strong>${tries}</strong>.`;
+        beep(820, 140);
+      }else if(n < secret){
+        $("guessStatus").innerHTML = `<strong>Status:</strong> Too low. Tries: <strong>${tries}</strong>.`;
+        beep(260, 80);
+      }else{
+        $("guessStatus").innerHTML = `<strong>Status:</strong> Too high. Tries: <strong>${tries}</strong>.`;
+        beep(260, 80);
+      }
+    }
+
+    // ===== Tic Tac Toe =====
+    let ttt = Array(9).fill("");
+    let turn = "X";
+    let gameOver = false;
+
+    function renderTTT(){
+      const grid = $("tttGrid");
+      grid.innerHTML = "";
+      ttt.forEach((v,i)=>{
+        const c = document.createElement("button");
+        c.className = "cell";
+        c.textContent = v || "";
+        c.addEventListener("click", ()=> tttMove(i));
+        grid.appendChild(c);
+      });
+    }
+
+    function winner(){
+      const lines = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      for(const [a,b,c] of lines){
+        if(ttt[a] && ttt[a]===ttt[b] && ttt[a]===ttt[c]) return ttt[a];
+      }
+      if(ttt.every(x=>x)) return "draw";
+      return null;
+    }
+
+    function tttMove(i){
+      if(gameOver) return;
+      if(ttt[i]) return;
+      ttt[i] = turn;
+      turn = (turn==="X") ? "O" : "X";
+      renderTTT();
+      const w = winner();
+      if(w){
+        gameOver = true;
+        if(w==="draw"){
+          $("tttStatus").innerHTML = "<strong>Result:</strong> Draw. Like most arguments.";
+          beep(420, 120);
+        }else{
+          $("tttStatus").innerHTML = `<strong>Result:</strong> ${w} wins. Absolutely rigged.`;
+          beep(780, 140);
+        }
+      }else{
+        $("tttStatus").innerHTML = `<strong>Turn:</strong> ${turn} (${turn==="X" ? "you" : "also you"})`;
+      }
+    }
+
+    function resetTTT(){
+      ttt = Array(9).fill("");
+      turn = "X";
+      gameOver = false;
+      $("tttStatus").innerHTML = "<strong>Turn:</strong> X (you)";
+      renderTTT();
+      beep(520, 80);
+    }
+
+    // ===== Oddities =====
+    function doNotPress(){
+      const msgs = [
+        "You pressed it. Of course you did.",
+        "Nothing bad happened. Disappointing, honestly.",
+        "That button is basically a personality test and you failed it.",
+        "Pressing forbidden buttons is your hobby now.",
+        "Congrats. You achieved: absolutely nothing."
+      ];
+      $("oddStatus").innerHTML = `<strong>Update:</strong> ${pick(msgs)}`;
+      // harmless UI twitch
+      document.body.classList.add("eerie"); // flash on
+      setTimeout(()=> {
+        const should = (localStorage.getItem(STORAGE.eerie)==="1");
+        document.body.classList.toggle("eerie", should);
+      }, 220);
+      beep(300, 80);
+    }
+
+    // ===== export / wipe =====
+    function exportAll(){
+      const payload = {
+        note: localStorage.getItem(STORAGE.note) || "",
+        prophecy: localStorage.getItem(STORAGE.prophecy) || "",
+        oneLiner: localStorage.getItem(STORAGE.oneLiner) || "",
+        exportedAt: new Date().toISOString()
+      };
+      exportText("slappy_export.json", JSON.stringify(payload, null, 2));
+      beep(660, 90);
+    }
+
+    function wipeAll(){
+      // Only removes THIS page’s keys.
+      Object.values(STORAGE).forEach(k => localStorage.removeItem(k));
+      $("note").value = "";
+      $("prophecyBox").innerHTML = "<strong>Prophecy:</strong> Wiped.";
+      $("oneLinerBox").innerHTML = "<strong>One-liner:</strong> Wiped.";
+      lockApp();
+      makeBubbles();
+      beep(140, 140);
+    }
+
+    // ===== init =====
+    (function init(){
+      makeBubbles();
+
+      // Eerie state load
+      const eerieOn = localStorage.getItem(STORAGE.eerie) === "1";
+      document.body.classList.toggle("eerie", eerieOn);
+
+      // Gate button also toggles eerie (so you can set mood before unlock)
+      $("gateEerieBtn").addEventListener("click", ()=>{
+        const now = !document.body.classList.contains("eerie");
+        setEerie(now);
+      });
+
+      $("eerieBtn").addEventListener("click", ()=>{
+        const now = !document.body.classList.contains("eerie");
+        setEerie(now);
+      });
+
+      // show eerie label
+      $("eerieState").textContent = document.body.classList.contains("eerie") ? "On" : "Off";
+
+      // unlock state
+      if(localStorage.getItem(STORAGE.unlocked) === "1"){
+        showApp();
+      }
+
+      $("unlockBtn").addEventListener("click", tryUnlock);
+      $("pass").addEventListener("keydown", (e)=>{ if(e.key === "Enter") tryUnlock(); });
+
+      // Note
+      loadNote();
+      $("saveNoteBtn").addEventListener("click", saveNote);
+      $("note").addEventListener("input", ()=>{
+        // gentle autosave
+        localStorage.setItem(STORAGE.note, $("note").value || "");
+      });
+      $("exportNoteBtn").addEventListener("click", ()=>{
+        exportText("slappy_note.txt", $("note").value || "");
+        beep(660, 90);
+      });
+      $("resetNoteBtn").addEventListener("click", ()=>{
+        $("note").value = "";
+        localStorage.setItem(STORAGE.note, "");
+        $("statusPill").textContent = "Reset";
+        setTimeout(()=> $("statusPill").textContent = "Loaded", 700);
+        beep(200, 120);
+      });
+
+      // Prophecy
+      $("prophecyBtn").addEventListener("click", ()=>{
+        const p = pick(prophecies);
+        localStorage.setItem(STORAGE.prophecy, p);
+        $("prophecyBox").innerHTML = `<strong>Prophecy:</strong> ${p}`;
+        beep(560, 90);
+      });
+      $("copyProphecyBtn").addEventListener("click", async ()=>{
+        const text = (localStorage.getItem(STORAGE.prophecy) || "").trim();
+        if(!text){
+          $("prophecyBox").innerHTML = "<strong>Prophecy:</strong> Press the button first, mate.";
+          beep(160, 120);
+          return;
+        }
+        try{
+          await navigator.clipboard.writeText(text);
+          $("prophecyBox").innerHTML = `<strong>Prophecy:</strong> Copied. Now send it and pretend it’s fate.`;
+          beep(720, 70);
+        }catch(e){
+          $("prophecyBox").innerHTML = `<strong>Prophecy:</strong> Copy failed. Your browser is being precious.`;
+          beep(160, 120);
+        }
+      });
+
+      // One-liner
+      $("oneLinerBtn").addEventListener("click", ()=>{
+        const l = pick(oneLiners);
+        localStorage.setItem(STORAGE.oneLiner, l);
+        $("oneLinerBox").innerHTML = `<strong>One-liner:</strong> ${l}`;
+        beep(520, 80);
+      });
+
+      // Odd buttons
+      $("doNotPressBtn").addEventListener("click", doNotPress);
+      $("shuffleBubblesBtn").addEventListener("click", ()=>{ makeBubbles(); beep(480, 70); });
+
+      // Export / wipe
+      $("exportAllBtn").addEventListener("click", exportAll);
+      $("wipeAllBtn").addEventListener("click", wipeAll);
+
+      // Slap Reflex
+      $("slapStartBtn").addEventListener("click", slapStartGame);
+      $("slapResetBtn").addEventListener("click", slapReset);
+      $("slapBtn").addEventListener("click", ()=>{
+        if(!slapArmed){
+          $("slapStatus").innerHTML = "<strong>Nope:</strong> Too early. You’re jumpy.";
+          beep(140, 140);
+          slapReset();
+          return;
+        }
+        const ms = Math.round(performance.now() - slapStart);
+        $("slapStatus").innerHTML = `<strong>Time:</strong> ${ms}ms. ${ms < 220 ? "Filthy fast." : ms < 320 ? "Pretty good." : "You’re thinking too much."}`;
+        beep(760, 90);
+        slapReset();
+      });
+
+      // RPS
+      document.querySelectorAll("[data-rps]").forEach(btn=>{
+        btn.addEventListener("click", ()=> rpsPlay(btn.getAttribute("data-rps")));
+      });
+
+      // Guess
+      $("guessBtn").addEventListener("click", doGuess);
+      $("guessNewBtn").addEventListener("click", newSecret);
+      $("guessInput").addEventListener("keydown", (e)=>{ if(e.key==="Enter") doGuess(); });
+      newSecret();
+
+      // TTT
+      renderTTT();
+      $("tttResetBtn").addEventListener("click", resetTTT);
+
+      // Save state label
+      $("saveState").textContent = "On";
+    })();
+  </script>
+
+  <!--
+    References (non-link list, because you didn’t ask for a research project):
+    1) MDN Web Docs: Window.localStorage
+    2) MDN Web Docs: Clipboard API
+    3) MDN Web Docs: Web Audio API
+    4) OWASP: Authentication (client-side “secrets” aren’t secrets)
+  -->
+</body>
+</html>
