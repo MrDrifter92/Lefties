@@ -17,12 +17,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <!-- Added Great Vibes for that "Fraser Coast" script feel -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Lexend+Deca:wght@300;600;800&family=Great+Vibes&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
       --primary: #0071B6;
+      --primary-dark: #005a92;
       --accent: #00D2FF;
       --cream: #F4EBD9;
       --glass-fill: rgba(255, 255, 255, 0.75);
@@ -47,33 +47,67 @@
       font-family: 'Lexend Deca', sans-serif;
     }
 
-    /* Shiny, Blue, Fraser Coast Script Style */
-    .fraser-script {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.6em; /* Balanced for the H1 */
-      line-height: 1;
-      display: inline-block;
-      background: linear-gradient(
-        to right, 
-        #005a92 20%, 
-        #00D2FF 40%, 
-        #ffffff 50%, 
-        #00D2FF 60%, 
-        #005a92 80%
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      text-fill-color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: shine 4s linear infinite;
-      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
-      padding: 0 10px;
-    }
-
+    /* Animation for the Shine */
     @keyframes shine {
       to {
         background-position: 200% center;
       }
+    }
+
+    /* Subtle slow shine for the Script Headline */
+    .fraser-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.6em;
+      line-height: 1.4; /* Prevents cutting off top/bottom of script */
+      display: inline-block;
+      white-space: nowrap; /* Forces one line on mobile */
+      background: linear-gradient(
+        to right, 
+        #005a92 0%, 
+        #00D2FF 30%, 
+        #ffffff 50%, 
+        #00D2FF 70%, 
+        #005a92 100%
+      );
+      background-size: 200% auto;
+      animation: shine 12s linear infinite; /* Greatly slowed down */
+      -webkit-background-clip: text;
+      text-fill-color: transparent;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+      padding: 10px 15px; /* Added padding to prevent edge clipping */
+    }
+
+    /* Button Style - Solid by default, Shiny on Hover */
+    .btn-glass {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      background: var(--primary);
+      box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-glass:hover {
+      background: linear-gradient(
+        to right, 
+        var(--primary-dark) 0%, 
+        var(--accent) 30%, 
+        #ffffff 50%, 
+        var(--accent) 70%, 
+        var(--primary-dark) 100%
+      );
+      background-size: 200% auto;
+      animation: shine 1.5s linear infinite;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.5);
     }
 
     .page-video-wrap {
@@ -109,24 +143,6 @@
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
     }
 
-    .btn-glass {
-      background: linear-gradient(135deg, var(--primary) 0%, #005a92 100%);
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      border-radius: 9999px;
-      box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.4);
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-glass:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.5);
-    }
-
     @keyframes heroFloat {
       0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 0px rgba(0, 210, 255, 0)); }
       50% { transform: translateY(-15px) scale(1.02); filter: drop-shadow(0 10px 20px rgba(0, 210, 255, 0.2)); }
@@ -158,6 +174,8 @@
 
   <div class="page-video-wrap">
     <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
+      <!-- Better compatibility: prioritize MP4 (if available) or ensure MOV is H264 encoded -->
+      <source src="Dog-video.mp4" type="video/mp4">
       <source src="Dog-video.mov" type="video/quicktime">
       <source src="Dog-video.mov" type="video/mp4">
     </video>
@@ -184,7 +202,7 @@
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.72.42-1.24 1.16-1.41 1.97-.05.33-.06.68-.03 1.02.12.89.58 1.7 1.3 2.22.86.62 1.97.82 2.99.52 1.02-.31 1.86-1.1 2.23-2.1.14-.38.21-.78.22-1.18.05-3.14.01-6.28.04-9.42z"/></svg>
             </a>
           </div>
-          <a href="#quote" class="btn-glass px-6 py-2.5 ml-2">GET QUOTE</a>
+          <a href="#quote" class="btn-glass px-6 py-2.5 ml-2 text-[10px]">GET QUOTE</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -227,14 +245,16 @@
     <!-- Hero Section -->
     <section id="home" class="pt-4 md:pt-12">
       <div class="frosted p-6 md:p-16 text-center">
-        <div class="flex justify-center mb-8 md:mb-12">
+        <div class="flex justify-center mb-6 md:mb-12">
+          <!-- Logo made larger on mobile (w-full max-w-[280px]) -->
           <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning" 
-               class="w-full max-w-md md:max-w-4xl h-auto float-logo-enhanced pointer-events-none" />
+               class="w-full max-w-[280px] md:max-w-4xl h-auto float-logo-enhanced pointer-events-none" />
         </div>
         
-        <h1 class="mb-4">
-          <span class="fraser-script text-6xl md:text-8xl">Hervey Bay</span>
-        </h1>
+        <div class="mb-4">
+          <!-- Text size slightly adjusted and whitespace handled for single line -->
+          <span class="fraser-script text-5xl md:text-8xl">Hervey Bay</span>
+        </div>
         
         <p class="text-lg md:text-xl text-gray-800 max-w-xl mx-auto font-medium leading-relaxed opacity-90 mb-10">
           Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. Professional steam cleaning that brings the "new home" feel back to your space.
@@ -273,6 +293,28 @@
         </div>
         <h3 class="text-xl font-black mb-2 text-gray-900">End of Lease</h3>
         <p class="text-gray-700 text-sm leading-relaxed">Complete upholstery and carpet revival to ensure your bond is returned. Real estate standard guaranteed.</p>
+      </div>
+    </section>
+
+    <!-- Meet Adam Section -->
+    <section class="py-12">
+      <div class="frosted p-8 md:p-12">
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
+            <div class="absolute inset-0 bg-[var(--accent)] rounded-2xl rotate-3 opacity-20"></div>
+            <img src="Adam.png" alt="Adam - Owner of Lefties" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-xl border-4 border-white" />
+          </div>
+          <div class="text-center md:text-left">
+            <h2 class="text-3xl md:text-4xl font-black mb-4 text-[var(--primary)]">Meet Adam</h2>
+            <p class="text-lg text-gray-800 leading-relaxed mb-6 font-medium">
+              As the owner of Lefties, I've spent years perfecting the art of the revival. We don't just clean carpets; we restore the comfort and hygiene of your home. When you book with Lefties, you're getting a local service that treats your furniture and floors like our own.
+            </p>
+            <div class="inline-flex items-center gap-3 text-sm font-black text-[var(--primary-dark)] tracking-widest uppercase">
+              <span class="w-8 h-px bg-[var(--primary-dark)]"></span>
+              The Lefties Standard
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
