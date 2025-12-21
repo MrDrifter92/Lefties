@@ -3,33 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-  <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
+  <title>Lefties Carpet Cleaning |carpet and upholstery, revived!  | Hervey Bay</title>
 
-  <!-- SEO & Social Sharing Meta Tags -->
   <meta name="description" content="Professional upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. A spotless revival for your home." />
-  
-  <!-- Favicon / Shortcut Icon -->
   <link rel="shortcut icon" href="core-logo-blue-transparent.png" type="image/png">
 
-  <!-- Open Graph / Facebook / Text / WhatsApp -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://leftiesservices.com.au/" />
-  <meta property="og:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
-  <meta property="og:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
-  <meta property="og:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
-  <meta property="og:image:secure_url" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://leftiesservices.com.au/" />
-  <meta property="twitter:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
-  <meta property="twitter:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
-  <meta property="twitter:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
-
-  <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -41,8 +19,8 @@
       --primary-dark: #005a92;
       --accent: #00D2FF;
       --bg-white: #ffffff;
-      --glass-fill: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(0, 113, 182, 0.1);
+      --glass-fill: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(0, 113, 182, 0.15);
       --text: #1a1e23;
     }
 
@@ -100,16 +78,16 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.18;
+      opacity: 0.25;
     }
 
     .frosted {
       background: var(--glass-fill);
       border: 1px solid var(--glass-border);
       border-radius: 1.5rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 10px 40px -15px rgba(0, 113, 182, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px -15px rgba(0, 113, 182, 0.12);
     }
 
     @keyframes heroFloat {
@@ -121,12 +99,23 @@
     }
 
     .glow-line {
-      height: 3px;
+      height: 4px;
       background: var(--primary);
-      width: 60px;
+      width: 80px;
       margin: 12px auto 0;
       border-radius: 99px;
     }
+
+    .hamburger-icon span {
+      height: 3px;
+      background: var(--text);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 3px;
+    }
+
+    .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
+    .hamburger-active span:nth-child(2) { opacity: 0; }
+    .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
 
     .mobile-menu-overlay {
       position: fixed;
@@ -148,49 +137,47 @@
       visibility: visible;
     }
 
-    .hamburger-icon span {
-      height: 3px;
-      background: var(--text);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 3px;
+    .social-icon-nav {
+      transition: all 0.3s ease;
     }
-
-    .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
-    .hamburger-active span:nth-child(2) { opacity: 0; }
-    .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
-
-    .service-card:hover .service-icon {
-      transform: scale(1.1) rotate(5deg);
-      color: var(--accent);
+    .social-icon-nav:hover {
+      transform: scale(1.1) translateY(-2px);
     }
   </style>
 </head>
 <body class="antialiased">
 
   <div class="page-video-wrap">
-    <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto" poster="index-video-poster.jpg">
+    <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
       <source src="index-video.mp4" type="video/mp4">
     </video>
   </div>
 
   <header class="sticky top-0 z-50 w-full px-4 pt-2">
-    <nav class="max-w-5xl mx-auto">
+    <nav class="max-w-6xl mx-auto">
       <div class="frosted px-4 md:px-8 py-2 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <a href="index.html" class="flex items-center group">
             <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105"/>
           </a>
-          <div class="flex items-center gap-3 border-l border-gray-200 pl-4">
-            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-            </a>
-          </div>
         </div>
 
+        <!-- DESKTOP NAV -->
         <div class="hidden md:flex items-center gap-6 font-bold text-[10px] tracking-widest text-gray-800">
           <a href="services.html" class="hover:text-[var(--primary)] transition-colors">SERVICES</a>
           <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
           <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
+          
+          <!-- SOCIALS IN HEADER -->
+          <div class="flex items-center gap-3 ml-2 border-l border-gray-200 pl-4">
+            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="social-icon-nav text-black hover:text-[var(--primary)]">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.3-.64.4-.98 1.12-1.01 1.87-.01.62.14 1.25.46 1.78.43.7 1.18 1.13 1.99 1.15 1.09.04 2.15-.55 2.65-1.51.27-.49.33-1.06.33-1.61V.02z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="social-icon-nav text-[#1877F2] hover:text-[var(--primary-dark)]">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+          </div>
+
           <a href="#quote" class="btn-glass px-6 py-2 ml-2">GET QUOTE</a>
         </div>
 
@@ -211,12 +198,20 @@
       <a href="services.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Services</a>
       <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
       <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
-      <a href="#quote" class="bg-white text-[var(--primary)] px-8 py-3 rounded-full font-black text-lg shadow-lg" onclick="closeMenu()">Get a Quote</a>
-      <button class="text-white opacity-60 text-xs mt-4 underline font-bold" onclick="closeMenu()">CLOSE MENU</button>
+      
+      <div class="flex gap-6 justify-center mt-4">
+        <a href="https://www.tiktok.com/@leftiesservices" class="text-white p-3 border border-white/20 rounded-full">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.3-.64.4-.98 1.12-1.01 1.87-.01.62.14 1.25.46 1.78.43.7 1.18 1.13 1.99 1.15 1.09.04 2.15-.55 2.65-1.51.27-.49.33-1.06.33-1.61V.02z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/leftiesservices/" class="text-white p-3 border border-white/20 rounded-full">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
+    <!-- Hero Section -->
     <section id="hero" class="pt-4 md:pt-10">
       <div class="frosted p-8 md:p-16 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-10">
@@ -244,9 +239,128 @@
       </div>
     </section>
 
+    <!-- REAL CUSTOMER REVIEWS SECTION -->
+    <section class="py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight uppercase">What Our Customers Say</h2>
+        <div class="glow-line"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Review 1 -->
+        <div class="frosted p-8 bg-white/95 border-l-8 border-[var(--primary)] flex flex-col justify-between">
+          <div>
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-800 font-medium italic leading-relaxed mb-6">
+              "Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. We still get him in every six months at my workplace too. Highly recommend!!"
+            </p>
+          </div>
+          <h4 class="text-sm font-black uppercase text-[var(--primary)] tracking-widest">— Andy M.</h4>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="frosted p-8 bg-white/95 border-l-8 border-[var(--primary)] flex flex-col justify-between">
+          <div>
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-800 font-medium italic leading-relaxed mb-6">
+              "I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."
+            </p>
+          </div>
+          <h4 class="text-sm font-black uppercase text-[var(--primary)] tracking-widest">— Wendy B.</h4>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="frosted p-8 bg-white/95 border-l-8 border-[var(--primary)] flex flex-col justify-between">
+          <div>
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-800 font-medium italic leading-relaxed mb-6">
+              "Have used this service twice now for couch cleaning, very happy with the results!"
+            </p>
+          </div>
+          <h4 class="text-sm font-black uppercase text-[var(--primary)] tracking-widest">— Brittany P.</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet Adam Section -->
+    <section class="py-12">
+      <div class="frosted p-8 md:p-12 overflow-hidden bg-white/80">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <div class="w-full md:w-1/3 flex-shrink-0">
+            <div class="relative group">
+              <div class="absolute inset-0 bg-[var(--primary)] rounded-[2rem] rotate-3 transition-transform group-hover:rotate-6"></div>
+              <img src="adam.png" alt="Adam from Lefties" class="relative z-10 w-full rounded-[2rem] shadow-xl border-4 border-white grayscale hover:grayscale-0 transition-all duration-700" />
+            </div>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 uppercase tracking-tight text-gray-900">Meet Adam.</h2>
+            <div class="space-y-4 text-gray-700 font-medium leading-relaxed">
+              <p>
+                Owner, operator, and the face of <span class="text-[var(--primary)] font-black uppercase tracking-tighter">Lefties.</span>
+              </p>
+              <p>
+                Hervey Bay local with a passion for helping families and businesses get their space looking and smelling like new again. When you call Lefties, you aren't talking to a call center—you're talking to me.
+              </p>
+              <p class="italic border-l-4 border-[var(--primary)] pl-4 py-2 bg-gray-50 rounded-r-lg">
+                "I take pride in every fiber I clean. Whether it's a family couch that's seen better days or an office carpet that needs a reset, I treat it like my own."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Grid (Main Body) -->
+    <section class="py-12">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">Follow Our Work</h2>
+        <div class="glow-line"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="frosted p-6 bg-white/70 flex items-center gap-6 transition-all hover:-translate-y-1 hover:bg-black hover:text-white group">
+          <div class="p-3 bg-black text-white rounded-xl group-hover:bg-white group-hover:text-black">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.3-.64.4-.98 1.12-1.01 1.87-.01.62.14 1.25.46 1.78.43.7 1.18 1.13 1.99 1.15 1.09.04 2.15-.55 2.65-1.51.27-.49.33-1.06.33-1.61V.02z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-black uppercase">TikTok</h3>
+            <p class="text-xs text-gray-600 group-hover:text-gray-300">Satisfying cleaning results.</p>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="frosted p-6 bg-white/70 flex items-center gap-6 transition-all hover:-translate-y-1 hover:bg-[#1877F2] group">
+          <div class="p-3 bg-[#1877F2] text-white rounded-xl group-hover:bg-white group-hover:text-[#1877F2]">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-black uppercase group-hover:text-white">Facebook</h3>
+            <p class="text-xs text-gray-600 group-hover:text-blue-50">Local news & updates.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Service Grid -->
     <section class="py-12">
       <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">What We Do Best</h2>
+        <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">Professional Services</h2>
         <div class="glow-line"></div>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
@@ -254,129 +368,36 @@
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
           </div>
-          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Upholstery Revival</h3>
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">Deep steam cleaning for couches, armchairs, and dining chairs. Removing stains and allergens.</p>
+          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Upholstery</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Deep restorative cleaning for your furniture. Fabric care that lasts.</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase group-hover:underline">Learn More &rarr;</span>
         </a>
         <a href="services.html#carpets" class="service-card frosted p-8 bg-white/70 transition-all hover:translate-y-[-5px] block group">
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
           </div>
-          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Carpet Cleaning</h3>
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">Industrial-grade extraction that pulls dirt from the roots, leaving carpets fresh and soft.</p>
+          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Carpet Steam</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Carpet Cleaning for a healthier indoor environment.</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase group-hover:underline">Learn More &rarr;</span>
         </a>
         <a href="services.html#bond" class="service-card frosted p-8 bg-white/70 transition-all hover:translate-y-[-5px] block group">
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Bond Cleaning</h3>
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">Professional standard cleaning designed to meet real estate requirements for bond returns.</p>
+          <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Bond Cleans</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Full end-of-lease carpet cleaning for bond recovery.</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase group-hover:underline">Learn More &rarr;</span>
         </a>
       </div>
     </section>
 
-    <section class="py-6">
-      <div class="frosted p-10 bg-[var(--primary)] text-white relative overflow-hidden group">
-        <div class="absolute right-[-50px] top-[-50px] opacity-10 group-hover:rotate-12 transition-transform duration-700">
-          <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v13a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-        </div>
-        <div class="relative z-10 md:flex items-center justify-between gap-8">
-          <div class="mb-6 md:mb-0">
-            <h2 class="text-3xl font-black uppercase tracking-tight mb-2">Own a Business?</h2>
-            <p class="text-blue-100 font-medium">We provide regular maintenance for offices, gyms, and retail spaces across the Fraser Coast.</p>
-          </div>
-          <a href="commercial.html" class="bg-white text-[var(--primary)] px-8 py-4 rounded-full font-black text-sm uppercase whitespace-nowrap hover:scale-105 transition-transform inline-block">Commercial Services &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-12">
-      <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">The Word on the Street</h2>
-        <div class="glow-line"></div>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
-          <div class="flex text-yellow-500 mb-4 gap-1">
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-          </div>
-          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. Highly recommend!!"</p>
-          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Andy M.</span>
-        </div>
-        <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
-          <div class="flex text-yellow-500 mb-4 gap-1">
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-          </div>
-          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."</p>
-          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Wendy B.</span>
-        </div>
-        <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
-          <div class="flex text-yellow-500 mb-4 gap-1">
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-          </div>
-          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"Have used this service twice now for couch cleaning, very happy with the results! Both times they came up looking brand new! Definitely recommend!"</p>
-          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Brittany P.</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-12">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
-        <div class="glow-line"></div>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="frosted p-2 group overflow-hidden bg-white/70">
-          <img src="before-after.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="frosted p-2 group overflow-hidden bg-white/70">
-          <img src="before-after-2.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="frosted p-2 group overflow-hidden bg-white/70">
-          <img src="before-after-3.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
-        </div>
-        <div class="frosted p-2 group overflow-hidden bg-white/70">
-          <img src="before-after-4.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
-        </div>
-      </div>
-    </section>
-
-    <section class="py-12">
-      <div class="frosted p-8 md:p-16 bg-white/85">
-        <div class="flex flex-col md:flex-row items-center gap-10">
-          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
-             <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-3 opacity-10"></div>
-             <img src="Adam.png" alt="Adam" class="w-full h-full object-cover rounded-3xl relative z-10 shadow-2xl border-4 border-white" />
-          </div>
-          <div class="text-center md:text-left flex-1">
-            <h2 class="text-3xl font-black mb-2 text-[var(--primary)] uppercase tracking-tight">Meet Adam</h2>
-            <p class="text-sm font-black tracking-[0.2em] mb-6 text-gray-400 uppercase">Owner & Specialist</p>
-            <p class="text-gray-800 font-medium leading-relaxed italic">"Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard."</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- Call to Action -->
     <section id="quote" class="py-12 mb-10">
-      <div class="frosted p-12 md:p-24 text-center bg-white/90 border-b-8 border-[var(--primary)]">
-        <h2 class="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter">Ready to Breathe Easy?</h2>
+      <div class="frosted p-12 md:p-24 text-center bg-white/95 border-b-8 border-[var(--primary)]">
+        <h2 class="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter text-gray-900">Get Your Free Quote</h2>
         <div class="flex flex-wrap justify-center gap-4">
            <a href="tel:0417220012" class="btn-glass px-12 py-5 text-lg">Call 0417 220 012</a>
-           <a href="contact-us.html" class="bg-[var(--primary)]/5 border border-[var(--primary)]/20 px-12 py-5 rounded-full font-black text-lg uppercase transition-all hover:bg-white text-[var(--primary)]">Enquire Online</a>
+           <a href="contact-us.html" class="bg-gray-100 px-12 py-5 rounded-full font-black text-lg uppercase transition-all hover:bg-white text-[var(--primary)]">Enquire Online</a>
         </div>
       </div>
     </section>
@@ -387,10 +408,35 @@
   </footer>
 
   <script>
+    const video = document.getElementById('bgVideo');
+
+    function attemptPlay() {
+      if (!video) return;
+      video.muted = true;
+      video.playsInline = true;
+      
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const forcePlay = () => {
+            video.play();
+            ['click', 'touchstart', 'scroll', 'mousedown'].forEach(ev => 
+              window.removeEventListener(ev, forcePlay)
+            );
+          };
+          ['click', 'touchstart', 'scroll', 'mousedown'].forEach(ev => 
+            window.addEventListener(ev, forcePlay)
+          );
+        });
+      }
+    }
+
+    window.addEventListener('load', attemptPlay);
+    document.addEventListener('DOMContentLoaded', attemptPlay);
+
     const menuBtn = document.getElementById('mobile-menu-button');
     const menuIcon = document.getElementById('hamburger-icon-wrapper');
     const menuOverlay = document.getElementById('mobile-menu-overlay');
-    const video = document.getElementById('bgVideo');
 
     function openMenu() {
       menuOverlay.classList.add('active');
@@ -408,13 +454,6 @@
       e.stopPropagation();
       menuOverlay.classList.contains('active') ? closeMenu() : openMenu();
     });
-
-    window.onload = function() {
-      if (video) {
-        video.muted = true;
-        video.play().catch(() => {});
-      }
-    };
   </script>
 </body>
 </html>
