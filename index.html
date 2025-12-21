@@ -73,18 +73,12 @@
       background: #000;
     }
 
-    .page-video-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(244, 235, 217, 0.05), rgba(244, 235, 217, 0.2));
-      z-index: -1;
-    }
-
+    /* Video opacity set to 40% */
     .page-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.4;
     }
 
     .frosted {
@@ -204,7 +198,6 @@
       <div class="frosted p-8 md:p-16 bg-white/40 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-10">
           
-          <!-- Framed Logo: Updated to sit flush against the white border -->
           <div class="w-full max-w-[320px] md:w-96 flex-shrink-0 relative float-logo-enhanced">
             <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-2 opacity-10"></div>
             
@@ -232,7 +225,6 @@
       </div>
     </section>
 
-    <!-- Services Summary -->
     <section class="py-10 grid md:grid-cols-3 gap-6">
       <div class="frosted p-8">
         <h3 class="text-xl font-black mb-3">Residential</h3>
@@ -248,7 +240,6 @@
       </div>
     </section>
 
-    <!-- Visual Proof Gallery -->
     <section class="py-6">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
@@ -262,7 +253,6 @@
       </div>
     </section>
 
-    <!-- Meet Adam -->
     <section class="py-12">
       <div class="frosted p-8 md:p-16 bg-white/40">
         <div class="flex flex-col md:flex-row items-center gap-10">
@@ -279,7 +269,6 @@
       </div>
     </section>
 
-    <!-- Call to Action -->
     <section id="quote" class="py-12 mb-10">
       <div class="frosted p-10 md:p-20 text-center">
         <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to Breathe Easy?</h2>
