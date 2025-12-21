@@ -2,273 +2,359 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Services | Lefties Carpet Cleaning</title>
 
-  <!-- Tailwind + Brand Font -->
+  <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Lexend+Deca:wght@300;600;800&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ========= LeftiesLite tokens ========= */
-    :root{
-      --primary:#0071B6;
-      --cream:#EFE3CF;                 /* page background */
-      --cream-2:#E7D7BE;               /* subtle gradient base */
-      --glass-fill:rgba(255,255,255,.42);
-      --glass-border:rgba(255,255,255,.28);
-      --text:#1b2025;
-      --muted:#3d4754;
+    :root {
+      --primary: #0071B6;
+      --primary-dark: #005a92;
+      --accent: #00D2FF;
+      --cream: #F4EBD9;
+      --glass-fill: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --text: #1a1e23;
     }
 
-    html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-    body{
-      font-family:'Nunito',sans-serif;
-      color:var(--text);
-      background: radial-gradient(1200px 800px at 10% 0%, #fff7ea 0%, var(--cream) 45%, var(--cream-2) 100%);
-      overflow-x:hidden;
-      position:relative;
-      min-height:100dvh;
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
 
-    /* ========= Background video (lighter) ========= */
-    .page-video-wrap{position:fixed; inset:0; z-index:-2; overflow:hidden;}
-    .page-video{width:100%; height:100%; object-fit:cover; opacity:.90;} /* lowered from .25 */
-
-    /* ========= Frosted glass ========= */
-    .frosted{
-      background:var(--glass-fill);
-      border:1px solid var(--glass-border);
-      border-radius:1.25rem;
-      backdrop-filter:blur(14px) saturate(120%);
-      -webkit-backdrop-filter:blur(14px) saturate(120%);
-      box-shadow:0 14px 30px rgba(0,0,0,.16), inset 0 1px 1px rgba(255,255,255,.25);
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Buttons */
-    .btn-glass{
-      background:linear-gradient(145deg, rgba(0,148,255,.9), rgba(0,113,182,.95));
-      color:#fff; font-weight:800; border-radius:9999px;
-      border:1px solid rgba(0,148,255,.35);
-      box-shadow:0 12px 26px rgba(0,113,182,.32), inset 0 1px 1px rgba(255,255,255,.35);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .btn-glass:hover{transform:translateY(-2px); box-shadow:0 16px 34px rgba(0,113,182,.38), inset 0 1px 1px rgba(255,255,255,.45);}
-
-    .hero-accent{
-      color:var(--primary); font-weight:900; letter-spacing:.25px;
-      text-shadow:0 0 6px rgba(0,113,182,.35), 0 0 14px rgba(0,140,255,.28);
+    @keyframes shine {
+      to { background-position: 200% center; }
     }
 
-    .container{max-width:1100px;}
-
-    /* ========= Header & mobile menu ========= */
-    .mobile-menu-overlay{
-      position:fixed; inset:0; background:rgba(0,0,0,.65);
-      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-      z-index:90; transform:translateX(100%); transition:transform .45s cubic-bezier(.86,0,.07,1);
+    .btn-glass {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      background: var(--primary);
+      box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
     }
-    .mobile-menu-overlay[data-state="open"]{ transform:translateX(0); }
-    .hamburger-icon{display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem}
-    .hamburger-icon span{height:2px; width:100%; background:#111; border-radius:9999px; transition:all .3s}
-    .hamburger-icon.open span:nth-child(1){transform:translateY(10px) rotate(45deg)}
-    .hamburger-icon.open span:nth-child(2){opacity:0}
-    .hamburger-icon.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg)}
 
-    .link-muted{color:var(--muted)}
-    .service-img{width:100%; height:auto; object-fit:cover; border-radius:.75rem; box-shadow:0 4px 6px rgba(0,0,0,.1);}
+    .btn-glass:hover {
+      background: linear-gradient(to right, var(--primary-dark) 0%, var(--accent) 30%, #ffffff 50%, var(--accent) 70%, var(--primary-dark) 100%);
+      background-size: 200% auto;
+      animation: shine 1.5s linear infinite;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.5);
+    }
+
+    .page-video-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: #000;
+    }
+
+    .page-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(244, 235, 217, 0.05), rgba(244, 235, 217, 0.2));
+      z-index: -1;
+    }
+
+    .page-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .frosted {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Framing style for service images - matches Adam/Logo style */
+    .framed-asset {
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+      border: 4px solid white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: white;
+      transition: transform 0.4s ease;
+    }
+    .framed-asset:hover {
+      transform: scale(1.02);
+    }
+    .frame-shadow {
+      position: absolute;
+      inset: 0;
+      background: var(--primary);
+      border-radius: 1.5rem;
+      opacity: 0.1;
+      transform: rotate(-2deg);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 113, 182, 0.98);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hamburger-icon span {
+      height: 3px;
+      background: var(--text);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 3px;
+    }
+    .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
+    .hamburger-active span:nth-child(2) { opacity: 0; }
+    .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- Background video -->
-  <div class="page-video-wrap" aria-hidden="true">
-    <video class="page-video" autoplay loop muted playsinline>
+  <div class="page-video-wrap">
+    <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
       <source src="services.video.mp4" type="video/mp4">
     </video>
   </div>
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40">
-    <nav class="container mx-auto px-4 py-3">
-      <div class="frosted px-4 md:px-6 py-3 flex items-center justify-between">
-        <a href="index.html#home" class="flex items-center gap-3" aria-label="Lefties Home">
-          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-12 w-auto select-none"/>
-        </a>
-
-        <!-- Desktop menu -->
-        <div class="hidden md:flex items-center gap-6 font-extrabold text-[15px]">
-          <a href="index.html" class="hover:text-[color:var(--primary)]">Home</a>
-          <a href="carpet-cleaning.html" class="hover:text-[color:var(--primary)]">Carpet Cleaning</a>
-          <a href="upholstery-cleaning.html" class="hover:text-[color:var(--primary)]">Upholstery and Lounges</a>
-          <a href="stain-treatment.html" class="hover:text-[color:var(--primary)]">Stain and Odour</a>
-          <a href="rugs-mattresses.html" class="hover:text-[color:var(--primary)]">Rug and Mattresses</a>
-          <a href="commercial.html" class="hover:text-[color:var(--primary)]">Commercial</a>
-          <a href="contact-us.html" class="hover:text-[color:var(--primary)]">Contact Us</a>
+  <header class="sticky top-0 z-50 w-full px-4 pt-2">
+    <nav class="max-w-5xl mx-auto">
+      <div class="frosted px-4 md:px-8 py-2 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center group">
+            <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105"/>
+          </a>
         </div>
 
-        <!-- CTA + Burger -->
-        <div class="flex items-center gap-3 md:gap-4">
-          <a href="contact-us.html" class="btn-glass px-5 py-2 text-sm hidden md:inline-block">Get a Quote</a>
-          <button id="mobile-menu-button" class="md:hidden focus:outline-none" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
-            <div class="hamburger-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
-          </button>
+        <div class="hidden md:flex items-center gap-6 font-bold text-xs tracking-widest text-gray-800">
+          <a href="index.html" class="hover:text-[var(--primary)] transition-colors">HOME</a>
+          <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
+          <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
+          <a href="contact-us.html" class="btn-glass px-6 py-2 ml-2 text-[10px]">GET QUOTE</a>
         </div>
+
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[210] focus:outline-none">
+          <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon-wrapper">
+            <span class="block w-8"></span>
+            <span class="block w-5"></span>
+            <span class="block w-8"></span>
+          </div>
+        </button>
       </div>
     </nav>
   </header>
 
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay" role="dialog" aria-modal="true" aria-label="Mobile Menu">
-    <div class="p-8 text-center mt-24 flex flex-col h-full">
-      <div class="space-y-8 font-bold text-3xl text-white">
-        <a href="index.html" onclick="closeMenu()">Home</a>
-        <a href="carpet-cleaning.html" onclick="closeMenu()">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" onclick="closeMenu()">Upholstery and Lounges</a>
-        <a href="stain-treatment.html" onclick="closeMenu()">Stain and Odour</a>
-        <a href="rugs-mattresses.html" onclick="closeMenu()">Rug and Mattresses</a>
-        <a href="commercial.html" onclick="closeMenu()">Commercial</a>
-        <a href="contact-us.html" onclick="closeMenu()">Contact Us</a>
-      </div>
-      <div class="mt-10">
-        <a href="contact-us.html" class="btn-glass px-8 py-4 text-xl inline-block" onclick="closeMenu()">Get a Quote</a>
-      </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="flex flex-col gap-8 text-center px-6 relative z-10">
+      <a href="index.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Home</a>
+      <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
+      <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
+      <a href="contact-us.html" class="bg-white text-[var(--primary)] px-8 py-3 rounded-full font-black text-lg shadow-lg" onclick="closeMenu()">Get a Quote</a>
+      <button class="text-white opacity-60 text-xs mt-4 underline font-bold" onclick="closeMenu()">CLOSE MENU</button>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <main>
-
-    <!-- HERO: Our / Services with frosted tile -->
-    <section class="container mx-auto px-4 pt-10 md:pt-12">
-      <div class="frosted px-6 md:px-10 py-10 md:py-12 text-center">
-        <h1 class="font-black leading-[1.05]">
-          <span class="block text-[54px] md:text-[72px]">Our</span>
-          <span class="block hero-accent text-[64px] md:text-[88px]">Services</span>
+  <main class="max-w-5xl mx-auto px-4 relative z-10 pb-20">
+    
+    <!-- Hero Title -->
+    <section class="pt-10 md:pt-16 pb-10">
+      <div class="frosted p-10 md:p-20 text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter">
+          Our <span class="text-[var(--primary)]">Services</span>
         </h1>
-        <p class="mt-4 text-lg md:text-xl link-muted max-w-2xl mx-auto">
-          Here’s what we do, and how we do it.
+        <p class="text-lg md:text-2xl text-gray-800 font-bold max-w-2xl mx-auto">
+          Deep restoration, fabric expertise, and a spotless finish. Here’s what we do.
         </p>
       </div>
     </section>
 
-    <!-- SERVICES LIST -->
-    <section class="container mx-auto px-4 py-10 md:py-12 space-y-8 md:space-y-10">
-
+    <!-- Services Grid -->
+    <div class="space-y-8 md:space-y-12">
+      
       <!-- Carpet Cleaning -->
-      <div class="frosted p-6 md:p-10">
-        <a href="carpet-cleaning.html" class="block hover:opacity-[.98] transition">
-          <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <img src="Carpet-services-1.png" alt="Carpet cleaning" class="service-img">
-            <div>
-              <h2 class="text-3xl font-extrabold hero-accent">Carpet Cleaning</h2>
-              <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
-                <li>Pre-inspection and commercial vacuum</li>
-                <li>Targeted pre-treatment for stains</li>
-                <li>Hot water extraction or low-moisture clean</li>
-                <li>Hand-spot treatment as needed</li>
-                <li>Carpet grooming for a uniform finish</li>
-                <li>Fast drying (same-day in most cases)</li>
-              </ul>
+      <section class="frosted p-8 md:p-12 overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <div class="w-full md:w-1/2 relative group">
+            <div class="frame-shadow"></div>
+            <div class="framed-asset">
+              <img src="Carpet-services-1.png" alt="Carpet Cleaning" class="w-full h-auto block" />
             </div>
           </div>
-        </a>
-      </div>
+          <div class="w-full md:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 text-[var(--primary)]">Carpet Cleaning</h2>
+            <ul class="space-y-4 font-bold text-gray-800">
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Pre-inspection & commercial vacuum</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Targeted pre-treatment for stains</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Hot water extraction or low-moisture</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Carpet grooming for a uniform finish</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Same-day drying in most cases</li>
+            </ul>
+            <a href="carpet-cleaning.html" class="inline-block mt-8 text-xs font-black tracking-widest uppercase text-[var(--primary)] border-b-2 border-[var(--primary)] pb-1 hover:opacity-70">Learn More</a>
+          </div>
+        </div>
+      </section>
 
       <!-- Upholstery -->
-      <div class="frosted p-6 md:p-10">
-        <a href="upholstery-cleaning.html" class="block hover:opacity-[.98] transition">
-          <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <img src="Upholstery-001.png" alt="Upholstery & lounge cleaning" class="service-img">
-            <div>
-              <h2 class="text-3xl font-extrabold hero-accent">Upholstery & Lounge Cleaning</h2>
-              <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
-                <li>Fabric identification & pre-assessment</li>
-                <li>Gentle pre-treatment to lift grime</li>
-                <li>Controlled rinse & extraction</li>
-                <li>Low moisture = fast drying (4–6 hrs)</li>
-                <li>Safe for family and pets</li>
-              </ul>
+      <section class="frosted p-8 md:p-12 overflow-hidden">
+        <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16">
+          <div class="w-full md:w-1/2 relative group">
+            <div class="frame-shadow rotate-2"></div>
+            <div class="framed-asset">
+              <img src="Upholstery-001.png" alt="Upholstery Cleaning" class="w-full h-auto block" />
             </div>
           </div>
-        </a>
-      </div>
+          <div class="w-full md:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 text-[var(--primary)]">Upholstery & Lounges</h2>
+            <ul class="space-y-4 font-bold text-gray-800">
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Fabric identification & assessment</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Gentle pre-treatment grime lifting</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Controlled rinse & expert extraction</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Fast drying times (4–6 hours)</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Safe for your family and pets</li>
+            </ul>
+            <a href="upholstery-cleaning.html" class="inline-block mt-8 text-xs font-black tracking-widest uppercase text-[var(--primary)] border-b-2 border-[var(--primary)] pb-1 hover:opacity-70">Explore Upholstery</a>
+          </div>
+        </div>
+      </section>
 
-      <!-- Stain Treatment -->
-      <div class="frosted p-6 md:p-10">
-        <a href="stain-treatment.html" class="block hover:opacity-[.98] transition">
-          <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <img src="Spot-stain.png" alt="Stain & odour treatment" class="service-img">
-            <div>
-              <h2 class="text-3xl font-extrabold hero-accent">Stain & Odour Treatment</h2>
-              <p class="italic mt-2 link-muted">For those little uh-ohs in the lounge room.</p>
-              <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
-                <li>Stain ID and classification</li>
-                <li>Spot-specific solutions</li>
-                <li>Honest advice (no magic promises)</li>
-                <li>Best paired with a full clean</li>
-              </ul>
+      <!-- Stain & Odour -->
+      <section class="frosted p-8 md:p-12 overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <div class="w-full md:w-1/2 relative group">
+            <div class="frame-shadow -rotate-1"></div>
+            <div class="framed-asset">
+              <img src="Spot-stain.png" alt="Stain Treatment" class="w-full h-auto block" />
             </div>
           </div>
-        </a>
-      </div>
+          <div class="w-full md:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-black mb-2 text-[var(--primary)]">Stain & Odour</h2>
+            <p class="italic text-sm font-bold text-gray-600 mb-6">For those little uh-ohs in the lounge room.</p>
+            <ul class="space-y-4 font-bold text-gray-800">
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Stain ID and classification</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Spot-specific removal solutions</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Honest, professional technical advice</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Best paired with a full deep clean</li>
+            </ul>
+            <a href="stain-treatment.html" class="inline-block mt-8 text-xs font-black tracking-widest uppercase text-[var(--primary)] border-b-2 border-[var(--primary)] pb-1 hover:opacity-70">Stain Advice</a>
+          </div>
+        </div>
+      </section>
 
       <!-- Rugs & Mattresses -->
-      <div class="frosted p-6 md:p-10">
-        <a href="rugs-mattresses.html" class="block hover:opacity-[.98] transition">
-          <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <img src="Rugs-01.png" alt="Rug & mattress cleaning" class="service-img">
-            <div>
-              <h2 class="text-3xl font-extrabold hero-accent">Rug & Mattress Cleaning</h2>
-              <ul class="mt-4 list-disc list-inside space-y-2 link-muted">
-                <li>Specialty rug care for all materials</li>
-                <li>Hygienic mattress sanitation</li>
-                <li>Dust mite & allergen removal</li>
-                <li>Safe, non-toxic cleaning products</li>
-              </ul>
+      <section class="frosted p-8 md:p-12 overflow-hidden">
+        <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16">
+          <div class="w-full md:w-1/2 relative group">
+            <div class="frame-shadow rotate-3"></div>
+            <div class="framed-asset">
+              <img src="Rugs-01.png" alt="Rug Cleaning" class="w-full h-auto block" />
             </div>
           </div>
-        </a>
-      </div>
+          <div class="w-full md:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 text-[var(--primary)]">Rugs & Mattresses</h2>
+            <ul class="space-y-4 font-bold text-gray-800">
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Specialty rug care for all materials</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Hygienic mattress sanitation</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Dust mite & allergen removal</li>
+              <li class="flex gap-3 items-start"><span class="text-[var(--primary)]">•</span> Safe, non-toxic cleaning products</li>
+            </ul>
+            <a href="rugs-mattresses.html" class="inline-block mt-8 text-xs font-black tracking-widest uppercase text-[var(--primary)] border-b-2 border-[var(--primary)] pb-1 hover:opacity-70">View Rug Care</a>
+          </div>
+        </div>
+      </section>
 
+    </div>
+
+    <!-- Final CTA -->
+    <section id="quote" class="py-12">
+      <div class="frosted p-10 md:p-20 text-center">
+        <h2 class="text-3xl md:text-5xl font-black mb-6">Experience the Difference</h2>
+        <a href="contact-us.html" class="btn-glass px-12 py-5 text-lg">Request a Free Quote</a>
+      </div>
     </section>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer class="py-10">
-    <div class="container mx-auto px-4 text-center">
-      <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 mx-auto mb-3 opacity-70">
-      <p class="text-sm link-muted">&copy; 2025 Lefties Carpet Cleaning. All Rights Reserved.</p>
-    </div>
+  <footer class="pb-10 text-center opacity-40 text-[10px] font-bold uppercase tracking-widest">
+    &copy; 2025 Lefties Carpet Cleaning &bull; Fraser Coast
   </footer>
 
-  <!-- JS: Mobile menu -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('mobile-menu-button');
-      const burger = document.getElementById('hamburger-icon');
-      const overlay = document.getElementById('mobile-menu-overlay');
+    const menuBtn = document.getElementById('mobile-menu-button');
+    const menuIcon = document.getElementById('hamburger-icon-wrapper');
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    const video = document.getElementById('bgVideo');
 
-      function openMenu(){
-        overlay.setAttribute('data-state','open');
-        overlay.setAttribute('aria-hidden','false');
-        burger.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        document.body.style.overflow='hidden';
-      }
-      function closeMenu(){
-        overlay.setAttribute('data-state','closed');
-        overlay.setAttribute('aria-hidden','true');
-        burger.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
-        document.body.style.overflow='';
-      }
-      window.closeMenu = closeMenu;
-      btn?.addEventListener('click', ()=> {
-        const isOpen = overlay.getAttribute('data-state')==='open';
-        isOpen ? closeMenu() : openMenu();
-      });
+    function openMenu() {
+      menuOverlay.classList.add('active');
+      menuIcon.classList.add('hamburger-active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menuOverlay.classList.remove('active');
+      menuIcon.classList.remove('hamburger-active');
+      document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuOverlay.classList.contains('active') ? closeMenu() : openMenu();
     });
+
+    function forceVideoPlay() {
+      if (!video) return;
+      video.muted = true;
+      video.playsInline = true;
+      video.play().catch(() => {
+        const playOnAction = () => {
+          video.play().catch(() => {});
+          ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.removeEventListener(ev, playOnAction));
+        };
+        ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.addEventListener(ev, playOnAction, { once: true }));
+      });
+    }
+
+    window.addEventListener('load', forceVideoPlay);
   </script>
 </body>
-</html
+</html>
