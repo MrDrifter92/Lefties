@@ -1,242 +1,324 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Carpet Cleaning | Lefties Carpet Cleaning</title>
   <meta name="description" content="Hervey Bay’s premier carpet cleaning service. Deep cleaning, fast drying, and safe for your family and pets.">
+
+  <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Lexend+Deca:wght@300;600;800&display=swap" rel="stylesheet"/>
+
   <style>
     :root {
-      --primary-blue: #0071B6;
-      --glass-glow: rgba(0, 113, 182, 0.3);
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
+      --primary: #0071B6;
+      --primary-dark: #005a92;
+      --accent: #00D2FF;
+      --cream: #F4EBD9;
+      --glass-fill: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --text: #1a1e23;
     }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+
+    html, body {
       overflow-x: hidden;
+      width: 100%;
       position: relative;
     }
 
-    /* full-page background video (FIXED closing brace) */
-    .body-video-background {
-      position: fixed; inset: 0;
-      width: 100vw; height: 100vh; object-fit: cover;
-      opacity: .25; z-index: -2; transform: translateZ(0);
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
     }
 
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    .btn-glass {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      background: var(--primary);
+      box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-glass:hover {
+      background: linear-gradient(to right, var(--primary-dark) 0%, var(--accent) 30%, #ffffff 50%, var(--accent) 70%, var(--primary-dark) 100%);
+      background-size: 200% auto;
+      animation: shine 1.5s linear infinite;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px -8px rgba(0, 113, 182, 0.5);
+    }
+
+    .page-video-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: #000;
+    }
+
+    .page-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .frosted {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
       border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-    }
-    .text-lift { text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); }
-    .service-img {
-      width: 100%; height: auto; border-radius: .75rem; box-shadow: 0 4px 6px rgba(0,0,0,.1);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
     }
 
-    /* Hamburger icon */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
+    /* Framed Asset Style: No gap between image and border */
+    .framed-asset {
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+      border: 4px solid white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: white;
     }
-    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;}
-    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-
-    /* Fixed header */
-    header.deep-glass{
-      position:fixed; top:0; left:0; width:100%; z-index:100;
-      margin:.5rem;
-    }
-    header .nav-wrap{
-      background: rgba(30,41,59,.65);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem; border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 10px 28px rgba(0,0,0,.4);
+    
+    .frame-shadow {
+      position: absolute;
+      inset: 0;
+      background: var(--primary);
+      border-radius: 1.5rem;
+      opacity: 0.1;
+      transform: rotate(-2deg);
     }
 
-    /* Mobile overlay + slide-in panel */
-    .overlay-base{
-      position:fixed; inset:0; z-index:200; /* above header */
-      background: rgb(0 0 0 / 0.6);
-      transition: opacity .3s ease;
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 113, 182, 0.98);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
     }
-    .overlay-hidden{ opacity:0; pointer-events:none; }
-    .panel{
-      position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
-      background:#0f172a; padding:2rem; transform: translateX(100%);
-      transition: transform .3s ease; display:flex; flex-direction:column; gap:2rem;
-      color:#fff; font-size:1.25rem;
-      padding-top:7rem; /* clears the floating header */
-    }
-    .panel-open{ transform: translateX(0); }
 
-    /* Space for header so nothing overlaps */
-    main{ padding-top: 7rem; }
-    @media (min-width:768px){ main{ padding-top: 9rem; } }
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hamburger-icon span {
+      height: 3px;
+      background: var(--text);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 3px;
+    }
+    .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
+    .hamburger-active span:nth-child(2) { opacity: 0; }
+    .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
   </style>
 </head>
 <body class="antialiased">
 
-  <!-- background video (rename to your actual file if needed) -->
-  <video autoplay muted loop playsinline class="body-video-background">
-    <source src="c-video.mp4" type="video/mp4">
-  </video>
+  <div class="page-video-wrap">
+    <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
+      <source src="c-video.mp4" type="video/mp4">
+    </video>
+  </div>
 
-  <!-- HEADER -->
-  <header class="deep-glass">
-    <nav class="nav-wrap container mx-auto px-6 py-2 flex justify-between items-center relative">
-      <a href="index.html#home">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto">
-      </a>
+  <header class="sticky top-0 z-50 w-full px-4 pt-2">
+    <nav class="max-w-5xl mx-auto">
+      <div class="frosted px-4 md:px-8 py-2 flex items-center justify-between">
+        <a href="index.html" class="flex items-center group">
+          <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105"/>
+        </a>
 
-      <!-- Mobile Hamburger -->
-      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[210]">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
+        <div class="hidden md:flex items-center gap-6 font-bold text-xs tracking-widest text-gray-800">
+          <a href="index.html" class="hover:text-[var(--primary)] transition-colors">HOME</a>
+          <a href="services.html" class="hover:text-[var(--primary)] transition-colors">ALL SERVICES</a>
+          <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
+          <a href="contact-us.html" class="btn-glass px-6 py-2 ml-2 text-[10px]">GET QUOTE</a>
         </div>
-      </button>
 
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex space-x-8 text-white font-bold">
-        <a href="index.html#home" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery & Lounges</a>
-        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain & Odour</a>
-        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug & Mattresses</a>
-        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
-        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
+        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[210] focus:outline-none">
+          <div class="hamburger-icon space-y-1.5 flex flex-col items-end" id="hamburger-icon-wrapper">
+            <span class="block w-8"></span>
+            <span class="block w-5"></span>
+            <span class="block w-8"></span>
+          </div>
+        </button>
       </div>
     </nav>
   </header>
 
-  <!-- Mobile Menu Overlay (slide-in panel) -->
-  <div id="mobile-menu-overlay" class="overlay-base overlay-hidden">
-    <div id="mobile-menu-panel" class="panel">
-      <a href="index.html#home" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
-      <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Upholstery & Lounges</a>
-      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain & Odour</a>
-      <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Rug & Mattresses</a>
-      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
-      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="flex flex-col gap-8 text-center px-6 relative z-10">
+      <a href="index.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Home</a>
+      <a href="services.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">All Services</a>
+      <a href="commercial.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Commercial</a>
+      <a href="contact-us.html" class="text-3xl font-extrabold text-white" onclick="closeMenu()">Contact</a>
+      <a href="contact-us.html" class="bg-white text-[var(--primary)] px-8 py-3 rounded-full font-black text-lg shadow-lg" onclick="closeMenu()">Get a Quote</a>
+      <button class="text-white opacity-60 text-xs mt-4 underline font-bold" onclick="closeMenu()">CLOSE MENU</button>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <main class="container mx-auto px-4 pb-12 space-y-12">
-    <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl font-black text-white mb-4 text-lift">Carpet Cleaning</h1>
-      <p class="text-lg md:text-xl max-w-3xl mx-auto">At Lefties Carpet Cleaning, we specialize in bringing your carpets back to life, restoring their original beauty and freshness. Our comprehensive cleaning process ensures a deep clean that removes dirt, allergens, and stains, leaving your home healthier and more inviting. Whether it's a high-traffic area or a delicate rug, we have the expertise and equipment to deliver outstanding results.</p>
+  <main class="max-w-5xl mx-auto px-4 relative z-10 pb-20">
+    
+    <!-- Hero Header -->
+    <section class="pt-10 md:pt-16 pb-10">
+      <div class="frosted p-10 md:p-16 text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">
+          Carpet <span class="text-[var(--primary)]">Cleaning</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-800 font-bold max-w-3xl mx-auto leading-relaxed">
+          At Lefties Carpet Cleaning, we specialize in bringing your carpets back to life, restoring their original beauty and freshness. Our comprehensive process ensuring a deep clean that removes dirt and allergens.
+        </p>
+      </div>
     </section>
 
-    <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-      <img src="Carpet-services-1.png" alt="Lefties carpet cleaning" class="service-img">
-      <div>
-        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
-        <ul class="list-disc list-inside space-y-2 text-lg">
-          <li><strong>Pre-inspection and commercial vacuum:</strong> Every cleaning begins with a thorough pre-inspection to identify carpet type, heavily soiled areas, and potential stains. We then use a powerful commercial-grade vacuum to remove dry soil, dust, and loose debris, preparing the carpet for deep cleaning.</li>
-          <li><strong>Targeted pre-treatment for stains:</strong> Stubborn spots and high-traffic areas receive special attention with targeted pre-treatment solutions. These professional-grade formulas are designed to break down tough stains and embedded dirt, ensuring maximum removal during the main cleaning phase.</li>
-          <li><strong>Hot water extraction or low-moisture clean:</strong> Depending on your carpet's material and condition, we utilize either advanced hot water extraction (steam cleaning) for a deep, penetrating clean that flushes out contaminants, or a safe, low-moisture method for delicate carpets or faster drying times.</li>
-          <li><strong>Hand-spot treatment as needed:</strong> After the primary cleaning, our technicians meticulously inspect for any remaining spots. We apply specialized hand-spotting techniques and solutions to address individual stubborn stains, ensuring the best possible outcome.</li>
-          <li><strong>Carpet grooming for a uniform finish:</strong> To restore the carpet's pile and ensure a uniform appearance, we gently groom the carpet after cleaning. This helps to lift the fibers, promoting faster drying and leaving your carpet looking freshly revitalized.</li>
-          <li><strong>Fast drying (same-day in most cases):</strong> Our efficient cleaning methods and powerful extraction equipment are designed to minimize drying times. In most cases, your carpets will be dry and ready for use within the same day, reducing inconvenience and allowing you to enjoy your clean home sooner.</li>
+    <!-- Main Content: The Process -->
+    <section class="frosted p-8 md:p-12 overflow-hidden mb-8">
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+        <div class="w-full md:w-1/2 relative">
+          <div class="frame-shadow"></div>
+          <div class="framed-asset">
+            <img src="Carpet-services-1.png" alt="Lefties carpet cleaning" class="w-full h-auto block" />
+          </div>
+        </div>
+        <div class="w-full md:w-1/2">
+          <h2 class="text-3xl font-black mb-6 text-[var(--primary)] uppercase tracking-tight">The Process</h2>
+          <ul class="space-y-6 text-sm md:text-base font-bold text-gray-800">
+            <li class="flex gap-4">
+              <span class="text-[var(--primary)] text-xl leading-none">01</span>
+              <p><span class="text-black uppercase tracking-widest text-xs block mb-1">Pre-Inspection</span> Thorough vacuuming and identification of carpet type and soiled areas.</p>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[var(--primary)] text-xl leading-none">02</span>
+              <p><span class="text-black uppercase tracking-widest text-xs block mb-1">Pre-Treatment</span> Targeted formulas for stubborn spots and high-traffic lanes.</p>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[var(--primary)] text-xl leading-none">03</span>
+              <p><span class="text-black uppercase tracking-widest text-xs block mb-1">Deep Extraction</span> Advanced hot water extraction or low-moisture cleaning options.</p>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[var(--primary)] text-xl leading-none">04</span>
+              <p><span class="text-black uppercase tracking-widest text-xs block mb-1">Hand-Spotting</span> Technical intervention for any remaining individual stains.</p>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[var(--primary)] text-xl leading-none">05</span>
+              <p><span class="text-black uppercase tracking-widest text-xs block mb-1">Grooming</span> Pile restoration for a uniform finish and faster drying.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Differentiation & Drying -->
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="frosted p-8 md:p-12">
+        <h2 class="text-2xl font-black mb-6 text-[var(--primary)]">WHAT MAKES US DIFFERENT?</h2>
+        <ul class="space-y-4 text-sm font-bold text-gray-800">
+          <li><span class="text-[var(--primary)]">Local Expertise:</span> Not a franchise. We take the time needed to do the job right.</li>
+          <li><span class="text-[var(--primary)]">Ethical Operations:</span> Honest assessments. If we can't fix it, we'll tell you upfront.</li>
+          <li><span class="text-[var(--primary)]">Family Safe:</span> Non-toxic, residue-free products safe for kids and pets.</li>
+          <li><span class="text-[var(--primary)]">Optional Add-ons:</span> Odour removal, sanitizers, and fabric protection available.</li>
         </ul>
       </div>
-    </section>
+      <div class="frosted p-8 md:p-12">
+        <h2 class="text-2xl font-black mb-6 text-[var(--primary)]">DRYING TIMES</h2>
+        <p class="text-sm font-bold text-gray-800 leading-relaxed">
+          Efficiency is key. Most carpets are dry and ready for use within 4 to 6 hours. Factors like humidity and airflow play a part, but our high-powered extraction minimizes downtime significantly.
+        </p>
+        <div class="mt-8 border-t border-gray-200 pt-6">
+          <h3 class="text-xs font-black tracking-widest uppercase mb-4">Peace of Mind</h3>
+          <p class="text-xs text-gray-600 font-bold italic">Fully Insured &bull; Police Checked &bull; Blue Card Accredited &bull; WoolSafe Products</p>
+        </div>
+      </div>
+    </div>
 
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
-      <ul class="space-y-3 text-lg">
-        <li><strong>Local, not a franchise:</strong> We are a locally owned and operated business, not a large franchise. This means we dedicate more time and personalized attention to each job, focusing on delivering superior results rather than rushing through appointments. Our commitment is to quality, not quantity.</li>
-        <li><strong>Ethical operators:</strong> Transparency and honesty are at the core of our service. If we assess a job and determine that we cannot achieve the desired results or if it falls outside our expertise, we will ethically refer you to a trusted professional who can better meet your needs. We believe in no-nonsense, straightforward advice.</li>
-        <li><strong>Child and pet-safe:</strong> Your family's well-being is our priority. All the products we use are professional-grade, non-toxic and completely residue-free once dry. This ensures a safe environment for your children and pets immediately after the cleaning process.</li>
-        <li><strong>Optional Add-ons:</strong> Enhance your cleaning experience with our optional add-ons. We offer effective odour removal treatments to neutralize lingering smells, sanitizers for an extra layer of hygiene, and protective coatings to guard against future spills and stains. These are available upon request to customize your service.</li>
-      </ul>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
-      <p class="text-lg">Our carpet cleaning process is designed for efficiency, ensuring your carpets are dry as quickly as possible. In most cases, carpets are dry and ready for normal use within the same day, typically within 4 to 6 hours. Factors such as carpet type, humidity levels, and air circulation can influence drying times. We will always advise on the best ventilation practices to help speed up the process.</p>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">Need to know</h2>
-      <ul class="space-y-3 text-lg">
-        <li><strong>We’re fully insured,</strong> police-checked and Blue Card accredited: For your complete peace of mind, Lefties Carpet Cleaning is fully insured, ensuring protection against unforeseen circumstances. All our team members are thoroughly police-checked and hold valid Blue Cards, demonstrating our commitment to safety and trustworthiness, especially when working in homes with children.</li>
-        <li><strong>WoolSafe compatible products</strong> used on delicate fabrics: We understand the importance of caring for delicate materials. That's why we exclusively use WoolSafe compatible products when cleaning sensitive fabrics like wool, ensuring they are treated gently and effectively without damage.</li>
-        <li><strong>No promises on impossible stains,</strong> but we’ll tell you upfront what can and can’t be done: While we strive for the best possible results, some stains may be permanent depending on their age, type, and the fabric. We maintain full transparency; we will always assess the stain upfront and provide an honest appraisal of what can and cannot be achieved, managing your expectations clearly.</li>
-      </ul>
-    </section>
-
-    <!-- Carpet Cleaning Gallery Section -->
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Carpet Cleaning Gallery</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery01.png" alt="Carpet Cleaning Gallery Image 1" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery02.png" alt="Carpet Cleaning Gallery Image 2" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery03.png" alt="Carpet Cleaning Gallery Image 3" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery04.png" alt="Carpet Cleaning Gallery Image 4" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery05.png" alt="Carpet Cleaning Gallery Image 5" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery06.png" alt="Carpet Cleaning Gallery Image 6" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery07.png" alt="Carpet Cleaning Gallery Image 7" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery08.png" alt="Carpet Cleaning Gallery Image 8" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery09.png" alt="Carpet Cleaning Gallery Image 9" class="rounded-lg w-full h-auto object-cover"></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="c-gallery10.png" alt="Carpet Cleaning Gallery Image 10" class="rounded-lg w-full h-auto object-cover"></div>
+    <!-- Gallery Section -->
+    <section class="frosted p-8 md:p-12 mb-12">
+      <h2 class="text-3xl font-black mb-10 text-center tracking-tight">THE VISUAL PROOF</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <!-- Gallery items sitting flush in their frames -->
+        <div class="framed-asset aspect-square"><img src="c-gallery01.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery02.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery03.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery04.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery05.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery06.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery07.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery08.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery09.png" class="w-full h-full object-cover"></div>
+        <div class="framed-asset aspect-square"><img src="c-gallery10.png" class="w-full h-full object-cover"></div>
       </div>
     </section>
-    <!-- End Carpet Cleaning Gallery Section -->
 
+    <!-- Book Now -->
     <section class="text-center">
-      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
-        Book Now
-      </a>
+      <a href="contact-us.html" class="btn-glass px-12 py-5 text-lg">Book Your Clean</a>
     </section>
+
   </main>
 
-  <footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
-    <p class="text-sm mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+  <footer class="pb-10 text-center opacity-40 text-[10px] font-bold uppercase tracking-widest">
+    &copy; 2025 Lefties Carpet Cleaning &bull; Fraser Coast
   </footer>
 
-  <!-- Mobile menu JS -->
   <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel   = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const menuBtn = document.getElementById('mobile-menu-button');
+    const menuIcon = document.getElementById('hamburger-icon-wrapper');
+    const menuOverlay = document.getElementById('mobile-menu-overlay');
+    const video = document.getElementById('bgVideo');
 
-    function openMobileMenu(){
-      overlay.classList.remove('overlay-hidden');
-      requestAnimationFrame(()=> panel.classList.add('panel-open'));
-      if (hamburgerIcon) hamburgerIcon.classList.add('open');
+    function openMenu() {
+      menuOverlay.classList.add('active');
+      menuIcon.classList.add('hamburger-active');
       document.body.style.overflow = 'hidden';
     }
-    function closeMobileMenu(){
-      panel.classList.remove('panel-open');
-      setTimeout(()=> overlay.classList.add('overlay-hidden'), 300);
-      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
+
+    function closeMenu() {
+      menuOverlay.classList.remove('active');
+      menuIcon.classList.remove('hamburger-active');
       document.body.style.overflow = '';
     }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('overlay-hidden');
-      isOpen ? closeMobileMenu() : openMobileMenu();
+
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuOverlay.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    function forceVideoPlay() {
+      if (!video) return;
+      video.muted = true;
+      video.playsInline = true;
+      video.play().catch(() => {});
     }
-    mobileMenuButton?.addEventListener('click', toggleMobileMenu);
-    overlay?.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+
+    window.onload = forceVideoPlay;
   </script>
 </body>
 </html>
