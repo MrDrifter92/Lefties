@@ -5,34 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
 
+  <!-- SEO & Social Sharing Meta Tags -->
+  <meta name="description" content="Professional upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. A spotless revival for your home." />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://leftiesservices.com.au/" />
+  <meta property="og:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
+  <meta property="og:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
+  <meta property="og:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://leftiesservices.com.au/" />
+  <meta property="twitter:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
+  <meta property="twitter:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
+  <meta property="twitter:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
+
   <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Lexend+Deca:wght@300;600;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
       --primary: #0071B6;
       --primary-dark: #005a92;
       --accent: #00D2FF;
-      --cream: #F4EBD9;
-      --glass-fill: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.5);
+      --cream: #ffffff; /* Changed to White */
+      --glass-fill: rgba(255, 255, 255, 0.9);
+      --glass-border: rgba(0, 113, 182, 0.1);
       --text: #1a1e23;
     }
 
     html, body {
       overflow-x: hidden;
       width: 100%;
-      position: relative;
+      background-color: var(--cream);
     }
 
     body {
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Lexend Deca', sans-serif;
       color: var(--text);
-      background-color: var(--cream);
       -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, .btn-glass {
+      font-family: 'Lexend Deca', sans-serif;
     }
 
     @keyframes shine {
@@ -70,30 +90,23 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: #000;
-    }
-
-    .page-video-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(244, 235, 217, 0.05), rgba(244, 235, 217, 0.2));
-      z-index: -1;
+      background: #fff; /* Changed background to white */
     }
 
     .page-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.15; /* Lower opacity for white background clarity */
     }
 
     .frosted {
       background: var(--glass-fill);
       border: 1px solid var(--glass-border);
       border-radius: 1.5rem;
-      backdrop-filter: blur(12px) saturate(160%);
-      -webkit-backdrop-filter: blur(12px) saturate(160%);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px -15px rgba(0, 113, 182, 0.1);
     }
 
     @keyframes heroFloat {
@@ -105,12 +118,11 @@
     }
 
     .glow-line {
-      height: 1px;
-      background: var(--accent);
-      width: 80px;
-      margin: 8px auto 0;
+      height: 3px;
+      background: var(--primary);
+      width: 60px;
+      margin: 12px auto 0;
       border-radius: 99px;
-      filter: drop-shadow(0 0 8px var(--accent));
     }
 
     .mobile-menu-overlay {
@@ -143,11 +155,9 @@
     .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
     .hamburger-active span:nth-child(2) { opacity: 0; }
     .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
-
-    .no-wrap { white-space: nowrap; }
   </style>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-white">
 
   <div class="page-video-wrap">
     <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto">
@@ -162,21 +172,18 @@
           <a href="index.html" class="flex items-center group">
             <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105"/>
           </a>
-          <div class="flex items-center gap-3 border-l border-gray-300 pl-4">
+          <div class="flex items-center gap-3 border-l border-gray-200 pl-4">
             <a href="https://www.facebook.com/leftiesservices/" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-            </a>
-            <a href="https://www.tiktok.com/@leftiesservices" target="_blank" class="text-gray-700 hover:text-[var(--primary)] transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0h88a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/></svg>
             </a>
           </div>
         </div>
 
-        <div class="hidden md:flex items-center gap-6 font-bold text-xs tracking-widest text-gray-800">
+        <div class="hidden md:flex items-center gap-6 font-bold text-[10px] tracking-widest text-gray-800">
           <a href="services.html" class="hover:text-[var(--primary)] transition-colors">SERVICES</a>
           <a href="commercial.html" class="hover:text-[var(--primary)] transition-colors">COMMERCIAL</a>
           <a href="contact-us.html" class="hover:text-[var(--primary)] transition-colors">CONTACT</a>
-          <a href="#quote" class="btn-glass px-6 py-2 ml-2 text-[10px]">GET QUOTE</a>
+          <a href="#quote" class="btn-glass px-6 py-2 ml-2">GET QUOTE</a>
         </div>
 
         <button id="mobile-menu-button" class="md:hidden p-2 relative z-[210] focus:outline-none">
@@ -202,84 +209,155 @@
   </div>
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
+    <!-- Hero Section -->
     <section id="hero" class="pt-4 md:pt-10">
-      <div class="frosted p-6 md:p-12 text-center">
-        <!-- New 16:9 Optimized Logo Container -->
-        <div class="flex justify-center mb-10">
-          <div class="w-full max-w-2xl relative float-logo-enhanced">
-            <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl rotate-1 opacity-5 scale-105"></div>
-            <div class="bg-white/50 border border-white/80 p-4 md:p-8 rounded-[1.5rem] shadow-2xl backdrop-blur-md">
-              <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-auto object-contain max-h-[160px] md:max-h-[240px]" />
+      <div class="frosted p-8 md:p-16 overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center gap-10">
+          <div class="w-full max-w-[320px] md:w-96 flex-shrink-0 relative float-logo-enhanced">
+            <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-2 opacity-5"></div>
+            <div class="relative z-10 shadow-2xl border-4 border-white rounded-3xl overflow-hidden bg-white">
+              <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-full object-cover block" />
             </div>
           </div>
-        </div>
-        
-        <p class="text-lg md:text-2xl text-gray-900 max-w-2xl mx-auto font-bold leading-relaxed mb-8">
-          Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <a href="#quote" class="btn-glass px-10 py-4 text-sm w-full sm:w-auto">Book Now</a>
-          <a href="tel:0417220012" class="bg-white/60 backdrop-blur-md border border-white px-10 py-4 rounded-full font-black text-sm w-full sm:w-auto text-center hover:bg-white/80 transition-all">
-            0417 220 012
-          </a>
+          <div class="text-center md:text-left flex-1">
+            <h1 class="text-3xl md:text-5xl font-black mb-4 text-gray-900 leading-tight tracking-tight uppercase">
+              A Spotless Revival <br class="hidden md:block"/> for Your Home.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-700 font-medium mb-8 leading-relaxed italic">
+              "Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. Professional care that lasts."
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
+              <a href="#quote" class="btn-glass px-10 py-4 text-sm w-full sm:w-auto">Book Now</a>
+              <a href="tel:0417220012" class="bg-white shadow-sm border border-gray-100 px-10 py-4 rounded-full font-black text-sm w-full sm:w-auto text-center hover:bg-gray-50 transition-all text-[var(--primary)]">
+                0417 220 012
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="py-10 grid md:grid-cols-3 gap-6">
-      <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3">Residential</h3>
-        <p class="text-gray-800 text-sm leading-relaxed">Expert upholstery revival and carpet steam cleaning for your home.</p>
+    <!-- Real Reviews Section -->
+    <section class="py-12">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">The Word on the Street</h2>
+        <div class="glow-line"></div>
       </div>
-      <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3">Commercial</h3>
-        <p class="text-gray-800 text-sm leading-relaxed">High-traffic fabric solutions for offices and retail spaces.</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="frosted p-8 bg-white border-t-4 border-[var(--primary)]">
+          <div class="flex text-yellow-500 mb-4 gap-1">
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. Highly recommend!!"</p>
+          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Andy M.</span>
+        </div>
+        <!-- Review 2 -->
+        <div class="frosted p-8 bg-white border-t-4 border-[var(--primary)]">
+          <div class="flex text-yellow-500 mb-4 gap-1">
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."</p>
+          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Wendy B.</span>
+        </div>
+        <!-- Review 3 -->
+        <div class="frosted p-8 bg-white border-t-4 border-[var(--primary)]">
+          <div class="flex text-yellow-500 mb-4 gap-1">
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"Have used this service twice now for couch cleaning, very happy with the results! Both times they came up looking brand new! Definitely recommend!"</p>
+          <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Brittany P.</span>
+        </div>
       </div>
-      <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3">Bond Clean</h3>
-        <p class="text-gray-800 text-sm leading-relaxed">Standard-compliant revival to ensure your bond return.</p>
+      <div class="mt-8 text-center">
+        <a href="https://www.facebook.com/leftiesservices/reviews" target="_blank" class="text-[var(--primary)] font-black uppercase text-xs tracking-widest hover:underline flex items-center justify-center gap-2">
+          See more reviews on Facebook
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-6 grid md:grid-cols-3 gap-6">
+      <div class="frosted p-8 text-center md:text-left bg-white/80">
+        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Residential</h3>
+        <p class="text-gray-800 text-sm leading-relaxed font-bold">Expert upholstery revival and carpet steam cleaning for your home.</p>
+      </div>
+      <div class="frosted p-8 text-center md:text-left bg-white/80">
+        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Commercial</h3>
+        <p class="text-gray-800 text-sm leading-relaxed font-bold">High-traffic fabric solutions for offices and retail spaces.</p>
+      </div>
+      <div class="frosted p-8 text-center md:text-left bg-white/80">
+        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Bond Clean</h3>
+        <p class="text-gray-800 text-sm leading-relaxed font-bold">Standard-compliant revival to ensure your bond return.</p>
       </div>
     </section>
 
     <!-- Visual Proof -->
-    <section class="py-6">
+    <section class="py-12">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
         <div class="glow-line"></div>
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="frosted p-2"><img src="before-after.png" class="rounded-xl aspect-square object-cover w-full"></div>
-        <div class="frosted p-2"><img src="before-after-2.png" class="rounded-xl aspect-square object-cover w-full"></div>
-        <div class="frosted p-2"><img src="before-after-3.png" class="rounded-xl aspect-square object-cover w-full"></div>
-        <div class="frosted p-2"><img src="before-after-4.png" class="rounded-xl aspect-square object-cover w-full"></div>
+        <div class="frosted p-2 group overflow-hidden bg-white">
+          <img src="before-after.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="frosted p-2 group overflow-hidden bg-white">
+          <img src="before-after-2.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="frosted p-2 group overflow-hidden bg-white">
+          <img src="before-after-3.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="frosted p-2 group overflow-hidden bg-white">
+          <img src="before-after-4.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
+        </div>
       </div>
     </section>
 
-    <!-- Meet Adam -->
+    <!-- About Section -->
     <section class="py-12">
-      <div class="frosted p-8 md:p-16 bg-white/40">
+      <div class="frosted p-8 md:p-16 bg-white/90">
         <div class="flex flex-col md:flex-row items-center gap-10">
-          <img src="Adam.png" alt="Adam" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-3xl shadow-2xl border-4 border-white" />
-          <div class="text-center md:text-left">
-            <h2 class="text-4xl font-black mb-2 text-[var(--primary)]">Meet Adam</h2>
-            <p class="text-xl font-bold mb-6">Owner of Lefties</p>
-            <p class="text-gray-800 font-medium">Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard.</p>
+          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
+             <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-3 opacity-10"></div>
+             <img src="Adam.png" alt="Adam" class="w-full h-full object-cover rounded-3xl relative z-10 shadow-2xl border-4 border-white" />
+          </div>
+          <div class="text-center md:text-left flex-1">
+            <h2 class="text-3xl font-black mb-2 text-[var(--primary)] uppercase tracking-tight">Meet Adam</h2>
+            <p class="text-sm font-black tracking-[0.2em] mb-6 text-gray-400 uppercase">Owner & Specialist</p>
+            <p class="text-gray-800 font-medium leading-relaxed italic">"Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard. From stubborn stains to general fabric health, we have you covered."</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Final CTA -->
     <section id="quote" class="py-12 mb-10">
-      <div class="frosted p-10 md:p-20 text-center">
-        <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to Breathe Easy?</h2>
-        <a href="tel:0417220012" class="btn-glass px-12 py-5 text-lg">Call 0417 220 012</a>
+      <div class="frosted p-12 md:p-24 text-center bg-white/95">
+        <h2 class="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter">Ready to Breathe Easy?</h2>
+        <div class="flex flex-wrap justify-center gap-4">
+           <a href="tel:0417220012" class="btn-glass px-12 py-5 text-lg">Call 0417 220 012</a>
+           <a href="contact-us.html" class="bg-[var(--primary)]/5 border border-[var(--primary)]/20 px-12 py-5 rounded-full font-black text-lg uppercase transition-all hover:bg-white text-[var(--primary)]">Enquire Online</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="pb-10 text-center opacity-40 text-[10px] font-bold uppercase tracking-widest">
-    &copy; 2025 Lefties Carpet Cleaning &bull; Fraser Coast
+  <footer class="pb-10 text-center opacity-40 text-[10px] font-black uppercase tracking-widest text-gray-900">
+    &copy; 2025 Lefties Carpet Cleaning &bull; Fraser Coast &bull; Hervey Bay
   </footer>
 
   <script>
@@ -309,17 +387,10 @@
       if (!video) return;
       video.muted = true;
       video.playsInline = true;
-      video.play().catch(() => {
-        const playOnAction = () => {
-          video.play().catch(() => {});
-          ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.removeEventListener(ev, playOnAction));
-        };
-        ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.addEventListener(ev, playOnAction, { once: true }));
-      });
+      video.play().catch(() => {});
     }
 
-    window.addEventListener('load', forceVideoPlay);
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') video.play().catch(() => {}); });
+    window.onload = forceVideoPlay;
   </script>
 </body>
 </html>
