@@ -5,23 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Lefties Carpet Cleaning | A Spotless Revival | Hervey Bay</title>
 
-  <!-- SEO & Social Sharing Meta Tags -->
-  <meta name="description" content="Professional upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. A spotless revival for your home." />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://leftiesservices.com.au/" />
-  <meta property="og:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
-  <meta property="og:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
-  <meta property="og:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://leftiesservices.com.au/" />
-  <meta property="twitter:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
-  <meta property="twitter:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
-  <meta property="twitter:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
-
   <!-- Tailwind + Font -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -90,12 +73,18 @@
       background: #000;
     }
 
-    /* Video opacity set to 40% */
+    .page-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(244, 235, 217, 0.05), rgba(244, 235, 217, 0.2));
+      z-index: -1;
+    }
+
     .page-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.4;
     }
 
     .frosted {
@@ -154,6 +143,8 @@
     .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
     .hamburger-active span:nth-child(2) { opacity: 0; }
     .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
+
+    .no-wrap { white-space: nowrap; }
   </style>
 </head>
 <body class="antialiased">
@@ -212,51 +203,46 @@
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
     <section id="hero" class="pt-4 md:pt-10">
-      <div class="frosted p-8 md:p-16 bg-white/40 overflow-hidden">
-        <div class="flex flex-col md:flex-row items-center gap-10">
-          
-          <div class="w-full max-w-[320px] md:w-96 flex-shrink-0 relative float-logo-enhanced">
-            <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-2 opacity-10"></div>
-            
-            <div class="relative z-10 shadow-2xl border-4 border-white rounded-3xl overflow-hidden bg-white">
-              <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-full object-cover block" />
+      <div class="frosted p-6 md:p-12 text-center">
+        <!-- New 16:9 Optimized Logo Container -->
+        <div class="flex justify-center mb-10">
+          <div class="w-full max-w-2xl relative float-logo-enhanced">
+            <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl rotate-1 opacity-5 scale-105"></div>
+            <div class="bg-white/50 border border-white/80 p-4 md:p-8 rounded-[1.5rem] shadow-2xl backdrop-blur-md">
+              <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-auto object-contain max-h-[160px] md:max-h-[240px]" />
             </div>
           </div>
-          
-          <div class="text-center md:text-left flex-1">
-            <h1 class="text-3xl md:text-5xl font-black mb-4 text-gray-900 leading-tight uppercase">
-              A Spotless Revival <br class="hidden md:block"/> for Your Home.
-            </h1>
-            <p class="text-lg md:text-xl text-gray-800 font-bold mb-8 leading-relaxed">
-              Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. Professional care that lasts.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
-              <a href="#quote" class="btn-glass px-10 py-4 text-sm w-full sm:w-auto">Book Now</a>
-              <a href="tel:0417220012" class="bg-white/60 backdrop-blur-md border border-white px-10 py-4 rounded-full font-black text-sm w-full sm:w-auto text-center hover:bg-white/80 transition-all">
-                0417 220 012
-              </a>
-            </div>
-          </div>
+        </div>
+        
+        <p class="text-lg md:text-2xl text-gray-900 max-w-2xl mx-auto font-bold leading-relaxed mb-8">
+          Upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <a href="#quote" class="btn-glass px-10 py-4 text-sm w-full sm:w-auto">Book Now</a>
+          <a href="tel:0417220012" class="bg-white/60 backdrop-blur-md border border-white px-10 py-4 rounded-full font-black text-sm w-full sm:w-auto text-center hover:bg-white/80 transition-all">
+            0417 220 012
+          </a>
         </div>
       </div>
     </section>
 
     <section class="py-10 grid md:grid-cols-3 gap-6">
       <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Residential</h3>
-        <p class="text-gray-800 text-sm leading-relaxed font-bold">Expert upholstery revival and carpet steam cleaning for your home.</p>
+        <h3 class="text-xl font-black mb-3">Residential</h3>
+        <p class="text-gray-800 text-sm leading-relaxed">Expert upholstery revival and carpet steam cleaning for your home.</p>
       </div>
       <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Commercial</h3>
-        <p class="text-gray-800 text-sm leading-relaxed font-bold">High-traffic fabric solutions for offices and retail spaces.</p>
+        <h3 class="text-xl font-black mb-3">Commercial</h3>
+        <p class="text-gray-800 text-sm leading-relaxed">High-traffic fabric solutions for offices and retail spaces.</p>
       </div>
       <div class="frosted p-8">
-        <h3 class="text-xl font-black mb-3 uppercase tracking-tighter">Bond Clean</h3>
-        <p class="text-gray-800 text-sm leading-relaxed font-bold">Standard-compliant revival to ensure your bond return.</p>
+        <h3 class="text-xl font-black mb-3">Bond Clean</h3>
+        <p class="text-gray-800 text-sm leading-relaxed">Standard-compliant revival to ensure your bond return.</p>
       </div>
     </section>
 
+    <!-- Visual Proof -->
     <section class="py-6">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
@@ -270,17 +256,15 @@
       </div>
     </section>
 
+    <!-- Meet Adam -->
     <section class="py-12">
       <div class="frosted p-8 md:p-16 bg-white/40">
         <div class="flex flex-col md:flex-row items-center gap-10">
-          <div class="w-48 h-48 md:w-64 md:h-64 flex-shrink-0 relative">
-             <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-3 opacity-10"></div>
-             <img src="Adam.png" alt="Adam" class="w-full h-full object-cover rounded-3xl relative z-10 shadow-2xl border-4 border-white" />
-          </div>
-          <div class="text-center md:text-left flex-1">
-            <h2 class="text-4xl font-black mb-2 text-[var(--primary)] uppercase">Meet Adam</h2>
+          <img src="Adam.png" alt="Adam" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-3xl shadow-2xl border-4 border-white" />
+          <div class="text-center md:text-left">
+            <h2 class="text-4xl font-black mb-2 text-[var(--primary)]">Meet Adam</h2>
             <p class="text-xl font-bold mb-6">Owner of Lefties</p>
-            <p class="text-gray-800 font-bold leading-relaxed">Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard. From stubborn stains to general fabric health, we have you covered.</p>
+            <p class="text-gray-800 font-medium">Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard.</p>
           </div>
         </div>
       </div>
@@ -288,7 +272,7 @@
 
     <section id="quote" class="py-12 mb-10">
       <div class="frosted p-10 md:p-20 text-center">
-        <h2 class="text-3xl md:text-5xl font-black mb-6 uppercase tracking-tighter">Ready to Breathe Easy?</h2>
+        <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to Breathe Easy?</h2>
         <a href="tel:0417220012" class="btn-glass px-12 py-5 text-lg">Call 0417 220 012</a>
       </div>
     </section>
@@ -325,11 +309,17 @@
       if (!video) return;
       video.muted = true;
       video.playsInline = true;
-      video.play().catch(() => {});
+      video.play().catch(() => {
+        const playOnAction = () => {
+          video.play().catch(() => {});
+          ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.removeEventListener(ev, playOnAction));
+        };
+        ['mousedown', 'touchstart', 'scroll'].forEach(ev => window.addEventListener(ev, playOnAction, { once: true }));
+      });
     }
 
-    window.onload = forceVideoPlay;
+    window.addEventListener('load', forceVideoPlay);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') video.play().catch(() => {}); });
   </script>
 </body>
 </html>
-
