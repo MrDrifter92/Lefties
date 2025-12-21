@@ -8,12 +8,19 @@
   <!-- SEO & Social Sharing Meta Tags -->
   <meta name="description" content="Professional upholstery deep cleaning, fabric revival, and carpet cleaning for the Fraser Coast. A spotless revival for your home." />
   
-  <!-- Open Graph / Facebook -->
+  <!-- Favicon / Shortcut Icon -->
+  <link rel="shortcut icon" href="core-logo-blue-transparent.png" type="image/png">
+
+  <!-- Open Graph / Facebook / Text / WhatsApp -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://leftiesservices.com.au/" />
   <meta property="og:title" content="Lefties Carpet Cleaning | A Spotless Revival" />
   <meta property="og:description" content="Professional upholstery and carpet cleaning on the Fraser Coast. Expert care for a cleaner home." />
   <meta property="og:image" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
+  <meta property="og:image:secure_url" content="https://leftiesservices.com.au/core-logo-blue-transparent.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
@@ -34,7 +41,7 @@
       --primary-dark: #005a92;
       --accent: #00D2FF;
       --bg-white: #ffffff;
-      --glass-fill: rgba(255, 255, 255, 0.85); /* Slightly more transparent */
+      --glass-fill: rgba(255, 255, 255, 0.85);
       --glass-border: rgba(0, 113, 182, 0.1);
       --text: #1a1e23;
     }
@@ -42,7 +49,7 @@
     html, body {
       overflow-x: hidden;
       width: 100%;
-      background-color: #f8fafc; /* Lighter base color to help video visibility */
+      background-color: #f8fafc;
     }
 
     body {
@@ -93,14 +100,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.18; /* Increased opacity slightly for better visibility */
+      opacity: 0.18;
     }
 
     .frosted {
       background: var(--glass-fill);
       border: 1px solid var(--glass-border);
       border-radius: 1.5rem;
-      backdrop-filter: blur(10px); /* Slightly reduced blur to see video movement */
+      backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 10px 40px -15px rgba(0, 113, 182, 0.1);
     }
@@ -160,7 +167,6 @@
 </head>
 <body class="antialiased">
 
-  <!-- Background Video Container -->
   <div class="page-video-wrap">
     <video id="bgVideo" class="page-video" autoplay muted loop playsinline preload="auto" poster="index-video-poster.jpg">
       <source src="index-video.mp4" type="video/mp4">
@@ -211,7 +217,6 @@
   </div>
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
-    <!-- Hero Section -->
     <section id="hero" class="pt-4 md:pt-10">
       <div class="frosted p-8 md:p-16 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-10">
@@ -239,14 +244,12 @@
       </div>
     </section>
 
-    <!-- Detailed Services Segway -->
     <section class="py-12">
       <div class="text-center mb-10">
         <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">What We Do Best</h2>
         <div class="glow-line"></div>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Service 1 -->
         <a href="services.html#upholstery" class="service-card frosted p-8 bg-white/70 transition-all hover:translate-y-[-5px] block group">
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
@@ -255,7 +258,6 @@
           <p class="text-gray-600 text-sm leading-relaxed mb-4">Deep steam cleaning for couches, armchairs, and dining chairs. Removing stains and allergens.</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase group-hover:underline">Learn More &rarr;</span>
         </a>
-        <!-- Service 2 -->
         <a href="services.html#carpets" class="service-card frosted p-8 bg-white/70 transition-all hover:translate-y-[-5px] block group">
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -264,7 +266,6 @@
           <p class="text-gray-600 text-sm leading-relaxed mb-4">Industrial-grade extraction that pulls dirt from the roots, leaving carpets fresh and soft.</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase group-hover:underline">Learn More &rarr;</span>
         </a>
-        <!-- Service 3 -->
         <a href="services.html#bond" class="service-card frosted p-8 bg-white/70 transition-all hover:translate-y-[-5px] block group">
           <div class="mb-4 text-[var(--primary)] transition-transform service-icon">
             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -276,7 +277,6 @@
       </div>
     </section>
 
-    <!-- Commercial Callout -->
     <section class="py-6">
       <div class="frosted p-10 bg-[var(--primary)] text-white relative overflow-hidden group">
         <div class="absolute right-[-50px] top-[-50px] opacity-10 group-hover:rotate-12 transition-transform duration-700">
@@ -292,14 +292,12 @@
       </div>
     </section>
 
-    <!-- Real Reviews Section -->
     <section class="py-12">
       <div class="text-center mb-10">
         <h2 class="text-2xl md:text-3xl font-black tracking-tight uppercase">The Word on the Street</h2>
         <div class="glow-line"></div>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Review 1 -->
         <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
           <div class="flex text-yellow-500 mb-4 gap-1">
              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
@@ -311,7 +309,6 @@
           <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"Absolutely wrapped with Lefties. Great work, affordable, and easy to deal with. Communication always spot on and made it work around my schedule. Highly recommend!!"</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Andy M.</span>
         </div>
-        <!-- Review 2 -->
         <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
           <div class="flex text-yellow-500 mb-4 gap-1">
              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
@@ -323,7 +320,6 @@
           <p class="text-gray-800 font-medium italic mb-4 leading-relaxed">"I have used Lefties for all my carpet cleaning needs over many years. I have recommended Lefties service to others and everyone was thrilled with the results. Adam is great to work with."</p>
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Wendy B.</span>
         </div>
-        <!-- Review 3 -->
         <div class="frosted p-8 bg-white/80 border-t-4 border-[var(--primary)]">
           <div class="flex text-yellow-500 mb-4 gap-1">
              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
@@ -336,15 +332,8 @@
           <span class="text-[10px] font-black tracking-widest text-[var(--primary)] uppercase">— Brittany P.</span>
         </div>
       </div>
-      <div class="mt-8 text-center">
-        <a href="https://www.facebook.com/leftiesservices/reviews" target="_blank" class="text-[var(--primary)] font-black uppercase text-xs tracking-widest hover:underline flex items-center justify-center gap-2">
-          See more reviews on Facebook
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-        </a>
-      </div>
     </section>
 
-    <!-- Visual Proof -->
     <section class="py-12">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
@@ -364,12 +353,8 @@
           <img src="before-after-4.png" class="rounded-xl aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-500">
         </div>
       </div>
-      <div class="mt-6 text-center">
-        <a href="services.html" class="text-[var(--primary)] font-black uppercase text-[10px] tracking-widest hover:underline">View Gallery &bull; More Services</a>
-      </div>
     </section>
 
-    <!-- About Section -->
     <section class="py-12">
       <div class="frosted p-8 md:p-16 bg-white/85">
         <div class="flex flex-col md:flex-row items-center gap-10">
@@ -380,14 +365,12 @@
           <div class="text-center md:text-left flex-1">
             <h2 class="text-3xl font-black mb-2 text-[var(--primary)] uppercase tracking-tight">Meet Adam</h2>
             <p class="text-sm font-black tracking-[0.2em] mb-6 text-gray-400 uppercase">Owner & Specialist</p>
-            <p class="text-gray-800 font-medium leading-relaxed italic">"Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard. From stubborn stains to general fabric health, we have you covered."</p>
-            <a href="contact-us.html" class="inline-block mt-6 text-[var(--primary)] font-black text-xs tracking-widest uppercase hover:underline">Get in touch with Adam &rarr;</a>
+            <p class="text-gray-800 font-medium leading-relaxed italic">"Precision and care are at the heart of everything we do. We don't just clean; we revive your living spaces to the highest local standard."</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
     <section id="quote" class="py-12 mb-10">
       <div class="frosted p-12 md:p-24 text-center bg-white/90 border-b-8 border-[var(--primary)]">
         <h2 class="text-3xl md:text-5xl font-black mb-8 uppercase tracking-tighter">Ready to Breathe Easy?</h2>
@@ -426,14 +409,12 @@
       menuOverlay.classList.contains('active') ? closeMenu() : openMenu();
     });
 
-    function forceVideoPlay() {
-      if (!video) return;
-      video.muted = true;
-      video.playsInline = true;
-      video.play().catch(() => {});
-    }
-
-    window.onload = forceVideoPlay;
+    window.onload = function() {
+      if (video) {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
+    };
   </script>
 </body>
 </html>
