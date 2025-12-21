@@ -143,8 +143,6 @@
     .hamburger-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); background: white; }
     .hamburger-active span:nth-child(2) { opacity: 0; }
     .hamburger-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); background: white; }
-
-    .no-wrap { white-space: nowrap; }
   </style>
 </head>
 <body class="antialiased">
@@ -202,14 +200,17 @@
   </div>
 
   <main class="max-w-5xl mx-auto px-4 relative z-10">
-    <!-- Hero Section: Updated to match "Meet Adam" framing -->
     <section id="hero" class="pt-4 md:pt-10">
       <div class="frosted p-8 md:p-16 bg-white/40 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-10">
-          <!-- Logo Framed exactly like Adam's Photo -->
-          <div class="w-full max-w-[280px] md:w-80 flex-shrink-0 relative float-logo-enhanced">
+          
+          <!-- Framed Logo: Updated to sit flush against the white border -->
+          <div class="w-full max-w-[320px] md:w-96 flex-shrink-0 relative float-logo-enhanced">
             <div class="absolute inset-0 bg-[var(--primary)] rounded-3xl -rotate-2 opacity-10"></div>
-            <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-auto object-contain relative z-10 shadow-2xl border-4 border-white rounded-3xl bg-white/40 p-4" />
+            
+            <div class="relative z-10 shadow-2xl border-4 border-white rounded-3xl overflow-hidden bg-white">
+              <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="w-full h-full object-cover block" />
+            </div>
           </div>
           
           <div class="text-center md:text-left flex-1">
@@ -231,7 +232,7 @@
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- Services Summary -->
     <section class="py-10 grid md:grid-cols-3 gap-6">
       <div class="frosted p-8">
         <h3 class="text-xl font-black mb-3">Residential</h3>
@@ -247,7 +248,7 @@
       </div>
     </section>
 
-    <!-- Visual Proof -->
+    <!-- Visual Proof Gallery -->
     <section class="py-6">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-black tracking-tight uppercase">Visual Proof</h2>
@@ -278,6 +279,7 @@
       </div>
     </section>
 
+    <!-- Call to Action -->
     <section id="quote" class="py-12 mb-10">
       <div class="frosted p-10 md:p-20 text-center">
         <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to Breathe Easy?</h2>
@@ -326,10 +328,7 @@
       });
     }
 
-    window.addEventListener('load', forceVideoPlay);
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') video.play().catch(() => {}); });
+    window.onload = forceVideoPlay;
   </script>
 </body>
 </html>
-
-
