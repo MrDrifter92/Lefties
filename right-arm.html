@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hello Jules, I want to play a game</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 60%);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      opacity: 0.7;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .card p {
+      line-height: 1.6;
+      margin: 0 0 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: #c62828;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      background: #e53935;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.85rem;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Hello Jules, I want to play a game</h1>
+    <div class="subtitle">
+      A seasonal mystery. One missing limb. Several beers involved.
+    </div>
+
+    <div class="card" id="stage1">
+      <p>
+        You’ve noticed something is… off.
+        A right arm has allegedly vanished.
+      </p>
+      <p>
+        Before we jump to conclusions, AI conspiracies, or Santa-based prosthetics,
+        let’s begin the quest.
+      </p>
+      <button class="btn" onclick="nextStage(1)">Begin the investigation</button>
+    </div>
+
+    <div class="card hidden" id="stage2">
+      <p>
+        Exhibit A: The angle.
+        Cameras are liars. Children are short. Adults are cropped.
+      </p>
+      <img src="Right.png" alt="Right arm evidence one">
+      <button class="btn" onclick="nextStage(2)">Suspicious… continue</button>
+    </div>
+
+    <div class="card hidden" id="stage3">
+      <p>
+        Exhibit B: The depth illusion.
+        Christmas décor is doing most of the damage here.
+      </p>
+      <img src="Right2.png" alt="Right arm evidence two">
+      <button class="btn" onclick="nextStage(3)">I’m not convinced</button>
+    </div>
+
+    <div class="card hidden" id="stage4">
+      <p>
+        Final reveal.
+        The arm was never missing.
+        It was simply minding its business outside the frame.
+      </p>
+      <img src="Right3.png" alt="Right arm evidence three">
+      <p>
+        Case closed.
+      </p>
+      <p>
+        Santa remains innocent.
+        AI has been cleared.
+        Beer consumption is still under review.
+      </p>
+      <button class="btn" onclick="restart()">Play again (for confidence)</button>
+    </div>
+
+    <div class="footer">
+      /right-arm.html • Festive nonsense since 2025
+    </div>
+  </div>
+
+  <script>
+    function nextStage(stage) {
+      document.getElementById('stage' + stage).classList.add('hidden');
+      document.getElementById('stage' + (stage + 1)).classList.remove('hidden');
+    }
+
+    function restart() {
+      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+      document.getElementById('stage1').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
