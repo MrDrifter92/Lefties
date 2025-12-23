@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>money please zara! | official portal</title>
+  
+  <!-- Meta Tags for Zara.png -->
+  <meta property="og:title" content="money please zara!">
+  <meta property="og:description" content="official holiday portal for zara and uncle adam.">
+  <meta property="og:image" content="zara.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="zara.png">
+
+  <style>
+    :root {
+      --pink: #ff69b4;
+      --hot-pink: #ff1493;
+      --gold: #ffd700;
+      --bg: #fff0f6;
+      --deep-pink: #c71585;
+    }
+
+    * {
+      box-sizing: border-box;
+      text-transform: lowercase;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #4a4a4a;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      background-image: radial-gradient(var(--pink) 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+    }
+
+    /* Glitter Animation */
+    .glitter-text {
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(
+        to right, 
+        #ff00de 0%, 
+        #ffd700 25%, 
+        #ffffff 50%, 
+        #ffd700 75%, 
+        #ff00de 100%
+      );
+      background-size: 200% auto;
+      color: #fff;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitter 1.5s linear infinite;
+      display: inline-block;
+      filter: drop-shadow(4px 4px 0px rgba(255, 20, 147, 0.3));
+    }
+
+    @keyframes glitter {
+      to { background-position: 200% center; }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 8px solid var(--pink);
+      border-radius: 40px;
+      padding: 40px 20px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 15px 15px 0px var(--hot-pink);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-img-wrap {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      border-radius: 50%;
+      border: 5px solid var(--gold);
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .countdown-box {
+      background: var(--hot-pink);
+      color: white;
+      padding: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      transform: rotate(-2deg);
+    }
+
+    .pay-id {
+      background: #1a1a1a;
+      color: #00ff00;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(1.2rem, 5vw, 2rem);
+      border-radius: 15px;
+      margin: 25px 0;
+      cursor: pointer;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+      transition: transform 0.2s;
+      position: relative;
+    }
+
+    .pay-id:hover {
+      transform: scale(1.05);
+    }
+
+    .pay-id::after {
+      content: 'click to copy!';
+      position: absolute;
+      top: -15px;
+      right: -10px;
+      background: var(--gold);
+      color: black;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 5px;
+      transform: rotate(10deg);
+    }
+
+    .deadly-serious {
+      color: #ff0000;
+      font-weight: 900;
+      font-size: 1.4rem;
+      animation: shake 0.5s infinite;
+      display: block;
+      margin: 15px 0;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      20% { transform: translate(-1px, -1px) rotate(1deg); }
+      40% { transform: translate(1px, -1px) rotate(-1deg); }
+      60% { transform: translate(-1px, 1px) rotate(0deg); }
+      100% { transform: translate(1px, 1px) rotate(0deg); }
+    }
+
+    .ai-section {
+      background: white;
+      border: 4px solid var(--gold);
+      border-radius: 25px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 650px;
+      display: grid;
+      gap: 25px;
+    }
+
+    .game-box {
+      background: #fff;
+      border: 4px solid var(--pink);
+      border-radius: 30px;
+      padding: 25px;
+      position: relative;
+      box-shadow: 8px 8px 0px rgba(0,0,0,0.05);
+    }
+
+    canvas {
+      background: #fff;
+      border: 3px solid #eee;
+      border-radius: 15px;
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      cursor: crosshair;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--hot-pink), var(--deep-pink));
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 0px var(--deep-pink);
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+
+    .btn-ai {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      margin-top: 10px;
+    }
+
+    .reminder-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 20, 147, 0.95);
+      color: white;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 25px;
+      z-index: 50;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      user-select: none;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    #ai-reason-text {
+      font-style: italic;
+      margin: 15px 0;
+      min-height: 40px;
+      color: var(--deep-pink);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="countdown-box" id="countdown">loading christmas...</div>
+    <br>
+    
+    <div class="profile-img-wrap">
+      <img src="zara.png" alt="zara" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=Zara&backgroundColor=ff69b4'">
+    </div>
+
+    <h1>hi <span class="glitter-text">zara</span></h1>
+    <p style="font-size: 1.2rem;">if you get any money for christmas please payid it to me immediately.</p>
+    
+    <div class="pay-id" onclick="copyPayID()">0417220012</div>
+    
+    <span class="deadly-serious">deadly serious: uncle adam needs it.</span>
+
+    <div class="ai-section">
+      <h3>✨ ai reason generator</h3>
+      <div id="ai-reason-text">need a reason to pay me?</div>
+      <button class="btn btn-ai" onclick="generateReason()" id="ai-btn">✨ ask gemini why</button>
+    </div>
+  </div>
+
+  <div class="game-container">
+    
+    <div class="game-box" id="game-clicker">
+      <div style="font-size: 2rem; margin-bottom: 10px;">🍬 candy collector</div>
+      <div id="clicker-count" style="font-size: 3rem; font-weight: 900; color: var(--hot-pink);">0</div>
+      <button class="btn" onclick="candyClick()">tap for sugar!</button>
+      <div class="reminder-overlay" id="overlay-clicker">
+        <h2 style="font-size: 2.5rem;">🛑 STOP!</h2>
+        <p>you have enough candy. what you don't have is a receipt for sending uncle adam money.</p>
+        <button class="btn" onclick="resetGame('clicker')">fine, i'll send it (back to games)</button>
+      </div>
+    </div>
+
+    <div class="game-box" id="game-snake">
+      <div style="font-size: 2rem; margin-bottom: 10px;">🐍 poverty snake</div>
+      <canvas id="snakeCanvas" width="300" height="300"></canvas>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 15px auto;">
+        <div></div><button class="btn" onclick="changeDir('UP')">↑</button><div></div>
+        <button class="btn" onclick="changeDir('LEFT')">←</button>
+        <button class="btn" onclick="changeDir('DOWN')">↓</button>
+        <button class="btn" onclick="changeDir('RIGHT')">→</button>
+      </div>
+      <div class="reminder-overlay" id="overlay-snake">
+        <h2>🐍 SSSSSS-ORRY</h2>
+        <p>snake hit the wall of debt. pay uncle adam to revive him.</p>
+        <button class="btn" onclick="resetGame('snake')">pay and replay</button>
+      </div>
+    </div>
+
+    <div class="game-box" id="game-match">
+      <div style="font-size: 2rem; margin-bottom: 10px;">🎁 present pair-up</div>
+      <div id="match-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 320px; margin: 0 auto;"></div>
+      <div class="reminder-overlay" id="overlay-match">
+        <h2>🏆 WINNER!</h2>
+        <p>you matched the gifts! now match your balance to uncle adam's bank account.</p>
+        <button class="btn" onclick="resetGame('match')">play again</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer" style="padding: 40px; text-align: center; font-size: 1.5rem;">
+    <p>🎅 zara... i'm checking my bank account twice... 🎅</p>
+  </div>
+
+  <script>
+    // Countdown Logic
+    function updateCountdown() {
+      const now = new Date();
+      const christmas = new Date(now.getFullYear(), 11, 25);
+      if (now > christmas) christmas.setFullYear(christmas.getFullYear() + 1);
+      
+      const diff = christmas - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      
+      document.getElementById('countdown').innerText = `🚨 ${days}d ${hours}h ${mins}m until you owe me money`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // AI Reason Generator
+    const apiKey = ""; 
+    async function generateReason() {
+      const btn = document.getElementById('ai-btn');
+      const text = document.getElementById('ai-reason-text');
+      btn.innerText = "⏳ consultng santa...";
+      btn.disabled = true;
+
+      const prompt = "Give a 10-year-old girl named Zara one funny, cheeky, and 'deadly serious' reason why she should give her Christmas money to her Uncle Adam. Mention PayID. Keep it under 20 words and all lowercase.";
+
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await response.json();
+        text.innerText = data.candidates[0].content.parts[0].text;
+      } catch (e) {
+        text.innerText = "because i said so and i know where the snacks are hidden. payid now!";
+      } finally {
+        btn.innerText = "✨ ask gemini again";
+        btn.disabled = false;
+      }
+    }
+
+    // Snowfall
+    function createSnowflake() {
+      const sf = document.createElement('div');
+      sf.classList.add('snowflake');
+      sf.innerHTML = Math.random() > 0.5 ? '❄' : '💸';
+      sf.style.left = Math.random() * 100 + 'vw';
+      sf.style.fontSize = Math.random() * 20 + 10 + 'px';
+      sf.style.opacity = Math.random();
+      document.body.appendChild(sf);
+      
+      const anim = sf.animate([{ top: '-10vh' }, { top: '110vh' }], {
+        duration: Math.random() * 3000 + 4000,
+        iterations: 1
+      });
+      anim.onfinish = () => sf.remove();
+    }
+    setInterval(createSnowflake, 300);
+
+    function copyPayID() {
+      const temp = document.createElement('textarea');
+      temp.value = '0417220012';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      
+      const box = document.querySelector('.pay-id');
+      box.style.background = '#fff';
+      setTimeout(() => box.style.background = '#1a1a1a', 100);
+      alert('copied! now open your banking app and do it! 💖');
+    }
+
+    function resetGame(type) {
+      document.getElementById('overlay-' + type).style.display = 'none';
+      if(type === 'clicker') { candyScore = 0; document.getElementById('clicker-count').innerText = '0'; }
+      if(type === 'snake') { initSnake(); }
+      if(type === 'match') { initMatch(); }
+    }
+
+    // --- GAMES (RE-INITIALIZED ON LOAD) ---
+    let candyScore = 0;
+    function candyClick() {
+      candyScore++;
+      document.getElementById('clicker-count').innerText = candyScore;
+      if (candyScore >= 30) {
+        document.getElementById('overlay-clicker').style.display = 'flex';
+      }
+    }
+
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+    const boxSize = 20;
+    let snake, food, d, gameInterval;
+
+    function initSnake() {
+      snake = [{ x: 7 * boxSize, y: 7 * boxSize }];
+      food = { x: Math.floor(Math.random() * 14 + 1) * boxSize, y: Math.floor(Math.random() * 14 + 1) * boxSize };
+      d = "RIGHT";
+      if(gameInterval) clearInterval(gameInterval);
+      gameInterval = setInterval(drawSnake, 160);
+    }
+
+    function changeDir(dir) { 
+      if(dir == "UP" && d != "DOWN") d = "UP";
+      if(dir == "DOWN" && d != "UP") d = "DOWN";
+      if(dir == "LEFT" && d != "RIGHT") d = "LEFT";
+      if(dir == "RIGHT" && d != "LEFT") d = "RIGHT";
+    }
+
+    function drawSnake() {
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for(let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = (i == 0) ? "hotpink" : "#ffc0cb";
+        ctx.fillRect(snake[i].x, snake[i].y, boxSize-2, boxSize-2);
+      }
+      ctx.fillStyle = "gold";
+      ctx.font = "15px Arial";
+      ctx.fillText("💰", food.x, food.y + 15);
+      let snakeX = snake[0].x;
+      let snakeY = snake[0].y;
+      if( d == "LEFT") snakeX -= boxSize;
+      if( d == "UP") snakeY -= boxSize;
+      if( d == "RIGHT") snakeX += boxSize;
+      if( d == "DOWN") snakeY += boxSize;
+      if(snakeX == food.x && snakeY == food.y) {
+        food = { x: Math.floor(Math.random() * 14 + 1) * boxSize, y: Math.floor(Math.random() * 14 + 1) * boxSize };
+      } else {
+        snake.pop();
+      }
+      let newHead = { x: snakeX, y: snakeY };
+      if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+        clearInterval(gameInterval);
+        document.getElementById('overlay-snake').style.display = 'flex';
+      }
+      snake.unshift(newHead);
+    }
+
+    function collision(head, array) {
+      for(let i = 0; i < array.length; i++) {
+        if(head.x == array[i].x && head.y == array[i].y) return true;
+      }
+      return false;
+    }
+
+    const emojis = ['🎁', '🎅', '🍪', '🦌', '⛄', '🥛', '🎄', '⭐'];
+    let cards = [...emojis, ...emojis];
+    let flipped = [];
+    let matchedCount = 0;
+
+    function initMatch() {
+      const grid = document.getElementById('match-grid');
+      grid.innerHTML = '';
+      cards.sort(() => 0.5 - Math.random());
+      matchedCount = 0;
+      flipped = [];
+      cards.forEach((emoji, index) => {
+        const card = document.createElement('div');
+        card.style = "height: 70px; background: var(--pink); display: flex; align-items: center; justify-content: center; font-size: 2rem; border-radius: 15px; cursor: pointer; color: transparent; transition: all 0.3s;";
+        card.innerText = emoji;
+        card.onclick = () => flipCard(card);
+        grid.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      if (flipped.length < 2 && card.style.color === 'transparent') {
+        card.style.color = 'white';
+        card.style.background = '#fff';
+        card.style.transform = 'rotateY(180deg)';
+        flipped.push(card);
+        if (flipped.length === 2) {
+          if (flipped[0].innerText === flipped[1].innerText) {
+            matchedCount += 2;
+            flipped = [];
+            if (matchedCount === cards.length) {
+              setTimeout(() => document.getElementById('overlay-match').style.display = 'flex', 500);
+            }
+          } else {
+            setTimeout(() => {
+              flipped.forEach(c => {
+                c.style.color = 'transparent';
+                c.style.background = 'var(--pink)';
+                c.style.transform = 'rotateY(0deg)';
+              });
+              flipped = [];
+            }, 800);
+          }
+        }
+      }
+    }
+
+    window.onload = () => {
+      initSnake();
+      initMatch();
+    };
+  </script>
+</body>
+</html>
