@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Sorry we missed your call | Lefties Services</title>
+  <meta name="description" content="Sorry we missed your call. For a quick quote, call again or text photos for a prompt estimate." />
+
+  <!-- Social preview (UPDATE image path to your actual blue logo file) -->
+  <meta property="og:title" content="Sorry we missed your call | Lefties Services" />
+  <meta property="og:description" content="Calling for a quote? Call again or text photos through for a prompt estimate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://leftiesservices.com.au/assets/brand/core-logo-blue.png" />
+  <meta property="og:image:alt" content="Lefties Services logo" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leftiesservices.com.au/assets/brand/core-logo-blue.png" />
+
+  <!-- Favicons (optional, keep if you already use these) -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/icon.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#0071B6;
+      --cream:#EFE3CF;
+      --card: rgba(255,255,255,.55);
+      --stroke: rgba(0,113,182,.18);
+      --text:#0b1b23;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 450px at 20% 10%, rgba(0,113,182,.18), transparent 55%),
+        radial-gradient(700px 420px at 85% 25%, rgba(215,175,255,.28), transparent 60%),
+        linear-gradient(180deg, var(--cream), #fff);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .wrap{width:min(860px, 100%)}
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      padding:26px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+    .top{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo{
+      width:46px; height:46px;
+      border-radius:14px;
+      background: rgba(255,255,255,.6);
+      border:1px solid rgba(0,113,182,.18);
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+    .logo img{width:100%; height:100%; object-fit:contain; padding:6px}
+    h1{
+      font-size: clamp(26px, 4.6vw, 44px);
+      line-height:1.08;
+      margin:10px 0 8px;
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
+    p{
+      margin:0 0 14px;
+      font-size: clamp(15px, 2.1vw, 18px);
+      opacity:.92;
+    }
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:16px;
+      text-decoration:none;
+      font-weight:800;
+      border:1px solid rgba(0,113,182,.22);
+      background: rgba(255,255,255,.62);
+      color: var(--text);
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+      transition: transform .15s ease, box-shadow .15s ease;
+      white-space:nowrap;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(0,113,182,.95), rgba(0,113,182,.82));
+      color:white;
+      border: 1px solid rgba(255,255,255,.28);
+    }
+    .hint{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px dashed rgba(0,113,182,.28);
+      background: rgba(255,255,255,.45);
+      font-size: 14px;
+      line-height:1.35;
+    }
+    .hint b{font-weight:900}
+    .footer{
+      margin-top:12px;
+      font-size: 12.5px;
+      opacity:.75;
+    }
+    code{
+      background: rgba(0,0,0,.06);
+      padding:2px 6px;
+      border-radius:8px;
+      font-weight:800;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="top">
+        <a class="brand" href="/index.html" aria-label="Back to home">
+          <div class="logo">
+            <!-- UPDATE this path to your actual blue logo asset -->
+            <img src="/assets/brand/core-logo-blue.png" alt="Lefties Services logo">
+          </div>
+          <div>
+            <div style="font-weight:900;">Lefties Services</div>
+            <div style="opacity:.75; font-weight:700;">Hervey Bay</div>
+          </div>
+        </a>
+      </div>
+
+      <h1>Sorry we missed your call.</h1>
+      <p>
+        If you’re calling for a quote, please call again or text through a quote request with a couple of pics for a prompt estimate.
+      </p>
+
+      <div class="actions">
+        <a class="btn primary" href="tel:0417220012">Call now: 0417&nbsp;220&nbsp;012</a>
+        <a class="btn" href="sms:0417220012&body=Hi%20Lefties%2C%20I%27m%20after%20a%20quote.%20Here%27s%20a%20quick%20summary%3A%20%0A-%20What%20needs%20cleaning%3A%20%0A-%20Any%20stains%2Fpets%3A%20%0A-%20Suburb%3A%20%0A-%20Best%20time%3A%20%0A%0AI%27ll%20send%20photos%20next.">Text a quote request</a>
+      </div>
+
+      <div class="hint">
+        <b>Tip:</b> Send 2–4 photos (wide shot + close-up), and tell us the fabric if you know it.
+        If you don’t, no stress. We’ll work it out.
+      </div>
+
+      <div class="footer">
+        If this page popped up from a missed call, your phone probably tried again automatically. Humans love doing that.
+      </div>
+    </section>
+  </main>
+</body>
+</html>
