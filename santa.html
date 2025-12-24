@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>is santa here yet? | official tracker</title>
   
-  <!-- Meta Tags -->
+  <!-- Meta Tags - Fixed to use santa.png -->
   <meta property="og:title" content="is santa here yet?">
   <meta property="og:description" content="official santa tracker and north pole arcade.">
-  <meta property="og:image" content="Santa.png">
+  <meta property="og:image" content="santa.png">
+  <meta property="og:url" content="./santa.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="Santa.png">
+  <meta name="twitter:image" content="santa.png">
 
   <style>
     :root {
@@ -21,7 +22,7 @@
       --light-green: #187941;
       --gold: #f8b229;
       --white: #ffffff;
-      --glass: rgba(255, 255, 255, 0.85);
+      --glass: rgba(255, 255, 255, 0.9);
     }
 
     * {
@@ -31,7 +32,8 @@
     }
 
     body {
-      background: url('Santa.png') no-repeat center center fixed;
+      /* Main Background Implementation */
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('santa.png') no-repeat center center fixed;
       background-size: cover;
       color: #2c3e50;
       margin: 0;
@@ -43,27 +45,30 @@
       min-height: 100vh;
     }
 
-    /* News Ticker */
+    /* Top News Ticker */
     .ticker-wrap {
       position: fixed;
       top: 0;
       width: 100%;
       overflow: hidden;
-      height: 40px;
+      height: 45px;
       background-color: var(--deep-red);
       color: white;
       z-index: 2000;
       display: flex;
       align-items: center;
-      border-bottom: 2px solid var(--gold);
+      border-bottom: 4px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
     .ticker {
       display: inline-block;
       white-space: nowrap;
       padding-right: 100%;
-      animation: ticker 30s linear infinite;
-      font-weight: bold;
+      animation: ticker 25s linear infinite;
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
     }
 
     @keyframes ticker {
@@ -72,7 +77,7 @@
     }
 
     .glitter-text {
-      font-size: clamp(3rem, 12vw, 6rem);
+      font-size: clamp(3rem, 15vw, 7rem);
       font-weight: 900;
       background: linear-gradient(
         to right, 
@@ -87,10 +92,11 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: glitter 2s linear infinite;
+      animation: glitter 1.5s linear infinite;
       display: inline-block;
-      filter: drop-shadow(5px 5px 0px rgba(0, 0, 0, 0.2));
-      margin-top: 40px;
+      filter: drop-shadow(8px 8px 0px rgba(0, 0, 0, 0.4));
+      margin-top: 65px;
+      margin-bottom: 20px;
     }
 
     @keyframes glitter {
@@ -99,15 +105,15 @@
 
     .card {
       background: var(--glass);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 8px solid var(--green);
-      border-radius: 40px;
-      padding: 40px 20px;
-      max-width: 800px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 10px solid var(--green);
+      border-radius: 50px;
+      padding: 40px 25px;
+      max-width: 900px;
       width: 100%;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3), 15px 15px 0px var(--red);
-      margin-bottom: 30px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 20px 20px 0px var(--red);
+      margin-bottom: 60px;
       text-align: center;
       position: relative;
     }
@@ -115,145 +121,169 @@
     .countdown-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin: 30px 0;
+      gap: 20px;
+      margin: 35px 0;
     }
 
     .unit-box {
       background: linear-gradient(var(--red), var(--deep-red));
       color: white;
-      padding: 15px;
-      border-radius: 20px;
-      border: 4px solid var(--gold);
-      transform: rotate(calc(-2deg + (Math.random() * 4deg)));
-      box-shadow: 0 10px 0px #5e0000;
+      padding: 25px 10px;
+      border-radius: 25px;
+      border: 5px solid var(--gold);
+      box-shadow: 0 12px 0px #5e0000;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
+    .unit-box:hover { transform: scale(1.1) rotate(3deg); }
+
     .unit-value {
-      font-size: clamp(1.5rem, 5vw, 3rem);
+      font-size: clamp(2rem, 7vw, 4rem);
       font-weight: 900;
       display: block;
+      line-height: 1;
+      text-shadow: 2px 2px 0px var(--deep-red);
     }
 
     .unit-label {
-      font-size: 0.9rem;
+      font-size: 1rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      font-weight: 900;
+      margin-top: 8px;
+      display: block;
+      opacity: 0.9;
     }
 
     .santa-status {
-      background: #1a1a1a;
-      color: #00ff00;
-      padding: 25px;
+      background: #050505;
+      color: #00ff41;
+      padding: 30px;
       font-family: 'Courier New', monospace;
       font-size: 1.2rem;
-      border-radius: 20px;
-      margin: 25px 0;
-      border: 4px solid var(--gold);
-      box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
+      border-radius: 25px;
+      margin: 30px 0;
+      border: 5px solid var(--gold);
+      box-shadow: inset 0 0 20px rgba(0,255,0,0.4);
       text-align: left;
       line-height: 1.5;
     }
 
     .arcade-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1250px;
+      padding-bottom: 120px;
     }
 
     .game-box {
       background: var(--glass);
-      backdrop-filter: blur(5px);
-      border: 6px solid var(--green);
-      border-radius: 35px;
-      padding: 25px;
+      backdrop-filter: blur(10px);
+      border: 8px solid var(--green);
+      border-radius: 45px;
+      padding: 35px;
       position: relative;
-      box-shadow: 10px 10px 0px var(--red);
+      box-shadow: 15px 15px 0px var(--red);
       text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .game-box:hover {
-      transform: scale(1.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     canvas {
-      background: #fff;
-      border: 3px solid var(--gold);
-      border-radius: 20px;
+      background: #ffffff;
+      border: 5px solid var(--gold);
+      border-radius: 30px;
       display: block;
-      margin: 15px auto;
+      margin: 20px auto;
       max-width: 100%;
-      touch-action: none;
+      cursor: crosshair;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     .btn {
       background: linear-gradient(135deg, var(--red), var(--deep-red));
       color: white;
       border: none;
-      padding: 15px 30px;
-      border-radius: 50px;
+      padding: 18px 40px;
+      border-radius: 60px;
       font-weight: 900;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       transition: all 0.2s;
-      box-shadow: 0 6px 0px #5e0000;
-      display: inline-block;
-      text-decoration: none;
+      box-shadow: 0 8px 0px #5e0000;
+      user-select: none;
     }
 
     .btn:active {
       transform: translateY(4px);
-      box-shadow: none;
+      box-shadow: 0 4px 0px #5e0000;
     }
 
     .snowflake {
       position: fixed;
       top: -10px;
       color: white;
-      user-select: none;
       z-index: 1000;
       pointer-events: none;
-      text-shadow: 0 0 5px rgba(0,0,0,0.2);
+      filter: blur(0.5px);
     }
 
-    /* Sleigh Animation */
     .sleigh-flyby {
       position: fixed;
-      font-size: 4rem;
+      font-size: 6rem;
       z-index: 10000;
       pointer-events: none;
-      filter: drop-shadow(0 0 10px gold);
+      filter: drop-shadow(0 0 20px gold);
       display: none;
+      white-space: nowrap;
     }
 
     .memory-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin: 15px auto;
+      gap: 12px;
+      margin: 25px 0;
+      width: 100%;
       max-width: 320px;
     }
+
     .memory-card {
       aspect-ratio: 1;
       background: var(--red);
-      border-radius: 12px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       cursor: pointer;
       color: transparent;
-      transition: 0.3s;
-      border: 3px solid var(--gold);
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 4px solid var(--gold);
     }
     .memory-card.flipped { background: white; color: initial; transform: rotateY(180deg); }
-    .memory-card.matched { background: var(--light-green); color: initial; border-color: white; }
+    .memory-card.matched { background: var(--light-green); color: initial; border-color: white; transform: scale(0.9) rotate(10deg); }
+
+    .generator-result {
+      font-size: 2rem;
+      color: var(--deep-red);
+      font-weight: 900;
+      margin: 20px 0;
+      padding: 15px;
+      border: 3px dashed var(--gold);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     @media (max-width: 600px) {
       .countdown-container { grid-template-columns: repeat(2, 1fr); }
+      .glitter-text { font-size: 3.5rem; }
+      .arcade-container { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -261,11 +291,11 @@
 
   <div class="ticker-wrap">
     <div class="ticker" id="news-ticker">
-      BREAKING NEWS: REINDEER SEEN PRACTICING HIGH-SPEED TURNS OVER FINLAND... ELVES REPORT RECORD-BREAKING TOY PRODUCTION SPEEDS... MRS. CLAUS FINISHES THE ULTIMATE BATCH OF GINGERBREAD... SANTA IS CURRENTLY CHECKING THE LIST FOR THE 47TH TIME...
+      🚀 NORTH POLE NEWS: SLEIGH JET-THRUSTERS TESTED AND READY... 🍭 CANDY CANE INVENTORY AT 100%... 🤶 MRS. CLAUS SAYS "BE EXTRA GOOD TODAY!"... 🦌 DASHERS'S NEW SHOES ARE EXTRA GRIPPY FOR ROOFTOP LANDINGS... 📦 GLOBAL GIFT DISTRIBUTION PLAN LOADED INTO SANTA-NAV... 🔔 HO HO HO! THE BIG DAY IS ALMOST HERE!
     </div>
   </div>
 
-  <div id="flyby" class="sleigh-flyby">🎅🛷🦌🦌🦌</div>
+  <div id="flyby" class="sleigh-flyby">🎅🛷🦌🦌🦌🦌🦌🦌🦌</div>
 
   <h1 class="glitter-text">is santa here?</h1>
   
@@ -278,117 +308,135 @@
     </div>
 
     <div class="santa-status" id="status-feed">
-      > connection: encrypted_north_pole_v4<br>
-      > signal: strong<br>
-      > status: preparing for take-off
+      > protocol: santa_track_alpha_v2<br>
+      > satellite: north_star_1<br>
+      > status: checking the list... twice.
     </div>
 
-    <div class="ai-section">
-      <h3>✨ magic north pole radio</h3>
-      <div id="santa-msg" style="font-size: 1.3rem;">press for a live update from the workshop!</div>
-      <button class="btn" onclick="askSanta()" id="santa-btn">📡 tune in</button>
+    <div class="ai-section" style="background: white; border-radius: 40px; padding: 30px; margin-top: 25px; border: 4px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+      <h3 style="color: var(--red); font-size: 1.6rem; margin-top: 0;">📡 north pole radio dispatch</h3>
+      <div id="santa-msg" style="font-size: 1.5rem; font-weight: 900; margin-bottom: 25px; color: var(--green); min-height: 4rem;">press the button to hear from the elves!</div>
+      <button class="btn" onclick="askSanta()" id="santa-btn">📻 listen in</button>
     </div>
   </div>
 
-  <h2 class="glitter-text" style="font-size: 3rem; margin-bottom: 30px;">🎮 north pole arcade</h2>
+  <h2 class="glitter-text" style="font-size: 4rem; margin-top: 0;">🎮 holiday arcade</h2>
 
   <div class="arcade-container">
     
+    <!-- Game: Snowball Throw -->
+    <div class="game-box">
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">❄️ snowball target</div>
+      <p style="font-size: 1.2rem;">hit the moving trees! score: <span id="snow-score" style="font-weight:900; color:var(--red);">0</span></p>
+      <canvas id="snowCanvas" width="300" height="250"></canvas>
+      <p style="font-size: 0.9rem; font-weight: bold;">tap the box to throw a snowball!</p>
+    </div>
+
     <!-- Game: Gift Catcher -->
     <div class="game-box">
-      <div style="font-size: 1.8rem;">🎁 gift catcher pro</div>
-      <p>score: <span id="gift-score" style="font-weight:900; color:var(--red);">0</span></p>
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">🎁 gift catcher</div>
+      <p style="font-size: 1.2rem;">catch them all! score: <span id="gift-score" style="font-weight:900; color:var(--red);">0</span></p>
       <canvas id="giftCanvas" width="300" height="300"></canvas>
-      <div style="display:flex; justify-content:center; gap: 15px;">
+      <div style="display:flex; justify-content:center; gap: 20px;">
         <button class="btn" onmousedown="moveSleigh(-1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(-1)" ontouchend="stopSleigh()">←</button>
         <button class="btn" onmousedown="moveSleigh(1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(1)" ontouchend="stopSleigh()">→</button>
       </div>
     </div>
 
+    <!-- Game: Reindeer Name Generator -->
+    <div class="game-box">
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">🦌 reindeer name maker</div>
+      <p style="font-size: 1.1rem;">what is your magical reindeer identity?</p>
+      <div class="generator-result" id="reindeer-name">??? ???</div>
+      <button class="btn" onclick="generateReindeerName()">✨ generate</button>
+    </div>
+
     <!-- Game: Reindeer Dash -->
     <div class="game-box">
-      <div style="font-size: 1.8rem;">🦌 reindeer snack run</div>
-      <canvas id="reindeerCanvas" width="300" height="300"></canvas>
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 150px; margin: 0 auto;">
-        <div></div><button class="btn" onclick="changeDir('UP')" style="padding: 10px;">↑</button><div></div>
-        <button class="btn" onclick="changeDir('LEFT')" style="padding: 10px;">←</button>
-        <button class="btn" onclick="changeDir('DOWN')" style="padding: 10px;">↓</button>
-        <button class="btn" onclick="changeDir('RIGHT')" style="padding: 10px;">→</button>
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">🥕 rudolph dash</div>
+      <canvas id="reindeerCanvas" width="300" height="250"></canvas>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 180px;">
+        <div></div><button class="btn" onclick="changeDir('UP')" style="padding: 12px;">↑</button><div></div>
+        <button class="btn" onclick="changeDir('LEFT')" style="padding: 12px;">←</button>
+        <button class="btn" onclick="changeDir('DOWN')" style="padding: 12px;">↓</button>
+        <button class="btn" onclick="changeDir('RIGHT')" style="padding: 12px;">→</button>
       </div>
     </div>
 
     <!-- Game: Memory Match -->
     <div class="game-box">
-      <div style="font-size: 1.8rem;">🎄 magic pairs</div>
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">🎄 magic match</div>
       <div class="memory-grid" id="memoryGrid"></div>
       <button class="btn" onclick="initMemory()">reset cards</button>
     </div>
 
     <!-- Game: Cookie Factory -->
     <div class="game-box">
-      <div style="font-size: 1.8rem;">🍪 cookie factory</div>
-      <div id="cookie-count" style="font-size: 4rem; font-weight: 900; color: var(--red); text-shadow: 2px 2px var(--gold);">0</div>
-      <button class="btn" style="padding: 25px 50px; font-size: 1.8rem;" onclick="bakeCookie()">🍪 BAKE!</button>
+      <div style="font-size: 2rem; font-weight: 900; color: var(--green);">🍪 cookie factory</div>
+      <div id="cookie-count" style="font-size: 6rem; font-weight: 900; color: var(--red); text-shadow: 3px 3px var(--gold); margin: 10px 0;">0</div>
+      <button class="btn" style="padding: 30px 70px; font-size: 2.2rem;" onclick="bakeCookie()">🍪 BAKE!</button>
     </div>
 
   </div>
 
-  <div class="footer" style="padding: 60px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-    <h2 style="font-size: 2.5rem;">🎅 sleep tight, santa is coming! 🎅</h2>
+  <div class="footer" style="padding: 100px 20px; text-align: center; color: white; text-shadow: 0 5px 15px rgba(0,0,0,0.9);">
+    <h2 style="font-size: 3.5rem; margin: 0;">🎅 almost time for bed! 🎅</h2>
+    <p style="font-size: 1.5rem; font-weight: bold; margin-top: 10px;">magic is in the air at the north pole</p>
   </div>
 
   <script>
-    // --- 1. Countdown & Ticker ---
+    // --- 1. Countdown & Tracker ---
     function updateCountdown() {
       const now = new Date();
       let christmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0);
       if (now > christmas) christmas.setFullYear(christmas.getFullYear() + 1);
       const diff = christmas - now;
+      
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
+      
       document.getElementById('days').innerText = d.toString().padStart(2, '0');
       document.getElementById('hours').innerText = h.toString().padStart(2, '0');
       document.getElementById('mins').innerText = m.toString().padStart(2, '0');
       document.getElementById('secs').innerText = s.toString().padStart(2, '0');
       
-      if(s % 8 === 0) {
+      if(s % 6 === 0) {
         const statuses = [
-          "> checking sleigh fuel levels...",
-          "> verifying naughty/nice database...",
-          "> cabin pressure: normal",
-          "> reindeer energy levels: 100%",
-          "> local weather: snowy and perfect",
-          "> cookies detected on radar"
+          "> warming up the sleigh heater...",
+          "> checking global cookie coordinates...",
+          "> wrapping final 'emergency' toys...",
+          "> reindeer cardio session complete...",
+          "> status: 100% nice list accuracy",
+          "> weather: 10/10 for flying"
         ];
-        document.getElementById('status-feed').innerHTML = `> sync: active<br>> latitude: 90.0000° N<br>${statuses[Math.floor(Math.random() * statuses.length)]}`;
+        document.getElementById('status-feed').innerHTML = `> feed: encrypted<br>> signal: perfect<br>${statuses[Math.floor(Math.random() * statuses.length)]}`;
       }
 
-      // Random Flyby
-      if(s === 15 || s === 45) triggerFlyby();
+      if(s === 10 || s === 30 || s === 50) triggerFlyby();
     }
     setInterval(updateCountdown, 1000);
 
     function triggerFlyby() {
       const f = document.getElementById('flyby');
       f.style.display = 'block';
-      f.style.top = Math.random() * 80 + 'vh';
+      f.style.top = (15 + Math.random() * 65) + 'vh';
       const anim = f.animate([
-        { left: '-500px', opacity: 1 },
-        { left: '110vw', opacity: 1 }
-      ], { duration: 4000, iterations: 1 });
+        { left: '-1000px', opacity: 1 },
+        { left: '120vw', opacity: 1 }
+      ], { duration: 4500, easing: 'linear' });
       anim.onfinish = () => f.style.display = 'none';
     }
 
-    // --- 2. AI Messages ---
+    // --- 2. AI Radio Update ---
     const apiKey = ""; 
     async function askSanta() {
       const btn = document.getElementById('santa-btn');
       const text = document.getElementById('santa-msg');
-      btn.innerText = "⏳ tuning...";
+      btn.innerText = "⏳ tuning dial...";
       btn.disabled = true;
-      const prompt = "Act as a North Pole Radio DJ. Give a funny, high-energy update (max 18 words) about what Santa or the elves are doing. Use emojis.";
+      const prompt = "Act as an excited North Pole radio DJ. Give a funny, super-short status update (max 14 words). Use festive emojis.";
       try {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -397,23 +445,77 @@
         const data = await res.json();
         text.innerText = data.candidates[0].content.parts[0].text;
       } catch (e) {
-        text.innerText = "📻 Santa is currently testing the sleigh's heated seats! 🧤🔥";
+        text.innerText = "🚨 Oops! The elves are currently testing the festive fog machine! 💨🎄";
       } finally {
-        btn.innerText = "📡 tune in again"; btn.disabled = false;
+        btn.innerText = "📻 tune in again"; btn.disabled = false;
       }
     }
 
-    // --- 3. Reindeer Snack Run ---
+    // --- 3. Reindeer Name Generator ---
+    const firstNames = ["Twinkle", "Jingle", "Frosty", "Bouncy", "Zippy", "Merry", "Glint", "Sparkle", "Cocoa", "Snowy", "Gumdrop", "Candy"];
+    const lastNames = ["Hoofstepper", "Antlerglow", "Snowflurry", "Giftbringer", "Bell-Ringer", "Winter-Dash", "Red-Nose", "Sky-Glider", "Cookie-Cruncher"];
+    function generateReindeerName() {
+      const name = firstNames[Math.floor(Math.random()*firstNames.length)] + " " + lastNames[Math.floor(Math.random()*lastNames.length)];
+      document.getElementById('reindeer-name').innerText = name;
+    }
+
+    // --- 4. Snowball Fight Game ---
+    const sCanvas = document.getElementById('snowCanvas');
+    const sCtx = sCanvas.getContext('2d');
+    let targetX = 50, targetY = 50, targetVX = 3.5, targetVY = 2.5, snowScore = 0;
+    function drawSnowballGame() {
+      sCtx.clearRect(0, 0, 300, 250);
+      sCtx.font = "45px Arial";
+      sCtx.fillText("🎄", targetX, targetY);
+      targetX += targetVX; targetY += targetVY;
+      if(targetX < 0 || targetX > 255) targetVX *= -1;
+      if(targetY < 45 || targetY > 245) targetVY *= -1;
+      requestAnimationFrame(drawSnowballGame);
+    }
+    sCanvas.addEventListener('mousedown', (e) => {
+      const rect = sCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if(x > targetX && x < targetX + 45 && y > targetY - 45 && y < targetY) {
+        snowScore++;
+        document.getElementById('snow-score').innerText = snowScore;
+        targetX = Math.random() * 240; targetY = Math.random() * 180 + 50;
+        targetVX *= 1.05; targetVY *= 1.05;
+      }
+    });
+
+    // --- 5. Gift Catcher ---
+    const gCanvas = document.getElementById("giftCanvas");
+    const gCtx = gCanvas.getContext("2d");
+    let slX = 130, gY = -25, gX = 150, score = 0, move = 0;
+    function drawGift() {
+      gCtx.clearRect(0,0,300,300);
+      slX += move * 8;
+      if(slX < 0) slX = 0; if(slX > 245) slX = 245;
+      gCtx.font = "35px Arial";
+      gCtx.fillText("🛷", slX, 285);
+      gCtx.fillText("🎁", gX, gY);
+      gY += 5;
+      if(gY > 260 && gX > slX - 15 && gX < slX + 50) {
+        score++; gY = -25; gX = Math.random() * 250;
+        document.getElementById('gift-score').innerText = score;
+      } else if(gY > 300) { gY = -25; gX = Math.random() * 250; }
+      requestAnimationFrame(drawGift);
+    }
+    function moveSleigh(d) { move = d; }
+    function stopSleigh() { move = 0; }
+
+    // --- 6. Reindeer Dash ---
     const rCanvas = document.getElementById("reindeerCanvas");
     const rCtx = rCanvas.getContext("2d");
     const rBox = 20;
     let reindeer, carrot, rDir, rGame;
     function initReindeer() {
-      reindeer = [{ x: 7 * rBox, y: 7 * rBox }];
-      carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 14) * rBox };
+      reindeer = [{ x: 7 * rBox, y: 5 * rBox }];
+      carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 11) * rBox };
       rDir = "RIGHT";
       if(rGame) clearInterval(rGame);
-      rGame = setInterval(drawReindeer, 160);
+      rGame = setInterval(drawReindeer, 150);
     }
     function changeDir(dir) {
       if(dir == "UP" && rDir != "DOWN") rDir = "UP";
@@ -422,17 +524,17 @@
       if(dir == "RIGHT" && rDir != "LEFT") rDir = "RIGHT";
     }
     function drawReindeer() {
-      rCtx.fillStyle = "white"; rCtx.fillRect(0, 0, rCanvas.width, rCanvas.height);
+      rCtx.fillStyle = "#fff"; rCtx.fillRect(0, 0, rCanvas.width, rCanvas.height);
       for(let i=0; i<reindeer.length; i++) {
         rCtx.fillStyle = (i==0) ? "#8B4513" : "#CD853F";
         rCtx.fillRect(reindeer[i].x, reindeer[i].y, rBox-1, rBox-1);
       }
-      rCtx.fillText("🥕", carrot.x, carrot.y + 15);
+      rCtx.fillText("🥕", carrot.x, carrot.y + 16);
       let hX = reindeer[0].x, hY = reindeer[0].y;
       if(rDir == "LEFT") hX -= rBox; if(rDir == "UP") hY -= rBox;
       if(rDir == "RIGHT") hX += rBox; if(rDir == "DOWN") hY += rBox;
       if(hX == carrot.x && hY == carrot.y) {
-        carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 14) * rBox };
+        carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 11) * rBox };
       } else reindeer.pop();
       let head = { x: hX, y: hY };
       if(hX < 0 || hX >= rCanvas.width || hY < 0 || hY >= rCanvas.height || reindeer.some(s => s.x == head.x && s.y == head.y)) {
@@ -440,28 +542,7 @@
       } else reindeer.unshift(head);
     }
 
-    // --- 4. Gift Catcher ---
-    const gCanvas = document.getElementById("giftCanvas");
-    const gCtx = gCanvas.getContext("2d");
-    let slX = 130, gY = -20, gX = 150, score = 0, move = 0;
-    function drawGift() {
-      gCtx.clearRect(0,0,300,300);
-      slX += move * 6;
-      if(slX < 0) slX = 0; if(slX > 250) slX = 250;
-      gCtx.font = "30px Arial";
-      gCtx.fillText("🛷", slX, 280);
-      gCtx.fillText("🎁", gX, gY);
-      gY += 4;
-      if(gY > 260 && gX > slX - 15 && gX < slX + 45) {
-        score++; gY = -20; gX = Math.random() * 260;
-        document.getElementById('gift-score').innerText = score;
-      } else if(gY > 300) { gY = -20; gX = Math.random() * 260; }
-      requestAnimationFrame(drawGift);
-    }
-    function moveSleigh(d) { move = d; }
-    function stopSleigh() { move = 0; }
-
-    // --- 5. Memory Match ---
+    // --- 7. Memory Match ---
     const emojis = ['🎅','🎄','🎁','🦌','⛄','🍪','⭐','🔔'];
     let flipped = [];
     function initMemory() {
@@ -486,26 +567,30 @@
       });
     }
 
-    // --- 6. Cookie Factory ---
+    // --- 8. Cookie Factory ---
     let cks = 0;
     function bakeCookie() {
       cks++; document.getElementById('cookie-count').innerText = cks;
       const el = document.getElementById('cookie-count');
-      el.style.transform = 'scale(1.3) rotate(5deg)';
-      setTimeout(() => el.style.transform = 'scale(1)', 100);
+      el.animate([
+        { transform: 'scale(1) rotate(0deg)' },
+        { transform: 'scale(1.5) rotate(15deg)' },
+        { transform: 'scale(1) rotate(0deg)' }
+      ], { duration: 150 });
     }
 
     // --- Initialization ---
     window.onload = () => {
-      initReindeer(); drawGift(); initMemory();
+      initReindeer(); drawGift(); initMemory(); drawSnowballGame(); generateReindeerName();
       setInterval(() => {
         const s = document.createElement('div');
         s.className = 'snowflake'; s.innerHTML = '❄';
         s.style.left = Math.random() * 100 + 'vw';
-        s.style.fontSize = (Math.random() * 25 + 10) + 'px';
+        s.style.fontSize = (Math.random() * 30 + 10) + 'px';
+        s.style.opacity = Math.random();
         document.body.appendChild(s);
         s.animate([{ top: '-10vh' }, { top: '110vh' }], { duration: Math.random() * 3000 + 3000 }).onfinish = () => s.remove();
-      }, 200);
+      }, 100);
     };
   </script>
 </body>
