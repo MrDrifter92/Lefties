@@ -3,23 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>money please zara! | official portal</title>
+  <title>is santa here yet? | official tracker</title>
   
-  <!-- Meta Tags for Zara.png -->
-  <meta property="og:title" content="money please zara!">
-  <meta property="og:description" content="official holiday portal for zara and uncle adam.">
-  <meta property="og:image" content="zara.png">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="zara.png">
-
   <style>
     :root {
-      --pink: #ff69b4;
-      --hot-pink: #ff1493;
-      --gold: #ffd700;
-      --bg: #fff0f6;
-      --deep-pink: #c71585;
+      --red: #d42426;
+      --deep-red: #8b0000;
+      --green: #165b33;
+      --light-green: #187941;
+      --gold: #f8b229;
+      --white: #ffffff;
+      --bg: #f0f4f8;
     }
 
     * {
@@ -30,37 +24,36 @@
 
     body {
       background-color: var(--bg);
-      color: #4a4a4a;
+      color: #2c3e50;
       margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 20px;
       overflow-x: hidden;
-      background-image: radial-gradient(var(--pink) 0.5px, transparent 0.5px);
-      background-size: 20px 20px;
+      background-image: radial-gradient(var(--red) 0.5px, transparent 0.5px);
+      background-size: 30px 30px;
     }
 
-    /* Glitter Animation */
     .glitter-text {
-      font-size: clamp(3rem, 10vw, 5rem);
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       font-weight: 900;
       background: linear-gradient(
         to right, 
-        #ff00de 0%, 
+        #ff0000 0%, 
         #ffd700 25%, 
         #ffffff 50%, 
         #ffd700 75%, 
-        #ff00de 100%
+        #ff0000 100%
       );
       background-size: 200% auto;
       color: #fff;
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: glitter 1.5s linear infinite;
+      animation: glitter 2s linear infinite;
       display: inline-block;
-      filter: drop-shadow(4px 4px 0px rgba(255, 20, 147, 0.3));
+      filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.1));
     }
 
     @keyframes glitter {
@@ -68,133 +61,97 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 8px solid var(--pink);
+      background: rgba(255, 255, 255, 0.95);
+      border: 8px solid var(--green);
       border-radius: 40px;
       padding: 40px 20px;
       max-width: 650px;
       width: 100%;
-      box-shadow: 15px 15px 0px var(--hot-pink);
+      box-shadow: 15px 15px 0px var(--red);
       margin-bottom: 30px;
       text-align: center;
       position: relative;
-      overflow: hidden;
     }
 
-    .profile-img-wrap {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 15px;
-      border-radius: 50%;
-      border: 5px solid var(--gold);
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    .countdown-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px 0;
     }
 
-    .profile-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .countdown-box {
-      background: var(--hot-pink);
+    .unit-box {
+      background: var(--red);
       color: white;
       padding: 10px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      transform: rotate(-2deg);
+      border-radius: 15px;
+      border: 3px solid var(--gold);
     }
 
-    .pay-id {
+    .unit-value {
+      font-size: 2rem;
+      font-weight: 900;
+      display: block;
+    }
+
+    .unit-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .santa-status {
       background: #1a1a1a;
       color: #00ff00;
       padding: 20px;
       font-family: 'Courier New', monospace;
-      font-size: clamp(1.2rem, 5vw, 2rem);
+      font-size: 1.1rem;
       border-radius: 15px;
       margin: 25px 0;
-      cursor: pointer;
       border: 4px solid var(--gold);
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-      transition: transform 0.2s;
-      position: relative;
-    }
-
-    .pay-id:hover {
-      transform: scale(1.05);
-    }
-
-    .pay-id::after {
-      content: 'click to copy!';
-      position: absolute;
-      top: -15px;
-      right: -10px;
-      background: var(--gold);
-      color: black;
-      font-size: 0.8rem;
-      padding: 4px 8px;
-      border-radius: 5px;
-      transform: rotate(10deg);
-    }
-
-    .deadly-serious {
-      color: #ff0000;
-      font-weight: 900;
-      font-size: 1.4rem;
-      animation: shake 0.5s infinite;
-      display: block;
-      margin: 15px 0;
-    }
-
-    @keyframes shake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      20% { transform: translate(-1px, -1px) rotate(1deg); }
-      40% { transform: translate(1px, -1px) rotate(-1deg); }
-      60% { transform: translate(-1px, 1px) rotate(0deg); }
-      100% { transform: translate(1px, 1px) rotate(0deg); }
+      box-shadow: 0 0 20px rgba(248, 178, 41, 0.3);
+      text-align: left;
     }
 
     .ai-section {
-      background: white;
-      border: 4px solid var(--gold);
+      background: #fdf2f2;
+      border: 3px dashed var(--red);
       border-radius: 25px;
       padding: 20px;
       margin-top: 20px;
     }
 
-    .game-container {
-      width: 100%;
-      max-width: 650px;
-      display: grid;
-      gap: 25px;
+    .arcade-title {
+      font-size: 2.5rem;
+      color: var(--deep-red);
+      margin: 20px 0;
+      text-shadow: 2px 2px var(--gold);
     }
 
     .game-box {
       background: #fff;
-      border: 4px solid var(--pink);
+      border: 4px solid var(--green);
       border-radius: 30px;
       padding: 25px;
+      margin-bottom: 25px;
+      width: 100%;
+      max-width: 650px;
       position: relative;
       box-shadow: 8px 8px 0px rgba(0,0,0,0.05);
+      text-align: center;
     }
 
     canvas {
-      background: #fff;
-      border: 3px solid #eee;
+      background: #fcfcfc;
+      border: 2px solid #ddd;
       border-radius: 15px;
       display: block;
-      margin: 0 auto;
+      margin: 15px auto;
       max-width: 100%;
-      cursor: crosshair;
+      touch-action: none;
     }
 
     .btn {
-      background: linear-gradient(135deg, var(--hot-pink), var(--deep-pink));
+      background: linear-gradient(135deg, var(--red), var(--deep-red));
       color: white;
       border: none;
       padding: 12px 25px;
@@ -203,32 +160,12 @@
       cursor: pointer;
       font-size: 1.1rem;
       transition: all 0.2s;
-      box-shadow: 0 4px 0px var(--deep-pink);
+      box-shadow: 0 4px 0px #5e0000;
     }
 
     .btn:active {
       transform: translateY(4px);
       box-shadow: none;
-    }
-
-    .btn-ai {
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
-      margin-top: 10px;
-    }
-
-    .reminder-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255, 20, 147, 0.95);
-      color: white;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-radius: 25px;
-      z-index: 50;
-      padding: 20px;
-      text-align: center;
     }
 
     .snowflake {
@@ -240,271 +177,252 @@
       pointer-events: none;
     }
 
-    #ai-reason-text {
+    #santa-msg {
       font-style: italic;
       margin: 15px 0;
-      min-height: 40px;
-      color: var(--deep-pink);
+      min-height: 50px;
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    /* Memory Game Styles */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 15px auto;
+      max-width: 400px;
+    }
+    .memory-card {
+      aspect-ratio: 1;
+      background: var(--red);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      color: transparent;
+      transition: transform 0.3s, background 0.3s;
+      border: 2px solid var(--gold);
+    }
+    .memory-card.flipped {
+      background: white;
+      color: initial;
+      transform: rotateY(180deg);
+    }
+    .memory-card.matched {
+      background: var(--light-green);
+      cursor: default;
+      color: initial;
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <div class="countdown-box" id="countdown">loading christmas...</div>
-    <br>
+    <h1 class="glitter-text">is santa here?</h1>
     
-    <div class="profile-img-wrap">
-      <img src="zara.png" alt="zara" onerror="this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=Zara&backgroundColor=ff69b4'">
+    <div class="countdown-container">
+      <div class="unit-box"><span class="unit-value" id="days">00</span><span class="unit-label">days</span></div>
+      <div class="unit-box"><span class="unit-value" id="hours">00</span><span class="unit-label">hours</span></div>
+      <div class="unit-box"><span class="unit-value" id="mins">00</span><span class="unit-label">mins</span></div>
+      <div class="unit-box"><span class="unit-value" id="secs">00</span><span class="unit-label">secs</span></div>
     </div>
 
-    <h1>hi <span class="glitter-text">zara</span></h1>
-    <p style="font-size: 1.2rem;">if you get any money for christmas please payid it to me immediately.</p>
-    
-    <div class="pay-id" onclick="copyPayID()">0417220012</div>
-    
-    <span class="deadly-serious">deadly serious: uncle adam needs it.</span>
+    <div class="santa-status" id="status-feed">
+      > scanning north pole...<br>
+      > reindeer status: ready<br>
+      > sleigh maintenance: 100%
+    </div>
 
     <div class="ai-section">
-      <h3>✨ ai reason generator</h3>
-      <div id="ai-reason-text">need a reason to pay me?</div>
-      <button class="btn btn-ai" onclick="generateReason()" id="ai-btn">✨ ask gemini why</button>
+      <h3>🎅 magic message generator</h3>
+      <div id="santa-msg">what is santa doing right now?</div>
+      <button class="btn" onclick="askSanta()" id="santa-btn">✨ check on santa</button>
     </div>
   </div>
 
-  <div class="game-container">
-    
-    <div class="game-box" id="game-clicker">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🍬 candy collector</div>
-      <div id="clicker-count" style="font-size: 3rem; font-weight: 900; color: var(--hot-pink);">0</div>
-      <button class="btn" onclick="candyClick()">tap for sugar!</button>
-      <div class="reminder-overlay" id="overlay-clicker">
-        <h2 style="font-size: 2.5rem;">🛑 STOP!</h2>
-        <p>you have enough candy. what you don't have is a receipt for sending uncle adam money.</p>
-        <button class="btn" onclick="resetGame('clicker')">fine, i'll send it (back to games)</button>
-      </div>
-    </div>
+  <h2 class="arcade-title">🎮 north pole arcade</h2>
 
-    <div class="game-box" id="game-snake">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🐍 poverty snake</div>
-      <canvas id="snakeCanvas" width="300" height="300"></canvas>
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 15px auto;">
-        <div></div><button class="btn" onclick="changeDir('UP')">↑</button><div></div>
-        <button class="btn" onclick="changeDir('LEFT')">←</button>
-        <button class="btn" onclick="changeDir('DOWN')">↓</button>
-        <button class="btn" onclick="changeDir('RIGHT')">→</button>
-      </div>
-      <div class="reminder-overlay" id="overlay-snake">
-        <h2>🐍 SSSSSS-ORRY</h2>
-        <p>snake hit the wall of debt. pay uncle adam to revive him.</p>
-        <button class="btn" onclick="resetGame('snake')">pay and replay</button>
-      </div>
+  <!-- Game 1: Reindeer Snack Run -->
+  <div class="game-box">
+    <div style="font-size: 1.8rem;">🦌 reindeer snack run</div>
+    <p>help rudolph eat the carrots!</p>
+    <canvas id="reindeerCanvas" width="300" height="300"></canvas>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 180px; margin: 0 auto;">
+      <div></div><button class="btn" onclick="changeDir('UP')">↑</button><div></div>
+      <button class="btn" onclick="changeDir('LEFT')">←</button>
+      <button class="btn" onclick="changeDir('DOWN')">↓</button>
+      <button class="btn" onclick="changeDir('RIGHT')">→</button>
     </div>
-
-    <div class="game-box" id="game-match">
-      <div style="font-size: 2rem; margin-bottom: 10px;">🎁 present pair-up</div>
-      <div id="match-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 320px; margin: 0 auto;"></div>
-      <div class="reminder-overlay" id="overlay-match">
-        <h2>🏆 WINNER!</h2>
-        <p>you matched the gifts! now match your balance to uncle adam's bank account.</p>
-        <button class="btn" onclick="resetGame('match')">play again</button>
-      </div>
-    </div>
-
   </div>
 
-  <div class="footer" style="padding: 40px; text-align: center; font-size: 1.5rem;">
-    <p>🎅 zara... i'm checking my bank account twice... 🎅</p>
+  <!-- Game 2: Gift Catcher -->
+  <div class="game-box">
+    <div style="font-size: 1.8rem;">🎁 gift catcher</div>
+    <p>catch the presents with the sleigh! score: <span id="gift-score">0</span></p>
+    <canvas id="giftCanvas" width="300" height="300"></canvas>
+    <div style="display:flex; justify-content:center; gap: 20px;">
+      <button class="btn" onmousedown="moveSleigh(-1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(-1)" ontouchend="stopSleigh()">← left</button>
+      <button class="btn" onmousedown="moveSleigh(1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(1)" ontouchend="stopSleigh()">right →</button>
+    </div>
+  </div>
+
+  <!-- Game 3: Memory Match -->
+  <div class="game-box">
+    <div style="font-size: 1.8rem;">🎄 memory match</div>
+    <p>find all the festive pairs!</p>
+    <div class="memory-grid" id="memoryGrid"></div>
+    <button class="btn" onclick="initMemory()">reset game</button>
+  </div>
+
+  <!-- Game 4: Cookie Clicker -->
+  <div class="game-box">
+    <div style="font-size: 1.8rem; margin-bottom: 10px;">🍪 cookie baker</div>
+    <div id="cookie-count" style="font-size: 3.5rem; font-weight: 900; color: var(--red);">0</div>
+    <p>bake cookies for the long trip!</p>
+    <button class="btn" style="padding: 20px 40px; font-size: 1.5rem;" onclick="bakeCookie()">🍪 BAKE!</button>
+  </div>
+
+  <div class="footer" style="padding: 40px; text-align: center; color: var(--green);">
+    <p>🎄 sleep well! he's checking his list twice! 🎄</p>
   </div>
 
   <script>
-    // Countdown Logic
+    // --- 1. Countdown Logic ---
     function updateCountdown() {
       const now = new Date();
-      const christmas = new Date(now.getFullYear(), 11, 25);
+      let christmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0);
       if (now > christmas) christmas.setFullYear(christmas.getFullYear() + 1);
-      
       const diff = christmas - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      
-      document.getElementById('countdown').innerText = `🚨 ${days}d ${hours}h ${mins}m until you owe me money`;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('days').innerText = d.toString().padStart(2, '0');
+      document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+      document.getElementById('mins').innerText = m.toString().padStart(2, '0');
+      document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+      if(s % 10 === 0) {
+        const updates = ["> santa is polishing his boots", "> elves are wrapping a bicycle", "> rudolph is warming up his nose", "> mrs. claus is baking gingerbread", "> checking the 'nice' list twice"];
+        document.getElementById('status-feed').innerHTML = `> gps signal: locked<br>> altitude: 0ft<br>${updates[Math.floor(Math.random() * updates.length)]}`;
+      }
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // AI Reason Generator
+    // --- 2. AI Messages ---
     const apiKey = ""; 
-    async function generateReason() {
-      const btn = document.getElementById('ai-btn');
-      const text = document.getElementById('ai-reason-text');
-      btn.innerText = "⏳ consultng santa...";
+    async function askSanta() {
+      const btn = document.getElementById('santa-btn');
+      const text = document.getElementById('santa-msg');
+      btn.innerText = "⏳ calling north pole...";
       btn.disabled = true;
-
-      const prompt = "Give a 10-year-old girl named Zara one funny, cheeky, and 'deadly serious' reason why she should give her Christmas money to her Uncle Adam. Mention PayID. Keep it under 20 words and all lowercase.";
-
+      const prompt = "Write a very short, funny update (max 15 words) about Santa's current activity. Be silly.";
       try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
-        const data = await response.json();
+        const data = await res.json();
         text.innerText = data.candidates[0].content.parts[0].text;
       } catch (e) {
-        text.innerText = "because i said so and i know where the snacks are hidden. payid now!";
+        text.innerText = "Santa is currently practicing reindeer yoga!";
       } finally {
-        btn.innerText = "✨ ask gemini again";
-        btn.disabled = false;
+        btn.innerText = "✨ check again"; btn.disabled = false;
       }
     }
 
-    // Snowfall
-    function createSnowflake() {
-      const sf = document.createElement('div');
-      sf.classList.add('snowflake');
-      sf.innerHTML = Math.random() > 0.5 ? '❄' : '💸';
-      sf.style.left = Math.random() * 100 + 'vw';
-      sf.style.fontSize = Math.random() * 20 + 10 + 'px';
-      sf.style.opacity = Math.random();
-      document.body.appendChild(sf);
-      
-      const anim = sf.animate([{ top: '-10vh' }, { top: '110vh' }], {
-        duration: Math.random() * 3000 + 4000,
-        iterations: 1
-      });
-      anim.onfinish = () => sf.remove();
+    // --- 3. Game: Reindeer Snack Run (Snake) ---
+    const rCanvas = document.getElementById("reindeerCanvas");
+    const rCtx = rCanvas.getContext("2d");
+    const rBox = 20;
+    let reindeer, carrot, rDir, rGame;
+    function initReindeer() {
+      reindeer = [{ x: 8 * rBox, y: 8 * rBox }];
+      carrot = { x: Math.floor(Math.random() * 14 + 1) * rBox, y: Math.floor(Math.random() * 14 + 1) * rBox };
+      rDir = "RIGHT";
+      if(rGame) clearInterval(rGame);
+      rGame = setInterval(drawReindeer, 150);
     }
-    setInterval(createSnowflake, 300);
-
-    function copyPayID() {
-      const temp = document.createElement('textarea');
-      temp.value = '0417220012';
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
-      
-      const box = document.querySelector('.pay-id');
-      box.style.background = '#fff';
-      setTimeout(() => box.style.background = '#1a1a1a', 100);
-      alert('copied! now open your banking app and do it! 💖');
+    function changeDir(dir) {
+      if(dir == "UP" && rDir != "DOWN") rDir = "UP";
+      if(dir == "DOWN" && rDir != "UP") rDir = "DOWN";
+      if(dir == "LEFT" && rDir != "RIGHT") rDir = "LEFT";
+      if(dir == "RIGHT" && rDir != "LEFT") rDir = "RIGHT";
     }
-
-    function resetGame(type) {
-      document.getElementById('overlay-' + type).style.display = 'none';
-      if(type === 'clicker') { candyScore = 0; document.getElementById('clicker-count').innerText = '0'; }
-      if(type === 'snake') { initSnake(); }
-      if(type === 'match') { initMatch(); }
-    }
-
-    // --- GAMES (RE-INITIALIZED ON LOAD) ---
-    let candyScore = 0;
-    function candyClick() {
-      candyScore++;
-      document.getElementById('clicker-count').innerText = candyScore;
-      if (candyScore >= 30) {
-        document.getElementById('overlay-clicker').style.display = 'flex';
+    function drawReindeer() {
+      rCtx.fillStyle = "#fcfcfc"; rCtx.fillRect(0, 0, rCanvas.width, rCanvas.height);
+      for(let i=0; i<reindeer.length; i++) {
+        rCtx.fillStyle = (i==0) ? "brown" : "#a0522d";
+        rCtx.fillRect(reindeer[i].x, reindeer[i].y, rBox-1, rBox-1);
       }
+      rCtx.fillText("🥕", carrot.x, carrot.y + 15);
+      let headX = reindeer[0].x; let headY = reindeer[0].y;
+      if(rDir == "LEFT") headX -= rBox; if(rDir == "UP") headY -= rBox;
+      if(rDir == "RIGHT") headX += rBox; if(rDir == "DOWN") headY += rBox;
+      if(headX == carrot.x && headY == carrot.y) {
+        carrot = { x: Math.floor(Math.random() * 14 + 1) * rBox, y: Math.floor(Math.random() * 14 + 1) * rBox };
+      } else reindeer.pop();
+      let head = { x: headX, y: headY };
+      if(headX < 0 || headX >= rCanvas.width || headY < 0 || headY >= rCanvas.height || reindeer.some(s => s.x == head.x && s.y == head.y)) {
+        clearInterval(rGame); initReindeer();
+      } else reindeer.unshift(head);
     }
 
-    const canvas = document.getElementById("snakeCanvas");
-    const ctx = canvas.getContext("2d");
-    const boxSize = 20;
-    let snake, food, d, gameInterval;
-
-    function initSnake() {
-      snake = [{ x: 7 * boxSize, y: 7 * boxSize }];
-      food = { x: Math.floor(Math.random() * 14 + 1) * boxSize, y: Math.floor(Math.random() * 14 + 1) * boxSize };
-      d = "RIGHT";
-      if(gameInterval) clearInterval(gameInterval);
-      gameInterval = setInterval(drawSnake, 160);
-    }
-
-    function changeDir(dir) { 
-      if(dir == "UP" && d != "DOWN") d = "UP";
-      if(dir == "DOWN" && d != "UP") d = "DOWN";
-      if(dir == "LEFT" && d != "RIGHT") d = "LEFT";
-      if(dir == "RIGHT" && d != "LEFT") d = "RIGHT";
-    }
-
-    function drawSnake() {
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      for(let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i == 0) ? "hotpink" : "#ffc0cb";
-        ctx.fillRect(snake[i].x, snake[i].y, boxSize-2, boxSize-2);
+    // --- 4. Game: Gift Catcher ---
+    const gCanvas = document.getElementById("giftCanvas");
+    const gCtx = gCanvas.getContext("2d");
+    let sleighX = 130, giftY = -20, giftX = 150, gScore = 0, sleighMove = 0;
+    function drawGiftCatcher() {
+      gCtx.clearRect(0,0,300,300);
+      sleighX += sleighMove * 5;
+      if(sleighX < 0) sleighX = 0; if(sleighX > 250) sleighX = 250;
+      gCtx.font = "30px Arial";
+      gCtx.fillText("🛷", sleighX, 280);
+      gCtx.fillText("🎁", giftX, giftY);
+      giftY += 3;
+      if(giftY > 260 && giftX > sleighX - 10 && giftX < sleighX + 40) {
+        gScore++; giftY = -20; giftX = Math.random() * 260;
+        document.getElementById('gift-score').innerText = gScore;
+      } else if(giftY > 300) {
+        giftY = -20; giftX = Math.random() * 260;
       }
-      ctx.fillStyle = "gold";
-      ctx.font = "15px Arial";
-      ctx.fillText("💰", food.x, food.y + 15);
-      let snakeX = snake[0].x;
-      let snakeY = snake[0].y;
-      if( d == "LEFT") snakeX -= boxSize;
-      if( d == "UP") snakeY -= boxSize;
-      if( d == "RIGHT") snakeX += boxSize;
-      if( d == "DOWN") snakeY += boxSize;
-      if(snakeX == food.x && snakeY == food.y) {
-        food = { x: Math.floor(Math.random() * 14 + 1) * boxSize, y: Math.floor(Math.random() * 14 + 1) * boxSize };
-      } else {
-        snake.pop();
-      }
-      let newHead = { x: snakeX, y: snakeY };
-      if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
-        clearInterval(gameInterval);
-        document.getElementById('overlay-snake').style.display = 'flex';
-      }
-      snake.unshift(newHead);
+      requestAnimationFrame(drawGiftCatcher);
     }
+    function moveSleigh(d) { sleighMove = d; }
+    function stopSleigh() { sleighMove = 0; }
 
-    function collision(head, array) {
-      for(let i = 0; i < array.length; i++) {
-        if(head.x == array[i].x && head.y == array[i].y) return true;
-      }
-      return false;
-    }
-
-    const emojis = ['🎁', '🎅', '🍪', '🦌', '⛄', '🥛', '🎄', '⭐'];
-    let cards = [...emojis, ...emojis];
-    let flipped = [];
-    let matchedCount = 0;
-
-    function initMatch() {
-      const grid = document.getElementById('match-grid');
+    // --- 5. Game: Memory Match ---
+    const emojis = ['🎅','🎄','🎁','🦌','⛄','🍪','⭐','🔔'];
+    let memCards = [], flipped = [];
+    function initMemory() {
+      const grid = document.getElementById('memoryGrid');
       grid.innerHTML = '';
-      cards.sort(() => 0.5 - Math.random());
-      matchedCount = 0;
+      memCards = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
       flipped = [];
-      cards.forEach((emoji, index) => {
+      memCards.forEach((emoji, i) => {
         const card = document.createElement('div');
-        card.style = "height: 70px; background: var(--pink); display: flex; align-items: center; justify-content: center; font-size: 2rem; border-radius: 15px; cursor: pointer; color: transparent; transition: all 0.3s;";
+        card.className = 'memory-card';
+        card.dataset.val = emoji;
+        card.dataset.id = i;
         card.innerText = emoji;
-        card.onclick = () => flipCard(card);
+        card.onclick = () => flipMemory(card);
         grid.appendChild(card);
       });
     }
-
-    function flipCard(card) {
-      if (flipped.length < 2 && card.style.color === 'transparent') {
-        card.style.color = 'white';
-        card.style.background = '#fff';
-        card.style.transform = 'rotateY(180deg)';
+    function flipMemory(card) {
+      if(flipped.length < 2 && !card.classList.contains('flipped')) {
+        card.classList.add('flipped');
         flipped.push(card);
-        if (flipped.length === 2) {
-          if (flipped[0].innerText === flipped[1].innerText) {
-            matchedCount += 2;
+        if(flipped.length === 2) {
+          if(flipped[0].dataset.val === flipped[1].dataset.val) {
+            flipped.forEach(c => c.classList.add('matched'));
             flipped = [];
-            if (matchedCount === cards.length) {
-              setTimeout(() => document.getElementById('overlay-match').style.display = 'flex', 500);
-            }
           } else {
             setTimeout(() => {
-              flipped.forEach(c => {
-                c.style.color = 'transparent';
-                c.style.background = 'var(--pink)';
-                c.style.transform = 'rotateY(0deg)';
-              });
+              flipped.forEach(c => c.classList.remove('flipped'));
               flipped = [];
             }, 800);
           }
@@ -512,10 +430,31 @@
       }
     }
 
+    // --- 6. Game: Cookie Baker ---
+    let cookies = 0;
+    function bakeCookie() {
+      cookies++;
+      document.getElementById('cookie-count').innerText = cookies;
+      const count = document.getElementById('cookie-count');
+      count.style.transform = 'scale(1.2)';
+      setTimeout(() => count.style.transform = 'scale(1)', 100);
+    }
+
+    // --- Init ---
     window.onload = () => {
-      initSnake();
-      initMatch();
+      initReindeer();
+      drawGiftCatcher();
+      initMemory();
+      setInterval(() => {
+        const sf = document.createElement('div');
+        sf.className = 'snowflake'; sf.innerHTML = '❄';
+        sf.style.left = Math.random() * 100 + 'vw';
+        sf.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        document.body.appendChild(sf);
+        sf.animate([{ top: '-10vh' }, { top: '110vh' }], { duration: 4000 }).onfinish = () => sf.remove();
+      }, 300);
     };
   </script>
 </body>
 </html>
+
