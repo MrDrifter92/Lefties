@@ -3,410 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ADHD Assessment Tracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>DrLefties Roadside Safety | ADHD Driving Guide Australia</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Re-use the CSS variables for colors to ensure easy global changes. */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
+        
         :root {
-            --primary-pink: #FF69B4; /* Hot Pink */
-            --light-pink-glow: rgba(255, 105, 180, 0.6); /* Hot Pink with opacity for glow */
-            --dark-bg: #0D1117;
-            --mid-dark-bg: #161B22;
-            --light-text: #e5e7eb;
+            --primary: #1e3a8a;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
         }
 
         body {
-            /* Always use Nunito from Google Fonts and apply it to the body. */
-            font-family: 'Nunito', sans-serif;
-            color: var(--light-text);
-            background-color: var(--dark-bg);
-            /* Ensure no unwanted horizontal scrolling. */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: #1e293b;
             overflow-x: hidden;
-            position: relative; /* Needed for video background positioning */
-            min-height: 100vh; /* Ensure body takes full height for video */
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Video Background Styles */
-        .video-background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1; /* Place behind other content */
-        }
-
-        .video-background {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Cover the entire container */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Center the video */
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Adjusted background to be more opaque and blend better */
-            background: linear-gradient(to top, rgba(13, 17, 23, 0.9) 0%, rgba(13, 17, 23, 0.5) 50%, rgba(13, 17, 23, 0.9) 100%);
-            backdrop-filter: blur(8px); /* Added a blur to the overlay itself for a glassier feel */
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 0; /* Above video, below content */
-        }
-
-        /* Core deep-glass styling */
-        .deep-glass {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.2), rgba(17, 24, 39, 0.4));
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 1.5rem;
-            box-shadow: 0 0 25px var(--light-pink-glow), inset 0 2px 2px rgba(255, 255, 255, 0.07), inset 0 -2px 2px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+        .heading-serif { font-family: 'Playfair Display', serif; }
         
-        /* Shine animation for deep-glass elements */
-        .deep-glass::before {
-            content: '';
-            position: absolute;
+        .glass-card {
+            background: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sticky-nav {
+            position: sticky;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-20deg);
-            animation: shine 6s infinite linear;
-            animation-delay: var(--shine-delay, 0s);
-        }
-        @keyframes shine {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: -100%; }
-        }
-
-        /* Glass button styling */
-        .glass-button {
-            background: linear-gradient(145deg, rgba(255, 105, 180, 0.6), rgba(200, 80, 140, 0.8)); /* Pink gradient */
-            border: 1px solid rgba(255, 105, 180, 0.3); /* Pink border */
-            border-radius: 9999px;
-            color: white;
-            font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-            box-shadow: 0 0 15px rgba(255, 105, 180, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15); /* Pink glow */
-            transition: all 0.3s ease;
-            padding: 0.75rem 2rem;
-            display: inline-block;
-        }
-        
-        .glass-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 30px 5px var(--light-pink-glow); /* Stronger pink glow */
-            background: linear-gradient(145deg, rgba(255, 120, 200, 0.7), rgba(220, 95, 160, 0.9)); /* Brighter pink gradient on hover */
-        }
-
-        /* Mobile menu hamburger icon styles */
-        .hamburger-icon {
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e2e8f0;
+            height: 72px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 2rem;
-            height: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-        }
-
-        .hamburger-icon span {
-            height: 2px;
-            width: 100%;
-            background: #fff;
-            border-radius: 9999px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .hamburger-icon.open span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger-icon.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-icon.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* Mobile menu overlay styles */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(13, 17, 23, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 90;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
         }
 
-        .mobile-menu-overlay[data-state="open"] {
-            transform: translateX(0);
-        }
-        
-        /* Interactive Glossary/Tooltip Styles */
-        .glossary-term {
-            cursor: help;
-            border-bottom: 1px dotted var(--primary-pink); /* Pink dotted border */
-            color: var(--primary-pink); /* Pink text color */
-            font-weight: 700;
-            position: relative;
-            display: inline;
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #eff6ff, transparent),
+                        radial-gradient(circle at bottom left, #f5f3ff, transparent);
         }
 
-        .glossary-tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            z-index: 50;
-            top: 120%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            padding: 1rem;
-            white-space: normal;
-            width: 250px;
-            transition: visibility 0s, opacity 0.3s ease, transform 0.3s ease;
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
-        .glossary-term:hover .glossary-tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
+        .faq-item.active .faq-content {
+            max-height: 500px;
+        }
+        .faq-item.active i {
+            transform: rotate(180deg);
+        }
+
+        .story-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Video Background Container -->
-    <div class="video-background-container">
-        <video autoplay loop muted playsinline class="video-background">
-            <source src="https://github.com/MrDrifter92/Lefties/blob/93f889caec28d5f61026552604f1e996e1c591f7/20250726_0101_Cozy%20Concert%20Vibes_storyboard_01k111n4njekv85xhesx7efrjf.mp4?raw=true" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
-    </div>
-
-    <!-- Header (Copied from index.html blueprint) -->
-    <header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-4 p-4 flex justify-between items-center">
-        <a href="/" class="flex-shrink-0">
-            <img src="lefties-adhd.png" alt="Lefties ADHD Logo" class="h-16 w-auto">
-        </a>
-        <nav class="hidden md:flex flex-row space-x-8 font-bold">
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Services</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a>
-        </nav>
-        <a href="#" class="glass-button hidden md:inline-block">Get Started</a>
-
-        <button id="mobile-menu-button" class="md:hidden p-2 relative z-[110]">
-            <div class="hamburger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Navigation -->
+    <nav class="sticky-nav px-6">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold text-blue-900 tracking-tighter">
+                DrLefties<span class="text-blue-500">Safety</span>
+            </a>
+            <div class="hidden lg:flex space-x-8 text-[13px] font-bold uppercase tracking-widest text-slate-500">
+                <a href="#reality" class="hover:text-blue-600 transition-colors">The Reality</a>
+                <a href="#detection" class="hover:text-blue-600 transition-colors">How it Works</a>
+                <a href="#science" class="hover:text-blue-600 transition-colors">Lab Defense</a>
+                <a href="#faq" class="hover:text-blue-600 transition-colors">FAQ</a>
             </div>
-        </button>
+            <div class="flex items-center space-x-2 text-green-600 font-bold text-sm">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>2024 Tech Update</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative hero-gradient pt-20 pb-20 px-6">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h1 class="heading-serif text-5xl md:text-7xl text-slate-900 leading-[1.1] mb-8 tracking-tight">
+                ADHD Medication & <br>Roadside Testing
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
+                Why some drivers show up "positive" even when they're following the law, and the science that protects you.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#reality" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl hover:-translate-y-1">Why do people fail?</a>
+                <a href="#faq" class="bg-white border border-slate-200 text-slate-700 px-10 py-5 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-sm">Quick Answers</a>
+            </div>
+        </div>
     </header>
 
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
-        <nav class="flex flex-col items-center space-y-8 font-bold text-3xl">
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Home</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Services</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a>
-            <a href="#" class="text-gray-300 hover:text-white transition-colors">Contact</a>
-            <a href="#" class="glass-button px-8 py-4 text-xl inline-block">Get Started</a>
-        </nav>
-    </div>
-
-    <main class="pt-32 relative z-10">
-        <section class="bg-dark-bg py-20 bg-opacity-70">
-            <div class="container mx-auto px-6">
-                <h1 class="text-5xl font-black text-pink-400 mb-8"> ADHD Assessment Tracking situation station</h1>
-                <p class="text-lg text-gray-300">This page contains a summary of Adam Kim Farrelly's initial ADHD assessment session. DONATE NOW by transferring him money, its that simple - dont be so selfish ya slut.</p>
-            </div>
-        </section>
-
-        <section class="bg-mid-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-pink-200 mb-6">🧠 Initial ADHD Assessment – Session Summary</h2>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0s;">
-                    <ul class="space-y-4 text-gray-400">
-                        <li><strong>Client Name:</strong> Adam Kim Farrelly</li>
-                        <li><strong>Date of Session:</strong> 6 August 2025</li>
-                        <li><strong>Clinician:</strong> [Psychologist’s name – if known]</li>
-                        <li><strong>Session Type:</strong> Initial ADHD assessment interview</li>
-                        <li><strong>Duration:</strong> 90 minutes (approx.)</li>
-                        <li><strong>Location:</strong> Telehealth (inferred)</li>
-                    </ul>
+    <!-- The Reality Gap Section (NEW RESEARCH FOCUS) -->
+    <section id="reality" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div>
+                    <span class="text-blue-600 font-bold uppercase tracking-widest text-xs mb-4 block">The "False Positive" Myth</span>
+                    <h2 class="heading-serif text-4xl text-slate-900 mb-6">"But I heard a story about a positive result..."</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        While Police say the tests are specific to Methamphetamine, experts and drivers report a "Reality Gap." Here is why those stories exist:
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Cross-Reactivity</h4>
+                                <p class="text-sm text-slate-500">Some immunoassay tests used at the roadside aren't perfect. Molecular similarities between Dexamphetamine and Methamphetamine can occasionally trigger a "presumptive positive" on a cheap or faulty screening kit.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">The "Stand Down" Period</h4>
+                                <p class="text-sm text-slate-500">If you fail a roadside test, you are often banned from driving for 24 hours <em>before</em> the lab results come back. This is where most horror stories come from—innocent people losing their car for a day.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Dosage Levels</h4>
+                                <p class="text-sm text-slate-500">Very high therapeutic doses or recent ingestion (taking your pill 10 mins before a stop) can lead to higher saliva concentrations, increasing the risk of a kit error.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <h3 class="text-3xl font-bold mb-4">⚡️ Presenting Issue</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.2s;">
-                    <p class="text-gray-400 mb-4">Adam presented seeking assessment for Attention Deficit Hyperactivity Disorder (ADHD), following long-term life patterns characterised by high energy, impulsivity, inconsistent <span class="glossary-term">executive functioning<span class="glossary-tooltip deep-glass">The set of mental skills that include working memory, flexible thinking, and self-control. They are crucial for managing daily life and tasks.</span></span>, emotional intensity, and difficulty maintaining stability in work, relationships, and routine. He expressed ambivalence about seeking a label in a culture where ADHD feels “everywhere,” but also reported a strong internal sense that ADHD may be the core issue he’s struggled with across his life.</p>
-                    <p class="text-gray-400 mb-2">Adam reported:</p>
-                    <ul class="list-disc list-inside space-y-1 text-gray-400">
-                        <li>Difficulty sustaining success over time despite bursts of high performance.</li>
-                        <li>Cyclical experiences of <span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> followed by burnout, drop-off, and self-sabotage.</li>
-                        <li>Ongoing issues with memory, <span class="glossary-term">time blindness<span class="glossary-tooltip deep-glass">An inability to accurately perceive or estimate the passage of time, making it difficult to plan or be on time.</span></span>, impulsivity, <span class="glossary-term">rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span>, and emotional regulation.</li>
+                <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white story-glow">
+                    <h3 class="text-xl font-bold mb-6 text-blue-400">What to do if it happens:</h3>
+                    <ul class="space-y-6 text-sm">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-green-400 mt-1 mr-4"></i>
+                            <span><strong>Remain Calm:</strong> A roadside "positive" is NOT a conviction. It is a "presumptive" result that requires lab confirmation.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-green-400 mt-1 mr-4"></i>
+                            <span><strong>State Your Medication:</strong> Inform the officer immediately that you are on prescribed ADHD medication.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-green-400 mt-1 mr-4"></i>
+                            <span><strong>Wait for the Lab:</strong> The lab uses Mass Spectrometry (GC/MS) which <strong>cannot</strong> be fooled. It sees the exact difference between Dex and Meth.</span>
+                        </li>
                     </ul>
-                </div>
-
-                <h3 class="text-3xl font-bold mb-4">📖 Background & Psychosocial History</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.4s;">
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Family</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
-                        <li>Grew up in a highly functional, stable family unit in South Australia (Clare Valley), later relocating to Queensland.</li>
-                        <li>Described a secure attachment with both parents, though noted his mother’s career drive created a feeling of emotional distance at times.</li>
-                        <li>His father was described as loving but highly structured and potentially neurodivergent himself (suspected traits of ADHD or OCD).</li>
-                        <li>Strong, longstanding friendships with a small number of people; highly connected but reports feeling isolated often.</li>
-                    </ul>
-                    
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Education</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
-                        <li>Changed schools multiple times throughout primary and high school due to behavioural issues, social difficulties, and emotional overwhelm.</li>
-                        <li>Recalled frequent suspensions, difficulty focusing, high verbal and creative skills but poor academic performance in math and written tasks.</li>
-                        <li>Noted early interventions including a teacher aide who remained in his life across schooling.</li>
-                        <li>Left school mid-Year 10 with significant school refusal behaviours (e.g. pretending to go to school, hiding at home).</li>
-                        <li>No official learning disability diagnosis on record, but ADHD suspected by several prior clinicians.</li>
-                    </ul>
-
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Work History</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li>Extensive background in operations and leadership roles in aged care. Excelled when in control of systems and allowed autonomy.</li>
-                        <li>Repeatedly lost jobs or voluntarily exited due to inconsistency, burnout, emotional crash, or interpersonal challenges.</li>
-                        <li>Noted a pattern of excelling in project-based work and then struggling with ongoing maintenance, follow-through, or expectations of consistency.</li>
-                        <li>Recently started relaunching his own business (Lefties Carpet Cleaning) with strong drive and <span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> but reports burnout quickly follows.</li>
-                    </ul>
+                    <div class="mt-10 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-xs text-slate-400 italic font-light">"99% of 'false positives' for ADHD medication are overturned once the sample reaches a government forensic laboratory."</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="bg-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl font-bold mb-4">🧠 Mental Health History</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.6s;">
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Diagnoses (suspected or confirmed)</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
-                        <li><strong><span class="glossary-term">BPD<span class="glossary-tooltip deep-glass">Borderline Personality Disorder is a mental health condition characterized by unstable moods, behavior, and relationships.</span></span> (Borderline Personality Disorder):</strong> Previously suggested by a psychiatrist during an acute period but rejected by Adam as a primary diagnosis. Notes that while he presents with some BPD-style traits (emotional intensity, rejection sensitivity), these have lessened with self-awareness and growth.</li>
-                        <li><strong>Depression:</strong> Recurrent depressive episodes throughout life, especially tied to failure or perceived loss of autonomy. Denies baseline depression.</li>
-                        <li><strong>ADHD (suspected):</strong> Symptoms throughout life, now being formally explored.</li>
-                        <li><strong>Trauma history:</strong> Significant trauma acknowledged, including a sexual assault in 2016 (confirmed by written confession from perpetrator in 2021), which triggered an intense period of depression, <span class="glossary-term">suicidal ideation<span class="glossary-tooltip deep-glass">Thinking about, considering, or planning suicide. It is a serious mental health symptom.</span></span>, and substance abuse.</li>
-                    </ul>
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Treatment</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400 mb-4">
-                        <li>Two rounds of residential rehab in 2023 (therapeutic community model, CBT-focused).</li>
-                        <li>Various psychologists (EAP and private), though struggled to find someone he “clicked” with.</li>
-                        <li>Engaged in extensive self-work, <span class="glossary-term">schema therapy<span class="glossary-tooltip deep-glass">A therapeutic approach that helps individuals understand and change long-standing negative patterns of thinking, feeling, and behaving.</span></span> tools, spirituality, and EMDR.</li>
-                        <li>Strong personal insight and internal strategies developed over the years.</li>
-                    </ul>
-                    <h4 class="text-2xl font-bold mb-2 text-pink-200">Medications</h4>
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li>History of unsuccessful trials on SSRIs (Lovan, Zoloft, others).</li>
-                        <li>Brief trial of lithium in 2021; poorly tolerated, no improvement.</li>
-                        <li>Currently not taking psychiatric medications.</li>
-                        <li>Takes <span class="glossary-term">Biktarvy<span class="glossary-tooltip deep-glass">A prescription medicine used to treat HIV-1 in adults and pediatric patients weighing at least 25 kg.</span></span> daily for HIV (undiagnosed until 2021), with excellent treatment adherence and undetectable viral load.</li>
-                    </ul>
+    <!-- How the Kit Sees Section -->
+    <section id="detection" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="heading-serif text-4xl text-slate-900 mb-4">Chemical Fingerprints</h2>
+                <p class="text-slate-600">Why the two drugs look different to a scientist.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-10 rounded-3xl border-2 border-slate-100">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">Dexamphetamine</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        A simple amphetamine molecule. Used for ADHD. Most roadside tests are designed to <strong>ignore</strong> this molecule to avoid clogging the legal system with medical cases.
+                    </p>
+                    <div class="text-[10px] font-black text-blue-500 uppercase tracking-widest">Medical Grade</div>
+                </div>
+
+                <div class="glass-card p-10 rounded-3xl border-2 border-red-50">
+                    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-skull-crossbones"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">Methamphetamine</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                        Contains an extra "Methyl" group. This specific chemical tail is what the roadside kit's antibodies are hunting for. Without this tail, the test <em>should</em> stay negative.
+                    </p>
+                    <div class="text-[10px] font-black text-red-500 uppercase tracking-widest">Targeted Illicit</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="bg-mid-dark-bg py-20 border-y border-gray-800 bg-opacity-70">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl font-bold mb-4">💊 Substance Use History</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 0.8s;">
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li>Daily alcohol use since adolescence (3–6 beers most nights; reduced from younger years).</li>
-                        <li>Past history of heavy stimulant use (ice, cocaine, MDMA); primarily binge-driven and linked to periods of trauma and instability.</li>
-                        <li>No ongoing use of recreational drugs; rare social marijuana use.</li>
-                        <li>Describes stimulants as giving him the “shut-off” he lacked naturally, especially during ADHD-related overwhelm.</li>
-                        <li>Describes some psychosis during drug use but no history of organic psychotic disorders.</li>
-                    </ul>
+    <!-- Lab Section -->
+    <section id="science" class="py-24 px-6 bg-slate-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <i class="fa-solid fa-microscope text-5xl text-blue-500 mb-8"></i>
+            <h2 class="heading-serif text-4xl mb-8">The Lab Never Lies</h2>
+            <p class="text-slate-400 text-lg mb-12 leading-relaxed">
+                If you are one of the unlucky few who triggers a roadside kit error, the <strong>Government Forensic Lab</strong> is your ultimate defense. They use a process called GC/MS (Gas Chromatography-Mass Spectrometry).
+            </p>
+            <div class="grid sm:grid-cols-3 gap-6">
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <h4 class="font-bold text-white mb-2">Molecular Weight</h4>
+                    <p class="text-xs text-slate-400">The lab weighs every molecule. Dex and Meth have different weights.</p>
                 </div>
-
-                <h3 class="text-3xl font-bold mb-4">🧩 Functioning Overview</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 1s;">
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li><strong>Sleep:</strong> No current major concerns; tends to crash well when he does sleep, though lack of routine is common.</li>
-                        <li><strong>Diet/nutrition:</strong> Not detailed in session, but has high caffeine intake (4–5 shots in a coffee daily).</li>
-                        <li><strong>Work:</strong> High-functioning during creative/<span class="glossary-term">hyperfocus<span class="glossary-tooltip deep-glass">An intense state of concentration where an individual is so engrossed in a task that they lose track of time and other obligations. It's often associated with ADHD.</span></span> periods; collapses under repetitive or executive load.</li>
-                        <li><strong>Social:</strong> Strong connections with chosen family and friends; avoids small talk, finds one-on-one interactions with family awkward and emotionally overwhelming.</li>
-                        <li><strong>Romantic:</strong> Never had a committed romantic relationship; describes deep emotional attachments to unattainable individuals and intense <span class="glossary-term">rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span>.</li>
-                        <li><strong>Self-care/awareness:</strong> Exceptionally high insight into behaviour, triggers, and patterns. Uses <span class="glossary-term">schema therapy<span class="glossary-tooltip deep-glass">A therapeutic approach that helps individuals understand and change long-standing negative patterns of thinking, feeling, and behaving.</span></span> tools regularly. Has reframed trauma into a personal transformation narrative. Deeply spiritual and reflective.</li>
-                    </ul>
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <h4 class="font-bold text-white mb-2">Purity Profile</h4>
+                    <p class="text-xs text-slate-400">Prescription meds are 100% pure; street drugs contain tell-tale impurities.</p>
                 </div>
-
-                <h3 class="text-3xl font-bold mb-4">💡 Key Themes / Psychological Patterns</h3>
-                <div class="deep-glass p-8 mb-8" style="--shine-delay: 1.2s;">
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li><span class="glossary-term">Rejection sensitivity<span class="glossary-tooltip deep-glass">Rejection Sensitive Dysphoria (RSD) is intense emotional pain that feels like a physical punch or stab in response to perceived criticism or rejection.</span></span> & masking: Present throughout life, especially around family and authority figures.</li>
-                        <li>Self-sabotage cycles: Noted pattern of success > crash > self-punishment > retreat.</li>
-                        <li>High verbal intellect, low academic follow-through: Classic ADHD pattern in gifted but unsupported kids.</li>
-                        <li>Emotion regulation: Strong emotional memory, intensity, and occasional <span class="glossary-term">suicidal ideation<span class="glossary-tooltip deep-glass">Thinking about, considering, or planning suicide. It is a serious mental health symptom.</span></span> under pressure. Never followed through on ideation; sees it as a signpost of distress, not a desire to die.</li>
-                        <li>Burnout and performance inconsistency: Particularly in structured jobs with <span class="glossary-term">executive demands<span class="glossary-tooltip deep-glass">The mental processes required to manage complex tasks, including planning, organization, and self-control.</span></span>.</li>
-                        <li>Unfinished projects, perfectionism, and grandiosity: Recognises a tendency toward big ideas, followed by boredom or abandonment once the creative phase ends.</li>
-                    </ul>
-                </div>
-                
-                <h3 class="text-3xl font-bold mb-4">🧭 Next Steps (as discussed)</h3>
-                <div class="deep-glass p-8" style="--shine-delay: 1.4s;">
-                    <ul class="list-disc list-inside space-y-2 text-gray-400">
-                        <li>Completion of additional ADHD screening questionnaires</li>
-                        <li>Informant reports from mother and sister</li>
-                        <li>Schedule follow-up appointment for 27 August at 1:00pm</li>
-                        <li>Consider psychiatrist referral through clinician for medication management if ADHD diagnosis is confirmed</li>
-                        <li>Continue ongoing self-monitoring, emotional regulation tools, and keep tracking mood/activity where possible</li>
-                    </ul>
+                <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <h4 class="font-bold text-white mb-2">Legal Immunity</h4>
+                    <p class="text-xs text-slate-400">If only therapeutic levels of your prescribed med are found, no charge is laid.</p>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer class="bg-black py-8">
-        <div class="container mx-auto px-6 text-center">
-            <img src="lefties-adhd.png" alt="Lefties ADHD Logo" class="h-16 w-auto mx-auto opacity-50 mb-4">
-            <p class="text-gray-400">&copy; 2025 Lefties. All rights reserved.</p>
-            <p class="text-gray-600 mt-2">Privacy Policy | Terms of Service</p>
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="heading-serif text-3xl text-center mb-12">Expert FAQ</h2>
+            <div class="space-y-4">
+                <div class="faq-item bg-white border border-slate-200 rounded-2xl transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900">
+                        Can I test positive if I just took my pill?
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                            Saliva concentrations are highest immediately after swallowing a pill (if it touches the mouth) or if using sublingual methods. While it shouldn't trigger the "Meth" line, it increases the chance of a kit error. Drinking water after taking your meds is a good habit.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item bg-white border border-slate-200 rounded-2xl transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900">
+                        What if the officer doesn't believe me?
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                            Legally, they don't have to "believe" you at the roadside. Their job is to follow the kit result. Your job is to ensure your medication is noted on the police report so the lab knows what they are looking for when the sample arrives.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item bg-white border border-slate-200 rounded-2xl transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full flex justify-between items-center p-6 text-left font-bold text-slate-900">
+                        Is Vyvanse different to Dex?
+                        <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-content">
+                        <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                            Vyvanse (Lisdexamfetamine) is a "prodrug." It is inactive until it hits your blood. Because of this, it is even <strong>less</strong> likely to show up in a saliva test than instant-release Dexamphetamine.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-16 px-6 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-2xl font-extrabold text-blue-900 tracking-tighter mb-4">
+                DrLefties<span class="text-blue-500">Roadside Safety</span>
+            </p>
+            <div class="text-[10px] text-slate-400 uppercase tracking-widest space-y-2">
+                <p>Information current as of 2024. For educational purposes only.</p>
+                <p>Always follow your doctor's instructions regarding medication and driving.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const hamburgerIcon = mobileMenuButton.querySelector('.hamburger-icon');
-
-        mobileMenuButton.addEventListener('click', () => {
-            const isOpen = mobileMenuOverlay.getAttribute('data-state') === 'open';
-            if (isOpen) {
-                mobileMenuOverlay.setAttribute('data-state', 'closed');
-                hamburgerIcon.classList.remove('open');
-            } else {
-                mobileMenuOverlay.setAttribute('data-state', 'open');
-                hamburgerIcon.classList.add('open');
-            }
+        // Smooth scroll fix
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 72,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
+
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
     </script>
 </body>
 </html>
+
+
