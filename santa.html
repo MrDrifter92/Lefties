@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>is santa here yet? | official tracker</title>
+  
+  <!-- Meta Tags -->
+  <meta property="og:title" content="is santa here yet?">
+  <meta property="og:description" content="official santa tracker and north pole arcade.">
+  <meta property="og:image" content="Santa.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="Santa.png">
+
+  <style>
+    :root {
+      --red: #d42426;
+      --deep-red: #8b0000;
+      --green: #165b33;
+      --light-green: #187941;
+      --gold: #f8b229;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      text-transform: lowercase;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    }
+
+    body {
+      background: url('Santa.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #2c3e50;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* News Ticker */
+    .ticker-wrap {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      height: 40px;
+      background-color: var(--deep-red);
+      color: white;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 100%;
+      animation: ticker 30s linear infinite;
+      font-weight: bold;
+    }
+
+    @keyframes ticker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
+
+    .glitter-text {
+      font-size: clamp(3rem, 12vw, 6rem);
+      font-weight: 900;
+      background: linear-gradient(
+        to right, 
+        #ff0000 0%, 
+        #ffd700 25%, 
+        #ffffff 50%, 
+        #ffd700 75%, 
+        #ff0000 100%
+      );
+      background-size: 200% auto;
+      color: #fff;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitter 2s linear infinite;
+      display: inline-block;
+      filter: drop-shadow(5px 5px 0px rgba(0, 0, 0, 0.2));
+      margin-top: 40px;
+    }
+
+    @keyframes glitter {
+      to { background-position: 200% center; }
+    }
+
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 8px solid var(--green);
+      border-radius: 40px;
+      padding: 40px 20px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3), 15px 15px 0px var(--red);
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .countdown-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .unit-box {
+      background: linear-gradient(var(--red), var(--deep-red));
+      color: white;
+      padding: 15px;
+      border-radius: 20px;
+      border: 4px solid var(--gold);
+      transform: rotate(calc(-2deg + (Math.random() * 4deg)));
+      box-shadow: 0 10px 0px #5e0000;
+    }
+
+    .unit-value {
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      font-weight: 900;
+      display: block;
+    }
+
+    .unit-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .santa-status {
+      background: #1a1a1a;
+      color: #00ff00;
+      padding: 25px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      margin: 25px 0;
+      border: 4px solid var(--gold);
+      box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    .arcade-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .game-box {
+      background: var(--glass);
+      backdrop-filter: blur(5px);
+      border: 6px solid var(--green);
+      border-radius: 35px;
+      padding: 25px;
+      position: relative;
+      box-shadow: 10px 10px 0px var(--red);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .game-box:hover {
+      transform: scale(1.02);
+    }
+
+    canvas {
+      background: #fff;
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+      display: block;
+      margin: 15px auto;
+      max-width: 100%;
+      touch-action: none;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--red), var(--deep-red));
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      box-shadow: 0 6px 0px #5e0000;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      user-select: none;
+      z-index: 1000;
+      pointer-events: none;
+      text-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    /* Sleigh Animation */
+    .sleigh-flyby {
+      position: fixed;
+      font-size: 4rem;
+      z-index: 10000;
+      pointer-events: none;
+      filter: drop-shadow(0 0 10px gold);
+      display: none;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 15px auto;
+      max-width: 320px;
+    }
+    .memory-card {
+      aspect-ratio: 1;
+      background: var(--red);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: transparent;
+      transition: 0.3s;
+      border: 3px solid var(--gold);
+    }
+    .memory-card.flipped { background: white; color: initial; transform: rotateY(180deg); }
+    .memory-card.matched { background: var(--light-green); color: initial; border-color: white; }
+
+    @media (max-width: 600px) {
+      .countdown-container { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker-wrap">
+    <div class="ticker" id="news-ticker">
+      BREAKING NEWS: REINDEER SEEN PRACTICING HIGH-SPEED TURNS OVER FINLAND... ELVES REPORT RECORD-BREAKING TOY PRODUCTION SPEEDS... MRS. CLAUS FINISHES THE ULTIMATE BATCH OF GINGERBREAD... SANTA IS CURRENTLY CHECKING THE LIST FOR THE 47TH TIME...
+    </div>
+  </div>
+
+  <div id="flyby" class="sleigh-flyby">🎅🛷🦌🦌🦌</div>
+
+  <h1 class="glitter-text">is santa here?</h1>
+  
+  <div class="card">
+    <div class="countdown-container">
+      <div class="unit-box"><span class="unit-value" id="days">00</span><span class="unit-label">days</span></div>
+      <div class="unit-box"><span class="unit-value" id="hours">00</span><span class="unit-label">hours</span></div>
+      <div class="unit-box"><span class="unit-value" id="mins">00</span><span class="unit-label">mins</span></div>
+      <div class="unit-box"><span class="unit-value" id="secs">00</span><span class="unit-label">secs</span></div>
+    </div>
+
+    <div class="santa-status" id="status-feed">
+      > connection: encrypted_north_pole_v4<br>
+      > signal: strong<br>
+      > status: preparing for take-off
+    </div>
+
+    <div class="ai-section">
+      <h3>✨ magic north pole radio</h3>
+      <div id="santa-msg" style="font-size: 1.3rem;">press for a live update from the workshop!</div>
+      <button class="btn" onclick="askSanta()" id="santa-btn">📡 tune in</button>
+    </div>
+  </div>
+
+  <h2 class="glitter-text" style="font-size: 3rem; margin-bottom: 30px;">🎮 north pole arcade</h2>
+
+  <div class="arcade-container">
+    
+    <!-- Game: Gift Catcher -->
+    <div class="game-box">
+      <div style="font-size: 1.8rem;">🎁 gift catcher pro</div>
+      <p>score: <span id="gift-score" style="font-weight:900; color:var(--red);">0</span></p>
+      <canvas id="giftCanvas" width="300" height="300"></canvas>
+      <div style="display:flex; justify-content:center; gap: 15px;">
+        <button class="btn" onmousedown="moveSleigh(-1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(-1)" ontouchend="stopSleigh()">←</button>
+        <button class="btn" onmousedown="moveSleigh(1)" onmouseup="stopSleigh()" ontouchstart="moveSleigh(1)" ontouchend="stopSleigh()">→</button>
+      </div>
+    </div>
+
+    <!-- Game: Reindeer Dash -->
+    <div class="game-box">
+      <div style="font-size: 1.8rem;">🦌 reindeer snack run</div>
+      <canvas id="reindeerCanvas" width="300" height="300"></canvas>
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 150px; margin: 0 auto;">
+        <div></div><button class="btn" onclick="changeDir('UP')" style="padding: 10px;">↑</button><div></div>
+        <button class="btn" onclick="changeDir('LEFT')" style="padding: 10px;">←</button>
+        <button class="btn" onclick="changeDir('DOWN')" style="padding: 10px;">↓</button>
+        <button class="btn" onclick="changeDir('RIGHT')" style="padding: 10px;">→</button>
+      </div>
+    </div>
+
+    <!-- Game: Memory Match -->
+    <div class="game-box">
+      <div style="font-size: 1.8rem;">🎄 magic pairs</div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <button class="btn" onclick="initMemory()">reset cards</button>
+    </div>
+
+    <!-- Game: Cookie Factory -->
+    <div class="game-box">
+      <div style="font-size: 1.8rem;">🍪 cookie factory</div>
+      <div id="cookie-count" style="font-size: 4rem; font-weight: 900; color: var(--red); text-shadow: 2px 2px var(--gold);">0</div>
+      <button class="btn" style="padding: 25px 50px; font-size: 1.8rem;" onclick="bakeCookie()">🍪 BAKE!</button>
+    </div>
+
+  </div>
+
+  <div class="footer" style="padding: 60px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+    <h2 style="font-size: 2.5rem;">🎅 sleep tight, santa is coming! 🎅</h2>
+  </div>
+
+  <script>
+    // --- 1. Countdown & Ticker ---
+    function updateCountdown() {
+      const now = new Date();
+      let christmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0);
+      if (now > christmas) christmas.setFullYear(christmas.getFullYear() + 1);
+      const diff = christmas - now;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('days').innerText = d.toString().padStart(2, '0');
+      document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+      document.getElementById('mins').innerText = m.toString().padStart(2, '0');
+      document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+      
+      if(s % 8 === 0) {
+        const statuses = [
+          "> checking sleigh fuel levels...",
+          "> verifying naughty/nice database...",
+          "> cabin pressure: normal",
+          "> reindeer energy levels: 100%",
+          "> local weather: snowy and perfect",
+          "> cookies detected on radar"
+        ];
+        document.getElementById('status-feed').innerHTML = `> sync: active<br>> latitude: 90.0000° N<br>${statuses[Math.floor(Math.random() * statuses.length)]}`;
+      }
+
+      // Random Flyby
+      if(s === 15 || s === 45) triggerFlyby();
+    }
+    setInterval(updateCountdown, 1000);
+
+    function triggerFlyby() {
+      const f = document.getElementById('flyby');
+      f.style.display = 'block';
+      f.style.top = Math.random() * 80 + 'vh';
+      const anim = f.animate([
+        { left: '-500px', opacity: 1 },
+        { left: '110vw', opacity: 1 }
+      ], { duration: 4000, iterations: 1 });
+      anim.onfinish = () => f.style.display = 'none';
+    }
+
+    // --- 2. AI Messages ---
+    const apiKey = ""; 
+    async function askSanta() {
+      const btn = document.getElementById('santa-btn');
+      const text = document.getElementById('santa-msg');
+      btn.innerText = "⏳ tuning...";
+      btn.disabled = true;
+      const prompt = "Act as a North Pole Radio DJ. Give a funny, high-energy update (max 18 words) about what Santa or the elves are doing. Use emojis.";
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        const data = await res.json();
+        text.innerText = data.candidates[0].content.parts[0].text;
+      } catch (e) {
+        text.innerText = "📻 Santa is currently testing the sleigh's heated seats! 🧤🔥";
+      } finally {
+        btn.innerText = "📡 tune in again"; btn.disabled = false;
+      }
+    }
+
+    // --- 3. Reindeer Snack Run ---
+    const rCanvas = document.getElementById("reindeerCanvas");
+    const rCtx = rCanvas.getContext("2d");
+    const rBox = 20;
+    let reindeer, carrot, rDir, rGame;
+    function initReindeer() {
+      reindeer = [{ x: 7 * rBox, y: 7 * rBox }];
+      carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 14) * rBox };
+      rDir = "RIGHT";
+      if(rGame) clearInterval(rGame);
+      rGame = setInterval(drawReindeer, 160);
+    }
+    function changeDir(dir) {
+      if(dir == "UP" && rDir != "DOWN") rDir = "UP";
+      if(dir == "DOWN" && rDir != "UP") rDir = "DOWN";
+      if(dir == "LEFT" && rDir != "RIGHT") rDir = "LEFT";
+      if(dir == "RIGHT" && rDir != "LEFT") rDir = "RIGHT";
+    }
+    function drawReindeer() {
+      rCtx.fillStyle = "white"; rCtx.fillRect(0, 0, rCanvas.width, rCanvas.height);
+      for(let i=0; i<reindeer.length; i++) {
+        rCtx.fillStyle = (i==0) ? "#8B4513" : "#CD853F";
+        rCtx.fillRect(reindeer[i].x, reindeer[i].y, rBox-1, rBox-1);
+      }
+      rCtx.fillText("🥕", carrot.x, carrot.y + 15);
+      let hX = reindeer[0].x, hY = reindeer[0].y;
+      if(rDir == "LEFT") hX -= rBox; if(rDir == "UP") hY -= rBox;
+      if(rDir == "RIGHT") hX += rBox; if(rDir == "DOWN") hY += rBox;
+      if(hX == carrot.x && hY == carrot.y) {
+        carrot = { x: Math.floor(Math.random() * 14) * rBox, y: Math.floor(Math.random() * 14) * rBox };
+      } else reindeer.pop();
+      let head = { x: hX, y: hY };
+      if(hX < 0 || hX >= rCanvas.width || hY < 0 || hY >= rCanvas.height || reindeer.some(s => s.x == head.x && s.y == head.y)) {
+        initReindeer();
+      } else reindeer.unshift(head);
+    }
+
+    // --- 4. Gift Catcher ---
+    const gCanvas = document.getElementById("giftCanvas");
+    const gCtx = gCanvas.getContext("2d");
+    let slX = 130, gY = -20, gX = 150, score = 0, move = 0;
+    function drawGift() {
+      gCtx.clearRect(0,0,300,300);
+      slX += move * 6;
+      if(slX < 0) slX = 0; if(slX > 250) slX = 250;
+      gCtx.font = "30px Arial";
+      gCtx.fillText("🛷", slX, 280);
+      gCtx.fillText("🎁", gX, gY);
+      gY += 4;
+      if(gY > 260 && gX > slX - 15 && gX < slX + 45) {
+        score++; gY = -20; gX = Math.random() * 260;
+        document.getElementById('gift-score').innerText = score;
+      } else if(gY > 300) { gY = -20; gX = Math.random() * 260; }
+      requestAnimationFrame(drawGift);
+    }
+    function moveSleigh(d) { move = d; }
+    function stopSleigh() { move = 0; }
+
+    // --- 5. Memory Match ---
+    const emojis = ['🎅','🎄','🎁','🦌','⛄','🍪','⭐','🔔'];
+    let flipped = [];
+    function initMemory() {
+      const g = document.getElementById('memoryGrid'); g.innerHTML = '';
+      const cards = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
+      cards.forEach((e, i) => {
+        const c = document.createElement('div');
+        c.className = 'memory-card'; c.innerText = e;
+        c.onclick = () => {
+          if(flipped.length < 2 && !c.classList.contains('flipped')) {
+            c.classList.add('flipped'); flipped.push(c);
+            if(flipped.length === 2) {
+              if(flipped[0].innerText === flipped[1].innerText) {
+                flipped.forEach(x => x.classList.add('matched')); flipped = [];
+              } else {
+                setTimeout(() => { flipped.forEach(x => x.classList.remove('flipped')); flipped = []; }, 800);
+              }
+            }
+          }
+        };
+        g.appendChild(c);
+      });
+    }
+
+    // --- 6. Cookie Factory ---
+    let cks = 0;
+    function bakeCookie() {
+      cks++; document.getElementById('cookie-count').innerText = cks;
+      const el = document.getElementById('cookie-count');
+      el.style.transform = 'scale(1.3) rotate(5deg)';
+      setTimeout(() => el.style.transform = 'scale(1)', 100);
+    }
+
+    // --- Initialization ---
+    window.onload = () => {
+      initReindeer(); drawGift(); initMemory();
+      setInterval(() => {
+        const s = document.createElement('div');
+        s.className = 'snowflake'; s.innerHTML = '❄';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.fontSize = (Math.random() * 25 + 10) + 'px';
+        document.body.appendChild(s);
+        s.animate([{ top: '-10vh' }, { top: '110vh' }], { duration: Math.random() * 3000 + 3000 }).onfinish = () => s.remove();
+      }, 200);
+    };
+  </script>
+</body>
+</html>
