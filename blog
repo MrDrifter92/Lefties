@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
+  <!-- SEO-OPTIMISED TITLE (HUMAN FIRST, GOOGLE SECOND) -->
+  <title>The Truth About Upholstery Cleaning in Hervey Bay | Adam Farrelly – Lefties</title>
+
+  <meta name="description" content="An honest, technician-level breakdown of professional upholstery cleaning in Hervey Bay. What can be cleaned, what can’t, and how to tell the difference before you book."/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary: #0071B6;
+      --primary-dark: #005a92;
+      --accent: #00D2FF;
+      --cream: #F4EBD9;
+      --glass-fill: rgba(255, 255, 255, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --text: #1a1e23;
+    }
+
+    body {
+      font-family: 'Public Sans', sans-serif;
+      color: var(--text);
+      background-color: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.8;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-glass {
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      background: var(--primary);
+      box-shadow: 0 10px 20px -5px rgba(0, 113, 182, 0.3);
+      transition: all 0.4s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-glass:hover {
+      background: linear-gradient(to right, var(--primary-dark), var(--accent));
+      transform: translateY(-2px);
+    }
+
+    .frosted {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-border);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(14px) saturate(180%);
+      box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .article-dropcap::first-letter {
+      font-family: 'Outfit', sans-serif;
+      float: left;
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      padding-right: 12px;
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="w-full px-4 pt-4">
+  <nav class="max-w-5xl mx-auto">
+    <div class="frosted px-6 py-3 flex items-center justify-between">
+      <img src="core-logo-transparent.png" alt="Lefties Carpet Cleaning Hervey Bay" class="h-10"/>
+      <div class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="#quote" class="btn-glass px-6 py-2 text-[10px]">Get Quote</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="max-w-4xl mx-auto px-4 py-12">
+
+<section class="text-center mb-16">
+  <h1 class="text-4xl md:text-6xl text-[var(--primary)] uppercase leading-tight mb-6">
+    The Truth About Upholstery Cleaning
+  </h1>
+  <p class="text-sm font-bold uppercase tracking-widest">
+    By Adam Farrelly · Owner, Lefties Services · Hervey Bay
+  </p>
+</section>
+
+<div class="frosted p-8 md:p-16">
+
+<article>
+
+<p class="article-dropcap text-xl font-semibold mb-8">
+Upholstery cleaning is a lane I’ve lived in for years. From high-end leather lounges to family couches that have absorbed a decade of life, pets, spills, and sun.
+</p>
+
+<h2 class="text-2xl uppercase text-[var(--primary)] mt-12 mb-4">
+Physics vs Marketing
+</h2>
+
+<p>
+Most people expect a miracle. What we actually deliver is a technical reset. Over time, furniture fibres bind with oils, skin cells, dust mites, and airborne contaminants. These aren’t surface issues. They’re embedded.
+</p>
+
+<p class="mt-4">
+When I carry out <a href="upholstery-cleaning.html" class="font-bold text-[var(--primary)] underline">professional upholstery cleaning in Hervey Bay</a>, my focus is hygiene and longevity. I remove what’s *in* the fabric. I cannot undo damage *to* the fabric.
+</p>
+
+<blockquote class="my-12 p-6 bg-white/40 rounded-xl border-l-4 border-[var(--primary)] italic">
+“I won’t charge you to attempt the impossible. Sun fade, fibre wear, and dye loss aren’t dirt.”
+</blockquote>
+
+<h2 class="text-2xl uppercase text-[var(--primary)] mt-12 mb-4">
+What Professional Cleaning Actually Involves
+</h2>
+
+<p>
+This isn’t a spray-and-suck job. We use controlled chemistry, heat, dwell time, and extraction to safely remove contaminants without weakening fibres.
+</p>
+
+<ul class="mt-6 space-y-3">
+  <li><strong>Deep soil removal:</strong> eliminating abrasive grit that shortens fabric life</li>
+  <li><strong>Odour neutralisation:</strong> removing bacteria rather than masking smells</li>
+</ul>
+
+<h2 class="text-2xl uppercase text-red-600 mt-12 mb-4">
+What Can’t Be Fixed
+</h2>
+
+<p>
+Some damage is permanent. No honest technician will tell you otherwise.
+</p>
+
+<ul class="mt-6 space-y-3">
+  <li>✕ Fibre wear and thinning</li>
+  <li>✕ Permanent dye transfer</li>
+  <li>✕ Chemical burns from DIY products</li>
+</ul>
+
+<h2 class="text-2xl uppercase text-[var(--primary)] mt-12 mb-4">
+Final Word
+</h2>
+
+<p>
+Your furniture is one of the most-used items in your home. It deserves proper care, not rushed jobs or false promises.
+</p>
+
+<p class="font-bold italic mt-4">
+If it can be saved, I’ll save it. If it can’t, I’ll tell you before unloading the van.
+</p>
+
+</article>
+</div>
+
+<!-- FAQ SECTION (SEO + TRUST) -->
+<section class="mt-16">
+  <div class="frosted p-10">
+    <h2 class="text-2xl uppercase font-black mb-6">
+      Upholstery Cleaning FAQs
+    </h2>
+
+    <p><strong>How often should upholstery be professionally cleaned?</strong><br/>
+    Every 12–18 months for most homes. More often if you have pets, kids, or allergies.</p>
+
+    <p class="mt-4"><strong>Can you remove pet urine smells?</strong><br/>
+    Often, yes. But long-term saturation may require specialised treatment or replacement.</p>
+
+    <p class="mt-4"><strong>Is steam cleaning safe for lounges?</strong><br/>
+    When done correctly. Incorrect heat or chemistry causes shrinkage and dye bleed.</p>
+  </div>
+</section>
+
+<section id="quote" class="mt-12 text-center">
+  <div class="frosted p-10">
+    <h2 class="text-2xl uppercase mb-6">Want an honest assessment?</h2>
+    <a href="tel:0417220012" class="btn-glass px-10 py-4 text-sm">
+      Call Adam Direct
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer class="text-center text-[10px] uppercase tracking-widest opacity-40 pb-10">
+© 2025 Lefties Services · Hervey Bay · Fraser Coast
+</footer>
+
+</body>
+</html>
