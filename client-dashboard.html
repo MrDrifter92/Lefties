@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
 
-  <title>Your Booking Pack | Lefties</title>
+  <title>Your Booking Pack | Lefties Lite OS</title>
   <meta name="description" content="Everything you need for your booking in one place: pre-service checklist, aftercare, agreements, services, and (afterwards) reviews." />
 
   <!-- Theme / Mobile -->
@@ -15,7 +15,7 @@
   <meta property="og:title" content="Your Booking Pack | Lefties" />
   <meta property="og:description" content="Pre-service checklist, aftercare, agreements, and reviews for your booking." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="core-logo-blue-transparent.png" />
+  <meta property="og:image" content="lefties-lite.png" />
   <meta property="og:url" content="https://leftiesservices.com.au/dashboard.html" />
 
   <!-- Favicons -->
@@ -37,7 +37,6 @@
       --pink:#D7AFFF;
     }
     html, body { font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
     
     body{
       background:
@@ -118,7 +117,6 @@
       font-size: .75rem;
       text-transform: uppercase;
     }
-    .muted{ opacity:.75; }
   </style>
 </head>
 
@@ -132,21 +130,19 @@
   <header class="sticky top-0 z-50">
     <div class="mx-auto max-w-6xl px-4 pt-4">
       <div class="frosted px-4 py-3 flex items-center justify-between">
-        <a href="https://leftiesservices.com.au/" class="flex items-center gap-3">
-          <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-10 w-10 object-contain"/>
-          <div class="leading-tight">
-            <div class="flex items-center gap-2">
-              <span class="font-black text-lg text-slate-900">Lefties</span>
-              <img src="lefties-lite.png" alt="Lite OS Logo" class="h-4 w-auto hidden sm:inline-block opacity-90" onerror="this.style.display='none'"/>
-            </div>
-            <div class="text-xs font-bold text-[#0071B6]/80 uppercase tracking-wide">Client Environment</div>
+        <a href="https://leftiesservices.com.au/" class="flex items-center gap-2">
+          <!-- Main Branded Header Logo -->
+          <img src="lefties-lite.png" alt="Lefties Lite OS" class="h-6 md:h-7 w-auto object-contain"/>
+          <div class="h-4 w-px bg-slate-300 mx-1 hidden sm:block"></div>
+          <div class="text-[10px] font-black text-[#0071B6] uppercase tracking-wider hidden sm:block">
+            Client Portal
           </div>
         </a>
 
         <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-2">
-          <a class="btn-glass text-sm px-4" href="https://leftiesservices.com.au/">Main site</a>
-          <a class="btn-glass text-sm px-4 border-[#0071B6]/40 text-[#0071B6]" href="https://leftiesservices.com.au/service-agreements.html">Agreements</a>
+          <a class="btn-glass text-xs px-4 py-2" href="https://leftiesservices.com.au/">Main site</a>
+          <a class="btn-glass text-xs px-4 py-2 border-[#0071B6]/40 text-[#0071B6]" href="https://leftiesservices.com.au/service-agreements.html">Agreements</a>
         </nav>
 
         <!-- Mobile menu button -->
@@ -161,10 +157,6 @@
       <div id="mobileMenu" class="hidden mt-3 frosted p-3 md:hidden space-y-2 text-center">
           <a class="btn-glass w-full" href="https://leftiesservices.com.au/">Main website</a>
           <a class="btn-glass w-full border-[#0071B6]/30 text-[#0071B6]" href="https://leftiesservices.com.au/service-agreements.html">Service agreements</a>
-          <div class="pt-2 flex items-center justify-center gap-2">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Powered By</span>
-            <img src="lefties-lite.png" alt="Lite OS Logo" class="h-3 w-auto opacity-60" onerror="this.style.display='none'"/>
-          </div>
       </div>
     </div>
   </header>
@@ -273,18 +265,16 @@
       </div>
     </section>
 
-    <!-- OS Footer Branding -->
-    <footer class="mt-12 mb-6 text-center px-4">
-      <div class="inline-flex flex-col items-center">
-        <div class="h-px w-24 bg-slate-300 mb-6"></div>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="mono text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">Powered By:</span>
-          <img src="lefties-lite.png" alt="Lite OS Logo" class="h-4 w-auto grayscale opacity-50 contrast-125" onerror="this.style.display='none'"/>
-        </div>
-        <p class="text-[10px] text-slate-400 font-medium tracking-tight">
-          Automated Client Experience Environment &copy; 2026
-        </p>
-      </div>
+    <!-- Large Branded Footer -->
+    <footer class="mt-16 mb-8 text-center px-4 flex flex-col items-center">
+      <div class="h-px w-32 bg-slate-300 mb-10 opacity-50"></div>
+      
+      <!-- Prominent Lite OS Logo -->
+      <img src="lefties-lite.png" alt="Lefties OS Lite" class="h-10 md:h-12 w-auto mb-4 opacity-40 grayscale hover:opacity-100 transition-opacity duration-500 ease-in-out"/>
+      
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.25em]">
+        Automated Client Experience Environment &bull; 2026
+      </p>
     </footer>
   </main>
 
