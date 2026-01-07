@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
+  <title>Your Booking Pack | Lefties</title>
+  <meta name="description" content="Everything you need for your booking in one place: pre-service checklist, aftercare, agreements, services, and (afterwards) reviews." />
+
+  <!-- Theme / Mobile -->
+  <meta name="theme-color" content="#0071B6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Your Booking Pack | Lefties" />
+  <meta property="og:description" content="Pre-service checklist, aftercare, agreements, and reviews for your booking." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="core-logo-blue-transparent.png" />
+  <meta property="og:url" content="https://leftiesservices.com.au/dashboard.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="core-logo-blue-transparent.png">
+  <link rel="apple-touch-icon" href="core-logo-blue-transparent.png">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --brand:#0071B6;
+      --cream:#EFE3CF;
+      --pink:#D7AFFF;
+    }
+    html, body { font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(0,113,182,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 20%, rgba(215,175,255,.22), transparent 55%),
+        radial-gradient(800px 500px at 30% 90%, rgba(0,113,182,.12), transparent 60%),
+        linear-gradient(180deg, rgba(239,227,207,.85), rgba(239,227,207,1));
+      min-height: 100vh;
+      color: #0f172a;
+    }
+    .frosted{
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-radius: 20px;
+    }
+    .btn-glass{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.6rem;
+      padding: .95rem 1.1rem;
+      border-radius: 16px;
+      font-weight: 900;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(0,113,182,.22);
+      box-shadow: 0 10px 24px rgba(0,113,182,.12);
+      transition: all .15s ease-out;
+    }
+    .btn-glass:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0,113,182,.16);
+      background: rgba(255,255,255,.85);
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.45rem .75rem;
+      border-radius: 999px;
+      font-weight:800;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(15, 23, 42, .10);
+      font-size: 0.75rem;
+    }
+    .bubble{
+      position:fixed;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.25) 35%, rgba(0,113,182,.06) 70%, rgba(215,175,255,.12));
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: inset 0 0 20px rgba(255,255,255,.35), 0 18px 40px rgba(15, 23, 42, .10);
+      filter: saturate(120%);
+      pointer-events:none;
+      opacity:.55;
+      z-index: -1;
+    }
+    .card{
+      display:block;
+      border-radius: 20px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.55);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover{
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, .12);
+      background: rgba(255,255,255,.8);
+    }
+    .tag{
+      font-weight: 900;
+      letter-spacing: .06em;
+      color: var(--brand);
+      font-size: .75rem;
+      text-transform: uppercase;
+    }
+    .muted{ opacity:.75; }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+  <!-- Decorative bubbles -->
+  <div class="bubble w-28 h-28 top-20 left-6"></div>
+  <div class="bubble w-40 h-40 top-52 right-8" style="opacity:.45;"></div>
+  <div class="bubble w-24 h-24 bottom-24 left-10" style="opacity:.40;"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 pt-4">
+      <div class="frosted px-4 py-3 flex items-center justify-between">
+        <a href="https://leftiesservices.com.au/" class="flex items-center gap-3">
+          <img src="core-logo-blue-transparent.png" alt="Lefties Logo" class="h-10 w-10 object-contain"/>
+          <div class="leading-tight">
+            <div class="flex items-center gap-2">
+              <span class="font-black text-lg text-slate-900">Lefties</span>
+              <img src="lefties-lite.png" alt="Lite OS Logo" class="h-4 w-auto hidden sm:inline-block opacity-90" onerror="this.style.display='none'"/>
+            </div>
+            <div class="text-xs font-bold text-[#0071B6]/80 uppercase tracking-wide">Client Environment</div>
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-2">
+          <a class="btn-glass text-sm px-4" href="https://leftiesservices.com.au/">Main site</a>
+          <a class="btn-glass text-sm px-4 border-[#0071B6]/40 text-[#0071B6]" href="https://leftiesservices.com.au/service-agreements.html">Agreements</a>
+        </nav>
+
+        <!-- Mobile menu button -->
+        <button id="menuBtn" class="md:hidden btn-glass p-2" aria-label="Open menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="hidden mt-3 frosted p-3 md:hidden space-y-2 text-center">
+          <a class="btn-glass w-full" href="https://leftiesservices.com.au/">Main website</a>
+          <a class="btn-glass w-full border-[#0071B6]/30 text-[#0071B6]" href="https://leftiesservices.com.au/service-agreements.html">Service agreements</a>
+          <div class="pt-2 flex items-center justify-center gap-2">
+            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Powered By</span>
+            <img src="lefties-lite.png" alt="Lite OS Logo" class="h-3 w-auto opacity-60" onerror="this.style.display='none'"/>
+          </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 pb-16">
+    <!-- Hero -->
+    <section class="mt-6">
+      <div class="frosted p-6 md:p-10">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div class="flex-1">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">📌 Save this link</span>
+              <span class="chip">✅ Before + after info</span>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+              Everything for your booking, <span class="text-[#0071B6]">in one place.</span>
+            </h1>
+
+            <p class="mt-4 text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              This page has your prep checklist, aftercare steps, and the service agreements. Easy. 
+              If you’re on your phone, tap the links below and you’re sorted.
+            </p>
+          </div>
+
+          <div class="frosted p-5 bg-white/40 border-blue-100/50 md:max-w-xs relative overflow-hidden">
+            <div class="flex items-center gap-2 font-black text-lg text-slate-800">
+              <span class="text-xl">💡</span> Quick tip
+            </div>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              Bookmark this page or save it to your home screen so you don’t have to hunt for it later.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary actions -->
+    <section class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a class="card p-6" href="https://leftiesservices.com.au/client-pre-service-checklist.html">
+        <div class="tag">BEFORE YOUR CLEAN</div>
+        <div class="text-2xl font-black text-slate-900 mt-1">Pre-Service Checklist</div>
+        <p class="mt-2 text-slate-600">
+          Quick prep so we can get straight into it and get the best result for your home.
+        </p>
+        <div class="mt-5 inline-flex items-center gap-2 font-black text-[#0071B6]">
+          Open checklist 
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </div>
+      </a>
+
+      <a class="card p-6" href="https://leftiesservices.com.au/client/aftercare.html">
+        <div class="tag">AFTER YOUR CLEAN</div>
+        <div class="text-2xl font-black text-slate-900 mt-1">Aftercare (Care Steps)</div>
+        <p class="mt-2 text-slate-600">
+          Dry times, ventilation, furniture tips, and how to keep everything looking fresh.
+        </p>
+        <div class="mt-5 inline-flex items-center gap-2 font-black text-[#0071B6]">
+          Open aftercare
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </div>
+      </a>
+
+      <a class="card p-6" href="https://leftiesservices.com.au/service-agreements.html">
+        <div class="tag">IMPORTANT</div>
+        <div class="text-2xl font-black text-slate-900 mt-1">Service Agreements</div>
+        <p class="mt-2 text-slate-600">
+          Clear expectations and limitations, so everything’s transparent and fair.
+        </p>
+        <div class="mt-5 inline-flex items-center gap-2 font-black text-[#0071B6]">
+          View agreements
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </div>
+      </a>
+
+      <a class="card p-6" href="https://leftiesservices.com.au/services.html">
+        <div class="tag">BROWSE</div>
+        <div class="text-2xl font-black text-slate-900 mt-1">Other Services</div>
+        <p class="mt-2 text-slate-600">
+          If you want to add anything later, have a look at what else we can revive.
+        </p>
+        <div class="mt-5 inline-flex items-center gap-2 font-black text-[#0071B6]">
+          View services
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </div>
+      </a>
+    </section>
+
+    <!-- Review -->
+    <section class="mt-6">
+      <div class="frosted p-6 md:p-10 border-[#0071B6]/10 bg-blue-50/20">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div class="tag">AFTER YOUR CLEAN (OPTIONAL)</div>
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-1">Happy with the result?</h2>
+            <p class="mt-3 text-slate-600 max-w-2xl leading-relaxed">
+              If you’re happy with the result, a quick review helps locals trust us too. No pressure at all.
+            </p>
+          </div>
+          <a class="btn-glass bg-white/60 hover:bg-[#0071B6] hover:text-white border-[#0071B6]/30 text-[#0071B6] px-8 py-4" 
+             href="https://www.facebook.com/share/16fiDSPRPa/?mibextid=wwXIfr" 
+             target="_blank" rel="noopener">
+            Leave a review
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- OS Footer Branding -->
+    <footer class="mt-12 mb-6 text-center px-4">
+      <div class="inline-flex flex-col items-center">
+        <div class="h-px w-24 bg-slate-300 mb-6"></div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="mono text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">Powered By:</span>
+          <img src="lefties-lite.png" alt="Lite OS Logo" class="h-4 w-auto grayscale opacity-50 contrast-125" onerror="this.style.display='none'"/>
+        </div>
+        <p class="text-[10px] text-slate-400 font-medium tracking-tight">
+          Automated Client Experience Environment &copy; 2026
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+
+    btn?.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+        });
+    });
+  </script>
+</body>
+</html>
+
