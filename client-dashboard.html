@@ -41,13 +41,33 @@
     }
     html, body { font-family: "Nunito", system-ui, -apple-system, sans-serif; }
     
-    body{
-      background:
-        radial-gradient(1200px 600px at 10% 10%, rgba(0,113,182,.18), transparent 60%),
-        radial-gradient(900px 500px at 90% 20%, rgba(215,175,255,.22), transparent 55%),
-        linear-gradient(180deg, rgba(239,227,207,.85), rgba(239,227,207,1));
+    body {
       min-height: 100vh;
       color: #0f172a;
+      background-color: #EFE3CF;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* --- Immersive Moving Background --- */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 113, 182, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(215, 175, 255, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 50% 10%, rgba(0, 113, 182, 0.1) 0%, transparent 50%);
+      filter: blur(60px);
+      animation: drift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: scale(1) translate(0, 0); }
+      to { transform: scale(1.1) translate(2%, 3%); }
     }
 
     /* --- Animations --- */
@@ -131,7 +151,7 @@
       text-transform: uppercase;
     }
 
-    /* Google Reviews Styles */
+    /* Reviews Styles */
     .review-card {
       min-width: 280px;
       max-width: 280px;
@@ -152,16 +172,10 @@
       overflow: hidden;
       box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.12);
       border: 1px solid #e2e8f0;
-      transition: transform 0.2s ease;
-    }
-    .fb-iframe-wrapper:active {
-      transform: scale(0.98);
     }
 
-    /* Centering Fix for Logo */
-    .header-container {
-      height: 72px;
-    }
+    /* Header Centering */
+    .header-container { height: 72px; }
     .centered-logo {
       height: 90px;
       position: absolute;
@@ -173,7 +187,9 @@
   </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body>
+  <!-- Moving Background Layer -->
+  <div class="bg-animation"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-50 animate-enter">
@@ -190,7 +206,7 @@
 
         <!-- Logo -->
         <a href="https://leftiesservices.com.au/" class="centered-logo flex items-center">
-          <img src="lefties-lite.png" alt="Lefties" class="h-full w-auto object-contain drop-shadow-sm"/>
+          <img src="lefties-lite.png" alt="Lefties" class="h-full w-auto object-contain drop-shadow-sm" onerror="this.src='https://leftiesservices.com.au/lefties-meta.png'"/>
         </a>
 
         <nav class="hidden md:flex flex-1 justify-end items-center gap-2">
@@ -233,9 +249,8 @@
       </div>
     </section>
 
-    <!-- Grid -->
+    <!-- Info Grid -->
     <section class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Time Card -->
       <div class="card p-6 flex flex-col justify-between h-full min-h-[160px] animate-enter delay-2">
         <div>
           <div class="tag mb-2">LOCAL TIME</div>
@@ -245,7 +260,6 @@
         </div>
       </div>
 
-      <!-- Weather Card -->
       <div class="card p-6 flex flex-col justify-between h-full min-h-[160px] animate-enter delay-2">
         <div>
           <div class="tag mb-2">WEATHER</div>
@@ -254,7 +268,6 @@
         </div>
       </div>
 
-      <!-- Links -->
       <a class="card p-6 animate-enter delay-3" href="https://leftiesservices.com.au/client-pre-service-checklist.html">
         <div class="tag">BEFORE YOUR CLEAN</div>
         <div class="text-2xl font-black text-slate-900 mt-1">Pre-Service Checklist</div>
@@ -277,9 +290,19 @@
     <!-- Google Reviews Section -->
     <section class="mt-12 animate-enter delay-3">
       <div class="flex items-center justify-between px-2 mb-4">
-        <h2 class="text-lg font-black text-slate-800 flex items-center gap-2">Google Reviews</h2>
-        <span class="text-xs font-bold text-[#0071B6]">5.0 ★</span>
+        <div class="flex items-center gap-3">
+          <!-- Google Logo SVG -->
+          <svg class="w-6 h-6" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <h2 class="text-xl font-black text-slate-800 tracking-tight">Google Reviews</h2>
+        </div>
+        <span class="text-sm font-black text-[#FFB400] bg-white/50 px-3 py-1 rounded-full">5.0 ★</span>
       </div>
+      
       <div class="flex gap-4 overflow-x-auto pb-4 snap-x px-1 hide-scrollbar" style="scroll-snap-type: x mandatory;">
         <div class="card p-5 review-card">
           <div class="flex text-lg mb-2"><span class="star">★★★★★</span></div>
@@ -301,82 +324,46 @@
 
     <!-- Facebook Reviews Section -->
     <section class="mt-8 animate-enter delay-4">
-      <div class="flex items-end justify-between px-2 mb-5">
-        <div class="flex flex-col">
-          <div class="flex items-center gap-2 mb-1">
-            <div class="bg-[#1877F2] p-1 rounded-md">
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </div>
-            <h2 class="text-xl font-black text-slate-800 tracking-tight">Facebook Feedback</h2>
-          </div>
-          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Swipe to see what the locals say</p>
+      <div class="flex items-center gap-3 px-2 mb-4">
+        <div class="bg-[#1877F2] p-1.5 rounded-lg shadow-sm">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
+        <h2 class="text-xl font-black text-slate-800 tracking-tight">Facebook Feedback</h2>
       </div>
 
-      <!-- Scrolling Container -->
       <div class="flex gap-5 overflow-x-auto pb-10 snap-x px-1 hide-scrollbar" style="scroll-snap-type: x mandatory;">
         <!-- Review 1 -->
         <div class="fb-review-container">
           <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Flisa.bolgerphilp%2Fposts%2Fpfbid0cuZz4PcLu8QW1K4vtqr5SspmK4yzDuonzh6EPb5xYugz6kWBRAgQPFXSDvPPwsGyl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Flisa.bolgerphilp%2Fposts%2Fpfbid0cuZz4PcLu8QW1K4vtqr5SspmK4yzDuonzh6EPb5xYugz6kWBRAgQPFXSDvPPwsGyl&show_text=true&width=500" width="100%" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
           </div>
         </div>
         <!-- Review 2 -->
         <div class="fb-review-container">
           <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fgemm.994%2Fposts%2Fpfbid02e36Ti1C4L3Ucfwp8bPEB615R5XG2H3gGCjFxhNYcM8u85GCSjqajzgRDn1ArkKxfl&show_text=true&width=500" width="100%" height="186" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fgemm.994%2Fposts%2Fpfbid02e36Ti1C4L3Ucfwp8bPEB615R5XG2H3gGCjFxhNYcM8u85GCSjqajzgRDn1ArkKxfl&show_text=true&width=500" width="100%" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
           </div>
         </div>
         <!-- Review 3 -->
         <div class="fb-review-container">
           <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fwendy.bailye%2Fposts%2Fpfbid02QwRqV1cekdRTRqWqNcA2fPHuU6tPCAFdMzyBJxioFPBeojGhS9ADWhnoHVqBjywMl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-          </div>
-        </div>
-        <!-- Review 4 -->
-        <div class="fb-review-container">
-          <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.farrelly.96%2Fposts%2Fpfbid0gY1zAAd9i8Pqy39FBjhfjLySbyPMTHuDFgCTGaBXngU1tmoMYY6z2gKUaNXJbXFql&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-          </div>
-        </div>
-        <!-- Review 5 -->
-        <div class="fb-review-container">
-          <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Famy.kate.339699%2Fposts%2Fpfbid0dHJWfxSbVAstDPGZsYeqLzPfUviRgaMSASQvLvzacDbjCzzkKn1Hg3apnnKFFeYAl&show_text=true&width=500" width="100%" height="186" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-          </div>
-        </div>
-        <!-- Review 6 -->
-        <div class="fb-review-container">
-          <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbrittany.partridge.432977%2Fposts%2Fpfbid02yG8W9F2zz92KkqiRiReT7mAQGinwBT1RwGHtzasRDfDbUvyHcDXrWuHJdkZmuVELl&show_text=true&width=500" width="100%" height="168" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-          </div>
-        </div>
-        <!-- Review 7 -->
-        <div class="fb-review-container">
-          <div class="fb-iframe-wrapper">
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fhannah.courtney.372%2Fposts%2Fpfbid0b5xptQnHAhBm428jjtahEHAkE6WokV3GWh72NwKfTYaa8FXMco9wzJLWa4jV6gkbl&show_text=true&width=500" width="100%" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fwendy.bailye%2Fposts%2Fpfbid02QwRqV1cekdRTRqWqNcA2fPHuU6tPCAFdMzyBJxioFPBeojGhS9ADWhnoHVqBjywMl&show_text=true&width=500" width="100%" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- NEW SECTION: Leave a Review -->
+    <!-- Leave a Review CTA -->
     <section class="mt-6 animate-enter delay-5">
       <div class="frosted p-8 text-center relative overflow-hidden group">
-        <!-- Background decoration -->
-        <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#1877F2] rounded-full opacity-10 blur-3xl group-hover:opacity-20 transition-opacity"></div>
-        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-[#0071B6] rounded-full opacity-10 blur-3xl group-hover:opacity-20 transition-opacity"></div>
-
         <div class="relative z-10">
-          <div class="inline-flex items-center justify-center p-3 bg-white/50 rounded-full mb-4 shadow-sm text-3xl">
-            💬
-          </div>
+          <div class="inline-flex items-center justify-center p-3 bg-white/50 rounded-full mb-4 shadow-sm text-3xl">💬</div>
           <h2 class="text-2xl font-black text-slate-900 mb-2">Your Turn!</h2>
           <p class="text-slate-600 mb-6 max-w-md mx-auto leading-relaxed">
-            We hope you loved your service! It would mean the world to us if you could take a quick moment to share your experience on Facebook.
+            We hope you loved your service! It would mean the world to us if you could share your experience on Facebook.
           </p>
           
-          <a href="https://www.facebook.com/leftiesservices/reviews/?id=61565898132855&sk=reviews" 
+          <a href="https://www.facebook.com/leftiesservices/reviews" 
              target="_blank" 
              rel="noopener noreferrer"
              class="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-[#1877F2]/30 hover:-translate-y-0.5 active:translate-y-0">
@@ -390,7 +377,7 @@
     <!-- Footer -->
     <footer class="mt-24 mb-12 text-center px-4 flex flex-col items-center animate-enter delay-5">
       <div class="h-px w-32 bg-slate-300 mb-12 opacity-50"></div>
-      <img src="lefties-lite.png" alt="Lefties" class="h-32 md:h-40 w-auto mb-10 opacity-60 grayscale hover:opacity-100 transition-all duration-500 hover:grayscale-0 hover:scale-110"/>
+      <img src="lefties-lite.png" alt="Lefties" class="h-32 md:h-40 w-auto mb-10 opacity-60 grayscale hover:opacity-100 transition-all duration-500 hover:grayscale-0 hover:scale-110" onerror="this.src='https://leftiesservices.com.au/lefties-meta.png'"/>
       <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.25em]">Automated Client Experience &bull; 2026</p>
     </footer>
 
@@ -409,7 +396,7 @@
     updateClock();
     setInterval(updateClock, 30000);
 
-    // Weather Logic (Hervey Bay)
+    // Weather Logic
     async function loadWeather() {
       try {
         const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=-25.288&longitude=152.854&current=temperature_2m,weather_code&timezone=Australia%2FBrisbane`);
