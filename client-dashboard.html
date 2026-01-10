@@ -279,56 +279,127 @@
       </div>
     </section>
 
-    <!-- 4. Facebook Reviews (10 Reviews) -->
-    <section class="mt-6 animate-enter delay-4">
-      <div class="flex items-center justify-between px-2 mb-4">
-        <h2 class="text-lg font-black text-slate-800 flex items-center gap-2">Facebook Feedback</h2>
-        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Swipe for more</span>
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Set a consistent base for the slider items */
+    .review-container {
+      min-width: 300px;
+      max-width: 400px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+    /* Ensure the white FB card looks integrated */
+    .fb-iframe-wrapper {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.12);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease;
+    }
+    .fb-iframe-wrapper:active {
+      transform: scale(0.98);
+    }
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-enter {
+      animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 p-4">
+
+  <!-- Facebook Reviews Section -->
+  <section class="mt-8 animate-enter">
+    <div class="flex items-end justify-between px-2 mb-5">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2 mb-1">
+          <div class="bg-[#1877F2] p-1 rounded-md">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <h2 class="text-xl font-black text-slate-800 tracking-tight">Facebook Feedback</h2>
+        </div>
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Swipe to see what the locals say</p>
       </div>
-      <div class="flex gap-4 overflow-x-auto pb-6 snap-x px-1 hide-scrollbar" style="scroll-snap-type: x mandatory;">
-        <!-- Generating 10 FB Cards -->
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Friendly staff and amazing results. They got out stains I thought were permanent!"</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Very professional service. Showed up on time and did an incredible job on our tiles."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Lefties always goes above and beyond. Wouldn't use anyone else for our annual cleans."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"The steam clean left our house smelling so fresh. Great price for the quality of work."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Easy booking process and very thorough job. They really care about the outcome."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Excellent service from start to finish. Our upholstery looks brand new again!"</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Top notch service. Professional equipment and a very high standard of cleaning."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"Managed to fit us in last minute for an end-of-lease clean. Life saver!"</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"So happy with the results. Very polite and respectful while in our home."</p>
-        </div>
-        <div class="card p-5 review-card border-l-4 border-l-[#1877F2]">
-          <div class="text-[#1877F2] font-black text-[10px] mb-2 uppercase tracking-wider">👍 Recommends</div>
-          <p class="text-sm text-slate-700 font-medium">"The best in the business. Great communication and even better results."</p>
+      <div class="flex gap-1 mb-1">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#1877F2]"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
+        <div class="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
+      </div>
+    </div>
+
+    <!-- Scrolling Container -->
+    <div class="flex gap-5 overflow-x-auto pb-10 snap-x px-1 hide-scrollbar" style="scroll-snap-type: x mandatory;">
+      
+      <!-- Review 1: Lisa Bolgerphilp -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Flisa.bolgerphilp%2Fposts%2Fpfbid0cuZz4PcLu8QW1K4vtqr5SspmK4yzDuonzh6EPb5xYugz6kWBRAgQPFXSDvPPwsGyl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
       </div>
-    </section>
+
+      <!-- Review 2: Gemm -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fgemm.994%2Fposts%2Fpfbid02e36Ti1C4L3Ucfwp8bPEB615R5XG2H3gGCjFxhNYcM8u85GCSjqajzgRDn1ArkKxfl&show_text=true&width=500" width="100%" height="186" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+      <!-- Review 3: Wendy Bailye -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fwendy.bailye%2Fposts%2Fpfbid02QwRqV1cekdRTRqWqNcA2fPHuU6tPCAFdMzyBJxioFPBeojGhS9ADWhnoHVqBjywMl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+      <!-- Review 4: Adam Farrelly -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.farrelly.96%2Fposts%2Fpfbid0gY1zAAd9i8Pqy39FBjhfjLySbyPMTHuDFgCTGaBXngU1tmoMYY6z2gKUaNXJbXFql&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+      <!-- Review 5: Amy Kate -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Famy.kate.339699%2Fposts%2Fpfbid0dHJWfxSbVAstDPGZsYeqLzPfUviRgaMSASQvLvzacDbjCzzkKn1Hg3apnnKFFeYAl&show_text=true&width=500" width="100%" height="186" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+      <!-- Review 6: Brittany Partridge -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbrittany.partridge.432977%2Fposts%2Fpfbid02yG8W9F2zz92KkqiRiReT7mAQGinwBT1RwGHtzasRDfDbUvyHcDXrWuHJdkZmuVELl&show_text=true&width=500" width="100%" height="168" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+      <!-- Review 7: Hannah Courtney -->
+      <div class="review-container">
+        <div class="fb-iframe-wrapper">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fhannah.courtney.372%2Fposts%2Fpfbid0b5xptQnHAhBm428jjtahEHAkE6WokV3GWh72NwKfTYaa8FXMco9wzJLWa4jV6gkbl&show_text=true&width=500" width="100%" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+
+    </div>
+    
+    <!-- Optional: Call to Action -->
+    <div class="flex justify-center -mt-4">
+      <a href="#" class="text-[11px] font-bold text-[#1877F2] bg-blue-50 px-4 py-2 rounded-full hover:bg-blue-100 transition-colors">
+        View all reviews on Facebook
+      </a>
+    </div>
+  </section>
 
     <!-- 3. Branded Footer -->
     <footer class="mt-24 mb-12 text-center px-4 flex flex-col items-center animate-enter delay-4">
