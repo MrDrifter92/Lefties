@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lefties Services | Closed</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --gold: #d4af37;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .side {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Snake Side - Adjusted position to keep the head visible */
+        .left {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), 
+                              url('https://images.unsplash.com/photo-1531386151447-fd76ad50012f?auto=format&fit=crop&q=80&w=1000');
+            background-position: 30% center;
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Horse Side - Adjusted position to keep the profile visible */
+        .right {
+            background-image: linear-gradient(to left, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), 
+                              url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1000');
+            background-position: 70% center;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 800px;
+            pointer-events: none;
+        }
+
+        .badge {
+            background-color: var(--gold);
+            color: #000;
+            padding: 8px 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            color: var(--white);
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+        }
+
+        .message {
+            margin: 1.5rem auto;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.5;
+            background: rgba(0,0,0,0.85);
+            padding: 25px;
+            border-left: 4px solid var(--gold);
+            font-style: italic;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .side {
+                height: 50vh;
+            }
+            .left {
+                background-position: center 20%;
+                border-right: none;
+                border-bottom: 1px solid var(--gold);
+            }
+            .right {
+                background-position: center 20%;
+            }
+            .content-overlay {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="side left"></div>
+        <div class="side right"></div>
+
+        <div class="content-overlay">
+            <div class="badge">Closed</div>
+            <h1>LEFTIES</h1>
+            <div class="message">
+                As the snake sheds its skin, we leave the struggles of the Bay behind. 
+                Stepping into the <strong>Year of the Horse</strong>, we embrace the strength, speed, and freedom of a new direction.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
