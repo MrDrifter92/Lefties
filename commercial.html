@@ -1,284 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-  <title>Commercial & Aged Care | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Specialized aged care, dementia-specific, and commercial cleaning in Hervey Bay. Programmed maintenance for enterprise and healthcare."/>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXYFZL7KT4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EXYFZL7KT4');
+</script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commercial & Aged Care | Lefties Carpet Cleaning | Hervey Bay</title>
+  <meta name="description" content="Precision cleaning for Hervey Bay's commercial and healthcare environments. Aged care specialists, 24/7 operations, fully insured and compliant."/>
+  <meta property="og:title" content="Commercial & Aged Care | Lefties Carpet Cleaning | Hervey Bay"/>
+  <meta property="og:description" content="Precision cleaning for Hervey Bay's commercial and healthcare environments. Aged care specialists, 24/7 operations, fully insured and compliant."/>
+  <meta property="og:image" content="core-logo-blue-transparent.png"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="core-logo-blue-transparent.png"/>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon-180x180.png"/>
+  <link rel="manifest" href="site.webmanifest"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800;900&display=swap" rel="stylesheet"/>
-
-  <style>
-    :root {
-      --primary: #0071B6;
-      --primary-dark: #004d7c;
-      --accent-gold: #D4AF37;
-      --surface: #F8FAFC;
-    }
-
-    body {
-      font-family: 'Lexend', sans-serif;
-      background-color: var(--surface);
-      color: #1e293b;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero-gradient {
-      background: radial-gradient(circle at top right, #e0f2fe 0%, #F8FAFC 60%);
-    }
-
-    .btn-commercial {
-      background: var(--primary);
-      color: white;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 10px 15px -3px rgba(0, 113, 182, 0.2);
-    }
-
-    .btn-commercial:active {
-      transform: scale(0.95);
-    }
-
-    .aged-care-border {
-      border-image: linear-gradient(to bottom, var(--accent-gold), transparent) 1;
-      border-left: 4px solid;
-    }
-
-    .mobile-nav-link {
-      font-size: 1.5rem;
-      font-weight: 800;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      width: 100%;
-      text-align: center;
-    }
-
-    /* Custom Mobile Menu Layout */
-    .menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--primary);
-      z-index: 999;
-      transform: translateY(-100%);
-      transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .menu-overlay.active {
-      transform: translateY(0);
-    }
-
-    .text-balance {
-      text-wrap: balance;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Karla:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/lefties.css"/>
+  
 </head>
-<body class="hero-gradient min-h-screen">
-
-  <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-[1000] p-4">
-    <nav class="max-w-6xl mx-auto glass-card rounded-2xl px-5 py-3 flex justify-between items-center">
-      <a href="index.html" class="flex items-center gap-2">
-        <span class="font-black text-2xl tracking-tighter text-[var(--primary)]">LEFTIES<span class="text-gray-300">.</span></span>
-      </a>
-      
-      <button id="menuTrigger" class="p-2 space-y-1.5 focus:outline-none">
-        <div class="w-6 h-0.5 bg-slate-800 rounded-full transition-all duration-300" id="b1"></div>
-        <div class="w-4 h-0.5 bg-slate-800 rounded-full transition-all duration-300 ml-auto" id="b2"></div>
-        <div class="w-6 h-0.5 bg-slate-800 rounded-full transition-all duration-300" id="b3"></div>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="logo"><img src="core-logo-blue-transparent.png" alt="Lefties Carpet Cleaning"/></a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="services.html">Services</a>
+        <a href="commercial.html" aria-current="page">Commercial</a>
+        <a href="contact-us.html">Contact</a>
+        <a href="#quote" class="btn btn-solid">Get a Quote</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
       </button>
-    </nav>
+    </div>
   </header>
 
-  <!-- Mobile Nav Overlay -->
-  <div id="mobileMenu" class="menu-overlay">
-    <a href="index.html" class="mobile-nav-link">HOME</a>
-    <a href="carpet-cleaning.html" class="mobile-nav-link">RESIDENTIAL</a>
-    <a href="commercial.html" class="mobile-nav-link text-sky-200">COMMERCIAL</a>
-    <a href="contact-us.html" class="mobile-nav-link">CONTACT</a>
-    <button id="closeMenu" class="mt-12 text-xs font-bold tracking-[0.3em] opacity-60">CLOSE MENU</button>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="contact-us.html">Contact</a>
+    <a href="tel:0417220012" class="btn btn-solid">Call 0417 220 012</a>
+  </nav>
+  <section class="hero seam-bottom on-ink">
+    <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="spark" style="top:14%;right:12%" aria-hidden="true"></span>
+    <span class="spark s2" style="top:26%;right:7%" aria-hidden="true"></span>
+    <span class="spark s3" style="bottom:22%;left:44%" aria-hidden="true"></span>
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Facility maintenance experts</span>
+        <h1>High stakes cleaning. No compromise.</h1>
+        <p class="lede">Precision cleaning for Hervey Bay&rsquo;s critical commercial and healthcare environments. Low-moisture, scent-neutral technology so rooms are back in service in minutes, not hours.</p>
+        <div class="hero-actions">
+          <a href="tel:0417220012" class="btn btn-solid">Call 0417 220 012</a>
+          <a href="mailto:hello@leftiesservices.com.au" class="btn btn-ghost">Email the commercial team</a>
+        </div>
+      </div>
+      <div class="seam-media">
+        <img src="Carpet-services-1.png" alt="Commercial carpet cleaning" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Strategic partnership</span>
+        <h2>Aged care: we&rsquo;ve got your loved ones.</h2>
+        <p style="margin-top:16px">Whether you're managing a new enterprise, a dementia-specific environment, or a traditional aged care facility, maintenance is more than a schedule. It's about dignity and safety. Our programmed maintenance and ad-hoc services are built around the unique rhythms of care facilities.</p>
+      </div>
+      <div class="card-grid">
+        <div class="svc-card"><div class="body">
+          <h3>New facilities</h3>
+          <p>Post-fitout readiness and initial fabric protection.</p>
+        </div></div>
+        <div class="svc-card"><div class="body">
+          <h3>Dementia care</h3>
+          <p>Quiet, non-intrusive operations for sensitive environments.</p>
+        </div></div>
+        <div class="svc-card"><div class="body">
+          <h3>Traditional</h3>
+          <p>High-frequency sanitation for high-traffic common areas.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band foam">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Business assets</span>
+        <h2>Offices, hospitality, retail.</h2>
+      </div>
+      <div class="card-grid">
+        <div class="svc-card"><div class="body">
+          <h3>Corporate offices</h3>
+          <p>Deep steam extraction for workstation areas and boardrooms.</p>
+        </div></div>
+        <div class="svc-card"><div class="body">
+          <h3>Hospitality &amp; retail</h3>
+          <p>Targeted stain removal and upholstery revival for customer seating.</p>
+        </div></div>
+        <div class="svc-card"><div class="body">
+          <h3>Programmed maintenance</h3>
+          <p>Quarterly or bi-annual schedules to extend carpet lifespan.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The Lefties standard</span>
+        <h2>Insured, flexible, accountable.</h2>
+      </div>
+      <ul class="feature-list" style="max-width:720px">
+        <li><strong>Fully insured &amp; compliant:</strong> Blue Cards, National Police Checks, and comprehensive public liability insurance.</li>
+        <li><strong>24/7 operations:</strong> We work after hours and weekends to ensure zero downtime for your business.</li>
+        <li><strong>Owner-operated care:</strong> Direct communication with the owners. No franchise bureaucracy, just results.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+   <div class="ticker-inner">
+    <div class="ticker-track">
+      <span>Carpet cleaning</span><span class="dot">&#10022;</span>
+      <span>Upholstery revival</span><span class="dot">&#10022;</span>
+      <span>Stain rescue</span><span class="dot">&#10022;</span>
+      <span>Rugs &amp; mattresses</span><span class="dot">&#10022;</span>
+      <span>Hervey Bay &amp; Fraser Coast</span><span class="dot">&#10022;</span>
+      <span>Dry in hours, not days</span><span class="dot">&#10022;</span>
+    </div>
+   </div>
   </div>
 
-  <main class="pt-28 pb-12 px-4 max-w-6xl mx-auto space-y-6">
-    
-    <!-- Hero Section -->
-    <section class="text-center py-6 md:py-12">
-      <span class="inline-block px-4 py-1.5 bg-blue-100 text-[var(--primary)] text-[10px] font-black uppercase tracking-widest rounded-full mb-4">
-        Facility Maintenance Experts
-      </span>
-      <h1 class="text-4xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-6 text-balance">
-        High Stakes <br>Cleaning. <span class="text-[var(--primary)]">No Compromise.</span>
-      </h1>
-      <p class="text-slate-600 text-lg md:text-xl font-medium max-w-2xl mx-auto text-balance">
-        Lefties delivers precision-engineered cleaning for Hervey Bay's critical commercial and healthcare environments.
-      </p>
-    </section>
-
-    <!-- THE CORE MESSAGE: AGED CARE -->
-    <section class="glass-card rounded-[2.5rem] overflow-hidden aged-care-border p-8 md:p-16 relative">
-      <div class="absolute top-0 right-0 p-6 md:p-10 opacity-10">
-        <svg class="w-24 h-24" fill="var(--accent-gold)" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      </div>
-
-      <div class="relative z-10 max-w-3xl">
-        <h2 class="text-xs font-black text-[var(--accent-gold)] uppercase tracking-[0.3em] mb-4">Strategic Partnership</h2>
-        <h3 class="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">
-          Aged Care: <br><span class="text-[var(--primary)]">We've Got Your Loved Ones.</span>
-        </h3>
-        
-        <div class="space-y-6 text-slate-700 text-lg leading-relaxed">
-          <p>
-            Whether you are managing a <strong>New Enterprise</strong>, a <strong>Dementia Specific Environment</strong>, or <strong>Traditional Aged Care</strong> facility—maintenance is more than just a schedule. It’s about dignity and safety.
-          </p>
-          <p class="font-bold text-slate-900 text-xl border-l-4 border-[var(--primary)] pl-6 py-2">
-            WE’VE GOT YOU AND WE’VE GOT YOUR LOVED ONES.
-          </p>
-          <p>
-            Our programmed maintenance and ad-hoc services are built around the unique rhythms of care facilities. We use low-moisture, scent-neutral technology to ensure rooms are accessible and safe within minutes, not hours.
-          </p>
-        </div>
-
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-            <h4 class="font-black text-sm mb-2 uppercase text-[var(--primary)]">New Facilities</h4>
-            <p class="text-sm font-medium">Post-fitout readiness and initial fabric protection.</p>
-          </div>
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-            <h4 class="font-black text-sm mb-2 uppercase text-[var(--primary)]">Dementia Care</h4>
-            <p class="text-sm font-medium">Quiet, non-intrusive operations for sensitive environments.</p>
-          </div>
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-            <h4 class="font-black text-sm mb-2 uppercase text-[var(--primary)]">Traditional</h4>
-            <p class="text-sm font-medium">High-frequency sanitation for high-traffic common areas.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Grid -->
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- General Commercial -->
-      <div class="glass-card rounded-[2rem] p-8 md:p-12">
-        <h3 class="text-2xl font-black mb-8">Business Assets</h3>
-        <div class="space-y-6">
-          <div class="flex gap-5">
-            <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg">Corporate Offices</h4>
-              <p class="text-slate-500 text-sm">Deep steam extraction for workstation areas and boardrooms.</p>
-            </div>
-          </div>
-          <div class="flex gap-5">
-            <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg">Hospitality & Retail</h4>
-              <p class="text-slate-500 text-sm">Targeted stain removal and upholstery revival for customer seating.</p>
-            </div>
-          </div>
-          <div class="flex gap-5">
-            <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg">Programmed Maintenance</h4>
-              <p class="text-slate-500 text-sm">Quarterly or Bi-Annual schedules to extend carpet lifespan.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Why Us - Dark Mode Emphasis -->
-      <div class="bg-slate-900 rounded-[2rem] p-8 md:p-12 text-white">
-        <h3 class="text-2xl font-black mb-8 text-sky-400">The Lefties Standard</h3>
-        <div class="space-y-8">
-          <div>
-            <span class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2">Liability</span>
-            <p class="font-bold text-lg leading-snug">Fully Insured & Compliant</p>
-            <p class="text-slate-400 text-sm mt-1">Blue Cards, National Police Checks, and comprehensive public liability insurance.</p>
-          </div>
-          <div>
-            <span class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2">Flexibility</span>
-            <p class="font-bold text-lg leading-snug">24/7 Operations</p>
-            <p class="text-slate-400 text-sm mt-1">We work after hours and weekends to ensure zero downtime for your business.</p>
-          </div>
-          <div>
-            <span class="block text-xs font-black uppercase tracking-widest text-slate-500 mb-2">Accountability</span>
-            <p class="font-bold text-lg leading-snug">Owner-Operated Care</p>
-            <p class="text-slate-400 text-sm mt-1">Direct communication with the owners. No franchise bureaucracy, just results.</p>
-          </div>
-        </div>
-      </div>
+  <section class="band ink cta-band on-ink" id="quote">
+    <div class="wrap">
+      <h2>Expertise on call.</h2>
+      <p>Request a formal site assessment or an immediate ad-hoc quote for your facility.</p>
+      <a href="tel:0417220012" class="btn btn-solid phone">0417 220 012</a>
     </div>
-
-    <!-- Final Action -->
-    <section class="py-12">
-      <div class="glass-card rounded-[2.5rem] p-10 md:p-20 text-center flex flex-col items-center">
-        <h2 class="text-3xl md:text-5xl font-black mb-6 text-slate-900">Expertise on Call.</h2>
-        <p class="text-slate-600 mb-10 font-medium max-w-lg">Request a formal site assessment or an immediate ad-hoc quote for your facility today.</p>
-        <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
-          <a href="tel:0417220012" class="btn-commercial px-10 py-5 rounded-full font-black text-lg w-full sm:w-auto text-center">
-            0417 220 012
-          </a>
-          <a href="contact-us.html" class="bg-white border-2 border-slate-200 px-10 py-5 rounded-full font-black text-lg w-full sm:w-auto text-center hover:bg-slate-50 transition-colors">
-            Email Commercial Team
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="py-12 border-t border-slate-200">
-    <div class="container mx-auto px-6 text-center">
-      <p class="font-black text-slate-400 text-xs tracking-[0.4em] uppercase mb-4">Lefties Carpet Cleaning &bull; Fraser Coast</p>
-      <p class="text-slate-300 text-[10px] font-bold">&copy; 2025 ALL RIGHTS RESERVED</p>
-    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="wrap">&copy; 2026 Lefties Carpet Cleaning &bull; Hervey Bay &amp; Fraser Coast</div>
   </footer>
 
   <script>
-    const menuTrigger = document.getElementById('menuTrigger');
-    const closeMenu = document.getElementById('closeMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const b1 = document.getElementById('b1');
-    const b2 = document.getElementById('b2');
-    const b3 = document.getElementById('b3');
-
-    function toggleMenu() {
-      const isActive = mobileMenu.classList.toggle('active');
-      if (isActive) {
-        b1.style.transform = 'translateY(8px) rotate(45deg)';
-        b2.style.opacity = '0';
-        b3.style.transform = 'translateY(-8px) rotate(-45deg)';
-        document.body.style.overflow = 'hidden';
-      } else {
-        b1.style.transform = 'none';
-        b2.style.opacity = '1';
-        b3.style.transform = 'none';
-        document.body.style.overflow = '';
-      }
-    }
-
-    menuTrigger.addEventListener('click', toggleMenu);
-    closeMenu.addEventListener('click', toggleMenu);
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }));
   </script>
+  <script src="assets/js/fx.js" defer></script>
 </body>
 </html>
-

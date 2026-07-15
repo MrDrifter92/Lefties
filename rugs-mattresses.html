@@ -1,221 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXYFZL7KT4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EXYFZL7KT4');
+</script>
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rug & Mattress Cleaning | Lefties Carpet Cleaning</title>
-  <meta name="description" content="Professional rug and mattress cleaning services in Hervey Bay. Remove dust mites, allergens, and refresh your home hygienically."/>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Rug & Mattress Cleaning | Lefties Carpet Cleaning | Hervey Bay</title>
+  <meta name="description" content="Specialty rug care and hygienic mattress sanitation in Hervey Bay. Dust mites, allergens and odours removed with safe, non-toxic products."/>
+  <meta property="og:title" content="Rug & Mattress Cleaning | Lefties Carpet Cleaning | Hervey Bay"/>
+  <meta property="og:description" content="Specialty rug care and hygienic mattress sanitation in Hervey Bay. Dust mites, allergens and odours removed with safe, non-toxic products."/>
+  <meta property="og:image" content="core-logo-blue-transparent.png"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="core-logo-blue-transparent.png"/>
+  <link rel="icon" href="favicon.ico"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon-180x180.png"/>
+  <link rel="manifest" href="site.webmanifest"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
-
-  <style>
-    :root{
-      --primary-blue:#0071B6;
-      --text-main:#e0e0e0;
-      --bg-dark:#0f172a;
-    }
-    body{
-      font-family:'Nunito',sans-serif;
-      background-color:var(--bg-dark);
-      color:var(--text-main);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-      position:relative;
-    }
-
-    /* Background video */
-    .body-video-background{
-      position:fixed; inset:0;
-      width:100vw; height:100vh; object-fit:cover;
-      opacity:.25; z-index:-2; transform:translateZ(0);
-    }
-
-    /* Glass panel */
-    .glass-panel{
-      background:rgba(30,41,59,.65);
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border-radius:1.5rem;
-      border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 10px 28px rgba(0,0,0,.4);
-    }
-    .text-lift{ text-shadow:0 0 8px rgba(0,113,182,.5); }
-    .service-img{ width:100%; height:auto; border-radius:.75rem; box-shadow:0 4px 6px rgba(0,0,0,.1); }
-
-    /* Floating header */
-    header.deep-glass{
-      position:fixed; top:0; left:0; width:100%; z-index:100;
-      margin:.5rem;
-    }
-    header .nav-wrap{
-      background:rgba(30,41,59,.65);
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 10px 28px rgba(0,0,0,.4);
-    }
-
-    /* Hamburger */
-    .hamburger-icon{ display:flex; flex-direction:column; justify-content:space-between; width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20; }
-    .hamburger-icon span{ height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out; }
-    .hamburger-icon.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
-    .hamburger-icon.open span:nth-child(2){ opacity:0; }
-    .hamburger-icon.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
-
-    /* Mobile drawer */
-    .overlay-base{ position:fixed; inset:0; z-index:200; background:rgb(0 0 0 / .6); transition:opacity .3s ease; }
-    .overlay-hidden{ opacity:0; pointer-events:none; }
-    .panel{
-      position:absolute; right:0; top:0; height:100%; width:20rem; max-width:85%;
-      background:#0f172a; padding:2rem; transform:translateX(100%);
-      transition:transform .3s ease; display:flex; flex-direction:column; gap:2rem; color:#fff; font-size:1.25rem;
-      padding-top:7rem; /* clear the floating header */
-    }
-    .panel-open{ transform:translateX(0); }
-
-    /* keep content clear of header */
-    main{ padding-top:7rem; }
-    @media (min-width:768px){ main{ padding-top:9rem; } }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Karla:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/lefties.css"/>
+  
 </head>
-<body class="antialiased">
-
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="body-video-background">
-    <source src="rm-video.mp4" type="video/mp4"/>
-  </video>
-
-  <!-- HEADER -->
-  <header class="deep-glass">
-    <nav class="nav-wrap container mx-auto px-6 py-2 flex justify-between items-center relative">
-      <a href="index.html#home">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-16 w-auto"/>
-      </a>
-
-      <!-- Mobile -->
-      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[210]">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
-        </div>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="logo"><img src="core-logo-blue-transparent.png" alt="Lefties Carpet Cleaning"/></a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="commercial.html">Commercial</a>
+        <a href="contact-us.html">Contact</a>
+        <a href="#quote" class="btn btn-solid">Get a Quote</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
       </button>
-
-      <!-- Desktop menu (exclude current page) -->
-      <div class="hidden md:flex space-x-8 text-white font-bold">
-        <a href="index.html#home" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery & Lounges</a>
-        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain & Odour</a>
-        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
-        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
-      </div>
-    </nav>
+    </div>
   </header>
 
-  <!-- Mobile Drawer -->
-  <div id="mobile-menu-overlay" class="overlay-base overlay-hidden">
-    <div id="mobile-menu-panel" class="panel">
-      <a href="index.html#home" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
-      <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Carpet Cleaning</a>
-      <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Upholstery & Lounges</a>
-      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain & Odour</a>
-      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
-      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <main class="container mx-auto px-4 pb-12 space-y-12">
-    <section class="glass-panel p-8 md:p-12 text-center">
-      <h1 class="text-5xl font-black text-white mb-4 text-lift">Rug & Mattress Cleaning</h1>
-      <p class="text-lg md:text-xl max-w-3xl mx-auto">Extend the life and freshness of your rugs and mattresses with Lefties Carpet Cleaning. Beyond just surface cleaning, our specialized services delve deep to remove embedded dirt, dust mites, allergens, and odours, ensuring a truly hygienic environment. From delicate area rugs to large mattresses, we use safe, non-toxic products and proven methods to protect your investments and promote a healthier living space.</p>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-      <img src="Rugs-01.png" alt="Lefties rug and mattress cleaning" class="service-img"/>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="commercial.html">Commercial</a>
+    <a href="contact-us.html">Contact</a>
+    <a href="tel:0417220012" class="btn btn-solid">Call 0417 220 012</a>
+  </nav>
+  <section class="hero seam-bottom on-ink">
+    <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="spark" style="top:14%;right:12%" aria-hidden="true"></span>
+    <span class="spark s2" style="top:26%;right:7%" aria-hidden="true"></span>
+    <span class="spark s3" style="bottom:22%;left:44%" aria-hidden="true"></span>
+    <div class="wrap">
       <div>
-        <h2 class="text-3xl font-bold mb-4 text-[var(--primary-blue)] text-lift">What’s in the process?</h2>
-        <ul class="list-disc list-inside space-y-2 text-lg">
-          <li><strong>Pre-inspection & material assessment:</strong> Identify material, construction and concerns to choose the safest method.</li>
-          <li><strong>Deep vacuuming:</strong> Remove embedded dust, dander and mites before any wet process.</li>
-          <li><strong>Targeted pre-treatment:</strong> Eco-friendly solutions for stains and heavy soiling.</li>
-          <li><strong>Gentle clean & extraction:</strong> Low-moisture hot water extraction or delicate dry method as appropriate.</li>
-          <li><strong>Sanitise & deodorise:</strong> Hygiene-first approach that tackles bacteria and odours.</li>
-          <li><strong>Accelerated drying:</strong> Air movers and good ventilation—usually ready within hours.</li>
+        <span class="eyebrow">Rugs &amp; mattresses</span>
+        <h1>Deeper than surface clean.</h1>
+        <p class="lede">Beyond surface cleaning, we remove embedded dirt, dust mites, allergens and odours. From delicate area rugs to large mattresses, safe non-toxic products protect your investment and your sleep.</p>
+        <div class="hero-actions">
+          <a href="tel:0417220012" class="btn btn-solid">Call 0417 220 012</a>
+          <a href="services.html" class="btn btn-ghost">All services</a>
+        </div>
+      </div>
+      <div class="seam-media"><img src="Rugs-01.png" alt="Rug cleaning" loading="lazy"/></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap two-col">
+      <div>
+        <span class="eyebrow">The process</span>
+        <h2>How it&rsquo;s done.</h2>
+        <ol class="rail" style="margin-top:36px">
+        <li><h3>Pre-inspection &amp; material assessment</h3><p>Identify material, construction and concerns to choose the safest method.</p></li>
+        <li><h3>Deep vacuuming</h3><p>Remove embedded dust, dander and mites before any wet process.</p></li>
+        <li><h3>Targeted pre-treatment</h3><p>Eco-friendly solutions for stains and heavy soiling.</p></li>
+        <li><h3>Gentle clean &amp; extraction</h3><p>Low-moisture hot water extraction or delicate dry method as appropriate.</p></li>
+        <li><h3>Sanitise &amp; deodorise</h3><p>Hygiene-first approach that tackles bacteria and odours.</p></li>
+        <li><h3>Accelerated drying</h3><p>Air movers and good ventilation, usually ready within hours.</p></li>
+        </ol>
+      </div>
+      <div>
+        <span class="eyebrow">What makes us different</span>
+        <h2>Local, not a franchise.</h2>
+        <ul class="feature-list" style="margin-top:36px">
+          <li><strong>Local, not a franchise:</strong> More time, more care, better results.</li>
+          <li><strong>Ethical operators:</strong> Straight talk. If we can't do it, we'll say so and point you right.</li>
+          <li><strong>Child &amp; pet-safe:</strong> Professional products, residue-free when dry.</li>
+          <li><strong>Comprehensive allergen removal:</strong> Great for sensitive homes. Less dust, dander and pollen.</li>
         </ul>
+        <div class="note-card" style="margin-top:36px">
+          <h3>How long does it take to dry?</h3>
+          <p>Most rugs and mattresses dry within 4 to 8 hours, depending on thickness, material and airflow. We'll help optimise ventilation to speed things up.</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">What makes us different?</h2>
-      <ul class="space-y-3 text-lg">
-        <li><strong>Local, not a franchise:</strong> More time, more care, better results.</li>
-        <li><strong>Ethical operators:</strong> Straight talk; if we can’t do it, we’ll say so and point you right.</li>
-        <li><strong>Child & pet-safe:</strong> Professional products, residue-free when dry.</li>
-        <li><strong>Comprehensive allergen removal:</strong> Great for sensitive homes—less dust, dander and pollen.</li>
-      </ul>
-    </section>
-
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift">How long does it take to dry?</h2>
-      <p class="text-lg">Most rugs and mattresses dry within <strong>4–8 hours</strong>, depending on thickness, material and airflow. We’ll help optimise ventilation to speed things up.</p>
-    </section>
-
-    <!-- Gallery -->
-    <section class="glass-panel p-6 md:p-12">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] text-lift mb-8 text-center">Our Rug & Mattress Cleaning Gallery</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery01.png" alt="Rug & Mattress Cleaning 1" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery02.png" alt="Rug & Mattress Cleaning 2" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery03.png" alt="Rug & Mattress Cleaning 3" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery04.png" alt="Rug & Mattress Cleaning 4" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery05.png" alt="Rug & Mattress Cleaning 5" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery06.png" alt="Rug & Mattress Cleaning 6" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery07.png" alt="Rug & Mattress Cleaning 7" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery08.png" alt="Rug & Mattress Cleaning 8" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery09.png" alt="Rug & Mattress Cleaning 9" class="rounded-lg w-full h-auto object-cover"/></div>
-        <div class="glass-panel p-4 flex justify-center items-center"><img src="rm-gallery10.png" alt="Rug & Mattress Cleaning 10" class="rounded-lg w-full h-auto object-cover"/></div>
-      </div>
-    </section>
-
-    <section class="text-center">
-      <a href="index.html#quote" class="inline-block bg-[var(--primary-blue)] text-white font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all text-xl">
-        Book Now
-      </a>
-    </section>
-  </main>
-
-  <footer class="text-center py-8 text-gray-400">
-    <p>&copy; 2025 Lefties Carpet Cleaning. All rights reserved.</p>
-    <p class="text-sm mt-1">ABN: [Your ABN Here] | Hervey Bay, QLD</p>
+  <section class="band ink cta-band on-ink" id="quote">
+    <div class="wrap">
+      <h2>Ready to breathe easy?</h2>
+      <p>Free quotes for Hervey Bay and the Fraser Coast. A quick photo of the fabric or stain gets you the fastest answer.</p>
+      <a href="tel:0417220012" class="btn btn-solid phone">0417 220 012</a>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="wrap">&copy; 2026 Lefties Carpet Cleaning &bull; Hervey Bay &amp; Fraser Coast</div>
   </footer>
 
   <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-
-    function openMobileMenu(){
-      overlay.classList.remove('overlay-hidden');
-      requestAnimationFrame(()=> panel.classList.add('panel-open'));
-      hamburgerIcon?.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileMenu(){
-      panel.classList.remove('panel-open');
-      setTimeout(()=> overlay.classList.add('overlay-hidden'), 300);
-      hamburgerIcon?.classList.remove('open');
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
-    }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('overlay-hidden');
-      isOpen ? closeMobileMenu() : openMobileMenu();
-    }
-    mobileMenuButton?.addEventListener('click', toggleMobileMenu);
-    overlay?.addEventListener('click', e => { if (e.target === overlay) closeMobileMenu(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
+    }));
   </script>
+  <script src="assets/js/fx.js" defer></script>
 </body>
 </html>
