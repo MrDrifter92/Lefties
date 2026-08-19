@@ -1,182 +1,174 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-AU">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Lefties Carpet Cleaning</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-blue: #0071B6;
-      --glass-glow: rgba(0, 113, 182, 0.3);
-      --text-main: #e0e0e0;
-      --bg-dark: #0f172a;
-    }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-      position: relative;
-    }
-    /* Background video */
-    .body-video-background {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: -2;
-      transform: translateZ(0);
-      object-fit: cover;
-      opacity: 0.25;
-    }
-    /* Glass panel */
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .text-lift { text-shadow: 0 0 8px rgba(0, 113, 182, 0.5); }
-    .service-img {
-      width: 100%; height: auto; object-fit: cover;
-      border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,.1);
-    }
-
-    /* Hamburger icon */
-    .hamburger-icon{
-      display:flex; flex-direction:column; justify-content:space-between;
-      width:2rem; height:1.5rem; cursor:pointer; transition:all .3s ease-in-out; position:relative; z-index:20;
-    }
-    .hamburger-icon span{height:2px; width:100%; background:#fff; border-radius:9999px; transition:all .3s ease-in-out;}
-    .hamburger-icon.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-    .hamburger-icon.open span:nth-child(2){opacity:0;}
-    .hamburger-icon.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-
-    /* Fixed header (match index, tighter) */
-    header{
-      position:fixed; top:0; left:0; width:100%; z-index:100; padding:.5rem;
-    }
-    header nav{
-      background:rgba(30,41,59,.65);
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border-radius:1.5rem; border:1px solid rgba(255,255,255,.1);
-      box-shadow:0 10px 28px rgba(0,0,0,.4);
-      max-width:80rem; margin:0 auto; padding:.25rem 1rem; /* tighter */
-      display:flex; justify-content:space-between; align-items:center; position:relative; min-height:80px; /* was 100px */
-    }
-    header nav .logo-container{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:10;}
-    header nav .logo-container img{height:9rem; width:auto;}
-    header nav .flex-1.flex.justify-end{z-index:20;}
-
-    /* Make space for fixed header (reduced) */
-    main{ padding-top:120px; position:relative; z-index:1; } /* was 150px */
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Lefties | Owner-Operated Carpet Cleaning, Hervey Bay</title>
+<meta name="description" content="Lefties is an owner-operated carpet and upholstery cleaning business in Hervey Bay. Local, insured, and straight with you about what can and can't be fixed."/>
+<link rel="canonical" href="https://leftiesservices.com.au/about-us.html"/>
+<meta name="robots" content="index,follow"/>
+<meta name="theme-color" content="#10243E"/>
+<meta property="og:site_name" content="Lefties Carpet Cleaning"/>
+<meta property="og:title" content="About Lefties | Owner-Operated Carpet Cleaning, Hervey Bay"/>
+<meta property="og:description" content="Lefties is an owner-operated carpet and upholstery cleaning business in Hervey Bay. Local, insured, and straight with you about what can and can't be fixed."/>
+<meta property="og:image" content="https://leftiesservices.com.au/assets/img/og-image.jpg"/>
+<meta property="og:url" content="https://leftiesservices.com.au/about-us.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="en_AU"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="About Lefties | Owner-Operated Carpet Cleaning, Hervey Bay"/>
+<meta name="twitter:description" content="Lefties is an owner-operated carpet and upholstery cleaning business in Hervey Bay. Local, insured, and straight with you about what can and can't be fixed."/>
+<meta name="twitter:image" content="https://leftiesservices.com.au/assets/img/og-image.jpg"/>
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32"/>
+<link rel="icon" href="assets/img/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preload" href="assets/fonts/RocGrotesk-Regular.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="assets/fonts/RocGrotesk-Medium.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="assets/css/lefties.css"/>
 </head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="wrap">
+<a href="index.html" class="logo"><img src="assets/img/logo.png" alt="Lefties Carpet Cleaning" width="440" height="193"/></a>
+<nav class="nav-links" aria-label="Main">
+<a href="services.html">Services</a>
+<a href="commercial.html">Commercial</a>
+<a href="about-us.html" aria-current="page">About</a>
+<a href="contact-us.html">Contact</a>
+<a href="quote.html" class="btn btn-solid">Get a Quote</a>
+</nav>
+<button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</header>
 
-  <body class="bg-[#0f172a] text-white" style="font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;">
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="commercial.html">Commercial</a>
+<a href="about-us.html">About</a>
+<a href="contact-us.html">Contact</a>
+<a href="quote.html">Get a Quote</a>
+<a href="tel:0417220012" class="btn btn-solid">Call 0417 220 012</a>
+</nav>
+<main id="main">
+<section class="hero solo seam-bottom on-ink">
+<div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="wrap"><div style="max-width:740px">
+<span class="eyebrow">About Lefties</span>
+<h1>We clean like we live here. Because we do.</h1>
+<p class="lede">Lefties is owner-operated out of Hervey Bay. No franchise fee, no head-office script, no upsell targets. Just careful work on carpets, lounges and fabric that people actually live on.</p>
+</div></div>
+</section>
 
-<header class="deep-glass fixed top-0 left-0 w-full z-[100] m-2 md:m-3">
-    <nav class="container mx-auto px-4 py-1 md:px-6 md:py-2 flex justify-between items-center relative">
-      <a href="index.html#home">
-        <img src="core-logo-transparent.png" alt="Lefties Logo" class="h-12 md:h-14 w-auto">
-      </a>
-
-      <!-- Mobile Hamburger -->
-      <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[110]">
-        <div id="hamburger-icon" class="hamburger-icon">
-          <span></span><span></span><span></span>
-        </div>
-      </button>
-
-      <!-- Desktop Menu (UPDATED ONLY THIS LIST) -->
-      <div class="hidden md:flex space-x-8 text-white">
-        <a href="index.html" class="hover:text-[var(--primary-blue)]">Home</a>
-        <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]">Carpet Cleaning</a>
-        <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]">Upholstery and Lounges</a>
-        <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]">Stain and Odour</a>
-        <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]">Rug and Mattresses</a>
-        <a href="commercial.html" class="hover:text-[var(--primary-blue)]">Commercial</a>
-        <a href="contact-us.html" class="hover:text-[var(--primary-blue)]">Contact Us</a>
-      </div>
-    </nav>
-  </header>
-<!-- Mobile Menu Overlay (drawer) -->
-  <div id="mobile-menu-overlay"
-       class="fixed inset-0 z-[90] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300">
-    <!-- Slide-in panel -->
-    <div id="mobile-menu-panel"
-         class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-[#0f172a] p-8
-                transform translate-x-full transition-transform duration-300 flex flex-col gap-8 text-white text-2xl
-                pt-24 md:pt-28">
-      <!-- UPDATED ONLY THIS LIST -->
-      <a href="index.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Home</a>
-      <a href="carpet-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Carpet Cleaning</a>
-      <a href="upholstery-cleaning.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Upholstery and Lounges</a>
-      <a href="stain-treatment.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Stain and Odour</a>
-      <a href="rugs-mattresses.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Rug and Mattresses</a>
-      <a href="commercial.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Commercial</a>
-      <a href="contact-us.html" class="hover:text-[var(--primary-blue)]" onclick="closeMobileMenu()">Contact Us</a>
-    </div>
-  </div>
-
-        <main class="relative z-0">
-          <section class="max-w-5xl mx-auto px-4 pt-28 md:pt-36">
-            <a href="services.html" class="inline-block text-sm text-gray-300 hover:text-[var(--primary-blue)] mb-6">&larr; Back to Services</a>
-            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">About Lefties</h1>
-            <p class="text-gray-300 mb-8">This page is a placeholder from the Fix Pack so nothing 404s while we finish content. It matches the dark theme, Nunito, and the slide-in menu.</p>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur">
-              
-        <p>Local, insured, and proudly Hervey Bay. We clean like we live here. Long-term trust over short-term upsells.</p>
-    
-            </div>
-          </section>
-        </main>
-        
-
-  <footer class="mt-24">
-    <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 py-10 border-t border-white/10">
-      <p>&copy; 2025 Lefties Carpet Cleaning — Hervey Bay. ABN pending. All rights reserved.</p>
-    </div>
-  </footer>
-
-<script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const panel   = document.getElementById('mobile-menu-panel');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-
-    function openMobileMenu(){
-      if(!overlay || !panel) return;
-      overlay.classList.remove('pointer-events-none','opacity-0');
-      requestAnimationFrame(()=>{ panel.classList.remove('translate-x-full'); });
-      if (hamburgerIcon) hamburgerIcon.classList.add('open');
-    }
-    function closeMobileMenu(){
-      if(!overlay || !panel) return;
-      panel.classList.add('translate-x-full');
-      setTimeout(()=>{
-        overlay.classList.add('opacity-0');
-        overlay.classList.add('pointer-events-none');
-      },300);
-      if (hamburgerIcon) hamburgerIcon.classList.remove('open');
-    }
-    function toggleMobileMenu(){
-      const isOpen = !overlay.classList.contains('opacity-0');
-      isOpen ? closeMobileMenu() : openMobileMenu();
-    }
-    if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMobileMenu);
-    if (overlay) overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeMobileMenu(); });
-    window.closeMobileMenu = closeMobileMenu;
-  </script>
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span>About</nav></div>
 
 
+<section class="band">
+<div class="wrap two-col">
+<div>
+<span class="eyebrow">Owner-operated</span>
+<h2>Meet Adam.</h2>
+<p style="margin-top:18px">Upholstery cleaning and restoration is my lane. Different fabrics wear differently, and a lot can go wrong if a job gets rushed &mdash; shrinkage, browning, colour bleed, or a lounge that's still damp two days later. I'd rather take the extra half hour and get it right.</p>
+<p style="margin-top:16px">Every job is cleaned, groomed and reset properly so furniture actually feels right again, not just looks better in the moment. When you ring Lefties, you get me. I quote the job, I do the job, and I'm the one you call if something isn't right.</p>
+</div>
+<div>
+<span class="eyebrow">How we operate</span>
+<h2>The short version.</h2>
+<ul class="feature-list" style="margin-top:36px">
+<li><strong>Local, not a franchise.</strong> More time per job, and the money stays on the Fraser Coast.</li>
+<li><strong>Honest assessments.</strong> If a stain is permanently dyed into the fibre, you'll hear that before we start, not after you've paid.</li>
+<li><strong>Long-term trust over short-term upsells.</strong> Most of our work is repeat customers and their neighbours.</li>
+<li><strong>Properly credentialed.</strong> Fully insured, National Police Check, Blue Card accredited, WoolSafe-approved chemistry.</li>
+<li><strong>Family and pet safe.</strong> Professional products that are non-toxic and residue-free once dry.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<div class="trust">
+<div class="wrap"><ul>
+<li>Fully insured</li>
+<li>Police checked</li>
+<li>Blue Card accredited</li>
+<li>WoolSafe products</li>
+<li>Owner-operated</li>
+</ul></div>
+</div>
+
+
+<section class="band foam">
+<div class="wrap">
+<div class="section-head center"><span class="eyebrow">The proof</span>
+<h2>Judge us on the work.</h2>
+<p>Every one of these is a real job from a real Fraser Coast home.</p></div>
+<div class="proof-grid">
+<figure><img src="assets/img/proof-carpet.jpg" alt="Before and after carpet clean" loading="lazy"/></figure>
+<figure><img src="assets/img/proof-upholstery.jpg" alt="Before and after upholstery clean" loading="lazy"/></figure>
+<figure><img src="assets/img/proof-stain.jpg" alt="Before and after stain removal" loading="lazy"/></figure>
+<figure><img src="assets/img/proof-fabric.jpg" alt="Before and after fabric revival" loading="lazy"/></figure>
+</div>
+</div>
+</section>
+
+<section class="band foam tight">
+<div class="wrap">
+<div class="section-head center"><span class="eyebrow">Where we work</span>
+<h2>Across the Fraser Coast.</h2></div>
+<div class="areas"><span>Hervey Bay</span><span>Pialba</span><span>Torquay</span><span>Scarness</span><span>Urangan</span><span>Point Vernon</span><span>Kawungan</span><span>Urraween</span><span>Eli Waters</span><span>Dundowran</span><span>Nikenbah</span><span>Booral</span><span>River Heads</span><span>Burrum Heads</span><span>Toogoom</span><span>Maryborough</span><span>Howard</span><span>Tiaro</span></div>
+</div>
+</section>
+
+
+<section class="band ink cta-band on-ink" id="quote">
+<div class="wrap">
+<h2>Ready to breathe easy?</h2>
+<p>Free quotes across Hervey Bay and the Fraser Coast. Send a photo of the fabric or stain and you'll get the fastest answer.</p>
+<div class="cta-actions">
+<a href="tel:0417220012" class="btn btn-solid phone">0417 220 012</a>
+<a href="quote.html" class="btn btn-ghost btn-lg">Get a quote online</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<div class="cols">
+<div>
+<img class="flogo" src="assets/img/logo-reverse.png" alt="Lefties Carpet Cleaning" width="440" height="193" loading="lazy"/>
+<p>Carpet, upholstery and fabric revival across Hervey Bay and the Fraser Coast. Owner-operated, fully insured, and straight with you about what can and can't be fixed.</p>
+<div class="social-row" style="margin-top:18px">
+<a href="https://www.facebook.com/leftiesservices/" target="_blank" rel="noopener" class="social-btn fb" aria-label="Lefties on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.675 0h-21.35C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24h11.495v-9.294h-3.128v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg> Facebook</a>
+<a href="https://www.tiktok.com/@leftiesservices" target="_blank" rel="noopener" class="social-btn tt" aria-label="Lefties on TikTok"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0h88a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/></svg> TikTok</a>
+</div>
+</div>
+<div><h4>Services</h4><ul><li><a href="carpet-cleaning.html">Carpet Cleaning</a></li><li><a href="upholstery-cleaning.html">Upholstery &amp; Lounges</a></li><li><a href="stain-treatment.html">Stain &amp; Odour</a></li><li><a href="rugs-mattresses.html">Rugs &amp; Mattresses</a></li><li><a href="commercial.html">Commercial</a></li></ul></div>
+<div><h4>Company</h4><ul><li><a href="about-us.html">About Lefties</a></li><li><a href="faq.html">FAQ</a></li><li><a href="aftercare.html">Aftercare Guide</a></li><li><a href="service-agreements.html">Service Agreements</a></li><li><a href="contact-us.html">Contact</a></li></ul></div>
+<div>
+<h4>Get in touch</h4>
+<ul>
+<li><a href="tel:0417220012">0417 220 012</a></li>
+<li><a href="tel:0407796678">0407 796 678</a></li>
+<li><a href="mailto:hello@leftiesservices.com.au">hello@leftiesservices.com.au</a></li>
+<li>Mon&ndash;Sat, 7am&ndash;6pm</li>
+</ul>
+</div>
+</div>
+<div class="legal">
+<span>&copy; 2026 Lefties Carpet Cleaning &bull; Hervey Bay &amp; Fraser Coast, QLD</span>
+<span>Mobile service &bull; Fully insured &bull; Blue Card accredited</span>
+</div>
+</div>
+</footer>
+
+<div class="callbar">
+<a href="tel:0417220012" class="btn btn-solid">Call now</a>
+<a href="quote.html" class="btn btn-ghost">Get a quote</a>
+</div>
+
+<script src="assets/js/lefties.js"></script>
 </body>
 </html>

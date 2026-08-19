@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Send a Review Request | Lefties (Internal Tool)</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#10243E"/>
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32"/>
+<link rel="icon" href="assets/img/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="preload" href="assets/fonts/RocGrotesk-Regular.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="assets/fonts/RocGrotesk-Medium.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="assets/css/lefties.css"/>
+</head>
+<body>
+<header class="site-header">
+<div class="wrap">
+<a href="index.html" class="logo"><img src="assets/img/logo.png" alt="Lefties Carpet Cleaning" width="440" height="193"/></a>
+</div>
+</header>
+<main id="main">
+<section class="band" style="padding-top:40px">
+<div class="wrap" style="max-width:560px">
+<div class="section-head center">
+<span class="eyebrow">Internal tool &mdash; not for customers</span>
+<h2>Send a review request.</h2>
+<p>Pop the customer's first name in, then copy the message or open it straight in Messages.</p>
+</div>
+
+<div class="estimator-card">
+<div class="field" style="margin-bottom:20px">
+<label for="reviewName">Customer's first name</label>
+<input id="reviewName" type="text" placeholder="e.g. Sarah" autocomplete="off"/>
+</div>
+<div class="field" style="margin-bottom:6px">
+<label for="reviewPreview">Message preview</label>
+<textarea id="reviewPreview" rows="4" readonly style="background:#F4F8FB"></textarea>
+</div>
+<p class="estimator-note" id="reviewLinkWarning" style="display:none;color:#C0392B;text-align:left;margin-top:0 0 14px">
+Heads up: GOOGLE_REVIEW_LINK is still set to the placeholder in assets/js/lefties.js. Add your real Google review link there before using this for real.
+</p>
+<button type="button" id="reviewCopyBtn" class="btn btn-solid btn-block" style="margin-top:16px">Copy message</button>
+<a id="reviewSmsBtn" href="sms:?&body=" class="btn btn-ghost btn-block" style="margin-top:10px">Open in Messages</a>
+<p class="estimator-note">Opens a blank message with the text ready &mdash; pick the customer's thread once it opens.</p>
+</div>
+
+<p style="text-align:center;margin-top:28px"><a href="index.html" class="btn btn-ghost">Back to the site</a></p>
+</div>
+</section>
+</main>
+<script src="assets/js/lefties.js"></script>
+</body>
+</html>

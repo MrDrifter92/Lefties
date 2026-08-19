@@ -1,8 +1,6 @@
 User-agent: *
-Disallow: /field.os.html
-Disallow: /dashboard
-Disallow: /reports/
-Disallow: /os/
 Allow: /
+Disallow: /thank-you.html
+Disallow: /review-request.html
 
 Sitemap: https://leftiesservices.com.au/sitemap.xml
