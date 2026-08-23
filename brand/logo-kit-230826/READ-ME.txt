@@ -1,0 +1,69 @@
+LEFTIES CARPET CLEANING — LOGO KIT
+=================================
+Built from your own artwork. Every file below is your real logo — the
+script, the bubble and the subtitle are your files, re-cut and re-coloured,
+not re-typed in a substitute font.
+
+COLOURS
+  Ink Navy       #10243E   subtitle, dark surfaces
+  Reef Blue      #0071B6   mid-tone of the mark and script
+  Deep Blue      #103C90   the darker end of the gradient
+  Sky Accent     #6BC6FF   highlight
+  Rule Grey-Blue #8A93C7   the flanking rules either side of CARPET CLEANING
+  Warm Grey      #B5B5B5   "Upholstery & Fabric Revival"
+
+FULL LOCKUP  (mark + script + CARPET CLEANING + Upholstery & Fabric Revival)
+  lefties-primary.png              2279x916   your supplied lockup, trimmed
+  lefties-primary-white.png                   all-white, for navy/photo/dark
+  lefties-primary-black.png                   all-black, 1-colour print
+
+HORIZONTAL  (mark left, script right — for wide spaces: web header, van side)
+  lefties-horizontal.png
+  lefties-horizontal-white.png
+  lefties-horizontal-black.png
+
+STACKED  (mark on top, centred — shirt front, signage, square spaces)
+  lefties-stacked.png              2180x2050
+  lefties-stacked-white.png
+  lefties-stacked-black.png
+
+THE MARK ALONE  (the wave bubble)
+  lefties-mark.png                 1110x1096
+  lefties-mark-white.png
+  lefties-mark-black.png
+
+THE SCRIPT ALONE
+  lefties-script.png               2532x899
+  lefties-script-white.png
+
+ICONS & PROFILES
+  lefties-app-icon.png              512x512   white rounded tile
+  lefties-app-icon-navy.png         512x512   navy rounded tile, white mark
+  lefties-favicon-512.png           512x512   mark only, transparent
+  lefties-social-avatar.png        1000x1000  white circle
+  lefties-social-avatar-navy.png   1000x1000  navy circle, white mark
+
+RULES
+  Clear space   half the bubble's width on every side
+  Minimum size  full lockup 40mm print / 180px screen
+                below that use the horizontal, then the mark alone
+  Favicon       the wave holds down to 32px
+
+A NOTE ON THE MONO FILES
+  In the original artwork "Upholstery & Fabric Revival" is drawn at about
+  30% opacity — correct as light grey in the full-colour lockup, but useless
+  for 1-colour work. Every -white and -black file has that line lifted to
+  full ink so it stitches, stamps and reads on navy. The full-colour files
+  are untouched.
+
+DON'T
+  Never re-type "Lefties" in any font — always use these image files
+  Never add gloss, extra gradients or drop shadows
+  Never stretch or condense
+  Never recolour outside the palette above
+
+STILL RASTER, NOT VECTOR
+  These are high-resolution PNGs made from the PNGs you sent. For signage,
+  vehicle wrap or embroidery a signwriter will want true vector. Ask whoever
+  drew the original for the .ai or .eps file, send me that, and the whole kit
+  can be re-cut as SVG/PDF at any size.
