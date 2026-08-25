@@ -165,9 +165,18 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 /* ---------- header ---------- */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,.94);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
   border-bottom: 1px solid var(--line);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .site-header, .quote-card {
+    background: rgba(255,255,255,.98) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
 }
 .site-header .wrap {
   display: flex; align-items: center; justify-content: space-between; height: 76px;
@@ -221,6 +230,24 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 
 /* ---------- hero ---------- */
 .hero { background: var(--ink); color: #E4EDF6; position: relative; overflow: hidden; }
+/* aurora — a slow-moving gradient built only from existing brand tokens, so
+   the header/quote-card glass over it (below) has something to refract */
+.hero::before {
+  content: ''; position: absolute; inset: -20%; z-index: 0;
+  background:
+    radial-gradient(circle at 18% 25%, rgba(107,198,255,.55), transparent 42%),
+    radial-gradient(circle at 82% 15%, rgba(244,180,0,.26), transparent 38%),
+    radial-gradient(circle at 65% 85%, rgba(0,113,182,.6), transparent 48%),
+    radial-gradient(circle at 30% 90%, rgba(16,36,62,.7), transparent 45%),
+    linear-gradient(135deg, var(--ink) 10%, var(--deep) 60%, var(--ink) 100%);
+  background-size: 180% 180%;
+  animation: auroraShift 13s ease-in-out infinite alternate;
+}
+@keyframes auroraShift {
+  0% { background-position: 0% 30%; }
+  100% { background-position: 100% 70%; }
+}
+.bubbles { z-index: 1; }
 .hero .wrap {
   display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 52px;
   align-items: center; padding-top: 72px; padding-bottom: 92px;
@@ -231,6 +258,22 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 .hero p.lede { font-size: 1.13rem; margin: 20px 0 30px; max-width: 34em; color: #C3D3E4; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 .hero-note { margin-top: 20px; font-size: .9rem; color: #9FB6CD; }
+
+/* hero entrance — plays once on load, distinct from the scroll-triggered
+   .reveal system below since above-the-fold content can't wait for scroll */
+.hero .eyebrow, .hero h1, .hero p.lede, .hero .hero-actions, .hero .hero-note, .hero .quote-card {
+  animation: heroIn .7s cubic-bezier(.22,.9,.3,1) both;
+}
+.hero .eyebrow { animation-delay: .05s; }
+.hero h1 { animation-delay: .13s; }
+.hero p.lede { animation-delay: .21s; }
+.hero .hero-actions { animation-delay: .29s; }
+.hero .hero-note { animation-delay: .35s; }
+.hero .quote-card { animation-delay: .2s; }
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
 
 .seam-media {
   clip-path: polygon(7% 0, 100% 0, 100% 100%, 0 100%);
@@ -488,12 +531,16 @@ section.band.tight { padding: 52px 0; }
    QUOTE FORM — the conversion mechanism
    ============================================================ */
 .quote-card {
-  background: var(--paper); border-radius: var(--radius);
+  background: rgba(255,255,255,.14); border-radius: var(--radius);
   padding: 30px 28px 32px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55);
   border-top: 5px solid var(--reef);
+  border: 1px solid rgba(255,255,255,.25); border-top: 5px solid var(--reef);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
 }
+.quote-card h2, .quote-card .sub { color: #fff; }
 .quote-card h2 { font-size: 1.5rem; margin-bottom: 6px; }
-.quote-card .sub { font-size: .92rem; margin-bottom: 22px; }
+.quote-card .sub { font-size: .92rem; margin-bottom: 22px; color: #C3D3E4; }
 
 .field { margin-bottom: 16px; }
 .field label {
@@ -519,6 +566,14 @@ section.band.tight { padding: 52px 0; }
 .field .err-msg { display: none; color: #C0392B; font-size: .84rem; margin-top: 6px; font-weight: 700; }
 .field.error .err-msg { display: block; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* the quote-card is now glass over the dark hero aurora — labels/hints on
+   its own translucent surface need the on-ink treatment; the inputs
+   themselves stay opaque --paper (set above) so typed text is unaffected */
+.on-ink .field label { color: #fff; }
+.on-ink .field .hint { color: #9FB6CD; }
+.on-ink .form-fineprint { color: #9FB6CD; }
+.on-ink .form-or { color: #9FB6CD; }
+.on-ink .form-or::before, .on-ink .form-or::after { background: rgba(255,255,255,.2); }
 
 .form-status {
   display: none; margin-top: 16px; padding: 14px 16px;
@@ -701,8 +756,8 @@ section.band:not(.foam) .areas span { background: var(--foam); }
    MOTION
    ============================================================ */
 .reveal {
-  opacity: 0; transform: translateY(26px);
-  transition: opacity .6s cubic-bezier(.22,.9,.3,1), transform .6s cubic-bezier(.22,.9,.3,1);
+  opacity: 0; transform: translateY(40px) scale(.97);
+  transition: opacity .7s cubic-bezier(.22,.9,.3,1), transform .7s cubic-bezier(.22,.9,.3,1);
 }
 .reveal.in { opacity: 1; transform: none; }
 

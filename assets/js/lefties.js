@@ -161,7 +161,7 @@ window.LEFTIES = {
   if (!reduce && 'IntersectionObserver' in window) {
     targets.forEach(function (el, i) {
       el.classList.add('reveal');
-      el.style.transitionDelay = (i % 4) * 70 + 'ms';
+      el.style.transitionDelay = (i % 4) * 90 + 'ms';
     });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
