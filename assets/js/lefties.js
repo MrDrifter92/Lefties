@@ -178,12 +178,16 @@ window.LEFTIES = {
     }, 3000);
   }
 
-  /* ---------- hero parallax ---------- */
+  /* ---------- hero parallax (desktop only) ---------- */
   // Layers drift at different speeds as the hero scrolls out of view: the
   // aurora (furthest back) moves slowest, bubbles a little faster, hero
   // content stays put (it's the foreground, scrolls at the normal rate).
+  // Skipped on narrow viewports: mobile browsers resize the visual viewport
+  // as you scroll (address bar show/hide), which fights a scroll-position-
+  // driven effect and reads as the page "wobbling" rather than a smooth
+  // parallax — not worth it below the site's own 720px mobile breakpoint.
   var heroEl = document.querySelector('.hero');
-  if (heroEl && !reduce) {
+  if (heroEl && !reduce && window.matchMedia('(min-width: 721px)').matches) {
     var ticking = false;
     var updateParallax = function () {
       ticking = false;
@@ -197,6 +201,19 @@ window.LEFTIES = {
       if (!ticking) { ticking = true; requestAnimationFrame(updateParallax); }
     }, { passive: true });
     updateParallax();
+  }
+
+  /* ---------- mobile call bar: stay out of the way until scrolled past hero ---------- */
+  var callbar = document.querySelector('.callbar');
+  if (heroEl && callbar) {
+    if ('IntersectionObserver' in window) {
+      var cbIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { callbar.classList.toggle('show', !e.isIntersecting); });
+      }, { threshold: 0 });
+      cbIo.observe(heroEl);
+    } else {
+      callbar.classList.add('show'); // no IO support — fall back to always-visible
+    }
   }
 
   // Owner photo is optional; collapse the layout if it hasn't been added yet.
