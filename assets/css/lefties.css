@@ -1,6 +1,9 @@
 /* ============================================================
    LEFTIES CARPET CLEANING — site styles
-   Palette: Ink #10243E / Reef #0071B6 / Foam #EDF4FA / Paper #FFF
+   Palette: from the Lefties logo kit —
+            Ink Navy #10243E · Reef Blue #0071B6 · Deep Blue #103C90
+            Sky #6BC6FF · Rule Grey-Blue #8A93C7 · Warm Grey #B5B5B5
+            plus Foam #EDF4FA and Paper #FFF as surface tints
    Type:    Roc Grotesk, self-hosted (400 / 500 / 700 / 800)
    Motif:   the wipe seam — a diagonal edge, echoing the
             before/after line in the work itself.
@@ -12,6 +15,12 @@
   --reef: #0071B6;
   --reef-dark: #005A92;
   --reef-lite: #6BC6FF;
+  /* The remaining three from the logo kit. --deep is the dark end of the wave
+     bubble's gradient; --rule is the pair of lines flanking CARPET CLEANING;
+     --warm-grey is the "Upholstery & Fabric Revival" support line. */
+  --deep: #103C90;
+  --rule: #8A93C7;
+  --warm-grey: #B5B5B5;
   --foam: #EDF4FA;
   --paper: #FFFFFF;
   --slate: #44576B;
@@ -29,7 +38,13 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+/* <picture> is a wrapper with no box of its own. display:contents takes it out
+   of the layout tree so every existing `img` rule (grid cells, object-fit
+   thumbs, seam media) keeps sizing the <img> exactly as it did before the
+   WebP fallbacks were added. */
+picture { display: contents; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -147,9 +162,16 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .site-header .wrap {
-  display: flex; align-items: center; justify-content: space-between; height: 74px;
+  display: flex; align-items: center; justify-content: space-between; height: 76px;
 }
-.site-header .logo img { height: 46px; width: auto; }
+/* Mark + script only — no support line, so it stays legible all the way down
+   and needs no responsive swap. The full lockup lives in the footer. */
+.site-header .logo img { height: 46px; width: auto; display: block; }
+@media (max-width: 640px) {
+  .site-header .wrap { height: 68px; }
+  .site-header .logo img { height: 40px; }
+  .site-footer img.flogo { width: 190px; }
+}
 .nav-links {
   font-family: var(--font-display);
   display: flex; align-items: center; gap: 26px;
@@ -179,7 +201,7 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 .mobile-menu {
   position: fixed; inset: 0; background: var(--ink); z-index: 200;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 22px; opacity: 0; visibility: hidden; overflow-y: auto; padding: 90px 24px 40px;
+  gap: 22px; opacity: 0; visibility: hidden; overflow-y: auto; padding: 92px 24px 40px;
   transition: opacity .25s ease, visibility .25s ease;
 }
 .mobile-menu.open { opacity: 1; visibility: visible; }
@@ -591,7 +613,7 @@ section.band:not(.foam) .areas span { background: var(--foam); }
   display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
   gap: 40px; padding-bottom: 40px;
 }
-.site-footer img.flogo { height: 52px; width: auto; margin-bottom: 16px; }
+.site-footer img.flogo { width: 210px; height: auto; margin-bottom: 16px; }
 .site-footer h4 {
   color: #fff; font-size: .76rem; letter-spacing: .2em;
   text-transform: uppercase; margin-bottom: 16px;
@@ -655,7 +677,7 @@ section.band:not(.foam) .areas span { background: var(--foam); }
 .bubbles i {
   position: absolute; bottom: -80px; border-radius: 50%;
   border: 2px solid rgba(127,196,238,.35);
-  background: radial-gradient(circle at 32% 30%, rgba(255,255,255,.28), rgba(127,196,238,.06) 60%);
+  background: radial-gradient(circle at 32% 30%, rgba(107,198,255,.30), rgba(16,60,144,.06) 60%);
   animation: rise linear infinite;
 }
 .bubbles i:nth-child(1) { left: 6%;  width: 26px; height: 26px; animation-duration: 13s; }
@@ -739,3 +761,83 @@ section.band:not(.foam) .areas span { background: var(--foam); }
 /* Owner photo is optional — collapse the grid cleanly if it's not there yet.
    Drop a portrait at assets/img/adam.jpg and the two-column layout returns. */
 .meet.no-photo { grid-template-columns: 1fr; max-width: 60ch; }
+
+
+/* ============================================================
+   COMMERCIAL PAGE COMPONENTS
+   Added for the commercial information pack content.
+   ============================================================ */
+
+/* the two-offer chooser */
+.offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 760px) { .offer-grid { grid-template-columns: 1fr; } }
+.offer-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-top: 3px solid var(--reef);
+  border-radius: var(--radius); padding: 28px 26px 30px;
+  box-shadow: 0 20px 44px -30px rgba(16,36,62,.34);
+}
+.offer-card .tag {
+  font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  font-weight: 700; color: var(--reef); display: block; margin-bottom: 14px;
+}
+.offer-card .figure {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 3.4rem); line-height: 1; color: var(--reef);
+}
+.offer-card .figure span {
+  display: block; font-size: 1.05rem; font-weight: 700;
+  color: var(--ink); margin-top: 8px;
+}
+.offer-card p { margin-top: 14px; }
+.offer-card .best-if {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.offer-card .best-if strong {
+  display: block; font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--slate); margin-bottom: 6px;
+}
+.on-ink .offer-card { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); }
+.on-ink .offer-card .figure span, .on-ink .offer-card p { color: #C3D3E4; }
+.on-ink .offer-card .figure { color: var(--reef-lite); }
+.on-ink .offer-card .best-if { border-top-color: rgba(255,255,255,.16); }
+.on-ink .offer-card .best-if strong { color: #8DA4BC; }
+
+/* the 1-2 hours / 6+ hours / 0 franchise fees trio */
+.stat-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 760px) { .stat-trio { grid-template-columns: 1fr; } }
+.stat-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-left: 3px solid var(--reef);
+  border-radius: var(--radius); padding: 24px 22px 26px;
+}
+.stat-card.muted { border-left-color: var(--warm-grey); }
+.stat-card .big {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.9rem; line-height: 1.05; color: var(--reef); margin-bottom: 10px;
+}
+.stat-card.muted .big { color: var(--slate); }
+.stat-card p { font-size: .95rem; }
+
+.rate-note { margin-top: 14px; font-size: .88rem; color: var(--slate); }
+
+/* captioned job photograph */
+.shot { margin: 0; border-radius: var(--radius); overflow: hidden; position: relative; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(16,36,62,.88), rgba(16,36,62,0));
+  color: #fff; font-size: .87rem; padding: 34px 18px 14px;
+}
+.shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+@media (max-width: 760px) { .shot-pair { grid-template-columns: 1fr; } }
+
+/* credential grid */
+.cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 32px; }
+@media (max-width: 860px) { .cred-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cred-grid { grid-template-columns: 1fr; } }
+.cred-grid h3 {
+  font-size: 1.02rem; margin-bottom: 6px;
+  padding-top: 14px; border-top: 2px solid var(--rule);
+}
+.cred-grid p { font-size: .93rem; }
