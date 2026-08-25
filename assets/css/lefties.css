@@ -242,12 +242,14 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
     linear-gradient(135deg, var(--ink) 10%, var(--deep) 60%, var(--ink) 100%);
   background-size: 180% 180%;
   animation: auroraShift 13s ease-in-out infinite alternate;
+  /* scroll parallax — furthest layer, drifts slowest (set via JS as you scroll) */
+  transform: translateY(var(--px-aurora, 0px));
 }
 @keyframes auroraShift {
   0% { background-position: 0% 30%; }
   100% { background-position: 100% 70%; }
 }
-.bubbles { z-index: 1; }
+.bubbles { z-index: 1; transform: translateY(var(--px-bubbles, 0px)); }
 .hero .wrap {
   display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 52px;
   align-items: center; padding-top: 72px; padding-bottom: 92px;

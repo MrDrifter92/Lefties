@@ -178,6 +178,27 @@ window.LEFTIES = {
     }, 3000);
   }
 
+  /* ---------- hero parallax ---------- */
+  // Layers drift at different speeds as the hero scrolls out of view: the
+  // aurora (furthest back) moves slowest, bubbles a little faster, hero
+  // content stays put (it's the foreground, scrolls at the normal rate).
+  var heroEl = document.querySelector('.hero');
+  if (heroEl && !reduce) {
+    var ticking = false;
+    var updateParallax = function () {
+      ticking = false;
+      var rect = heroEl.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return; // hero off-screen
+      var scrolled = Math.min(Math.max(-rect.top, 0), rect.height);
+      heroEl.style.setProperty('--px-aurora', (scrolled * 0.18).toFixed(1) + 'px');
+      heroEl.style.setProperty('--px-bubbles', (scrolled * 0.32).toFixed(1) + 'px');
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateParallax); }
+    }, { passive: true });
+    updateParallax();
+  }
+
   // Owner photo is optional; collapse the layout if it hasn't been added yet.
   document.querySelectorAll('.meet').forEach(function (m) {
     var img = m.querySelector('img');
