@@ -218,6 +218,88 @@ window.LEFTIES = {
     update();
   });
 
+  /* ---------- suburb live-filter (service-area pill lists) ---------- */
+  document.querySelectorAll('.areas').forEach(function (list) {
+    var input = document.createElement('input');
+    input.type = 'search';
+    input.className = 'areas-search';
+    input.placeholder = 'Find your suburb…';
+    input.setAttribute('aria-label', 'Filter service areas by suburb');
+    list.parentNode.insertBefore(input, list);
+
+    var spans = [].slice.call(list.querySelectorAll('span'));
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      spans.forEach(function (span) {
+        var match = !q || span.textContent.toLowerCase().indexOf(q) !== -1;
+        span.classList.toggle('dim', !match);
+      });
+    });
+  });
+
+  /* ---------- proof photo lightbox ---------- */
+  var proofGrids = document.querySelectorAll('.proof-grid');
+  if (proofGrids.length) {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML =
+      '<button type="button" class="lightbox-prev" aria-label="Previous photo">‹</button>' +
+      '<img alt=""/>' +
+      '<button type="button" class="lightbox-next" aria-label="Next photo">›</button>' +
+      '<button type="button" class="lightbox-close" aria-label="Close">✕</button>' +
+      '<p class="lightbox-caption"></p>';
+    document.body.appendChild(lb);
+
+    var lbImg = lb.querySelector('img');
+    var lbCaption = lb.querySelector('.lightbox-caption');
+    var lbImages = [];
+    var lbIndex = 0;
+    var lbTrigger = null;
+
+    var lbShow = function (i) {
+      lbIndex = (i + lbImages.length) % lbImages.length;
+      var img = lbImages[lbIndex];
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || '';
+      lbCaption.textContent = img.alt || '';
+    };
+    var lbOpen = function (grid, img) {
+      lbImages = [].slice.call(grid.querySelectorAll('img'));
+      lbTrigger = img;
+      lbShow(lbImages.indexOf(img));
+      lb.classList.add('open');
+      lb.querySelector('.lightbox-close').focus();
+      document.body.style.overflow = 'hidden';
+    };
+    var lbClose = function () {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lbTrigger) lbTrigger.focus();
+    };
+
+    proofGrids.forEach(function (grid) {
+      grid.querySelectorAll('img').forEach(function (img) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        if (!img.hasAttribute('aria-label')) img.setAttribute('aria-label', 'View larger: ' + (img.alt || 'photo'));
+        img.addEventListener('click', function () { lbOpen(grid, img); });
+        img.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(grid, img); }
+        });
+      });
+    });
+    lb.querySelector('.lightbox-close').addEventListener('click', lbClose);
+    lb.querySelector('.lightbox-prev').addEventListener('click', function () { lbShow(lbIndex - 1); });
+    lb.querySelector('.lightbox-next').addEventListener('click', function () { lbShow(lbIndex + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lbClose(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') lbClose();
+      else if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+      else if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+    });
+  }
+
   /* ---------- instant estimator (quote.html) ---------- */
   var estRooms = document.getElementById('estRooms');
   var estSeats = document.getElementById('estSeats');

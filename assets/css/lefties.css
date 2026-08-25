@@ -48,7 +48,15 @@ html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* the universal rule above doesn't reach view-transition pseudo-elements */
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
+
+/* same-origin page navigations cross-fade instead of hard-cutting; browsers
+   without support just navigate instantly (progressive enhancement) */
+@view-transition { navigation: auto; }
 
 @font-face {
   font-family: 'Roc Grotesk';
@@ -299,7 +307,9 @@ section.band.tight { padding: 52px 0; }
 }
 .proof-grid figure img {
   width: 100%; height: 100%; object-fit: cover; object-position: center;
+  cursor: zoom-in;
 }
+.proof-grid figure img:focus-visible { outline: 3px solid var(--reef); outline-offset: -3px; }
 .proof-grid figure:hover { transform: translateY(-5px) rotate(-.5deg); box-shadow: 0 22px 40px -22px rgba(16,36,62,.4); }
 .proof-grid figure::after {
   content: ''; position: absolute; top: 0; left: -90%;
@@ -308,6 +318,38 @@ section.band.tight { padding: 52px 0; }
   transform: skewX(-18deg); transition: left .6s ease; pointer-events: none;
 }
 .proof-grid figure:hover::after { left: 140%; }
+
+/* ---------- proof photo lightbox (built by lefties.js) ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(16,36,62,.92);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+  padding: 60px 20px;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: min(900px, 100%); max-height: 100%;
+  border-radius: var(--radius); box-shadow: 0 30px 70px -20px rgba(0,0,0,.6);
+}
+.lightbox-caption {
+  position: absolute; left: 0; right: 0; bottom: 18px;
+  text-align: center; color: #fff; font-size: .9rem; font-weight: 700;
+}
+.lightbox-close, .lightbox-prev, .lightbox-next {
+  position: absolute; background: rgba(255,255,255,.12); border: none; color: #fff;
+  border-radius: 50%; width: 44px; height: 44px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  transition: background .15s ease;
+}
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,.24); }
+.lightbox-close { top: 18px; right: 18px; }
+.lightbox-prev { left: 18px; top: 50%; margin-top: -22px; }
+.lightbox-next { right: 18px; top: 50%; margin-top: -22px; }
+@media (max-width: 560px) {
+  .lightbox-prev, .lightbox-next { width: 38px; height: 38px; }
+}
 
 /* before/after wipe slider — drag or tap-and-drag to compare */
 .split-view {
@@ -554,12 +596,25 @@ section.band.tight { padding: 52px 0; }
 .faq details p { padding: 0 8px 22px 0; }
 
 /* ---------- service areas ---------- */
+.areas-search {
+  display: block; width: 100%; max-width: 320px; margin: 0 auto 20px;
+  font-family: var(--font-body); font-size: .92rem;
+  padding: 11px 16px; border: 1.5px solid var(--line);
+  border-radius: 999px; background: var(--paper); color: var(--ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.areas-search:hover { border-color: #B9CEDF; }
+.areas-search:focus {
+  border-color: var(--reef); box-shadow: 0 0 0 3px rgba(0,113,182,.14); outline: none;
+}
 .areas { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .areas span {
   background: var(--paper); border: 1px solid var(--line);
   border-radius: 999px; padding: 8px 18px;
   font-size: .84rem; font-weight: 700; color: var(--ink-soft);
+  transition: opacity .2s ease;
 }
+.areas span.dim { opacity: .35; }
 section.band:not(.foam) .areas span { background: var(--foam); }
 
 /* ---------- breadcrumbs ---------- */
