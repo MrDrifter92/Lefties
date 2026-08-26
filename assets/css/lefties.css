@@ -250,6 +250,18 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
   100% { background-position: 100% 70%; }
 }
 .bubbles { z-index: 1; transform: translateY(var(--px-bubbles, 0px)); }
+@media (max-width: 720px) {
+  /* parallax JS is desktop-only (see lefties.js) so these transforms are
+     always inert here anyway; dropping them outright rather than leaving a
+     no-op translateY(0px) -- iOS Safari (Safari/Chrome/installed PWA all
+     reproduce it) shows an oversized empty gap under the hero on mobile
+     that doesn't reproduce in Chromium, consistent with a WebKit-specific
+     compositing quirk from a transformed, oversized (inset:-20%) layer
+     inside an overflow:hidden box. Also drop the -20% overscan itself on
+     mobile -- it exists only to cover the parallax's range of motion. */
+  .hero::before { inset: 0; transform: none; }
+  .bubbles { transform: none; }
+}
 .hero .wrap {
   display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 52px;
   align-items: center; padding-top: 72px; padding-bottom: 92px;
