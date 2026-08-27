@@ -258,7 +258,17 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
      compositing quirk from a transformed, oversized (inset:-20%) layer
      inside an overflow:hidden box. Also drop the -20% overscan itself on
      mobile -- it exists only to cover the parallax's range of motion. */
-  .hero::before { inset: 0; transform: none; }
+  /* Also freeze the aurora on mobile rather than leave it animating
+     forever. It sits directly under two backdrop-filter: blur() surfaces
+     (the header, the quote-card) which must continuously re-blur
+     whatever's behind them -- fine when that's triggered by scrolling,
+     much more demanding when the thing behind them is ALSO animating
+     nonstop, all the time, whether the page is being touched or not.
+     Every prior mobile fix (parallax, the transform, view-transition)
+     targeted a specific event; none explain an ongoing, ever-present
+     "wobble" the way a permanently-recomputing blur target does. Static
+     gradient, same colors, no motion cost. */
+  .hero::before { inset: 0; transform: none; animation: none; background-position: 35% 55%; }
   .bubbles { transform: none; }
 }
 .hero .wrap {
