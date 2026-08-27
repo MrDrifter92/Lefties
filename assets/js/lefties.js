@@ -23,7 +23,7 @@ window.LEFTIES = {
   // --- Quote form destination ---
   // GitHub Pages can't process forms, so this posts to a form service.
   // Sign up at formspree.io (or web3forms.com), create a form, paste the URL here.
-  FORM_ENDPOINT: 'https://formspree.io/f/XXXXXXXX',
+  FORM_ENDPOINT: 'https://formspree.io/f/xkjnwbwn',
 
   // --- Business details (used by the click-to-call handlers) ---
   PHONE: '0417220012',
