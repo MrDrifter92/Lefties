@@ -48,15 +48,14 @@ html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  /* the universal rule above doesn't reach view-transition pseudo-elements */
-  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
-    animation: none !important;
-  }
 }
 
-/* same-origin page navigations cross-fade instead of hard-cutting; browsers
-   without support just navigate instantly (progressive enhancement) */
-@view-transition { navigation: auto; }
+/* Cross-document view transitions were removed here: on iOS Safari they
+   visibly clashed with the OS's own edge-swipe back/forward gesture,
+   producing a garbled, horizontally-cut mid-transition frame (reported by
+   a real user on an actual iPhone). The cross-fade was cosmetic; this
+   artifact wasn't. Not worth re-adding without per-page named transitions
+   and real device testing on Safari specifically. */
 
 @font-face {
   font-family: 'Roc Grotesk';
@@ -856,13 +855,16 @@ section.band:not(.foam) .areas span { background: var(--foam); }
   body { font-size: 16.5px; }
   .field-row { grid-template-columns: 1fr; }
   .site-footer .cols { grid-template-columns: 1fr; }
-  .quote-card { padding: 22px 18px 24px; }
-  .quote-card h2 { font-size: 1.28rem; }
-  .quote-card .sub { margin-bottom: 16px; }
-  .field { margin-bottom: 12px; }
-  .field label { font-size: .72rem; margin-bottom: 5px; }
-  .field input, .field select, .field textarea { padding: 11px 13px; }
-  .field textarea { min-height: 76px; }
+  .quote-card { padding: 18px 16px 20px; }
+  .quote-card h2 { font-size: 1.12rem; margin-bottom: 3px; }
+  .quote-card .sub { margin-bottom: 12px; font-size: .86rem; }
+  .field { margin-bottom: 10px; }
+  .field label { font-size: .7rem; margin-bottom: 4px; }
+  .field input, .field select, .field textarea { padding: 10px 12px; font-size: .95rem; }
+  .field textarea { min-height: 60px; }
+  .field .hint { font-size: .78rem; margin-top: 4px; }
+  .form-fineprint { margin-top: 10px; }
+  .form-or { margin: 16px 0 4px; }
   .rail li { padding-left: 60px; }
   .hero-actions .btn, .cta-actions .btn { width: 100%; }
 }
