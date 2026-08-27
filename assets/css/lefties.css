@@ -270,6 +270,31 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
      gradient, same colors, no motion cost. */
   .hero::before { inset: 0; transform: none; animation: none; background-position: 35% 55%; }
   .bubbles { transform: none; }
+
+  /* Direct report: scroll feels heavy specifically between the hero and
+     the form -- exactly the region with two stacked backdrop-filter:
+     blur() surfaces (header, then quote-card immediately below it).
+     Backdrop-filter forces a GPU recomposite on essentially every scroll
+     frame in most engines, independent of whether its backdrop animates.
+     Two of them back to back in the first screen-and-a-half of scroll is
+     a real, additive cost. Dropping the quote-card's (the larger of the
+     two surfaces) to opaque on mobile; keeping the header's, since it's
+     a much smaller area. Text colors revert to the pre-glass values to
+     match the opaque light background -- the .on-ink treatment further
+     down this file assumes a dark/translucent card, which no longer
+     applies here. */
+  .quote-card {
+    background: rgba(255,255,255,.97) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .quote-card h2 { color: var(--ink) !important; }
+  .quote-card .sub { color: var(--slate) !important; }
+  .on-ink .quote-card .field label { color: var(--ink) !important; }
+  .on-ink .quote-card .field .hint { color: var(--slate) !important; }
+  .on-ink .quote-card .form-fineprint { color: var(--slate) !important; }
+  .on-ink .quote-card .form-or { color: var(--slate) !important; }
+  .on-ink .quote-card .form-or::before, .on-ink .quote-card .form-or::after { background: var(--line) !important; }
 }
 .hero .wrap {
   display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 52px;
