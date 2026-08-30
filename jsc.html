@@ -1,0 +1,866 @@
+<title>Just Superb Cars Brand System</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF; --surface:#F7F7FA; --surface2:#EFEFF3; --line:#E0E0E7; --line-soft:#EFEFF3;
+  --text:#1C1C25; --text-2:#4A4A58; --text-3:#6A6A7A;
+  --brand:#5141C5; --brand-text:#5141C5; --brand-soft:#F4F3FB; --brand-line:#CFCAEC;
+  --accent:#78CF4B; --accent-deep:#3D7C23; --accent-soft:#F4FBEF;
+  --danger:#C62828; --warn:#A85E00;
+  --on-brand:#FFFFFF; --on-accent:#0F0F16;
+  --shadow-1:0 1px 2px rgba(15,15,22,.06),0 2px 8px rgba(15,15,22,.05);
+  --shadow-2:0 2px 4px rgba(15,15,22,.06),0 12px 28px rgba(15,15,22,.10);
+  --r-sm:6px; --r-md:10px; --r-lg:16px; --r-pill:999px;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1220px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0F16; --surface:#171720; --surface2:#1F1F2A; --line:#2E2E3A; --line-soft:#23232E;
+    --text:#EFEFF3; --text-2:#B4B4C2; --text-3:#9797A6;
+    --brand-text:#9186D6; --brand-soft:#1A1730; --brand-line:#332C63;
+    --accent-soft:#15200F; --accent-deep:#A6E086;
+    --danger:#FF7A7A; --warn:#FFB020;
+    --shadow-1:0 1px 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35);
+    --shadow-2:0 2px 4px rgba(0,0,0,.5),0 14px 32px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0F16; --surface:#171720; --surface2:#1F1F2A; --line:#2E2E3A; --line-soft:#23232E;
+  --text:#EFEFF3; --text-2:#B4B4C2; --text-3:#9797A6;
+  --brand-text:#9186D6; --brand-soft:#1A1730; --brand-line:#332C63;
+  --accent-soft:#15200F; --accent-deep:#A6E086;
+  --danger:#FF7A7A; --warn:#FFB020;
+  --shadow-1:0 1px 2px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.35);
+  --shadow-2:0 2px 4px rgba(0,0,0,.5),0 14px 32px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--text);
+  font-family:var(--display); font-variation-settings:"wdth" 100;
+  font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+::selection{background:var(--accent);color:#0F0F16}
+a{color:var(--brand-text)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--line);background:var(--surface);position:relative;overflow:hidden}
+.mast-inner{max-width:var(--maxw);margin:0 auto;padding:56px 28px 44px;position:relative;z-index:1}
+.mast-rule{display:flex;gap:0;height:8px;margin-bottom:40px;border-radius:var(--r-pill);overflow:hidden;max-width:var(--maxw)}
+.mast-rule i{display:block;height:100%}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.mast h1{
+  font-size:clamp(38px,7vw,76px); line-height:.96; margin:18px 0 0; max-width:16ch;
+  font-weight:800; font-variation-settings:"wdth" 112,"wght" 800; letter-spacing:-.025em; text-wrap:balance;
+}
+.mast h1 em{font-style:normal;color:var(--brand-text)}
+.mast p.lede{max-width:62ch;font-size:18px;color:var(--text-2);margin:22px 0 0}
+.mast-meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:30px;font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.mast-meta b{color:var(--text-2);font-weight:400}
+
+/* ---------- shell ---------- */
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1040px){
+  .shell{grid-template-columns:212px minmax(0,1fr);gap:56px;padding-top:8px}
+}
+.toc{display:none;position:sticky;top:0;align-self:start;padding:44px 0;max-height:100vh;overflow:auto}
+@media(min-width:1040px){.toc{display:block}}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.toc a{
+  display:flex;gap:10px;text-decoration:none;color:var(--text-3);font-size:13.5px;
+  padding:6px 10px;border-radius:var(--r-sm);border-left:2px solid transparent;
+}
+.toc a span{font-family:var(--mono);font-size:11px;opacity:.75;padding-top:2px}
+.toc a:hover{color:var(--text);background:var(--surface)}
+.toc a.on{color:var(--brand-text);border-left-color:var(--brand);background:var(--brand-soft)}
+.toc .tt{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);padding:0 10px 12px}
+
+/* ---------- sections ---------- */
+main{padding:8px 0 96px;min-width:0}
+section{padding:52px 0;border-top:1px solid var(--line-soft)}
+section:first-child{border-top:0}
+.snum{
+  display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;
+  background:var(--text);color:var(--paper);padding:4px 9px 3px;border-radius:3px;transform:skewX(-8deg);letter-spacing:.06em;
+}
+.snum i{display:block;transform:skewX(8deg);font-style:normal}
+.shead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+h2{font-size:clamp(26px,3.4vw,38px);line-height:1.06;margin:8px 0 0;font-variation-settings:"wdth" 108,"wght" 800;letter-spacing:-.02em;text-wrap:balance}
+h3{font-size:17px;margin:38px 0 10px;font-variation-settings:"wght" 700;letter-spacing:-.005em}
+h4{font-size:13px;margin:0 0 10px;font-family:var(--mono);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+p{max-width:66ch;color:var(--text-2)}
+section > p:first-of-type{font-size:17px}
+.note{max-width:66ch;color:var(--text-3);font-size:14.5px}
+ul.clean{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:9px;max-width:66ch}
+ul.clean li{position:relative;padding-left:19px;color:var(--text-2);font-size:15px;line-height:1.55}
+ul.clean li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:2px;background:var(--accent);transform:skewX(-12deg)}
+ul.clean li b{color:var(--text);font-variation-settings:"wght" 700}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface2);padding:2px 6px;border-radius:4px;color:var(--text)}
+
+/* ---------- colour ---------- */
+.ramp{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.sw{flex:1 1 66px;min-width:0;max-width:150px}
+.sw{border:0;padding:0;background:none;font:inherit;text-align:left;cursor:pointer;display:block}
+.sw .chip b{white-space:nowrap}
+.sw .chip{height:76px;border-radius:var(--r-md);border:1px solid rgba(15,15,22,.10);display:flex;align-items:flex-end;padding:8px;position:relative}
+.sw .chip b{font-family:var(--mono);font-size:10px;font-weight:400;opacity:.85}
+.sw .lbl{display:block;font-family:var(--mono);font-size:10.5px;color:var(--text-3);padding:7px 2px 0;letter-spacing:.02em}
+.sw:hover .chip{transform:translateY(-2px);box-shadow:var(--shadow-1)}
+.sw .chip{transition:transform .16s ease,box-shadow .16s ease}
+.core{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.core .card{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.core .blk{height:132px;display:flex;align-items:flex-end;padding:16px;font-variation-settings:"wght" 800;font-size:20px;letter-spacing:-.01em}
+.core .meta{padding:14px 16px 16px}
+.core .meta dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-family:var(--mono);font-size:11.5px}
+.core .meta dt{color:var(--text-3)}
+.core .meta dd{margin:0;color:var(--text-2)}
+.core h5{margin:0 0 3px;font-size:15px;font-variation-settings:"wght" 700}
+.core .use{font-size:13px;color:var(--text-3);margin:8px 0 0;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;font-size:14px;margin:14px 0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md)}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line-soft)}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);background:var(--surface);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.m{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+td.mw{font-family:var(--mono);font-size:12.5px;line-height:1.65}
+.pass{color:var(--accent-deep);font-family:var(--mono);font-size:11.5px;font-weight:600}
+.stop{color:var(--danger);font-family:var(--mono);font-size:11.5px;font-weight:600}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;border:1px solid rgba(128,128,140,.35);vertical-align:-1px;margin-right:7px}
+
+.ratio{display:flex;height:56px;border-radius:var(--r-md);overflow:hidden;margin:16px 0 6px;border:1px solid var(--line)}
+.ratio div{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;overflow:hidden;white-space:nowrap;padding:0 6px}
+
+/* ---------- logo ---------- */
+.logobox{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
+.logopane{border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;display:flex;flex-direction:column;gap:16px;justify-content:space-between;min-height:172px}
+.logopane img{width:100%;max-width:250px}
+.logopane .cap{font-family:var(--mono);font-size:11px;color:inherit;opacity:.7}
+.bad{position:relative}
+.bad::after{content:"";position:absolute;inset:0;border-radius:var(--r-lg);border:2px solid var(--danger);pointer-events:none}
+.badtag{position:absolute;top:-9px;left:16px;background:var(--danger);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+.clearspace{border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;background:var(--surface)}
+.cs-inner{position:relative;padding:9%;background:
+  repeating-linear-gradient(45deg,var(--brand-line) 0 5px,transparent 5px 11px);border-radius:var(--r-md)}
+.cs-inner .core-area{background:var(--paper);padding:14px 18px;border-radius:var(--r-sm)}
+
+/* ---------- type ---------- */
+.spec{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin:16px 0}
+.spec .row{display:grid;grid-template-columns:1fr;gap:4px;padding:18px 20px;border-bottom:1px solid var(--line-soft)}
+.spec .row:last-child{border-bottom:0}
+@media(min-width:760px){.spec .row{grid-template-columns:minmax(0,1fr) 208px;align-items:center;gap:24px}}
+.spec .samp{line-height:1.05;color:var(--text);overflow:hidden}
+.spec .det{font-family:var(--mono);font-size:11px;color:var(--text-3);line-height:1.7}
+.wide{font-variation-settings:"wdth" 118,"wght" 800}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.box{border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;background:var(--surface)}
+.box h4{margin-bottom:8px}
+.box p{margin:0;font-size:14.5px}
+.do{border-left:3px solid var(--accent)}
+.dont{border-left:3px solid var(--danger)}
+.dont ul.clean li::before{background:var(--danger)}
+
+/* ---------- spacing ---------- */
+.scalebars{display:flex;flex-direction:column;gap:7px;margin:16px 0}
+.scalebars .r{display:grid;grid-template-columns:64px 58px 1fr;align-items:center;gap:14px;font-family:var(--mono);font-size:11.5px;color:var(--text-3)}
+.scalebars .b{height:15px;background:var(--brand);border-radius:3px;opacity:.85}
+
+/* ---------- components ---------- */
+.demo{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:24px;margin:16px 0}
+.demo .strip{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font-family:var(--display);font-variation-settings:"wdth" 104,"wght" 700;font-size:15px;letter-spacing:.005em;
+  border-radius:var(--r-pill);padding:13px 26px;border:2px solid transparent;cursor:pointer;transition:transform .12s ease,background .15s ease,box-shadow .15s ease;line-height:1}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#0F0F16;box-shadow:0 2px 0 #3D7C23}
+.btn-primary:hover{background:#8CD95F}
+.btn-secondary{background:var(--brand);color:#fff}
+.btn-secondary:hover{background:#4033A0}
+.btn-ghost{background:transparent;color:var(--brand-text);border-color:var(--brand-line)}
+.btn-ghost:hover{background:var(--brand-soft)}
+.btn-quiet{background:transparent;color:var(--text-2);padding:13px 12px}
+.btn-quiet:hover{color:var(--text)}
+.btn[disabled]{opacity:.42;cursor:not-allowed;box-shadow:none}
+
+.vcard{max-width:320px;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow-1)}
+.vcard .ph{height:168px;background:linear-gradient(135deg,#2E2E3A,#1C1C25);position:relative;display:flex;align-items:center;justify-content:center;color:#6A6A7A;font-family:var(--mono);font-size:11px}
+.vcard .flag{position:absolute;top:12px;left:12px;background:var(--accent);color:#0F0F16;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;padding:4px 9px;border-radius:3px;font-weight:600}
+.vcard .body{padding:16px 16px 18px}
+.vcard .yr{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.08em}
+.vcard h5{margin:5px 0 10px;font-size:17px;font-variation-settings:"wght" 700;line-height:1.22}
+.vcard .price{font-size:26px;font-variation-settings:"wdth" 112,"wght" 800;letter-spacing:-.02em;color:var(--text)}
+.vcard .excl{font-family:var(--mono);font-size:10.5px;color:var(--text-3);margin-top:2px}
+.vcard .specs{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 16px}
+.vcard .specs span{font-family:var(--mono);font-size:10.5px;color:var(--text-2);background:var(--surface2);padding:4px 8px;border-radius:var(--r-pill)}
+.vcard .btn{width:100%;font-size:14px;padding:12px 18px}
+
+.field{max-width:360px}
+.field label{display:block;font-size:13px;font-variation-settings:"wght" 600;margin-bottom:6px;color:var(--text)}
+.field input{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:var(--r-md);border:1.5px solid var(--line);background:var(--paper);color:var(--text)}
+.field input::placeholder{color:var(--text-3)}
+.field input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.field .help{font-size:12.5px;color:var(--text-3);margin:6px 0 0}
+.field.err input{border-color:var(--danger)}
+.field.err .help{color:var(--danger)}
+
+.pillrow{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--text-2)}
+.pill.g{background:var(--accent);color:#0F0F16;border-color:transparent;font-weight:600}
+.pill.p{background:var(--brand);color:#fff;border-color:transparent}
+.pill.o{border-color:var(--brand-line);color:var(--brand-text);background:var(--brand-soft)}
+
+.navdemo{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 18px;flex-wrap:wrap}
+.navdemo .links{display:flex;gap:22px;flex-wrap:wrap;font-size:14.5px;font-variation-settings:"wght" 600}
+.navdemo .links a{text-decoration:none;color:var(--text-2)}
+.navdemo .links a.act{color:var(--text);box-shadow:inset 0 -2px 0 var(--accent)}
+.navdemo img{width:150px}
+
+.tokens{background:var(--text);color:var(--paper);border-radius:var(--r-lg);padding:20px 22px;overflow-x:auto}
+.tokens pre{margin:0;font-family:var(--mono);font-size:12px;line-height:1.75}
+.tokens .c{color:#9797A6}
+.tokens .k{color:#A6E086}
+.tokens .v{color:#C2C2CD}
+
+.toggle{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px;box-shadow:var(--shadow-2)}
+.toggle button{border:0;background:transparent;color:var(--text-3);font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:7px 13px;border-radius:var(--r-pill);cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--text);color:var(--paper)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--text);color:var(--paper);font-family:var(--mono);font-size:12px;padding:9px 16px;border-radius:var(--r-pill);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:50}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);background:var(--surface);padding:34px 28px 60px}
+footer .in{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:flex-start}
+footer p{font-family:var(--mono);font-size:11.5px;color:var(--text-3);margin:0;max-width:52ch;line-height:1.8}
+</style>
+
+<header class="mast">
+  <div class="mast-inner">
+    <div class="mast-rule">
+      <i style="background:#0F0F16;flex:1"></i>
+      <i style="background:#5141C5;flex:1.6"></i>
+      <i style="background:#78CF4B;flex:1"></i>
+      <i style="background:#EFEFF3;flex:.6"></i>
+    </div>
+    <p class="eyebrow">Brand guidelines &nbsp;/&nbsp; Version 1.0 &nbsp;/&nbsp; August 2026</p>
+    <h1>Just Superb Cars <em>brand system</em></h1>
+    <p class="lede">The rules that hold the new site together. Same wordmark, same colours, one typeface, and a set of components built to move people from browsing stock to picking up the phone. Everything here is the source of truth for the website overhaul and anything printed, posted or driven around Morayfield afterwards.</p>
+    <div class="mast-meta">
+      <span><b>Dealership</b> 281 Morayfield Rd, Morayfield QLD 4506</span>
+      <span><b>Dealer Lic#</b> 2405447</span>
+      <span><b>Applies to</b> Web, social, print, signage, vehicle graphics</span>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="toc" aria-label="Section index">
+    <p class="tt">Contents</p>
+    <ol>
+      <li><a href="#s01"><span>01</span>Foundation</a></li>
+      <li><a href="#s02"><span>02</span>Logo</a></li>
+      <li><a href="#s03"><span>03</span>Colour</a></li>
+      <li><a href="#s04"><span>04</span>Typography</a></li>
+      <li><a href="#s05"><span>05</span>Space &amp; layout</a></li>
+      <li><a href="#s06"><span>06</span>Components</a></li>
+      <li><a href="#s07"><span>07</span>Photography</a></li>
+      <li><a href="#s08"><span>08</span>Words on screen</a></li>
+      <li><a href="#s09"><span>09</span>Dev tokens</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- 01 -->
+  <section id="s01">
+    <div class="shead"><span class="snum"><i>01</i></span><p class="eyebrow">Foundation</p></div>
+    <h2>What the brand has to do</h2>
+    <p>Just Superb Cars is a family-run yard on Morayfield Road with a 4.8 star Google rating, four decades of trade experience and about 66 cars on the ground at any time. The competition is a strip of identical lots and a national website with a bigger ad budget. The brand's job is to make a small yard feel like the safest and easiest place north of Brisbane to buy, sell or finance a car.</p>
+
+    <h3>Three things every layout should prove</h3>
+    <ul class="clean">
+      <li><b>The stock is right here.</b> Cars come first on every page. Search, filter, price, photos. Nothing gets between someone and the vehicle list.</li>
+      <li><b>The people are real.</b> Named humans, actual customer handover photos, the licence numbers in plain sight. Stock photography reads as a scam in this category.</li>
+      <li><b>Three doors, one yard.</b> Buy a car, sell a car, get finance. Those are the three journeys. Every page makes it obvious which door you're standing at.</li>
+    </ul>
+
+    <h3>Personality</h3>
+    <div class="grid2">
+      <div class="box do"><h4>We are</h4><p>Straight-talking, local, quick to answer, confident about price. Bold typography and hard colour, because a car yard is not a boutique.</p></div>
+      <div class="box dont"><h4>We are not</h4><p>Corporate, apologetic, or padded with phrases like "automotive excellence" and "unparalleled difference". If a sentence could belong to any dealer in Australia, cut it.</p></div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="s02">
+    <div class="shead"><span class="snum"><i>02</i></span><p class="eyebrow">Logo</p></div>
+    <h2>The wordmark stays exactly as it is</h2>
+    <p>The lockup is <b>JUST SUPERB CARS</b> set in Impact, tightly kerned, with the three words carrying the three brand colours. It is already recognised on the signage, the flags and the windscreen stickers, so the redesign leaves it untouched. Impact is used <em>for the logo only</em>. It never appears as a heading, a button, or body copy anywhere else.</p>
+
+    <div class="logobox">
+      <div class="logopane" style="background:#FFFFFF;color:#1C1C25">
+        <img src="data:image/png;base64,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" alt="Just Superb Cars wordmark: JUST in black, SUPERB in purple, CARS in green">
+        <span class="cap">Primary &nbsp;/&nbsp; light backgrounds</span>
+      </div>
+      <div class="logopane" style="background:#0F0F16;color:#EFEFF3">
+        <img src="data:image/png;base64,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" alt="Just Superb Cars wordmark with JUST reversed to white for dark backgrounds">
+        <span class="cap">Reversed &nbsp;/&nbsp; ink and photography</span>
+      </div>
+      <div class="logopane bad" style="background:#5141C5;color:#fff">
+        <span class="badtag">Never</span>
+        <img src="data:image/png;base64,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" alt="Incorrect use: the primary wordmark placed on a purple background where SUPERB disappears">
+        <span class="cap">Purple on purple. SUPERB vanishes.</span>
+      </div>
+    </div>
+
+    <h3>Clear space and minimum size</h3>
+    <div class="clearspace">
+      <div class="cs-inner">
+        <div class="core-area"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAvgAAABlBAMAAADKa4pkAAAAJFBMVEX7+/xSQsV3zkoCAgJMO8Oelt2O12vLydit4pVWVlaZmZlHNr7s9MTWAAAADHRSTlME////////TP/5ov9WPUY2AAATLElEQVR42u1df6gcx33/vJ17707PMn6HI6wKoR76QzSGwxNWoalaJ9dKkf+IQ8+YpNSJxNEYmRoMBw6RCEUcpgi7YPKooTjCTa9WI1qpJq8ECrFf0MoxVmtn0ZpnghFBHEE2pqnQidh6737Mvf6xe7uzuzOzM7v3bBfe/PPu3czsj8985/P9fL87swdsl+2yXbbLJ1rmCvQ9CQyWtyH8FMD//u+fBYCFv7jvL026zT/sAAA+Gn2WUamc/rUDlP5sd2d2xzzzawfAEevFNPgno68Gy+V29N9zQOJfACiPafjVwpXgu7bktNH0mB8vAQAIBXv3t59Z6B9zwnt7b1bQvxR86NWOvpgAf8f9UTvm2Yghe47jlqdaALA4oPyR/S8JlZx4Ojpo/0vdC78l7Csr/oj8iUeo63837gPVqOfB1/A5ljjaR19bmV77EqHwO8KGCxvwxv25pWSH5mjao3zIS1RufvVi6nL3cv+UHuONf3+i6Qcbfo9xje/SwH6cijf8K4dvcC34YOUZxsXPx3F+oatHce9y2IOR283wsyvtlMCe2F/5qNpEqqPrAp7rMsER7rkV9hgk68jBW9VdCuwxfpkDv5LsPgn+1mJdVlfPvmidkGKP8YEi4D+X/OKHbR26P8xidsfWbgMARogPJVEdhLmuS26XAQBPI3FAaRc7GudUHXkghn5lb6LJM4qr2SursGqvWh0J9hH6ecB/OmXow7c0uv25m5jzzPMZoi2FTzymzFtsAoC+0nK9y035cMbQfyxZX1vIRfJW7Xz40UnhVcsLftkR+FQN4rkpICIfRM/4Gi4DAMRORvztx4qh2eRIJ31ze1pJltEr4z8QkZKPupUX/LHoy7OZ3UoiiPsA5qFy1xISug8APN3WAK42FVy2pCIS63xOhbPRkUNcywm+cLYPslh//kF1mEE9AXZSYqH3S0kJ4nnEPgZQlsyxUlPlAve2pGanjAMC1m8J6/KBvyhmmFrWfBHdN1nLaVSELJlwPgBcVbnxKSkJgcJ/5bzK/QBQcYR1nVzgD8RfZ5H+owBJkwJdyqBqiYTx2Bellq/iFqqm0sobwtqh9KA95SknHXnnbi7wJSjvyOj2cxCapmT24/Cj0SRg3i/zmOJAVrHm885wLK5u5XG4gNWVM1MlF/iSyT5U2+E8BfVYGsNvT3nEZdTE4WKzbXrhX1QNpqNgHcCRMbyTkaiQT45JHvDLUh+YJZFcJguD/ASBmeC8qzcTlaaHZSD1f2N6yon8mOM84EvFXF/dz4t8pW2n4yhGmCGDOIYOF2sKy/H1bqWXf9xk/SqYoeVzAQmeeEq726PRDK/vvMyN5fR+64aRFjNGotxUTNIxF3j6xn69oSEpKxnn7MT8xPFvxg9ZMr0FznkvnMDTjqbcKRMGAgaAXO3j8M+TLEY0sI9ymABAnewhOTTgsj+DlcDh2iw4GlOc9D2c35NUNQ4KlYUOrBov9K0CB1sH/kG3rQOKOqUAWAN4JaU/mK1h7K5LEkSRFZNUeQ21FLp5AGSuunMtwaadGMtvaDiDtP45fqIRk6IcY30pZuu9HOC3YwJsTsMThyATP7O2Epv4K9MES/apD966dVt4IdJy8eL/SutGF1duylX7BoBGHovsnPqRrF8tCXcRy28Dd0zauyHhcjpxSXOkA8QanOTla8mhCxds207LgcM8JZUj319O+K9m3L4bAPZlc/s4IxJyuNk06cRnUw7OX46MttuKmfuC//yAT7Ed2wEA61cAsDXbR799SY8y0jHFCMBKI+Lp5bs5FN58E7cANFcSh3iloSB2tcSyEvRS0bxqbUyNwe9KBd76EwDiDx0j22SEBskzWaSWrTXn5ddLxrfiLKYoXArvoZ/FRFavhlkUS+s4TjHaMS3My4zFsmhHVit3OKW2MOJgA3PdOBGYbEdC7nqj9AkBb7Pg+epmMeFeJB1Cs05X042Oc6FmfWrgA/DIrPJIYjGVJzPCTEK7ccwdpwTSLIZDv/QN7p8BcEFsvLOczSd0xkMjvcaBplBOlg11tdaINGZp+dmXT2yK1IOmvkH6SOER+gWvfiAATSeDbBL0dmZp+V3D9hRgAGkCCJJrxC4vSeSIBuLLW2AgRuBBHk1JJkS5mNTkyg6Dth5I3Td75gB43gsSBptSMTgzrpGJ0/wqBbXXdRVScpaUGmMHRwBgmAP8VkTIQ2Dg6t4rAwnc2xcuYXQpU5IalqW+JrWEk8A8TdyL+Kjh5HC4C8Dg2jUuDi2S2zHT7HXXT+2Qa0uZs2SL5JbhZetgs8/g/MNWUc7npz3pGt86BTvwhdnjWtZV6MVVCsI1IVrH4ZpaL89U5//QSJYSYtsE8LxdGRRFzSehiXAlQColyDTyEo7AO4jGdlITBAQAsK9SEPzYysWhNvE0AVAaZDbHS7mGWm8/RUKoRutVwg9u+OzginqcG/lMUjrZrD2tYuDHt7IQXfFRA//k1l+jaZpomJc6BEVksBQtzw19sjuFPNpmQE3UTklXkk5qibavdwqBn0DmnCbtP08BMHcqjm4r80CKugkVEQmfJotdYPmROj/7BnHXO1cPhZWG6quI8J2k6X+hqwD4fCHwB7lpn7fata8qmrmGOor4iM9Vq0sJb1K9+3ceT+tlzgnMf6N5r+eZUZpG2b9/b8wzJzIR4dLlfA43oZc0ab/Unm4iIQDArt6nBNNT82mMqmkdQOnIkcO2fTD51JDf8pK40M1bH0WTZFHDC01EoFm9LH5KOI6NVhHwk2fTo/3Rdzy4hIS0wOrNXEHWo16S9214PqO5ruv+RIepp9E1NzAHVkS5nVDeXL+ebxpcSzsS6+VOAfBTCxbOaUm+hwCbRsZH3dt5VMQjN1PDE9vvojAE8ra87pBwCfOz16fl2UpMxGxwLsLJYom/TUqPMwXAX099o7MnCOcpAVggS2wbWNtlqvO9avV3GdGv4uEwa0nPZ7/VF+V2Iro+tZHP8rsAhkmq2FMrEGSlDF1rG/omoQz8Ulm22TSUmr4vNnPGEcKby7JnDuydLdoS7HuJ40m1HwbIOcA/gVzEc587XZtDbD+9eblQcudtI+jtub7ULG6ZY2/ppCQWeml1GfsmB/jrrVzEc6HrATYFbOoGvi5foOsp4qqReGYQqjDuuV165+0II19pTrl3NNi9nt4dMW7lz+18Ly3+NUKt0TmAwAO8UGWUmgXmdN9g3ox3qoz7gT8tcB2yqLh0OtzlfyNV+Xp+8AWmrxNq/QdNcfbH0uRXBokE2aJgDtAsfz13WQWvu6alvHpCXyx71jj+MAqFGpIhy5XVTJv+UMPnjpxuPW6ZdOpzbd1MzVSnAvWVyD97mWECUcLL1pZmYu2x8uqBjjCnwMGeC/z1tlBUZQqeJz2AhCvTSKhbaXxveuYKHheEflcRH4vitiMq22f5n6bKnxeMwxcHbPTE45cvn/94ini0nqv8jw2A2tSnDgrXfStgaVP5SBe/JYuoJEPn9qF45sI0TN8RuF71BAmd8eTLQtPPB/7gZOorHa0/qnfBgqeJDKDBUgYYbkUE4A5aGq6B2nY0qu+mHAdPdlvwdA3YHX7616TtT1q5wcedlA/RWsrwgwuUIwcPYFf8f2LmSuXxXDSnl9XRsF957+XIXFk8kUrmqju5f01HP7z/ZE75OredKNqHslFKoG9184OP55OWN9TK8Pz4WjxaFW4R1oixqBMMTcK7xi6Ctf9txC1Nie/cLY8urvRN7lh7kciPRH2GSao6UAB8PJVLAvi0T2w6NW/SBsBknC/jMnpPslboZo+B3xxBmslx3TQhfYmmFOSUI7vkTOt0I+2o8z9A/1UOvQOM7qbEZh5AXB5fL0Oox8ma3rOS+tZn8HRibYXyHjP65w4AkOhUf6h/56UMU+sIP55PD1F+jbXejtvlol63n5QedAFS94Jlaf5qp9gaNVk+n/gbM9x3/tjHvv2Pkd2PVwEAXxOIn+mxBTLooZ95CsN+pvdGYK6ruC7VlI5wcNKB2caNvcl+BZYLHou/Wm1Ts9vcmv+Ayb9t5u/o1Eql1f+5CoxWRNtPuPVnxMiFqFYmThysyoamo8ey/MgMWzG8Piy2VvPk52MeV7PX6Ca/S4oGFyDdFMR9X7qI7EZKLz2QO3eDh7h5qfp0zZrNgcR6U6tsRr6N2sFNyzMK5jsqpD3mVaNm8HbXXoYKkmL6Ad9zXw7L3xExfbkVI562Ks76RvTx4n/eHW4BdwMXKN/8b7zNn+n1IGNkbeiwwuWwsIBOeK+7ewbjVIl87qnhM92Y3DEG/8mzHC5P2cLYSFAuhbUnLw6GDc/fzE+n897LP/8Iy0QRpO4BaL9WbH3+tCycAMZOhgQN2fgscB1WbdKrdTqn98s8s3FptdHq6tpjmMT/JrAZYG2zbC+YtUNU520lpO4Vhzwy9/GqdqdaD0fGzn4A1n4gudm04LagtrZ9xv477It5mab0DA4fYN83vfLZTAJkL4NedaS2XhB8ftmswf2/QlEPcCNtgCooK8Owle/LCI5KRYM8ML1Vp+goNVKSsCD46/m6ldq25wUW3gM8BednqJ0pm6myA7k5x8EsizMzzTqDwmS46q7P/2wUwVLZDPP/FMGnAEbLrs0yGGUGQ+DN8LKlrwCzsgIB2aAVBz/3/U3fbiRwfL42Yd7sth5uaemZNN43S8s3gscOh4vYRDWgNLUkoWixix5gUtNvq9vUMkvMoFXAGEkEgQfX9RfHD8ROlsKLpOYMxoHpRoNxYthatyy0/NYMhL2Y7WlcpRBii/Q28+IIGXGb2Fd4OQ5nmch5zbG0ZhXhGk98FwDoJc7C2TTUjQFiM61HqvybpgpNhaAoliJvDUzBSOhmCQq4QC+w9nZ8LgwABNsmuIwBLeDJFXWDrYCwUhR8Jaat2ch6L4UQc+GWayPEU5GU+r8/Y5TbmKtirlqtVqtGJOWQPAw0M4a3RGHkksLaE78g0pX2SgUXgbj8TmDy03Uzy+WAhklktVP8/l4/YLOrS8Tm1+noJHQoVXnRmIY8ndMvJ54p9njkLeBC9wUqNfVhHOCFBPBG6SnXJhRAE5j3F4sDwB0M1iJHSYF5bu3lf+tGbWCuvy9L2+wJgEcSE6whbb1hpOZ125aw+JyyQbfFPxmfS2RzLCN28qjrb7Qfe/Bo4gFq3QUwD4y5d15nSgzbLRDnVXmRuBnX55XkTz5wd/rBBlDZo9BBNflscozI7OxJfvn3HX6RAmnj73RV6EpE+7uAeyPip8BDUbNfNnGvB9sOVGkjezIZCU5+r3TpSKzJPGILPYbx2Cd2IbtNrNuK0UbmG2VbMXIZrC5LxcQv7K6uEPJ/moABwGa1WgfYNMoKqCNA8fbn6qAAoZqv05ehn/3OHhanqKTpHDhRi9myoy1LZSv5MT5wphZzBpaZC2nNQK0xO6QbAnwXOE8Jsb01QgF4LMgvu9B7FYiL2ZTlhJqPP67qqIKnju45xn/D/fMbIfhLCoDbcmpX/5Aa/25RzuTIPwHYBAPAQmNl04F5YKtiDgFNvQ3Brk1FjFXTZe6G3BlYwkhcRd8yRal+rjISI0Xv+lbAEixpzaxYLiPXYMkMa6jkeDX9S7wvdgvBX5ZfRDl/yLWmuN1fIP1bNoRiMd+pqL7OTxpoTToolZqOIhWVjvyElpA+ZBf5pqIuw0z7CViCuG7QD3iGJOqYhzt9/QiXQ96Tt5fzqe9eJECVOko2cZSTQkbHXRH46wDutOS3K6lbyDDTceJXspivOF4CgFJ3Koemkt/zAByceRomKyacSFlnkvucGw2pi7TERPA98bUvy018PZt3RKtnWgAwuhCPnDx/LtyFT64Evr3VKBKxpmm+BlnS8ktC8NsAsC6cuydkrl+HCFvCBcE+s1zocmxhB+qxvlIQUD9z0+acmZR2pu/bOfOGZD6MFS70Q/VlLPQkrJMGn8mFY9lnloEIxFKmlHhB5HKDdeW86U9/N2jxaiqo007aiJ2C3CuR94OB3vh2tuFPkiNQy+AdUU7uy0KpGViwYJd5+MYLgekvZKfABjfT849OXeqFKGsRZJfJ/f081s4bhhe7ByLfQEBoc/rxTMpMJ5l0P8lQoQJ3faMrAv/Y1ILTmz2PTe9l8KtU3RMauGwmX4ZHzt0ThgHvX0i0rr+WN4BWJDjKEuxXV6JsQBL9igRAA8F5I9X4+6Ig61g4Ne8kES5Hsza1A/2YliL/6ZPnYvfcfZhj9aPxOnpPmkXyRbhhq3eE7e1D59hORbKg9F4qVdYBgE4kMMdZrnd4I6FGj3dS4LMnHuRQXT8ax/5NHuy4GnpcLxQdvP91ntvrL8XmxdcXI/jterjlrSwPntrElkZYhPMqVEBJUTT96ku3Yp799OMxPg32rl43oZ1eMi0xjL14pBRgj7mIYNIvjIr2Piwc/+vEvPm9qO6KbIYg9ahgfmeQ6z155t3fpuqmPzTErjaKKp0ipfJYaKhHX5zVMY+vpo+p3g3T/qP+WWChVRbQyuIPhl3gxLphAmb+YQcAjoj2V803/30JwJHRpwk9AFQ61wFYtVOzPOizW3DM7bJdtst22S7/X8r/ASk/u+ODg+b3AAAAAElFTkSuQmCC" alt="Wordmark shown inside its minimum clear space boundary" style="width:100%;max-width:330px;display:block"></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">Clear space on all four sides equals the cap height of the letter <b>J</b>. Nothing enters that zone: no text, no button, no photo edge, no other logo. Minimum reproduction width is <b>140px</b> on screen and <b>32mm</b> in print. Below that the three colour breaks stop reading and you should use a single-colour version instead.</p>
+
+    <h3>Rules</h3>
+    <div class="grid2">
+      <div class="box do">
+        <h4>Do</h4>
+        <ul class="clean" style="margin:0">
+          <li>Reverse JUST to white when the background is darker than Ink 500.</li>
+          <li>Place it on flat colour, or on the darkened area of a photo where contrast is at least 4.5:1.</li>
+          <li>Keep the horizontal lockup as the default. The angled version from the current footer is a decorative variant for merchandise only.</li>
+        </ul>
+      </div>
+      <div class="box dont">
+        <h4>Don't</h4>
+        <ul class="clean" style="margin:0">
+          <li>Re-colour, re-space, outline, emboss or add a drop shadow.</li>
+          <li>Stretch, condense or rotate the horizontal lockup.</li>
+          <li>Set it over a busy part of a photo, or on Purple 600 where SUPERB disappears.</li>
+          <li>Rebuild it in Roc Grotesk. The mark is Impact and stays Impact.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="s03">
+    <div class="shead"><span class="snum"><i>03</i></span><p class="eyebrow">Colour</p></div>
+    <h2>Same three colours, used with more discipline</h2>
+    <p>The palette is unchanged. What changes is the ratio. Today the site drops full-bleed purple behind entire pages, which flattens the hierarchy and leaves nothing for the buttons to fight against. In the new system purple is the brand colour, not the wallpaper. Green is reserved almost entirely for the thing you want people to click. Click any swatch to copy its hex.</p>
+
+    <h3>Core three</h3>
+    <div class="core">
+      <div class="card">
+        <div class="blk" style="background:#5141C5;color:#fff">Purple 600</div>
+        <div class="meta">
+          <h5>Superb Purple</h5>
+          <dl><dt>HEX</dt><dd>#5141C5</dd><dt>RGB</dt><dd>81 65 197</dd><dt>CMYK</dt><dd>72 76 0 0</dd></dl>
+          <p class="use">Brand colour. Headings, links, secondary buttons, section anchors, footer. Carries white text at 7.2:1.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="blk" style="background:#78CF4B;color:#0F0F16">Green 400</div>
+        <div class="meta">
+          <h5>Superb Green</h5>
+          <dl><dt>HEX</dt><dd>#78CF4B</dd><dt>RGB</dt><dd>120 207 75</dd><dt>CMYK</dt><dd>56 0 87 0</dd></dl>
+          <p class="use">Action only. Primary buttons, new-arrival flags, the sticky call bar. Always paired with Ink 900 text, never white.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="blk" style="background:#0F0F16;color:#EFEFF3">Ink 900</div>
+        <div class="meta">
+          <h5>Ink</h5>
+          <dl><dt>HEX</dt><dd>#0F0F16</dd><dt>RGB</dt><dd>15 15 22</dd><dt>CMYK</dt><dd>77 68 60 74</dd></dl>
+          <p class="use">Body copy, the JUST in the wordmark, dark sections, vehicle photography backdrops. Slightly violet, never a flat black.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Purple scale</h3>
+    <div class="ramp" data-ramp="purple"></div>
+    <h3>Green scale</h3>
+    <div class="ramp" data-ramp="green"></div>
+    <h3>Ink &amp; neutrals</h3>
+    <div class="ramp" data-ramp="ink"></div>
+    <p class="note">The neutrals carry a slight violet bias so greys sit next to the purple without going muddy. Do not substitute a stock grey.</p>
+
+    <h3>How much of each</h3>
+    <div class="ratio">
+      <div style="background:#FFFFFF;color:#1C1C25;flex:60;border-right:1px solid #E0E0E7">Paper &amp; ink 60%</div>
+      <div style="background:#5141C5;color:#fff;flex:25">Purple 25%</div>
+      <div style="background:#0F0F16;color:#EFEFF3;flex:9">Ink 9%</div>
+      <div style="background:#78CF4B;color:#0F0F16;flex:6">6%</div>
+    </div>
+    <p class="note">Roughly. The point is that green is the smallest slice on any page. When everything is green, nothing is a call to action.</p>
+
+    <h3>Roles</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Role</th><th>Light</th><th>Dark</th><th>Where it shows up</th></tr></thead>
+        <tbody>
+          <tr><td>Page background</td><td class="m"><span class="dot" style="background:#FFFFFF"></span>#FFFFFF</td><td class="m"><span class="dot" style="background:#0F0F16"></span>#0F0F16</td><td>Everything below the hero</td></tr>
+          <tr><td>Raised surface</td><td class="m"><span class="dot" style="background:#F7F7FA"></span>#F7F7FA</td><td class="m"><span class="dot" style="background:#171720"></span>#171720</td><td>Filter panel, form blocks, footer</td></tr>
+          <tr><td>Body text</td><td class="m"><span class="dot" style="background:#1C1C25"></span>#1C1C25</td><td class="m"><span class="dot" style="background:#EFEFF3"></span>#EFEFF3</td><td>Paragraphs, card titles</td></tr>
+          <tr><td>Muted text</td><td class="m"><span class="dot" style="background:#4A4A58"></span>#4A4A58</td><td class="m"><span class="dot" style="background:#B4B4C2"></span>#B4B4C2</td><td>Kilometres, fuel type, captions</td></tr>
+          <tr><td>Primary action</td><td class="m"><span class="dot" style="background:#78CF4B"></span>#78CF4B</td><td class="m"><span class="dot" style="background:#78CF4B"></span>#78CF4B</td><td>View details, Get a valuation, Call now</td></tr>
+          <tr><td>Secondary action</td><td class="m"><span class="dot" style="background:#5141C5"></span>#5141C5</td><td class="m"><span class="dot" style="background:#5141C5"></span>#5141C5</td><td>Apply for finance, Save vehicle</td></tr>
+          <tr><td>Hairlines</td><td class="m"><span class="dot" style="background:#E0E0E7"></span>#E0E0E7</td><td class="m"><span class="dot" style="background:#2E2E3A"></span>#2E2E3A</td><td>Card borders, table rules, dividers</td></tr>
+          <tr><td>Error</td><td class="m"><span class="dot" style="background:#C62828"></span>#C62828</td><td class="m"><span class="dot" style="background:#FF7A7A"></span>#FF7A7A</td><td>Form validation, sold badges</td></tr>
+          <tr><td>Warning</td><td class="m"><span class="dot" style="background:#A85E00"></span>#A85E00</td><td class="m"><span class="dot" style="background:#FFB020"></span>#FFB020</td><td>Finance disclaimers, price excl. notes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Contrast, checked</h3>
+    <p>Every pairing below was measured against WCAG 2.1. Anything not on this list has not been cleared, so don't invent one.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Pairing</th><th>Ratio</th><th>Grade</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td class="m">White on Purple 600</td><td class="m">7.21</td><td><span class="pass">AAA</span></td><td>Any text size</td></tr>
+          <tr><td class="m">Ink 900 on Green 400</td><td class="m">9.84</td><td><span class="pass">AAA</span></td><td>Primary buttons</td></tr>
+          <tr><td class="m">White on Green 700 #3D7C23</td><td class="m">5.11</td><td><span class="pass">AA</span></td><td>Only if a dark green fill is needed</td></tr>
+          <tr><td class="m">Ink 800 on White</td><td class="m">16.9</td><td><span class="pass">AAA</span></td><td>Body copy</td></tr>
+          <tr><td class="m">Ink 600 on White</td><td class="m">8.71</td><td><span class="pass">AAA</span></td><td>Muted copy, captions</td></tr>
+          <tr><td class="m">Purple 600 on White</td><td class="m">7.21</td><td><span class="pass">AAA</span></td><td>Headings and links</td></tr>
+          <tr><td class="m">Purple 350 #9186D6 on Ink 900</td><td class="m">5.99</td><td><span class="pass">AA</span></td><td>Links in dark mode</td></tr>
+          <tr><td class="m">Green 300 on Ink 900</td><td class="m">12.4</td><td><span class="pass">AAA</span></td><td>Accent text on dark panels</td></tr>
+          <tr><td class="m">White on Green 400</td><td class="m">1.94</td><td><span class="stop">FAIL</span></td><td>Never. This is the current site's button.</td></tr>
+          <tr><td class="m">Green 400 text on White</td><td class="m">1.94</td><td><span class="stop">FAIL</span></td><td>Never. Green is a fill, not a text colour.</td></tr>
+          <tr><td class="m">Ink 400 #9797A6 on White</td><td class="m">2.88</td><td><span class="stop">FAIL</span></td><td>Placeholder tint only, never real copy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="s04">
+    <div class="shead"><span class="snum"><i>04</i></span><p class="eyebrow">Typography</p></div>
+    <h2>Roc Grotesk, everywhere except the logo</h2>
+    <p>One typeface for the whole brand. <b>Roc Grotesk</b> by Nikola Kostić (Kostić Type Foundry) is a neo-grotesque built in nine weights across five widths, which is exactly what a dealership needs: an extra-wide heavy for price and headline moments, a clean regular for spec tables and legal lines, and everything in between without switching families.</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Family</td><td class="mw">Roc Grotesk — 9 weights × 5 widths (Compressed, Condensed, Regular, Wide, Extra Wide)</td></tr>
+          <tr><td>Licence for web</td><td class="mw">Adobe Fonts web project (included with Creative Cloud), or a self-hosted webfont licence via MyFonts / Fontspring</td></tr>
+          <tr><td>Weights to buy</td><td class="mw">Regular 400, Medium 500, Bold 700, Heavy 800 — plus Wide Heavy for display</td></tr>
+          <tr><td>CSS stack</td><td class="mw">font-family: "Roc Grotesk", "Archivo", "Helvetica Neue", Arial, sans-serif;</td></tr>
+          <tr><td>Logo face</td><td class="mw">Impact — locked to the wordmark, never used as a typeface</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Note on this page:</b> Roc Grotesk is a licensed font and can't be loaded here, so every specimen below is set in <b>Archivo</b>, the closest free stand-in and the recommended fallback. Proportions and weight relationships hold; the real thing is a little tighter through the curves.</p>
+
+    <h3>The scale</h3>
+    <div class="spec">
+      <div class="row">
+        <div class="samp" style="font-size:clamp(38px,6.2vw,64px);font-variation-settings:'wdth' 120,'wght' 800;letter-spacing:-.03em">$26,990 drive away</div>
+        <div class="det">Display / Price<br>Wide Heavy 800 · 64/60 · -3%<br>Hero headlines, price on detail pages</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:40px;font-variation-settings:'wdth' 108,'wght' 800;letter-spacing:-.02em">66 cars on the ground</div>
+        <div class="det">H1<br>Heavy 800 · 40/42 · -2%<br>One per page</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:28px;font-variation-settings:'wght' 700;letter-spacing:-.01em">Sell your car in 24 hours</div>
+        <div class="det">H2<br>Bold 700 · 28/34 · -1%<br>Section headings</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:20px;font-variation-settings:'wght' 700">2020 Hyundai i30 Active</div>
+        <div class="det">H3<br>Bold 700 · 20/26 · 0<br>Card titles, vehicle names</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:17px;font-variation-settings:'wght' 400;line-height:1.62;color:var(--text-2)">Every car leaves the yard with a clear title, a current roadworthy and a warranty you can actually read. Finance sorted before you get here if you want it.</div>
+        <div class="det">Body<br>Regular 400 · 17/28<br>Max 66 characters per line</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:14px;font-variation-settings:'wght' 400;color:var(--text-3)">105,783 km · Sports Automatic · Petrol ULP</div>
+        <div class="det">Small / Spec<br>Regular 400 · 14/22<br>Vehicle specs, captions</div>
+      </div>
+      <div class="row">
+        <div class="samp" style="font-size:11px;font-variation-settings:'wght' 600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)">New arrival · Morayfield</div>
+        <div class="det">Label<br>Semibold 600 · 11/16 · +14%<br>Flags, eyebrows, table headers</div>
+      </div>
+    </div>
+
+    <h3>Rules</h3>
+    <div class="grid2">
+      <div class="box do">
+        <h4>Do</h4>
+        <ul class="clean" style="margin:0">
+          <li>Tighten tracking as size goes up. Big type needs negative letter-spacing, small caps labels need positive.</li>
+          <li>Use the Wide widths for price and headline only. That width is the brand's signature.</li>
+          <li>Set body copy at 17px with a 66 character measure and 1.6 line height.</li>
+          <li>Use tabular figures in price lists and spec tables so the columns line up.</li>
+        </ul>
+      </div>
+      <div class="box dont">
+        <h4>Don't</h4>
+        <ul class="clean" style="margin:0">
+          <li>Use italics. The current site's slanted headings are a browser-faked oblique and they look it. Roc Grotesk has no true italic.</li>
+          <li>Set paragraphs centred. Centre a headline if you must, never a block of copy.</li>
+          <li>Go below 14px for anything a customer needs to read, including disclaimers.</li>
+          <li>Mix in a second family. If something needs to feel different, change the width or weight.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="s05">
+    <div class="shead"><span class="snum"><i>05</i></span><p class="eyebrow">Space &amp; layout</p></div>
+    <h2>A 4px spine and one content width</h2>
+    <p>All spacing is a multiple of 4. Pick from the scale, never a number in between. Content sits in a 1220px container with a 12 column grid and 24px gutters, dropping to 6 columns on tablet and 4 on phone.</p>
+
+    <div class="scalebars" id="spacebars"></div>
+
+    <h3>Corners, edges and lift</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Applies to</th></tr></thead>
+        <tbody>
+          <tr><td class="m">radius-sm</td><td class="m">6px</td><td>Flags, chips, small tags</td></tr>
+          <tr><td class="m">radius-md</td><td class="m">10px</td><td>Inputs, selects, image thumbnails</td></tr>
+          <tr><td class="m">radius-lg</td><td class="m">16px</td><td>Vehicle cards, panels, modals</td></tr>
+          <tr><td class="m">radius-pill</td><td class="m">999px</td><td>Buttons and filter pills only</td></tr>
+          <tr><td class="m">border</td><td class="m">1px Ink 200 / 1.5px on inputs</td><td>Hairlines do the separating, not shadows</td></tr>
+          <tr><td class="m">shadow-1</td><td class="m">0 1px 2px / 0 2px 8px rgba(15,15,22,.06)</td><td>Resting cards</td></tr>
+          <tr><td class="m">shadow-2</td><td class="m">0 2px 4px / 0 12px 28px rgba(15,15,22,.10)</td><td>Hover, dropdowns, sticky bars</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Breakpoints</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Name</th><th>Width</th><th>Vehicle grid</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="m">sm</td><td class="m">0–599px</td><td class="m">1 column</td><td>Filters collapse into a sheet. Sticky call bar visible.</td></tr>
+          <tr><td class="m">md</td><td class="m">600–899px</td><td class="m">2 columns</td><td>Filters become a top drawer</td></tr>
+          <tr><td class="m">lg</td><td class="m">900–1199px</td><td class="m">3 columns</td><td>Filter rail returns at 240px</td></tr>
+          <tr><td class="m">xl</td><td class="m">1200px+</td><td class="m">3 columns, wider cards</td><td>Container caps at 1220px</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Most of this yard's traffic is on a phone in a car park. Design the small breakpoint first and make sure the price, the photo and the call button are all reachable without scrolling twice.</p>
+  </section>
+
+  <!-- 06 -->
+  <section id="s06">
+    <div class="shead"><span class="snum"><i>06</i></span><p class="eyebrow">Components</p></div>
+    <h2>The pieces the site is built from</h2>
+    <p>Live examples. These respond to the theme toggle, so you can check both light and dark before signing anything off.</p>
+
+    <h3>Buttons</h3>
+    <div class="demo">
+      <div class="strip">
+        <button class="btn btn-primary">View details</button>
+        <button class="btn btn-secondary">Apply for finance</button>
+        <button class="btn btn-ghost">Save vehicle</button>
+        <button class="btn btn-quiet">Compare</button>
+        <button class="btn btn-primary" disabled>Sold</button>
+      </div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Level</th><th>Fill / text</th><th>Job</th><th>Per screen</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Primary</td><td class="m">Green 400 / Ink 900</td><td>The one thing you want them to do</td><td class="m">1 per view</td></tr>
+          <tr><td class="m">Secondary</td><td class="m">Purple 600 / White</td><td>The useful alternative</td><td class="m">1–2</td></tr>
+          <tr><td class="m">Ghost</td><td class="m">Transparent / Purple, Purple 200 border</td><td>Low-stakes, repeatable actions</td><td class="m">Any</td></tr>
+          <tr><td class="m">Quiet</td><td class="m">Text only, Ink 600</td><td>Cancel, back, dismiss</td><td class="m">Any</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Buttons are pill shaped, 48px tall on desktop and 52px on mobile, minimum 44px tap target. The primary carries a 2px hard shadow in Green 700 underneath, which is the only place in the system a shadow is used decoratively. Label in sentence case, verb first, no full stop.</p>
+
+    <h3>Vehicle card</h3>
+    <div class="demo">
+      <div class="vcard">
+        <div class="ph"><span class="flag">New arrival</span>Vehicle photo 4:3</div>
+        <div class="body">
+          <p class="yr">2020 · HYUNDAI</p>
+          <h5>i30 Hatchback Active PD.V4</h5>
+          <p class="price">$20,990</p>
+          <p class="excl">Excl. govt. charges</p>
+          <div class="specs"><span>125,208 km</span><span>Automatic</span><span>Petrol</span><span>White</span></div>
+          <button class="btn btn-primary">View details</button>
+        </div>
+      </div>
+    </div>
+    <p class="note">Photo first, then year and make as a quiet label, then the model as the heading, then price at display weight. Four spec chips maximum, chosen in this order: kilometres, transmission, fuel, colour. One action per card. A card with two equal buttons has no primary action.</p>
+
+    <h3>Flags and pills</h3>
+    <div class="demo">
+      <div class="pillrow">
+        <span class="pill g">New arrival</span>
+        <span class="pill p">Finance available</span>
+        <span class="pill o">4×4</span>
+        <span class="pill">Under 100,000 km</span>
+        <span class="pill" style="border-color:var(--danger);color:var(--danger)">Sold</span>
+      </div>
+    </div>
+    <p class="note">Green flags mark opportunity, purple marks a service, outlined pills are filters, and the red outline is the only place stock status appears. Never more than one green flag on a card.</p>
+
+    <h3>Form field</h3>
+    <div class="demo" style="display:flex;gap:28px;flex-wrap:wrap">
+      <div class="field">
+        <label for="d1">Phone</label>
+        <input id="d1" type="tel" placeholder="0400 000 000">
+        <p class="help">We'll call back within the hour, business hours.</p>
+      </div>
+      <div class="field err">
+        <label for="d2">Rego or VIN</label>
+        <input id="d2" type="text" value="12" aria-invalid="true">
+        <p class="help">A Queensland rego is 3 letters and 3 numbers, like 902 XOC.</p>
+      </div>
+    </div>
+    <p class="note">Labels sit above the field, always visible, never a placeholder standing in for a label. Help text explains the format before the person gets it wrong. Error messages say what to do, not what went wrong. The trade-in and finance forms are the two highest-value things on the site, so they get the most generous spacing on the page.</p>
+
+    <h3>Navigation</h3>
+    <div class="demo">
+      <div class="navdemo">
+        <img src="data:image/png;base64,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" class="navlogo" alt="Just Superb Cars">
+        <div class="links">
+          <a href="#s06" class="act">Cars for sale</a>
+          <a href="#s06">Sell your car</a>
+          <a href="#s06">Finance</a>
+          <a href="#s06">About</a>
+          <a href="#s06">Contact</a>
+        </div>
+        <button class="btn btn-primary" style="padding:11px 20px;font-size:14px">0401 550 767</button>
+      </div>
+    </div>
+    <p class="note">The active item is marked with a 2px green underline, not a colour change, so it reads at a glance. The phone number is a button, not a link. On mobile it collapses to a sticky bar at the bottom of the screen with two actions: <b>Call</b> and <b>Get a valuation</b>.</p>
+  </section>
+
+  <!-- 07 -->
+  <section id="s07">
+    <div class="shead"><span class="snum"><i>07</i></span><p class="eyebrow">Photography</p></div>
+    <h2>Real cars, real customers, real yard</h2>
+    <p>The handover photos already on the site are the single most valuable brand asset the business has and the redesign should use far more of them, not fewer. They do something no stock library can: they prove people actually buy here and drive away happy.</p>
+
+    <div class="grid2">
+      <div class="box do">
+        <h4>Do</h4>
+        <ul class="clean" style="margin:0">
+          <li><b>Stock shots:</b> three-quarter front, shot at the yard, car filling the frame, taken between 8am and 10am or after 4pm to avoid blown highlights.</li>
+          <li><b>Handover shots:</b> customer and car together, natural expression, the green flag or signage somewhere in frame.</li>
+          <li>Shoot landscape 4:3 for cards and 16:9 for banners. Same crop across every listing.</li>
+          <li>Keep the yellow windscreen price stickers visible in atmosphere shots. That's the yard's real texture.</li>
+        </ul>
+      </div>
+      <div class="box dont">
+        <h4>Don't</h4>
+        <ul class="clean" style="margin:0">
+          <li>Use stock photography of cars, keys, handshakes or money. Every one of those reads as a template.</li>
+          <li>Desaturate hero images to grey the way the current homepage does. Darken with an Ink overlay instead so the colour survives.</li>
+          <li>Crop a customer's face or plate out awkwardly. Get permission, or don't use the photo.</li>
+          <li>Mix portrait and landscape crops in the same grid.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Overlays</h3>
+    <p>When type sits on a photo, use a linear Ink overlay from <code>rgba(15,15,22,.72)</code> at the type edge to <code>rgba(15,15,22,.25)</code> away from it. Never a flat grey filter across the whole image. Measure the contrast on the darkest text corner and hold 4.5:1.</p>
+  </section>
+
+  <!-- 08 -->
+  <section id="s08">
+    <div class="shead"><span class="snum"><i>08</i></span><p class="eyebrow">Words on screen</p></div>
+    <h2>How the interface talks</h2>
+    <p>Not a full tone-of-voice document, just the rules that keep the interface consistent while the site is rebuilt. The current copy repeats the same paragraph on four pages and describes the business as "the perfect fusion of top-notch service and exceptional vehicles". None of that survives.</p>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Instead of</th><th>Write</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="m">Experience automotive excellence</td><td class="m">66 cars on the ground, all roadworthied</td><td>A number beats an adjective</td></tr>
+          <tr><td class="m">Submit</td><td class="m">Get my valuation</td><td>Say what the button does for them</td></tr>
+          <tr><td class="m">Sell my car for cash!</td><td class="m">Sell your car</td><td>Second person, no exclamation marks</td></tr>
+          <tr><td class="m">Our reveiws speak for themselves</td><td class="m">4.8 stars from 300+ Google reviews</td><td>Spell-check, then use the actual figure</td></tr>
+          <tr><td class="m">Please note we only purchase…</td><td class="m">We buy registered, running cars only</td><td>Lead with the rule, drop the apology</td></tr>
+          <tr><td class="m">Simply Application Process</td><td class="m">Apply in about five minutes</td><td>Fix the grammar, add the specific</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="clean">
+      <li><b>Sentence case</b> for buttons, headings and labels. ALL CAPS only for the small mono labels in the type scale.</li>
+      <li><b>Australian spelling.</b> Tyre, kilometres, licence, colour. The current site says "specialize" and "inquire".</li>
+      <li><b>Prices always carry their qualifier.</b> "$20,990 excl. govt. charges" or "drive away". Pick one convention and use it site-wide.</li>
+      <li><b>Finance copy stays factual.</b> No rate promises, no "guaranteed approval". Credit One is the broker and gets named as such.</li>
+      <li><b>No em dashes.</b> Use a full stop or a comma.</li>
+    </ul>
+  </section>
+
+  <!-- 09 -->
+  <section id="s09">
+    <div class="shead"><span class="snum"><i>09</i></span><p class="eyebrow">Dev tokens</p></div>
+    <h2>Drop this into the build</h2>
+    <p>Copy-paste starting point for whoever builds the site. Light theme values, with the dark overrides after.</p>
+    <div class="tokens">
+<pre><span class="c">/* Just Superb Cars — design tokens v1.0 */</span>
+<span class="k">:root</span> {
+  <span class="c">/* brand */</span>
+  <span class="k">--jsc-purple-600</span>: <span class="v">#5141C5</span>;  <span class="c">/* Superb Purple */</span>
+  <span class="k">--jsc-green-400</span>:  <span class="v">#78CF4B</span>;  <span class="c">/* Superb Green  */</span>
+  <span class="k">--jsc-ink-900</span>:    <span class="v">#0F0F16</span>;
+
+  <span class="c">/* purple scale */</span>
+  <span class="k">--jsc-purple-50</span>:<span class="v">#F4F3FB</span>;  <span class="k">--jsc-purple-100</span>:<span class="v">#E7E4F6</span>;
+  <span class="k">--jsc-purple-200</span>:<span class="v">#CFCAEC</span>; <span class="k">--jsc-purple-300</span>:<span class="v">#A79EDC</span>;
+  <span class="k">--jsc-purple-400</span>:<span class="v">#7A6DD1</span>; <span class="k">--jsc-purple-500</span>:<span class="v">#6353CA</span>;
+  <span class="k">--jsc-purple-700</span>:<span class="v">#4033A0</span>; <span class="k">--jsc-purple-800</span>:<span class="v">#2E2678</span>;
+  <span class="k">--jsc-purple-900</span>:<span class="v">#1D1850</span>;
+
+  <span class="c">/* green scale */</span>
+  <span class="k">--jsc-green-50</span>:<span class="v">#F4FBEF</span>;   <span class="k">--jsc-green-100</span>:<span class="v">#E7F6DC</span>;
+  <span class="k">--jsc-green-200</span>:<span class="v">#CDEDBA</span>;  <span class="k">--jsc-green-300</span>:<span class="v">#A6E086</span>;
+  <span class="k">--jsc-green-500</span>:<span class="v">#62B93A</span>;  <span class="k">--jsc-green-600</span>:<span class="v">#4E9C2C</span>;
+  <span class="k">--jsc-green-700</span>:<span class="v">#3D7C23</span>;  <span class="k">--jsc-green-800</span>:<span class="v">#2E5C1B</span>;
+
+  <span class="c">/* neutrals (violet-biased) */</span>
+  <span class="k">--jsc-ink-50</span>:<span class="v">#F7F7FA</span>;  <span class="k">--jsc-ink-100</span>:<span class="v">#EFEFF3</span>;
+  <span class="k">--jsc-ink-200</span>:<span class="v">#E0E0E7</span>; <span class="k">--jsc-ink-300</span>:<span class="v">#C2C2CD</span>;
+  <span class="k">--jsc-ink-400</span>:<span class="v">#9797A6</span>; <span class="k">--jsc-ink-500</span>:<span class="v">#6A6A7A</span>;
+  <span class="k">--jsc-ink-600</span>:<span class="v">#4A4A58</span>; <span class="k">--jsc-ink-700</span>:<span class="v">#2E2E3A</span>;
+  <span class="k">--jsc-ink-800</span>:<span class="v">#1C1C25</span>;
+
+  <span class="c">/* semantic */</span>
+  <span class="k">--jsc-bg</span>:<span class="v">#FFFFFF</span>;        <span class="k">--jsc-surface</span>:<span class="v">#F7F7FA</span>;
+  <span class="k">--jsc-text</span>:<span class="v">#1C1C25</span>;      <span class="k">--jsc-text-muted</span>:<span class="v">#4A4A58</span>;
+  <span class="k">--jsc-line</span>:<span class="v">#E0E0E7</span>;      <span class="k">--jsc-error</span>:<span class="v">#C62828</span>;
+  <span class="k">--jsc-warning</span>:<span class="v">#A85E00</span>;   <span class="k">--jsc-success</span>:<span class="v">#3D7C23</span>;
+
+  <span class="c">/* type */</span>
+  <span class="k">--jsc-font</span>: <span class="v">"Roc Grotesk","Archivo","Helvetica Neue",Arial,sans-serif</span>;
+  <span class="k">--jsc-font-logo</span>: <span class="v">Impact,"Haettenschweiler",sans-serif</span>;
+
+  <span class="c">/* space — 4px spine */</span>
+  <span class="k">--jsc-1</span>:<span class="v">4px</span>;   <span class="k">--jsc-2</span>:<span class="v">8px</span>;   <span class="k">--jsc-3</span>:<span class="v">12px</span>;  <span class="k">--jsc-4</span>:<span class="v">16px</span>;
+  <span class="k">--jsc-5</span>:<span class="v">24px</span>;  <span class="k">--jsc-6</span>:<span class="v">32px</span>;  <span class="k">--jsc-7</span>:<span class="v">48px</span>;  <span class="k">--jsc-8</span>:<span class="v">64px</span>;
+  <span class="k">--jsc-9</span>:<span class="v">96px</span>;  <span class="k">--jsc-10</span>:<span class="v">128px</span>;
+
+  <span class="c">/* shape */</span>
+  <span class="k">--jsc-r-sm</span>:<span class="v">6px</span>; <span class="k">--jsc-r-md</span>:<span class="v">10px</span>;
+  <span class="k">--jsc-r-lg</span>:<span class="v">16px</span>; <span class="k">--jsc-r-pill</span>:<span class="v">999px</span>;
+  <span class="k">--jsc-container</span>:<span class="v">1220px</span>;
+}
+
+<span class="k">@media</span> (prefers-color-scheme: dark) {
+  <span class="k">:root</span> {
+    <span class="k">--jsc-bg</span>:<span class="v">#0F0F16</span>;      <span class="k">--jsc-surface</span>:<span class="v">#171720</span>;
+    <span class="k">--jsc-text</span>:<span class="v">#EFEFF3</span>;    <span class="k">--jsc-text-muted</span>:<span class="v">#B4B4C2</span>;
+    <span class="k">--jsc-line</span>:<span class="v">#2E2E3A</span>;    <span class="k">--jsc-error</span>:<span class="v">#FF7A7A</span>;
+    <span class="k">--jsc-warning</span>:<span class="v">#FFB020</span>; <span class="k">--jsc-link</span>:<span class="v">#9186D6</span>;
+  }
+}</pre>
+    </div>
+
+    <h3>Before this goes live, check</h3>
+    <ul class="clean">
+      <li>Every button label is a verb and describes its own outcome.</li>
+      <li>No text sits on Green 400 except Ink 900.</li>
+      <li>The logo has its clear space on every page, including the mobile header.</li>
+      <li>Body copy holds a 66 character measure at desktop width.</li>
+      <li>All spacing values are on the 4px scale.</li>
+      <li>The page works in both light and dark, and at 320px wide.</li>
+      <li>Prices carry a qualifier and the finance page names Credit One as the broker.</li>
+    </ul>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="in">
+    <p>Just Superb Cars brand system · Version 1.0 · August 2026<br>
+    Prepared for the website overhaul. Update this page rather than starting a new one.</p>
+    <p>Just Superb Cars &amp; 4×4 · 281 Morayfield Rd, Morayfield QLD 4506<br>
+    0401 550 767 · sales@justsuperbcars.com.au · Dealer Lic# 2405447 · ABN 82 415 627 852</p>
+  </div>
+</footer>
+
+<div class="toggle" role="group" aria-label="Preview theme">
+  <button type="button" data-t="light" aria-pressed="false">Light</button>
+  <button type="button" data-t="dark" aria-pressed="false">Dark</button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var LOGO_LIGHT="data:image/png;base64,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";
+var LOGO_DARK="data:image/png;base64,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";
+(function(){
+  var ramps = {
+    purple:{50:'#F4F3FB',100:'#E7E4F6',200:'#CFCAEC',300:'#A79EDC',400:'#7A6DD1',500:'#6353CA',600:'#5141C5',700:'#4033A0',800:'#2E2678',900:'#1D1850'},
+    green:{50:'#F4FBEF',100:'#E7F6DC',200:'#CDEDBA',300:'#A6E086',400:'#78CF4B',500:'#62B93A',600:'#4E9C2C',700:'#3D7C23',800:'#2E5C1B',900:'#1F3D12'},
+    ink:{0:'#FFFFFF',50:'#F7F7FA',100:'#EFEFF3',200:'#E0E0E7',300:'#C2C2CD',400:'#9797A6',500:'#6A6A7A',600:'#4A4A58',700:'#2E2E3A',800:'#1C1C25',900:'#0F0F16'}
+  };
+  function lum(h){
+    var r=parseInt(h.substr(1,2),16)/255,g=parseInt(h.substr(3,2),16)/255,b=parseInt(h.substr(5,2),16)/255;
+    function f(c){return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);}
+    return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b);
+  }
+  document.querySelectorAll('.ramp').forEach(function(el){
+    var name=el.getAttribute('data-ramp'), sc=ramps[name];
+    Object.keys(sc).forEach(function(step){
+      var hex=sc[step];
+      var b=document.createElement('button');
+      b.className='sw'; b.type='button';
+      b.setAttribute('aria-label','Copy '+name+' '+step+' '+hex);
+      b.innerHTML='<span class="chip" style="background:'+hex+';color:'+(lum(hex)>0.35?'#0F0F16':'#FFFFFF')+'"><b>'+hex+'</b></span><span class="lbl">'+name+' '+step+'</span>';
+      b.addEventListener('click',function(){copy(hex);});
+      el.appendChild(b);
+    });
+  });
+
+  var space=[['space-1','4px',4],['space-2','8px',8],['space-3','12px',12],['space-4','16px',16],['space-5','24px',24],['space-6','32px',32],['space-7','48px',48],['space-8','64px',64],['space-9','96px',96],['space-10','128px',128]];
+  var sb=document.getElementById('spacebars');
+  space.forEach(function(s){
+    var d=document.createElement('div'); d.className='r';
+    d.innerHTML='<span>'+s[0]+'</span><span>'+s[1]+'</span><span><i class="b" style="display:block;width:'+Math.min(100,s[2]/128*100)+'%"></i></span>';
+    sb.appendChild(d);
+  });
+
+  var toast=document.getElementById('toast'), tid;
+  function copy(t){
+    var done=function(){ toast.textContent=t+' copied'; toast.classList.add('on'); clearTimeout(tid); tid=setTimeout(function(){toast.classList.remove('on');},1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,done);}
+    else{ var i=document.createElement('textarea'); i.value=t; document.body.appendChild(i); i.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(i); done(); }
+  }
+
+  var root=document.documentElement, btns=document.querySelectorAll('.toggle button');
+  function setT(v){
+    if(v){root.setAttribute('data-theme',v);}else{root.removeAttribute('data-theme');}
+    btns.forEach(function(b){b.setAttribute('aria-pressed', b.getAttribute('data-t')===v?'true':'false');});
+    try{v?localStorage.setItem('jsc-theme',v):localStorage.removeItem('jsc-theme');}catch(e){}
+    document.querySelectorAll('.navlogo').forEach(function(im){ im.src = isDark()? LOGO_DARK : LOGO_LIGHT; });
+  }
+  function isDark(){
+    var a=root.getAttribute('data-theme');
+    if(a) return a==='dark';
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  btns.forEach(function(b){ b.addEventListener('click',function(){ setT(b.getAttribute('aria-pressed')==='true'?null:b.getAttribute('data-t')); }); });
+  try{ var saved=localStorage.getItem('jsc-theme'); if(saved) setT(saved); else setT(null);}catch(e){ setT(null); }
+  if(window.matchMedia){ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){ if(!root.getAttribute('data-theme')) setT(null); }); }
+
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(l){l.classList.remove('on');});
+          var i=secs.indexOf(e.target); if(i>-1) links[i].classList.add('on');
+        }
+      });
+    },{rootMargin:'-15% 0px -70% 0px'});
+    secs.forEach(function(s){ if(s) io.observe(s); });
+  }
+})();
+</script>
